@@ -9,7 +9,6 @@ def call(body) {
         stages {
             stage ("main") {
                 agent any
-                agent { label 'docker' }
                 when { expression { (env.BRANCH_NAME in ['develop','staging','quality','master'] || env.BRANCH_NAME.startsWith('PR-')) ? true : false } }
                 steps  {
                     echo "Test!"
