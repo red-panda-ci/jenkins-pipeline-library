@@ -4,10 +4,8 @@ def call(body) {
     body.delegate = config
     body()
     
-    stage ("StepInto") {
-        steps {
-            echo "Into the script!!!! Great"
-        }
+    steps {
+        echo "Into the script!!!! Great"
     }
 /*
     pipeline {
