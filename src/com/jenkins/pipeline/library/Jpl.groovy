@@ -10,6 +10,6 @@ class Jpl implements Serializable {
 
     def gitPromote(upstream,downstream) {
         steps.sh "echo ${gitPromoteCmd}"
-        steps.sh "${gitPromoteCmd} -m 'Merge from ${upstream} with Jenkins' ${downstream} quality"
+        steps.sh "echo ${gitPromoteCmd} -m 'Merge from ${upstream} with Jenkins' ${downstream} quality"
     }
 }
