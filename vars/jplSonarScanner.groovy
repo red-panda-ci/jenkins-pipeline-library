@@ -9,7 +9,7 @@ def call(body) {
         script {
             timeout(time: 1, unit: 'HOURS') {
                 sh 'export'
-                withSonarQubeEnv(config.name) {
+                withSonarQubeEnv(sonarScannerToolName) {
                     sh 'export'
                     sh "${sonarHome}/bin/sonar-scanner"
                 }
