@@ -8,7 +8,7 @@ def call(body) {
     wrap ([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
         script {
             timeout(time: 1, unit: 'HOURS') {
-                def sonarHome = tool 'SonarQube Scanner 2.8';
+                def sonarHome = tool 'SonarQube';
                 withSonarQubeEnv(config.sonarScannerToolName) {
                     sh "${sonarHome}/bin/sonar-scanner"
                 }
