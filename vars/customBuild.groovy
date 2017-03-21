@@ -14,6 +14,7 @@ def call(body) {
                     wrap ([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
                         script {
                             timeout(time: 1, unit: 'HOURS') {
+                                sh 'export'
                                 withSonarQubeEnv('SonarQube') {
                                     sh "${sonarHome}/bin/sonar-scanner"
                                 }
