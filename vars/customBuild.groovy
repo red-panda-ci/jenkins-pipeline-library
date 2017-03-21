@@ -9,13 +9,13 @@ def call(body) {
         stages {
             stage('Sonarqube Analysis') {
                 agent any
-                when { expression { ((env.BRANCH_NAME == 'develop') || env.BRANCH_NAME.startsWith('PR-')) ? true : false } }
                 steps {
                     wrap ([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
                         script {
                             timeout(time: 1, unit: 'HOURS') {
                                 sh 'export'
                                 withSonarQubeEnv('SonarQube') {
+                                    sh 'export'
                                     sh "${sonarHome}/bin/sonar-scanner"
                                 }
                                 def qg = waitForQualityGate()
