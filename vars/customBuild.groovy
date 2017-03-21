@@ -4,9 +4,8 @@ def call(body) {
     body.delegate = config
     body()
     
-    steps {
-        echo "Into the script!!!! Great"
-    }
+    echo "Into the script!!!! Great"
+
 /*
     pipeline {
         agent any
