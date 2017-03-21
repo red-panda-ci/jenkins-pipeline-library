@@ -1,6 +1,6 @@
 package com.jenkins.pipeline.library
 
-class Jpl {
+class Jpl implements Serializable {
     def gitPromoteCmd = "wget -O - https://raw.githubusercontent.com/pedroamador/git-promote/master/git-promote | bash -s -- "
     def steps
 
