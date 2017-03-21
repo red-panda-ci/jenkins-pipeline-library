@@ -8,9 +8,8 @@ def call(body) {
     wrap ([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
         script {
             timeout(time: 1, unit: 'HOURS') {
-                sh 'export'
+                def sonarHome = tool 'SonarQube Scanner 2.8';
                 withSonarQubeEnv(config.sonarScannerToolName) {
-                    sh 'export'
                     sh "${sonarHome}/bin/sonar-scanner"
                 }
                 def qg = waitForQualityGate()
