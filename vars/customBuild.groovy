@@ -3,7 +3,13 @@ def call(body) {
     body.resolveStrategy = Closure.DELEGATE_FIRST
     body.delegate = config
     body()
-
+    
+    stage ("StepInto") {
+        steps {
+            echo "Into the script!!!! Great"
+        }
+    }
+/*
     pipeline {
         agent any
         stages {
@@ -29,4 +35,5 @@ def call(body) {
             }
         }
     }
+    */
 }
