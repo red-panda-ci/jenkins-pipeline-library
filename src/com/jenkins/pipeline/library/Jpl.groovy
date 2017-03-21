@@ -9,17 +9,13 @@ class Jpl implements Serializable {
     }
 
     def sonarScanner() {
-        steps.wrap ([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
-            steps.script {
-                steps.timeout(time: 1, unit: 'HOURS') {
-                    steps.withSonarQubeEnv('SonarQube') {
-                        steps.sh "${sonarHome}/bin/sonar-scanner"
-                    }
-                    def qg = steps.waitForQualityGate()
-                    if (qg.status != 'OK') {
-                        steps.error "Pipeline aborted due to quality gate failure: ${qg.status}"
-                    }
-                }
+        steps.timeout(time: 1, unit: 'HOURS') {
+            steps.withSonarQubeEnv('SonarQube') {
+                steps.sh "${sonarHome}/bin/sonar-scanner"
+            }
+            def qg = steps.waitForQualityGate()
+            if (qg.status != 'OK') {
+                steps.error "Pipeline aborted due to quality gate failure: ${qg.status}"
             }
         }
     }
