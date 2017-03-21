@@ -1,6 +1,6 @@
-#!groovy
+package com.jenkins.pipeline.library
 
-class jpl implements Serializable {
+class Jpl {
     def gitPromoteCmd = "wget -O - https://raw.githubusercontent.com/pedroamador/git-promote/master/git-promote | bash -s -- "
     def gitPromote(upstream,downstream) {
         sh "echo ${gitPromoteCmd}"
