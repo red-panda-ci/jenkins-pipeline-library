@@ -8,6 +8,21 @@ class Jpl implements Serializable {
         this.steps = steps
     }
 
+    def sonarScanner() {
+        steps.wrap ([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
+            steps.script {
+                steps.timeout(time: 1, unit: 'HOURS') {
+                    steps.withSonarQubeEnv('SonarQube') {
+                        steps.sh "${sonarHome}/bin/sonar-scanner"
+                    }
+                    def qg = steps.waitForQualityGate()
+                    if (qg.status != 'OK') {
+                        steps.error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                    }
+                }
+            }
+        }
+    }
     def gitPromote(upstream,downstream) {
         steps.sh "echo ${gitPromoteCmd}"
         steps.sh "echo ${gitPromoteCmd} -m 'Merge from ${upstream} with Jenkins' ${downstream} quality"
