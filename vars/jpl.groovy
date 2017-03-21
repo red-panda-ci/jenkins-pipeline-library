@@ -1,8 +1,8 @@
 #!groovy
 
-class jpl {
-    private array emailRecipients
-    private string emailCopy
+class jpl implements Serializable {
+    private Array emailRecipients
+    private String emailCopy
 
     def gitPromote () {
         return "wget -O - https://raw.githubusercontent.com/pedroamador/git-promote/master/git-promote | bash -s -- "
