@@ -10,21 +10,37 @@
 def call(String hipchatRooms = "",String slackChannels = "",String emailRecipients = "") {
 
     script {
-        message = "Job ${env.JOB_NAME} [#${env.BUILD_NUMBER}] finished with ${currentBuild.result} (branch ${env.BRANCH_NAME})"
         switch (currentBuild.result) {
-            case 'SUCCESS':
-                hipchatColor = 'GREEN'
-                slackColor = 'good'
+            case 'ABORTED':
+                hipchatColor = 'GRAY'
+                slackColor = 'warning'
+                break;
+            case 'UNSTABLE':
+                hipchatColor = 'YELLOW'
+                slackColor = 'warning'
                 break;
             case 'FAILURE':
                 hipchatColor = 'RED'
                 slackColor = 'danger'
                 break;
-            default: // Include "UNSTABLE", "ABORTED" and others 
-                hipchatColor = 'GRAY'
-                slackColor = 'warning'
+            default: // SUCCESS and null
+                hipchatColor = 'GREEN'
+                slackColor = 'good'
                 break;
         }
+        if (currentBuild.result == null) {
+            resultStatus = 'SUCCESS'
+        }
+        else {
+            resultStatus = currentBuild.result
+        }
+        if (env.BRANCH_NAME == null) {
+            branchInfo = ""
+        }
+        else {
+            branchInfo = " (branch ${env.BRANCH_NAME})"
+        }
+        message = "Job ${env.JOB_NAME} [#${env.BUILD_NUMBER}] finished with ${resultStatus}${bgranchInfo}"
         if (hipchatRooms != "") {
             hipchatSend color: hipchatColor, failOnError: true, room: hipchatRooms, message: message, notify: true, server: 'api.hipchat.com', v2enabled: true
         }
