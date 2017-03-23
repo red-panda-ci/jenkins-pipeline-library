@@ -1,12 +1,13 @@
 /**
-  Notify on different mediums
+
+  Notify using multiple methods: hipchat, slack, email
 
   Parameters:
-  String hipchatRooms Specify what hipchat rooms to notify to (if empty, don't notify on hipchat)
-  String slackChannels Specify what slack channels to notify to (if empty, don't notify on slack)
-  String emailRecipients Specify what email recipients to notify to (if empty, don't notify on mail)
+  * String hipchatRooms Specify what hipchat rooms to notify to (if empty, don't notify on hipchat)
+  * String slackChannels Specify what slack channels to notify to (if empty, don't notify on slack)
+  * String emailRecipients Specify what email recipients to notify to (if empty, don't send any mail)
 
- */
+*/
 def call(String hipchatRooms = "",String slackChannels = "",String emailRecipients = "") {
 
     script {
@@ -47,7 +48,6 @@ def call(String hipchatRooms = "",String slackChannels = "",String emailRecipien
         if (hipchatRooms != "") {
             slackSend channel: slackChannels, color: slackColor, message: message
         }
-
         if (emailRecipients != "") {
             def to = emailextrecipients([[$class: 'DevelopersRecipientProvider'],[$class: 'CulpritsRecipientProvider'],[$class: 'UpstreamComitterRecipientProvider'],[$class: 'FirstFailingBuildSuspectsRecipientProvider'],[$class: 'FailingTestSuspectsRecipientProvider']])
             mail to: to, cc: emailRecipients, subject: message, body: "Details on ${env.BUILD_URL}/console"

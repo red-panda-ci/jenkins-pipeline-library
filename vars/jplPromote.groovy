@@ -1,19 +1,20 @@
 /**
- Promote code on release
 
- Merge code from upstream branch to downstream branch, then make "push" to the repository
- When the code is in the repository, launch the job and wait for result
+  Promote code on release
 
- The function uses "git promote" script
+  Merge code from upstream branch to downstream branch, then make "push" to the repository
+  When the code is safe in the repository, launch the job with the same name of the downstream branch and wait for the build result
 
- */
-def call(String upstreamBranch,String downstreamBranch,String jobName) {
-    script {
-        item = env.BRANCH_NAME.split("/")
-        tag = item[1]        
-    }
+  The function uses "git promote" script
+
+  Parameters:
+  * String updateBranch The branch "source" of the merge
+  * String downstreamBranch The branch "target" of the merge
+
+*/
+def call(String upstreamBranch,String downstreamBranch) {
     checkout scm
     sh 'git submodule update --init'
     sh "wget -O - https://raw.githubusercontent.com/pedroamador/git-promote/master/git-promote | bash -s -- -m 'Merge from ${upstreamBranch} with Jenkins' ${upstreamBranch} ${downstreamBranch}"
-    build (job: jobName, wait: true)
+    build (job: downstreamBranch, wait: true)
 }

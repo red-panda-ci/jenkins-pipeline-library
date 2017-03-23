@@ -1,4 +1,5 @@
 /**
+
   Close release (Branch "release/*")
 
   Merge code from release/vX.Y.Z to "master" and "develop", then "push" to the repository.
@@ -6,11 +7,13 @@
 
   The function uses "git promote" script
 
- */
+  Fails if your repository is not in a "release/*" branch
+
+*/
 def call() {
     script {
         if (!env.BRANCH_NAME.startsWith('release/*')) {
-            error ("The reposisoty must be on release/* branch")
+            error "The reposisoty must be on release/* branch"
         }
         item = env.BRANCH_NAME.split("/")
         tag = item[1]
