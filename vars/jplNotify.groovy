@@ -11,7 +11,7 @@ def call(String hipchatRooms = "",String slackChannels = "",String emailRecipien
 
     script {
         message = "Job ${env.JOB_NAME} [#${env.BUILD_NUMBER}] finished with ${currentBuild.result} (branch ${env.BRANCH_NAME})"
-        switch (currentBuil.result) {
+        switch (currentBuild.result) {
             case 'SUCCESS':
                 hipchatColor = 'GREEN'
                 slackColor = 'good'
