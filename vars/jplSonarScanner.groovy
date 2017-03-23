@@ -1,4 +1,4 @@
-def call(String sonarScannerToolName = "SonarQube" {
+def call(String sonarScannerToolName = "SonarQube") {
     wrap ([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
         script {
             timeout(time: 1, unit: 'HOURS') {
