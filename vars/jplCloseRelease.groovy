@@ -12,7 +12,7 @@
 */
 def call() {
     script {
-        if (!env.BRANCH_NAME.startsWith('release/*')) {
+        if (!env.BRANCH_NAME.startsWith('release/')) {
             error "The reposisoty must be on release/* branch"
         }
         item = env.BRANCH_NAME.split("/")
