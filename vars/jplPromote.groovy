@@ -14,6 +14,6 @@ def call(String upstreamBranch,String downstreamBranch,String jobName) {
     }
     checkout scm
     sh 'git submodule update --init'
-    sh "wget -O - https://raw.githubusercontent.com/pedroamador/git-promote/master/git-promote | bash -s -- 'Merge from ${upstreamBranch} with Jenkins' ${upstreamBranch} ${downstreamBranch}"
+    sh "wget -O - https://raw.githubusercontent.com/pedroamador/git-promote/master/git-promote | bash -s -- -m 'Merge from ${upstreamBranch} with Jenkins' ${upstreamBranch} ${downstreamBranch}"
     build (job: jobName, wait: true)
 }
