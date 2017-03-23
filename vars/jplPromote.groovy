@@ -4,10 +4,10 @@
  Merge code from upstream branch to downstream branch, then make "push" to the repository
  When the code is in the repository, launch the job and wait for result
 
- The function is using "git promote" script
+ The function uses "git promote" script
 
  */
-def call(String upstreamBranch,String downstreamBranch,String jobName) {    
+def call(String upstreamBranch,String downstreamBranch,String jobName) {
     script {
         item = env.BRANCH_NAME.split("/")
         tag = item[1]        
