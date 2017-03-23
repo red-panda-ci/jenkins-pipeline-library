@@ -40,7 +40,7 @@ def call(String hipchatRooms = "",String slackChannels = "",String emailRecipien
         else {
             branchInfo = " (branch ${env.BRANCH_NAME})"
         }
-        message = "Job ${env.JOB_NAME} [#${env.BUILD_NUMBER}] finished with ${resultStatus}${bgranchInfo}"
+        message = "Job ${env.JOB_NAME} [#${env.BUILD_NUMBER}] finished with ${resultStatus}${branchInfo}"
         if (hipchatRooms != "") {
             hipchatSend color: hipchatColor, failOnError: true, room: hipchatRooms, message: message, notify: true, server: 'api.hipchat.com', v2enabled: true
         }
