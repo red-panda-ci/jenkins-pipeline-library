@@ -45,7 +45,7 @@ def call(String hipchatRooms = "",String slackChannels = "",String emailRecipien
         if (hipchatRooms != "") {
             hipchatSend color: hipchatColor, failOnError: true, room: hipchatRooms, message: message, notify: true, server: 'api.hipchat.com', v2enabled: true
         }
-        if (hipchatRooms != "") {
+        if (slackChannels != "") {
             slackSend channel: slackChannels, color: slackColor, message: message
         }
         if (emailRecipients != "") {
