@@ -8,19 +8,21 @@
 
 */
 def call(String sonarScannerToolName = "SonarQube", Boolean abortIfQualityGateFails = true) {
-    wrap ([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
-        checkout scm
-        sh 'git submodule update --init'
-        script {
-            timeout(time: 1, unit: 'HOURS') {
-                def sonarHome = tool sonarScannerToolName;
-                withSonarQubeEnv(sonarScannerToolName) {
-                    sh "${sonarHome}/bin/sonar-scanner"
-                }
-                if (abortIfQualityGateFails) {
-                    def qg = waitForQualityGate()
-                    if (qg.status != 'OK') {
-                        error "Pipeline aborted due to quality gate failure: ${qg.status}"
+    timestamps {
+        ansiColor('xterm') {
+            checkout scm
+            sh 'git submodule update --init'
+            script {
+                timeout(time: 1, unit: 'HOURS') {
+                    def sonarHome = tool sonarScannerToolName;
+                    withSonarQubeEnv(sonarScannerToolName) {
+                        sh "${sonarHome}/bin/sonar-scanner"
+                    }
+                    if (abortIfQualityGateFails) {
+                        def qg = waitForQualityGate()
+                        if (qg.status != 'OK') {
+                            error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                        }
                     }
                 }
             }

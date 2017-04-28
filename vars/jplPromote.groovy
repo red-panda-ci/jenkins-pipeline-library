@@ -13,8 +13,12 @@
 
 */
 def call(String upstreamBranch,String downstreamBranch) {
-    checkout scm
-    sh 'git submodule update --init'
-    sh "wget -O - https://raw.githubusercontent.com/pedroamador/git-promote/master/git-promote | bash -s -- -m 'Merge from ${upstreamBranch} with Jenkins' ${upstreamBranch} ${downstreamBranch}"
-    build (job: downstreamBranch, wait: true)
+    timestamps {
+        ansiColor('xterm') {
+          checkout scm
+          sh 'git submodule update --init'
+          sh "wget -O - https://raw.githubusercontent.com/pedroamador/git-promote/master/git-promote | bash -s -- -m 'Merge from ${upstreamBranch} with Jenkins' ${upstreamBranch} ${downstreamBranch}"
+          build (job: downstreamBranch, wait: true)
+        }
+    }
 }
