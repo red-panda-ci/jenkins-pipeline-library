@@ -10,47 +10,51 @@
 */
 def call(String hipchatRooms = "",String slackChannels = "",String emailRecipients = "") {
 
-    script {
-        switch (currentBuild.result) {
-            case 'ABORTED':
-                hipchatColor = 'GRAY'
-                slackColor = 'warning'
-                break;
-            case 'UNSTABLE':
-                hipchatColor = 'YELLOW'
-                slackColor = 'warning'
-                break;
-            case 'FAILURE':
-                hipchatColor = 'RED'
-                slackColor = 'danger'
-                break;
-            default: // SUCCESS and null
-                hipchatColor = 'GREEN'
-                slackColor = 'good'
-                break;
-        }
-        if (currentBuild.result == null) {
-            resultStatus = 'SUCCESS'
-        }
-        else {
-            resultStatus = currentBuild.result
-        }
-        if (env.BRANCH_NAME == null) {
-            branchInfo = ""
-        }
-        else {
-            branchInfo = " (branch ${env.BRANCH_NAME})"
-        }
-        message = "Job [${env.JOB_NAME}] [#${env.BUILD_NUMBER}] finished with ${resultStatus}${branchInfo}"
-        if (hipchatRooms != "") {
-            hipchatSend color: hipchatColor, failOnError: true, room: hipchatRooms, message: message, notify: true, server: 'api.hipchat.com', v2enabled: true
-        }
-        if (slackChannels != "") {
-            slackSend channel: slackChannels, color: slackColor, message: message
-        }
-        if (emailRecipients != "") {
-            def to = emailextrecipients([[$class: 'DevelopersRecipientProvider'],[$class: 'CulpritsRecipientProvider'],[$class: 'UpstreamComitterRecipientProvider'],[$class: 'FirstFailingBuildSuspectsRecipientProvider'],[$class: 'FailingTestSuspectsRecipientProvider']])
-            mail to: to, cc: emailRecipients, subject: message, body: "Details on ${env.BUILD_URL}/console"
+    timestamps {
+        ansiColor('xterm') {
+            script {
+                switch (currentBuild.result) {
+                    case 'ABORTED':
+                        hipchatColor = 'GRAY'
+                        slackColor = 'warning'
+                        break;
+                    case 'UNSTABLE':
+                        hipchatColor = 'YELLOW'
+                        slackColor = 'warning'
+                        break;
+                    case 'FAILURE':
+                        hipchatColor = 'RED'
+                        slackColor = 'danger'
+                        break;
+                    default: // SUCCESS and null
+                        hipchatColor = 'GREEN'
+                        slackColor = 'good'
+                        break;
+                }
+                if (currentBuild.result == null) {
+                    resultStatus = 'SUCCESS'
+                }
+                else {
+                    resultStatus = currentBuild.result
+                }
+                if (env.BRANCH_NAME == null) {
+                    branchInfo = ""
+                }
+                else {
+                    branchInfo = " (branch ${env.BRANCH_NAME})"
+                }
+                message = "Job [${env.JOB_NAME}] [#${env.BUILD_NUMBER}] finished with ${resultStatus}${branchInfo}"
+                if (hipchatRooms != "") {
+                    hipchatSend color: hipchatColor, failOnError: true, room: hipchatRooms, message: message, notify: true, server: 'api.hipchat.com', v2enabled: true
+                }
+                if (slackChannels != "") {
+                    slackSend channel: slackChannels, color: slackColor, message: message
+                }
+                if (emailRecipients != "") {
+                    def to = emailextrecipients([[$class: 'DevelopersRecipientProvider'],[$class: 'CulpritsRecipientProvider'],[$class: 'UpstreamComitterRecipientProvider'],[$class: 'FirstFailingBuildSuspectsRecipientProvider'],[$class: 'FailingTestSuspectsRecipientProvider']])
+                    mail to: to, cc: emailRecipients, subject: message, body: "Details on ${env.BUILD_URL}/console"
+                }
+            }
         }
     }
 }
