@@ -124,7 +124,7 @@ Parameters:
 * String sonarScanerToolName The name of the SonarQube tool name configured in your Jenkins installation
 * Boolean abortIfQualityGateFails Abort the job with error result. You must have a webhook configured in SonarQube to your Jenkins
 
-### jplPromote
+### jplPromote
 
 Promote code on release
 
