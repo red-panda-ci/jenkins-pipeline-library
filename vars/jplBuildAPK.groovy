@@ -7,12 +7,14 @@
   Parameters:
   * String sdkVersion SDK Version to use
   * String lane What lane of Fastlane is going to be used in the build
+  * String versionSuffix Version suffix
 
 */
-def call(String sdkVersion, String lane) {
+def call(String sdkVersion, String lane,String versionSuffix = '') {
     timestamps {
         ansiColor('xterm') {
-            sh 'ci-scripts/common/bin/buildApk.sh --sdkVersion=' + sdkVersion + ' --lane="' + lane + '"'
+            jplCheckoutSCM()
+            sh 'ci-scripts/common/bin/buildApk.sh --sdkVersion=' + sdkVersion + ' --command="fastlane ' + lane + ' versionSuffix:' + versionSuffix + '"'
         }
     }
 }
