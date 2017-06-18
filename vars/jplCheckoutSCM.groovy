@@ -9,6 +9,7 @@
 def call() {
     timestamps {
         ansiColor('xterm') {
+            checkout scm
             sh 'git checkout ' + env.BRANCH_NAME + ' && git pull && git submodule update --init'
         }
     }
