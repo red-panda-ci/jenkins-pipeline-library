@@ -17,9 +17,9 @@ def call() {
                 if (!env.BRANCH_NAME.startsWith('release/')) {
                     error "The reposisoty must be on release/* branch"
                 }
-                item = env.BRANCH_NAME.split("/")
-                tag = item[1]
+                tag = env.BRANCH_NAME.split("/")[1]
             }
+            jplCheckoutSCM()
             // Promote to master
             sh "wget -O - https://raw.githubusercontent.com/pedroamador/git-promote/master/git-promote | bash -s -- -m 'Merge from ${env.BRANCH_NAME} with Jenkins' ${env.BRANCH_NAME} master"
             // Promote to develop
