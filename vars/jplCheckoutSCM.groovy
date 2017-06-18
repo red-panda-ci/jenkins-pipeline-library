@@ -5,8 +5,12 @@
   Get the code from SCM and init / update submodules
   Leave the repository on the actual branch, instead of "deatached"
 
+  Parameters:
+  * String targetPlatform one of:
+    - "android": copy debug.keystore from home folder ~/.android/debug.keystore
+    - "": do nothing
 */
-def call() {
+def call(String targetPlatform = '') {
     timestamps {
         ansiColor('xterm') {
             script {
@@ -15,6 +19,9 @@ def call() {
                     sh 'git checkout ' + env.BRANCH_NAME + ' && git pull '
                 }
                 sh 'git submodule update --init'
+                if (targetPlatform == 'android') {
+                    sh "mkdir -p ?/.android && cp -n ~/.android/debug.keystore ?/.android"
+                }
             }
         }
     }
