@@ -20,7 +20,7 @@ def call(String targetPlatform = '') {
                 }
                 sh 'git submodule update --init'
                 if (targetPlatform == 'android') {
-                    sh "mkdir -p ?/.android && cp -n ~/.android/debug.keystore ?/.android"
+                    sh "mkdir -p ?/.android && cp -n ~/.android/debug.keystore ?/.android && wget -O - https://raw.githubusercontent.com/pedroamador/ci-scripts/develop/docker/android-emulator/Dockerfile > Dockerfile && cat Dockerfile.tail >> Dockerfile"
                 }
             }
         }
