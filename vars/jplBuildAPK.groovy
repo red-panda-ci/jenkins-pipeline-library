@@ -13,7 +13,6 @@
 def call(String sdkVersion, String lane,String versionSuffix = '') {
     timestamps {
         ansiColor('xterm') {
-            jplCheckoutSCM()
             sh 'ci-scripts/common/bin/buildApk.sh --sdkVersion=' + sdkVersion + ' --command="fastlane ' + lane + ' versionSuffix:' + versionSuffix + '"'
         }
     }
