@@ -9,8 +9,13 @@
 def call() {
     timestamps {
         ansiColor('xterm') {
-            checkout scm
-            sh 'git checkout ' + env.BRANCH_NAME + ' && git pull && git submodule update --init'
+            script {
+                checkout scm
+                if (!env.BRANCH_NAME.startsWith('PR-')) {
+                    sh 'git checkout ' + env.BRANCH_NAME + ' && git pull '
+                }
+                sh 'git submodule update --init'
+            }
         }
     }
 }
