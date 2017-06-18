@@ -10,7 +10,6 @@
 def call(String lane,String versionSuffix = '') {
     timestamps {
         ansiColor('xterm') {
-            jplCheckoutSCM()
             sh "mkdir -p ?/.android && cp -n ~/.android/debug.keystore ?/.android"
             sh "fastlane ${lane} versionSuffi:${versionSuffix}"
         }
