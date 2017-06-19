@@ -4,25 +4,13 @@
 
   Parameters:
   * String laneName What is the lane of Fastlane that's going to be used in the build
-  * String versionSuffix Version suffix
+  * String versionSuffix Version suffix. It's added to versionName in the APK
 
 */
-def call(String laneName = '',String versionSuffix = '') {
-    if (laneName == '') {
-        buildLaneName = jplConfig.laneName
-    }
-    else {
-        buildLaneName = laneName
-    }
-    if (versionSuffix == '') {
-        buildVersionSuffix = jplConfig.versionSuffix
-    }
-    else {
-        buildVersionSuffix = versionSuffix
-    }
+def call(jplConfig) {
     timestamps {
         ansiColor('xterm') {
-            sh "fastlane ${buildLaneName} versionSuffix:${buildVersionSuffix}"
+            sh "fastlane ${jplConfig.laneName} versionSuffix:${jplConfig.versionSuffix}"
         }
     }
 }
