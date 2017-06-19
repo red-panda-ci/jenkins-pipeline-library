@@ -11,10 +11,10 @@ def call(String laneName = '',String versionSuffix = '') {
         branchName = env.BRANCH_NAME
     }
     if (laneName == '') {
-        laneName = ((env.BRANCH_NAME in "staging,quality,master") || env.BRANCH_NAME.startsWith('release/')) ? env.BRANCH_NAME.tokenize("/")[0] : 'develop'
+        laneName = ((branchName in "staging,quality,master") || branchName.startsWith('release/')) ? branchName.tokenize("/")[0] : 'develop'
     }
     if (versionSuffix == '') {
-        versionSuffix = (env.BRANCH_NAME == "master") ? '' :  env.BUILD_NUMBER + "-" + env.BRANCH_NAME.tokenize("/")[0]
+        versionSuffix = (branchName == "master") ? '' :  env.BUILD_NUMBER + "-" + branchName.tokenize("/")[0]
     }
     jplConfig.laneName = laneName
     jplConfig.versionSuffix = versionSuffix
