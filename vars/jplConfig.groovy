@@ -23,7 +23,7 @@ class jplConfig implements Serializable {
 
     // Constructor
     jplConfig () {
-        this.laneName = "develop"
-        this.versionSuffix = ""
+//        this.laneName = "develop"
+//        this.versionSuffix = ""
     }
 }
