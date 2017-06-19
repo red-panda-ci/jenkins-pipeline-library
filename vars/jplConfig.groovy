@@ -3,17 +3,21 @@
   Global config variables
 
 */
-def setLaneName(value) {
-    laneName = value
-}
-def getLaneName() {
-    laneName
-}
+class jplConfig implements Serializable {
+    private String laneName
+    private String versionSuffix
 
-def setVersionSuffix(value) {
-    versionSuffix = value
+    def setLaneName(value) {
+        this.laneName = value
+    }
+    def getLaneName() {
+        return this.laneName
+    }
+    
+    def setVersionSuffix(value) {
+        this.versionSuffix = value
+    }
+    def getVersionSuffix() {
+        return this.versionSuffix
+    }
 }
-def getVersionSuffix() {
-    versionSuffix
-}
-
