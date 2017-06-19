@@ -16,6 +16,8 @@ def call(String laneName = '',String versionSuffix = '') {
     if (versionSuffix == '') {
         versionSuffix = (branchName == "master") ? '' :  env.BUILD_NUMBER + "-" + branchName.tokenize("/")[0]
     }
+    echo "LANE name: " + laneName
+    echo 'VERSION suffix: ' + versionSuffix
     jplConfig.laneName = laneName
     jplConfig.versionSuffix = versionSuffix
 }
