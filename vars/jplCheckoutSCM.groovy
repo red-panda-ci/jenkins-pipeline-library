@@ -6,11 +6,10 @@
   Leave the repository on the actual branch, instead of "deatached"
 
   Parameters:
-  * String targetPlatform one of:
-    - "android": copy debug.keystore from home folder ~/.android/debug.keystore
-    - "": do nothing
+  * jplConfig project config class
+
 */
-def call(String targetPlatform = '') {
+def call(jplConfig) {
     timestamps {
         ansiColor('xterm') {
             script {
@@ -19,7 +18,7 @@ def call(String targetPlatform = '') {
                     sh 'git checkout ' + env.BRANCH_NAME + ' && git pull '
                 }
                 sh 'git submodule update --init'
-                if (targetPlatform == 'android') {
+                if (jplConfig.targetPlatform == 'android') {
                     sh "mkdir -p ?/.android && cp -n ~/.android/debug.keystore ?/.android && wget -O - https://raw.githubusercontent.com/pedroamador/ci-scripts/develop/docker/android-emulator/Dockerfile > Dockerfile && cat Dockerfile.tail >> Dockerfile"
                 }
             }
