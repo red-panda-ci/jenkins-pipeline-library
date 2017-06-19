@@ -1,10 +1,9 @@
 /**
 
-  Build APK with Fastlane within docker into Jenkins
+  Build APK with Fastlane within docker into Jenkins, based on jpl project configuration
 
   Parameters:
-  * String laneName What is the lane of Fastlane that's going to be used in the build
-  * String versionSuffix Version suffix. It's added to versionName in the APK
+  * jplConfig project config class
 
 */
 def call(jplConfig) {

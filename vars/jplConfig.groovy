@@ -4,12 +4,15 @@
 
 */
 class jplConfig implements Serializable {
+    // Public properties (config values)
     public String laneName
     public String versionSuffix
+    public String targetPlatform
+    
+    // Maybe can't use local variables because it's serializable (?)
     private String branchName
 
-    def initialize(env) {
-
+    def initialize(env,targetPlatform) {
         if (env.BRANCH_NAME == null) {
             this.branchName = 'develop'
         }
@@ -18,5 +21,6 @@ class jplConfig implements Serializable {
         }
         this.laneName = ((branchName in "staging,quality,master") || branchName.startsWith('release/')) ? branchName.tokenize("/")[0] : 'develop'
         this.versionSuffix = (branchName == "master") ? '' :  env.BUILD_NUMBER + "-" + branchName.tokenize("/")[0]
+        this.targetPlatform = targetPlatform
     }
 }
