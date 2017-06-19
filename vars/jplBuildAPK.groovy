@@ -12,7 +12,7 @@ def call(String laneName = '',String versionSuffix = '') {
         buildLaneName = jplConfig.laneNAme
     }
     else {
-        buildVersionSuffix = laneName
+        buildLaneName = laneName
     }
     if (versionSuffix == '') {
         buildVersionSuffix = jplConfig.versionSuffix
