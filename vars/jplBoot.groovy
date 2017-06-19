@@ -20,5 +20,8 @@ def call(String laneName = '',String versionSuffix = '') {
     jplConfig.versionSuffix = versionSuffix
     echo "LANE name: " + jplConfig.laneName
     echo 'VERSION suffix: ' + jplConfig.versionSuffix
+    echo "lane name before: ${LANE_NAME}"
     LANE_NAME = "master"
+    echo "lane name after: ${LANE_NAME}"
+    
 }
