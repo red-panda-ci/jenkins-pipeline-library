@@ -4,6 +4,12 @@
 
 */
 def call(String laneName = '',String versionSuffix = '') {
+    if (env.BRANCH_NAME == null) {
+        branchName = 'develop'
+    }
+    else {
+        branchName = env.BRANCH_NAME
+    }
     if (laneName == '') {
         laneName = ((env.BRANCH_NAME in "staging,quality,master") || env.BRANCH_NAME.startsWith('release/')) ? env.BRANCH_NAME.tokenize("/")[0] : 'develop'
     }
