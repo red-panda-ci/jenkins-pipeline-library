@@ -82,7 +82,7 @@ pipeline {
             when { expression { env.BRANCH_NAME.startsWith('PR-') } }
             agent { label 'docker' }
             steps {
-                deleteDir();
+                deleteDir()
             }
         }
     }
