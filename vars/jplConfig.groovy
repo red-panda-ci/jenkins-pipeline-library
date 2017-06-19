@@ -20,10 +20,4 @@ class jplConfig implements Serializable {
     def getVersionSuffix(value) {
         return this.versionSuffix
     }
-
-    // Constructor
-    jplConfig () {
-//        this.laneName = "develop"
-//        this.versionSuffix = ""
-    }
 }
