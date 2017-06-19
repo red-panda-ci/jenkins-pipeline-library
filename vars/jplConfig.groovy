@@ -29,3 +29,7 @@ class jplConfig implements Serializable {
         //this.versionSuffix = ((env.BRANCH_NAME in "staging,quality,master") || env.BRANCH_NAME.startsWith('release/')) ? env.BRANCH_NAME.tokenize("/")[0] : 'develop'
     }
 }
+
+def call() {
+    echo env.BRANCH_NAME
+}
