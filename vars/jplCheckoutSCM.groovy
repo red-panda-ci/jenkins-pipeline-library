@@ -13,11 +13,17 @@ def call(jplConfig) {
     timestamps {
         ansiColor('xterm') {
             script {
-                checkout scm
+                checkout([
+                    $class: 'GitSCM',
+                    branches: scm.branches,
+                    doGenerateSubmoduleConfigurations: true,
+                    extensions: scm.extensions + [[$class: 'SubmoduleOption', parentCredentials: true]],
+                    userRemoteConfigs: scm.usrRemoteConfigs
+                ])
+
                 if (!env.BRANCH_NAME.startsWith('PR-')) {
                     sh 'git checkout ' + env.BRANCH_NAME + ' && git pull '
                 }
-                sh 'git submodule update --init'
                 if (jplConfig.targetPlatform == 'android') {
                     sh "mkdir -p ?/.android && cp -n ~/.android/debug.keystore ?/.android && wget -O - https://raw.githubusercontent.com/pedroamador/ci-scripts/develop/docker/android-emulator/Dockerfile > Dockerfile && cat Dockerfile.tail >> Dockerfile"
                 }
