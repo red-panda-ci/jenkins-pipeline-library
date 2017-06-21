@@ -18,7 +18,7 @@ def call(jplConfig) {
                     branches: scm.branches,
                     doGenerateSubmoduleConfigurations: true,
                     extensions: scm.extensions + [[$class: 'SubmoduleOption', parentCredentials: true]],
-                    userRemoteConfigs: scm.usrRemoteConfigs
+                    userRemoteConfigs: scm.userRemoteConfigs
                 ])
 
                 if (!env.BRANCH_NAME.startsWith('PR-')) {
