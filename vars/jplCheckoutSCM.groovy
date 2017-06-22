@@ -13,7 +13,24 @@ def call(jplConfig) {
     timestamps {
         ansiColor('xterm') {
             script {
+                // The commented code fragment bellow requires to aprove some "scm.*" functions in Jenkins
+                /*
+                checkout([
+                    $class: 'GitSCM',
+                    branches: scm.branches,
+                    doGenerateSubmoduleConfigurations: false,
+                    extensions: scm.extensions +
+                        [[$class: 'SubmoduleOption',
+                        disableSubmodules: false,
+                        parentCredentials: true,
+                        recursiveSubmodules: true,
+                        reference: '',
+                        trackingSubmodules: false]],
+                    userRemoteConfigs: scm.userRemoteConfigs
+                ])
+                */
                 checkout scm
+
                 if (!env.BRANCH_NAME.startsWith('PR-')) {
                     sh 'git checkout ' + env.BRANCH_NAME + ' && git pull '
                 }

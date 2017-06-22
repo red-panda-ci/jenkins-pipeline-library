@@ -19,8 +19,13 @@ class jplConfig implements Serializable {
         else {
             this.branchName = env.BRANCH_NAME
         }
-        this.laneName = ((branchName in "staging,quality,master") || branchName.startsWith('release/')) ? branchName.tokenize("/")[0] : 'develop'
-        this.versionSuffix = (branchName == "master") ? '' :  env.BUILD_NUMBER + "-" + branchName.tokenize("/")[0]
+        this.laneName = ((branchName in ["staging,quality,master"]) || branchName.startsWith('release/')) ? branchName.tokenize("/")[0] : 'develop'
+        this.versionSuffix = (branchName == "master") ? '' :  "rc" + env.BUILD_NUMBER + "-" + branchName.tokenize("/")[0]
         this.targetPlatform = targetPlatform
+        echo "JPL Config"
+        echo "=========="
+        echo "- laneName.........: ${this.laneName}"
+        echo "- versionSuffix....: ${this.versionSuffix}"
+        echo "- targetPlatform...: ${this.targetPlatform}"
     }
 }
