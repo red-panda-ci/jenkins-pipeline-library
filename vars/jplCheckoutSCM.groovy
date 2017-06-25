@@ -36,7 +36,7 @@ def call(jplConfig) {
                 }
                 sh 'git submodule update --init'
                 if (jplConfig.targetPlatform == 'android') {
-                    sh "rm -rf ci-scripts/.jenkins_library && mkdir -p ci-scripts/.temp && cd ci-scripts/.temp/ && wget -q -O - https://github.com/pedroamador/ci-scripts/archive/develop.zip | jar xvf /dev/stdin > /dev/null && chmod +x ci-scripts-develop/bin/*.sh && mv ci-scripts-develop ../.jenkins_library"
+                    sh "rm -rf ci-scripts/.jenkins_library && mkdir -p ci-scripts/.temp && cd ci-scripts/.temp/ && wget -q -O - https://github.com/pedroamador/ci-scripts/archive/master.zip | jar xvf /dev/stdin > /dev/null && chmod +x ci-scripts-master/bin/*.sh && mv ci-scripts-master ../.jenkins_library"
                 }
             }
         }
