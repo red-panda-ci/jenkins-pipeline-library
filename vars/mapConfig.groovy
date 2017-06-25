@@ -7,6 +7,6 @@ public String env
 public String projectName
 
 def call () {
-    echo jplConfig.projectName
-    echo jplConfig.targetPlatform
+    echo cfg.projectName
+    echo cfg.targetPlatform
 }
