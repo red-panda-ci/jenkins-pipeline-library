@@ -8,7 +8,7 @@ public String laneName
 public String versionSuffix
 public String targetPlatform
 
-def call (projectName) {
+def call (projectName,targetPlatform = '') {
     if (env.BRANCH_NAME == null) {
         this.branchName = 'develop'
     }
