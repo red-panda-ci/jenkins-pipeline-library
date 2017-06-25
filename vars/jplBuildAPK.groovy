@@ -11,9 +11,9 @@ def call(jplConfig) {
         ansiColor('xterm') {
             sh "fastlane ${jplConfig.laneName} versionSuffix:${jplConfig.versionSuffix}"
             script {
+                archive '**/*DebugUnitTest.exec'
                 if (!env.BRANCH_NAME.startsWith('PR-')) {
                     archive '**/*.apk'
-                    archive '**/*DebugUnitTest.exec'
                 }
             }
         }
