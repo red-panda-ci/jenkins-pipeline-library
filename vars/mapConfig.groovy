@@ -3,8 +3,8 @@
   Global map
 
 */
-def call () {
+def call (jplConfig) {
     echo env.JOB_NAME
-    echo cfg.projectName
-    echo cfg.targetPlatform
+    echo jplConfig.projectName
+    echo jplConfig.targetPlatform
 }

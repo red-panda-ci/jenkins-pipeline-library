@@ -19,8 +19,5 @@ def call (projectName,targetPlatform = '') {
     this.laneName = ((branchName in ["staging","quality","master"]) || branchName.startsWith('release/')) ? branchName.tokenize("/")[0] : 'develop'
     this.versionSuffix = (branchName == "master") ? '' :  "rc" + env.BUILD_NUMBER + "-" + branchName.tokenize("/")[0]
     this.targetPlatform = targetPlatform
-
-    // Initialize class
-    mapConfig.cfg = this
     return this
 }
