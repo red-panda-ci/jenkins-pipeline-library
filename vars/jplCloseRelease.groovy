@@ -9,8 +9,14 @@
 
   Fails if your repository is not in a "release/*" branch
 
+  Parameters:
+  * cfg jplConfig class object
+
+  cfg usage:
+  (none)
+
 */
-def call() {
+def call(cfg) {
     timestamps {
         ansiColor('xterm') {
             script {
