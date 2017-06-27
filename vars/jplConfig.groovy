@@ -6,6 +6,7 @@
   * String projectName
   * String targetPlatform
   * String jiraProjectKey
+  * HashMap recipients
 
   ---------------
   cfg definitions
@@ -18,7 +19,8 @@
     - "hybrid"
   * String  cfg.jiraProjectKey          JIRA project key
   * String  cfg.sonarScannerToolName    The name of the SonarQube tool name configured in your Jenkins installation
-  * Boolean cfg.abortIfQualityGateFails Abort the job with error result. You must have a webhook configured in SonarQube to your Jenkins
+  * boolean cfg.abortIfQualityGateFails Abort the job with error result. You must have a webhook configured in SonarQube to your Jenkins
+  * boolean cfg.notify                  Automatically send notifications
   * Hashmap cfg.recipients              Recipients for hipchat, slack and email
     - cfg.recipients.hipchat => List of hipchat rooms, comma separated
     - cfg.recipients.slack   => List of slack channels, comma separated
@@ -33,11 +35,12 @@ public String   versionSuffix
 public String   targetPlatform
 public String   jiraProjectKey
 public String   sonarScannerToolName
-public String   abortIfQualityGateFails
+public boolean  abortIfQualityGateFails
 public HashMap  recipients
+public boolean  notify
 public jiraProject
 
-def call (projectName,targetPlatform = '',jiraProjectKey = '') {
+def call (projectName,targetPlatform = '',jiraProjectKey = '',recipients = [hipchat:'',slack:'',email:'']) {
     // Set config values
     if (env.BRANCH_NAME == null) {
         this.branchName = 'develop'
@@ -52,7 +55,8 @@ def call (projectName,targetPlatform = '',jiraProjectKey = '') {
     this.jiraProjectKey             = jiraProjectKey
     this.sonarScannerToolName       = "SonarQube"
     this.abortIfQualityGateFails    = true
-    this.recipients                 = [hipchat:'',slack:'',email:'']
+    this.recipients                 = recipients
+    this.notify                     = true
     // Do some checks
     jplJIRA.checkProjectExists(this)
     return this
