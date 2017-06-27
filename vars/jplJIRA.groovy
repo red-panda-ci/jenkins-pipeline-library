@@ -25,7 +25,6 @@ def checkProjectExists(cfg) {
         script {
             // Look at IssueInput class for more information.
             def jiraProject = jiraGetProject idOrKey: cfg.jiraProjectKey
-            echo 'JIRA project: ' + jiraProject.data['name'].toString()
             cfg.jiraProject = jiraProject
         }
     }
