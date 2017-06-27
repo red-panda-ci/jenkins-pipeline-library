@@ -36,7 +36,7 @@ def call(jplConfig) {
                 }
                 sh 'git submodule update --init'
                 if (jplConfig.targetPlatform == 'android') {
-                    sh "mkdir -p ?/.android && cp -n ~/.android/debug.keystore ?/.android && wget -O - https://raw.githubusercontent.com/pedroamador/ci-scripts/develop/docker/android-emulator/Dockerfile > Dockerfile && cat Dockerfile.tail >> Dockerfile"
+                    sh "rm -rf ci-scripts/.jenkins_library && mkdir -p ci-scripts/.temp && cd ci-scripts/.temp/ && wget -q -O - https://github.com/pedroamador/ci-scripts/archive/master.zip | jar xvf /dev/stdin > /dev/null && chmod +x ci-scripts-master/bin/*.sh && mv ci-scripts-master ../.jenkins_library"
                 }
             }
         }
