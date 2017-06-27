@@ -35,6 +35,10 @@ def call(cfg) {
             sh 'git push --tags'
             // Delete release branch from origin
             sh 'git push origin :' + env.BRANCH_NAME
+            // Notify
+            if (cfg.notify) {
+                jplNotify(cfg.recipients.hipchat,cfg.recipients.slack,cfg.recipients.email)
+            }
         }
     }
 }
