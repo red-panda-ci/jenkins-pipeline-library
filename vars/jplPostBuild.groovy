@@ -31,8 +31,8 @@ def call(cfg) {
                 // Open JIRA tickets on 'NOT SUCCESS build'
                 echo "Result status: ${resultStatus}, cfg.jiraProjectKey: ${cfg.jiraProjectKey}"
                 if ((resultStatus != 'SUCCESS') && (cfg.jiraProjectKey != '')) {
-                    def issueData = [fields: [ // id or key must present for project.
-                                              project: [key: cfg.jiraProject.data['name'].toString()],
+                    def issueData = [fields: [
+                                              project: [key: cfg.jiraProjectKey,
                                               summary: "Job [${env.JOB_NAME}] [#${env.BUILD_NUMBER}] finished with ${resultStatus}${branchInfo}",
                                               description: "View details on ${env.BUILD_URL}/console",
                                               issuetype: [id: '1'], // type 1: bug,
