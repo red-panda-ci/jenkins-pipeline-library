@@ -29,7 +29,7 @@ def call(cfg) {
                 }
 
                 // Open JIRA tickets on 'NOT SUCCESS build'
-                if ((resultStatus != 'SUCCESS') && (cfg.jiraProjectKey != '')) {
+                //if ((resultStatus != 'SUCCESS') && (cfg.jiraProjectKey != '')) {
                     echo "jpl: open jira issue in JIRA project with key: ${cfg.jiraProjectKey}"
                     def issueData = [fields: [
                                               project: [key: cfg.jiraProjectKey],
@@ -39,7 +39,7 @@ def call(cfg) {
                                               ]]
                     response = jiraNewIssue issue: issueData
                     echo "New JIRA issue opened: " + ${response.successful.toString()}
-                }
+                //}
             }
         }
     }
