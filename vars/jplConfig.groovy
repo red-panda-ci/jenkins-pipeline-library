@@ -51,3 +51,7 @@ def call (projectName,targetPlatform = '',jiraProjectKey = '') {
     jplJIRA.checkProjectExists(this)
     return this
 }
+
+def checkoutSCM() {
+    jplCheckoutSCM(this)
+}
