@@ -13,7 +13,7 @@ def call(cfg) {
 
     timestamps {
         ansiColor('xterm') {
-            echo "post build"
+            echo "jpl: process build result status: ${resultStatus}"
             script {
                 if (currentBuild.result == null) {
                     resultStatus = 'SUCCESS'
@@ -29,16 +29,16 @@ def call(cfg) {
                 }
 
                 // Open JIRA tickets on 'NOT SUCCESS build'
-                echo "Result status: ${resultStatus}, cfg.jiraProjectKey: ${cfg.jiraProjectKey}"
                 if ((resultStatus != 'SUCCESS') && (cfg.jiraProjectKey != '')) {
+                    echo "jpl: open jira issue in JIRA project with key: ${cfg.jiraProjectKey}"
                     def issueData = [fields: [
-                                              project: [key: cfg.jiraProjectKey,
+                                              project: [key: cfg.jiraProjectKey],
                                               summary: "Job [${env.JOB_NAME}] [#${env.BUILD_NUMBER}] finished with ${resultStatus}${branchInfo}",
-                                              description: "View details on ${env.BUILD_URL}/console",
+                                              description: "View details on ${env.BUILD_URL}console",
                                               issuetype: [id: '1']  // type 1: bug
                                               ]]
                     response = jiraNewIssue issue: issueData
-                    echo "New JIRA issue opened: ${response.successful.toString()}"
+                    echo "New JIRA issue opened: " + ${response.successful.toString()}
                 }
             }
         }
