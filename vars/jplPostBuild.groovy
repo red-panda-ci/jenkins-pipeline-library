@@ -13,6 +13,7 @@ def call() {
 
     timestamps {
         ansiColor('xterm') {
+            echo "post build"
             script {
                 if (currentBuild.result == null) {
                     resultStatus = 'SUCCESS'
