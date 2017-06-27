@@ -18,7 +18,7 @@ def call(cfg) {
  
 */
 def checkProjectExists(cfg) {
-    if (this.jiraProject == '') {
+    if (cfg.jiraProjectKey == '') {
         cfg.jiraProject = ''
     }
     else {
