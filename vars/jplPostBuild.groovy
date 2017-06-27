@@ -38,7 +38,6 @@ def call(cfg) {
                                               issuetype: [id: '1']  // type 1: bug
                                               ]]
                     response = jiraNewIssue issue: issueData
-                    echo "New JIRA issue opened: " + response.data.toString()
                 }
             }
         }
