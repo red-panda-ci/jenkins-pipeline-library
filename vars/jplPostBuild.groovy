@@ -9,7 +9,7 @@
   * targetPlatform
 
 */
-def call() {
+def call(cfg) {
 
     timestamps {
         ansiColor('xterm') {
