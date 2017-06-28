@@ -28,7 +28,7 @@ def checkProjectExists(cfg) {
         script {
             // Look at https://jenkinsci.github.io/jira-steps-plugin/jira_get_project.html for more info
             def jiraProject = jiraGetProject idOrKey: cfg.jira.projectKey
-            cfg.jira.projectData = jiraProject.data
+            cfg.jira.projectData = jiraProject
         }
     }
 }
