@@ -49,7 +49,7 @@ def openIssue(cfg) {
         // Open JIRA tickets on 'NOT SUCCESS build'
         echo "jpl: open jira issue in JIRA project with key: ${cfg.jiraProjectKey}"
         def issueData = [fields: [
-                                project: [key: cfg.jiraProjectKey],
+                                project: [key: cfg.jira.projectKey],
                                 summary: "Job [${env.JOB_NAME}] [#${env.BUILD_NUMBER}] finished with ${resultStatus}${branchInfo}",
                                 description: "View details on ${env.BUILD_URL}console",
                                 issuetype: [id: '1']  // type 1: bug
