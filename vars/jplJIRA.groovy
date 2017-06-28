@@ -46,6 +46,8 @@ def checkProjectExists(cfg) {
 */
 def openIssue(cfg) {
     if (cfg.jira.projectKey != '') {
+        resultStatus = (currentBuild.result == null ? 'SUCCESS' : currentBuild.result)
+        branchInfo = (env.BRANCH_NAME == null ? '' : " (branch ${env.BRANCH_NAME})")
         // Open JIRA tickets on 'NOT SUCCESS build'
         echo "jpl: open jira issue in JIRA project with key: ${cfg.jira.projectKey}"
         def issueData = [fields: [

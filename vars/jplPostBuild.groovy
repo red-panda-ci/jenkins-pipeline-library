@@ -16,20 +16,9 @@ def call(cfg) {
     timestamps {
         ansiColor('xterm') {
             script {
-                if (currentBuild.result == null) {
-                    resultStatus = 'SUCCESS'
-                }
-                else {
-                    resultStatus = currentBuild.result
-                }
-                if (env.BRANCH_NAME == null) {
-                    branchInfo = ""
-                }
-                else {
-                    branchInfo = " (branch ${env.BRANCH_NAME})"
-                }
+                resultStatus = (currentBuild.result == null ? 'SUCCESS' : currentBuild.result)
+                branchInfo = (env.BRANCH_NAME == null ? '' : " (branch ${env.BRANCH_NAME})")
 
-                echo "jpl: process build result status: ${resultStatus}"
                 if (resultStatus == 'SUCCESS') {
                     // Notify on success
                     if (cfg.notify) {
