@@ -25,7 +25,7 @@ def call(cfg) {
                 }
                 tag = env.BRANCH_NAME.split("/")[1]
             }
-            jplCheckoutSCM()
+            jplCheckoutSCM(cfg)
             // Promote to master
             sh "wget -O - https://raw.githubusercontent.com/pedroamador/git-promote/master/git-promote | bash -s -- -m 'Merge from ${env.BRANCH_NAME} with Jenkins' ${env.BRANCH_NAME} master"
             // Promote to develop
