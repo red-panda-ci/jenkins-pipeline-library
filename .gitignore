@@ -1,0 +1,7 @@
+# linux
+*~
+.*–
+
+# git
+!.gitignore
+!.gitkeep
