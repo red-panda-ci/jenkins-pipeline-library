@@ -18,17 +18,18 @@ def call(cfg) {
 
   Parameters:
   * cfg jplConfig object
+
+  cfg usage:
+  - cfg.jira.*
  
 */
 def checkProjectExists(cfg) {
-    if (cfg.jiraProjectKey == '') {
-        cfg.jiraProject = ''
-    }
-    else {
+    if (cfg.jira.projectKey != '') {
         script {
             // Look at https://jenkinsci.github.io/jira-steps-plugin/jira_get_project.html for more info
-            def jiraProject = jiraGetProject idOrKey: cfg.jiraProjectKey
-            cfg.jiraProject = jiraProject
+            def jiraProject = jiraGetProject idOrKey: cfg.jira.projectKey
+            //cfg.jira.projectData = jiraProject
+            cfg.jira.projectData = jiraProject.data.toString()
         }
     }
 }

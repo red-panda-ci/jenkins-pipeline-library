@@ -6,7 +6,9 @@
   * cfg jplConfig class object
 
   cfg usage:
-  * targetPlatform
+  - cfg.targetPlatform
+  - cfg.notify
+  - cfg.jiraProjectKey
 
 */
 def call(cfg) {

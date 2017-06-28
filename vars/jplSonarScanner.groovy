@@ -6,8 +6,7 @@
   * cfg jplConfig class object
 
   cfg usage:
-  * cfg.sonarScannerToolName
-  * cfg.abortIfQualityGateFails
+  - cfg.sonar.*
 
 */
 def call(cfg) {
@@ -16,11 +15,11 @@ def call(cfg) {
             jplCheckoutSCM(cfg)
             script {
                 timeout(time: 1, unit: 'HOURS') {
-                    def sonarHome = tool cfg.sonarScannerToolName;
-                    withSonarQubeEnv(sonarScannerToolName) {
+                    def sonarHome = tool cfg.sonar.toolName;
+                    withSonarQubeEnv(cfg.sonar.toolName) {
                         sh "${sonarHome}/bin/sonar-scanner"
                     }
-                    if (cfg.abortIfQualityGateFails) {
+                    if (cfg.sonar.abortIfQualityGateFails) {
                         def qg = waitForQualityGate()
                         if (qg.status != 'OK') {
                             error "Pipeline aborted due to quality gate failure: ${qg.status}"

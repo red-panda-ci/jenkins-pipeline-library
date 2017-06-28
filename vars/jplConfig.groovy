@@ -18,6 +18,11 @@
     - "ios"
     - "hybrid"
   * String  jiraProjectKey          JIRA project key
+  
+  * HashMap sonar                         Sonar scanner config
+  * String sonar.toolName                 Tool name configured in Jenkins  (default: "SonarQube")
+  * String sonar.abortIfQualityGateFails  Tool name configured in Jenkins  (default: "SonarQube")
+
   * String  sonarScannerToolName    The name of the SonarQube tool name configured in your Jenkins installation
   * boolean abortIfQualityGateFails Abort the job with error result. You must have a webhook configured in SonarQube to your Jenkins
   * boolean notify                  Automatically send notifications
@@ -29,21 +34,9 @@
     - jiraProject.data['name'] => Project name
   
 */
-/*
-public String   projectName
-public String   laneName
-public String   versionSuffix
-public String   targetPlatform
-public String   jiraProjectKey
-public String   sonarScannerToolName
-public boolean  abortIfQualityGateFails
-public HashMap  recipients
-public boolean  notify
-public jiraProject
-*/
 def call (projectName,targetPlatform = '',jiraProjectKey = '',recipients = [hipchat:'',slack:'',email:'']) {
     cfg = [:]
-    // Set default config values
+    // 
     if (env.BRANCH_NAME == null) {
         branchName = 'develop'
     }
@@ -54,11 +47,23 @@ def call (projectName,targetPlatform = '',jiraProjectKey = '',recipients = [hipc
     cfg.laneName                   = ((branchName in ["staging","quality","master"]) || branchName.startsWith('release/')) ? branchName.tokenize("/")[0] : 'develop'
     cfg.versionSuffix              = (branchName == "master") ? '' :  "rc" + env.BUILD_NUMBER + "-" + branchName.tokenize("/")[0]
     cfg.targetPlatform             = targetPlatform
-    cfg.jiraProjectKey             = jiraProjectKey
-    cfg.sonarScannerToolName       = "SonarQube"
-    cfg.abortIfQualityGateFails    = true
+
+    // 
+    cfg.jira = [:]
+        cfg.jira.projectKey = jiraProjectKey
+        cfg.jira.projectData = ''
+
+    // 
+    cfg.sonar = [:]
+        cfg.sonar.toolName = "SonarQube"
+        cfg.sonar.abortIfQualityGateFails = true
+    
+    // Notifications
     cfg.recipients                 = recipients
     cfg.notify                     = true
+
+    //-----------------------------------------//
+
     // Do some checks
     jplJIRA.checkProjectExists(cfg)
     // Return config HashMap
