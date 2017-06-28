@@ -45,10 +45,10 @@ def call (projectName,targetPlatform = '',jiraProjectKey = '',recipients = [hipc
     cfg = [:]
     // Set default config values
     if (env.BRANCH_NAME == null) {
-        cfg.branchName = 'develop'
+        branchName = 'develop'
     }
     else {
-        cfg.branchName = env.BRANCH_NAME
+        branchName = env.BRANCH_NAME
     }
     cfg.projectName                = projectName
     cfg.laneName                   = ((branchName in ["staging","quality","master"]) || branchName.startsWith('release/')) ? branchName.tokenize("/")[0] : 'develop'
