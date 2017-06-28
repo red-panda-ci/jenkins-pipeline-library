@@ -11,24 +11,25 @@
   ---------------
   cfg definitions
   ---------------
-  * string  cfg.projectName             Project alias / codename (with no spaces)
-  * string  cfg.laneName                Fastlane lane name
-  * string  cfg.targetPlatform          Target platform, one of these
+  * string  projectName             Project alias / codename (with no spaces)
+  * string  laneName                Fastlane lane name
+  * string  targetPlatform          Target platform, one of these
     - "android"
     - "ios"
     - "hybrid"
-  * String  cfg.jiraProjectKey          JIRA project key
-  * String  cfg.sonarScannerToolName    The name of the SonarQube tool name configured in your Jenkins installation
-  * boolean cfg.abortIfQualityGateFails Abort the job with error result. You must have a webhook configured in SonarQube to your Jenkins
-  * boolean cfg.notify                  Automatically send notifications
-  * Hashmap cfg.recipients              Recipients for hipchat, slack and email
-    - cfg.recipients.hipchat => List of hipchat rooms, comma separated
-    - cfg.recipients.slack   => List of slack channels, comma separated
-    - cfg.recipients.email   => List of email address, comma separated
-  * object  cfg.jiraProject             Jira project data
-    - cfg.jiraProject.data['name'] => Project name
+  * String  jiraProjectKey          JIRA project key
+  * String  sonarScannerToolName    The name of the SonarQube tool name configured in your Jenkins installation
+  * boolean abortIfQualityGateFails Abort the job with error result. You must have a webhook configured in SonarQube to your Jenkins
+  * boolean notify                  Automatically send notifications
+  * Hashmap recipients              Recipients for hipchat, slack and email
+    - recipients.hipchat => List of hipchat rooms, comma separated
+    - recipients.slack   => List of slack channels, comma separated
+    - recipients.email   => List of email address, comma separated
+  * object  jiraProject             Jira project data
+    - jiraProject.data['name'] => Project name
   
 */
+/*
 public String   projectName
 public String   laneName
 public String   versionSuffix
@@ -39,25 +40,27 @@ public boolean  abortIfQualityGateFails
 public HashMap  recipients
 public boolean  notify
 public jiraProject
-
+*/
 def call (projectName,targetPlatform = '',jiraProjectKey = '',recipients = [hipchat:'',slack:'',email:'']) {
-    // Set config values
+    cfg = [:]
+    // Set default config values
     if (env.BRANCH_NAME == null) {
-        this.branchName = 'develop'
+        cfg.branchName = 'develop'
     }
     else {
-        this.branchName = env.BRANCH_NAME
+        cfg.branchName = env.BRANCH_NAME
     }
-    this.projectName                = projectName
-    this.laneName                   = ((branchName in ["staging","quality","master"]) || branchName.startsWith('release/')) ? branchName.tokenize("/")[0] : 'develop'
-    this.versionSuffix              = (branchName == "master") ? '' :  "rc" + env.BUILD_NUMBER + "-" + branchName.tokenize("/")[0]
-    this.targetPlatform             = targetPlatform
-    this.jiraProjectKey             = jiraProjectKey
-    this.sonarScannerToolName       = "SonarQube"
-    this.abortIfQualityGateFails    = true
-    this.recipients                 = recipients
-    this.notify                     = true
+    cfg.projectName                = projectName
+    cfg.laneName                   = ((branchName in ["staging","quality","master"]) || branchName.startsWith('release/')) ? branchName.tokenize("/")[0] : 'develop'
+    cfg.versionSuffix              = (branchName == "master") ? '' :  "rc" + env.BUILD_NUMBER + "-" + branchName.tokenize("/")[0]
+    cfg.targetPlatform             = targetPlatform
+    cfg.jiraProjectKey             = jiraProjectKey
+    cfg.sonarScannerToolName       = "SonarQube"
+    cfg.abortIfQualityGateFails    = true
+    cfg.recipients                 = recipients
+    cfg.notify                     = true
     // Do some checks
-    jplJIRA.checkProjectExists(this)
-    return this
+    jplJIRA.checkProjectExists(cfg)
+    // Return config HashMap
+    return cfg
 }
