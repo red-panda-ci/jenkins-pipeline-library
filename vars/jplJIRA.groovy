@@ -26,6 +26,7 @@ def call(cfg) {
 def checkProjectExists(cfg) {
     if (cfg.jira.projectKey != '') {
         script {
+            println env
             // Look at https://jenkinsci.github.io/jira-steps-plugin/jira_get_project.html for more info
             def jiraProject = jiraGetProject idOrKey: cfg.jira.projectKey
             cfg.jira.projectData = jiraProject
