@@ -1,5 +1,7 @@
 # Jenkins Pipeline Library
 
+[![Build Status](https://travis-ci.org/pedroamador/jenkins-pipeline-library.svg?branch=develop)](https://travis-ci.org/pedroamador/jenkins-pipeline-library)
+
 ## Description
 
 Library with a set of helpers to be used in Jenkins Scripted or Declarative Pipelines
