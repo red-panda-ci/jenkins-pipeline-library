@@ -42,23 +42,24 @@ cfg = jplConfig('project-alias', 'android', 'JIRAPROJECTKEY', [hipchat:'The-Proj
 
 // The pipeline
 pipeline {
-    agent { label 'docker' }
+    agent none
 
     stages {
         stage ('Build') {
+            agent { label 'docker' }
             steps  {
                 jplCheckoutSCM(cfg)
                 jplBuildAPK(cfg)
             }
         }
         stage('Sonarqube Analysis') {
+            agent { label 'docker' }
             when { expression { (env.BRANCH_NAME == 'develop') || env.BRANCH_NAME.startsWith('PR-') } }
             steps {
                 jplSonarScanner(cfg)
             }
         }
         stage ('Confirm release') {
-            agent none
             when { branch 'release/*' }
             steps {
                 timeout(time: 1, unit: 'DAYS') {
@@ -67,12 +68,14 @@ pipeline {
             }
         }
         stage ('Close release') {
+            agent { label 'docker' }
             when { branch 'release/*' }
             steps {
                 jplCloseRelease(cfg)
             }
         }
         stage ('Clean') {
+            agent { label 'docker' }
             when { branch 'PR-*' }
             steps {
                 deleteDir()
