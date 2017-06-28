@@ -37,17 +37,7 @@ def call(cfg) {
                     }
                 }
                 else {
-                    if (cfg.jiraProjectKey != '') {
-                        // Open JIRA tickets on 'NOT SUCCESS build'
-                        echo "jpl: open jira issue in JIRA project with key: ${cfg.jiraProjectKey}"
-                        def issueData = [fields: [
-                                                project: [key: cfg.jiraProjectKey],
-                                                summary: "Job [${env.JOB_NAME}] [#${env.BUILD_NUMBER}] finished with ${resultStatus}${branchInfo}",
-                                                description: "View details on ${env.BUILD_URL}console",
-                                                issuetype: [id: '1']  // type 1: bug
-                                                ]]
-                        response = jiraNewIssue issue: issueData
-                    }
+                    jplJIRA.openIssue(cfg)
                     // Notify on failure
                     if (cfg.notify) {
                         jplNotify(cfg.recipients.hipchat,cfg.recipients.slack,cfg.recipients.email)
