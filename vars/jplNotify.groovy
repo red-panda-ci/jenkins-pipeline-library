@@ -34,10 +34,10 @@ def call(String hipchatRooms = "",String slackChannels = "",String emailRecipien
                 summary = jplBuild.summary()
                 description = jplBuild.description()
                 if (hipchatRooms != "") {
-                    hipchatSend color: hipchatColor, failOnError: true, room: hipchatRooms, message: description, notify: true, server: 'api.hipchat.com', v2enabled: true
+                    hipchatSend color: hipchatColor, failOnError: true, room: hipchatRooms, message: summary, notify: true, server: 'api.hipchat.com', v2enabled: true
                 }
                 if (slackChannels != "") {
-                    slackSend channel: slackChannels, color: slackColor, message: description
+                    slackSend channel: slackChannels, color: slackColor, message: summary
                 }
                 if (emailRecipients != "") {
                     def to = emailextrecipients([[$class: 'DevelopersRecipientProvider'],[$class: 'CulpritsRecipientProvider'],[$class: 'UpstreamComitterRecipientProvider'],[$class: 'FirstFailingBuildSuspectsRecipientProvider'],[$class: 'FailingTestSuspectsRecipientProvider']])
