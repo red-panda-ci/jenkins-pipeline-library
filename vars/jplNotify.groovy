@@ -31,28 +31,17 @@ def call(String hipchatRooms = "",String slackChannels = "",String emailRecipien
                         slackColor = 'good'
                         break;
                 }
-                if (currentBuild.result == null) {
-                    resultStatus = 'SUCCESS'
-                }
-                else {
-                    resultStatus = currentBuild.result
-                }
-                if (env.BRANCH_NAME == null) {
-                    branchInfo = ""
-                }
-                else {
-                    branchInfo = " (branch ${env.BRANCH_NAME})"
-                }
-                message = "Job [${env.JOB_NAME}] [#${env.BUILD_NUMBER}] finished with ${resultStatus}${branchInfo}"
+                summary = jplBuild.summary()
+                description = jplBuild.description()
                 if (hipchatRooms != "") {
-                    hipchatSend color: hipchatColor, failOnError: true, room: hipchatRooms, message: message, notify: true, server: 'api.hipchat.com', v2enabled: true
+                    hipchatSend color: hipchatColor, failOnError: true, room: hipchatRooms, message: description, notify: true, server: 'api.hipchat.com', v2enabled: true
                 }
                 if (slackChannels != "") {
-                    slackSend channel: slackChannels, color: slackColor, message: message
+                    slackSend channel: slackChannels, color: slackColor, message: description
                 }
                 if (emailRecipients != "") {
                     def to = emailextrecipients([[$class: 'DevelopersRecipientProvider'],[$class: 'CulpritsRecipientProvider'],[$class: 'UpstreamComitterRecipientProvider'],[$class: 'FirstFailingBuildSuspectsRecipientProvider'],[$class: 'FailingTestSuspectsRecipientProvider']])
-                    mail to: to, cc: emailRecipients, subject: message, body: "Details on ${env.BUILD_URL}/console"
+                    mail to: to, cc: emailRecipients, subject: summary, body: description
                 }
             }
         }
