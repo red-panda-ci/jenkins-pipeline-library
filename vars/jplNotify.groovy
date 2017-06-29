@@ -3,46 +3,50 @@
   Notify using multiple methods: hipchat, slack, email
 
   Parameters:
-  * String hipchatRooms Specify what hipchat rooms to notify to (if empty, don't notify on hipchat)
-  * String slackChannels Specify what slack channels to notify to (if empty, don't notify on slack)
-  * String emailRecipients Specify what email recipients to notify to (if empty, don't send any mail)
+  * cfg jplConfig class object
+  * String summary The summary of the message (blank to use defaults)
+  * String message The message itself (blank to use defaults)
 
 */
-def call(String hipchatRooms = "",String slackChannels = "",String emailRecipients = "") {
-
+def call(cfg, String summary = '', String message = '') {
     timestamps {
-        ansiColor('xterm') {
-            script {
-                switch (currentBuild.result) {
-                    case 'ABORTED':
-                        hipchatColor = 'GRAY'
-                        slackColor = 'warning'
-                        break;
-                    case 'UNSTABLE':
-                        hipchatColor = 'YELLOW'
-                        slackColor = 'warning'
-                        break;
-                    case 'FAILURE':
-                        hipchatColor = 'RED'
-                        slackColor = 'danger'
-                        break;
-                    default: // SUCCESS and null
-                        hipchatColor = 'GREEN'
-                        slackColor = 'good'
-                        break;
-                }
-                summary = jplBuild.summary()
-                description = jplBuild.description()
-                if (hipchatRooms != "") {
-                    hipchatSend color: hipchatColor, failOnError: true, room: hipchatRooms, message: summary, notify: true, server: 'api.hipchat.com', v2enabled: true
-                }
-                if (slackChannels != "") {
-                    slackSend channel: slackChannels, color: slackColor, message: summary
-                }
-                if (emailRecipients != "") {
-                    def to = emailextrecipients([[$class: 'DevelopersRecipientProvider'],[$class: 'CulpritsRecipientProvider'],[$class: 'UpstreamComitterRecipientProvider'],[$class: 'FirstFailingBuildSuspectsRecipientProvider'],[$class: 'FailingTestSuspectsRecipientProvider']])
-                    mail to: to, cc: emailRecipients, subject: summary, body: description
-                }
+        script {
+            switch (currentBuild.result) {
+                case 'ABORTED':
+                    hipchatColor = 'GRAY'
+                    slackColor = 'warning'
+                    break;
+                case 'UNSTABLE':
+                    hipchatColor = 'YELLOW'
+                    slackColor = 'warning'
+                    break;
+                case 'FAILURE':
+                    hipchatColor = 'RED'
+                    slackColor = 'danger'
+                    break;
+                default: // SUCCESS and null
+                    hipchatColor = 'GREEN'
+                    slackColor = 'good'
+                    break;
+            }
+            summary = jplBuild.summary(summary)
+            message = jplBuild.description(message)
+            hipchatRooms = cfg.recipients.hipchat
+            slackChannels = cfg.recipients.slack
+            emailRecipients = cfg.recipients.email
+            if (jplBuild.resultStatus == 'SUCCESS') {
+                slackChannels = ''
+                emailRecipients = ''
+            }
+            if (hipchatRooms != "") {
+                hipchatSend color: hipchatColor, failOnError: true, room: hipchatRooms, message: summary, notify: true, server: 'api.hipchat.com', v2enabled: true
+            }
+            if (slackChannels != "") {
+                slackSend channel: slackChannels, color: slackColor, message: summary
+            }
+            if (emailRecipients != "") {
+                def to = emailextrecipients([[$class: 'DevelopersRecipientProvider'],[$class: 'CulpritsRecipientProvider'],[$class: 'UpstreamComitterRecipientProvider'],[$class: 'FirstFailingBuildSuspectsRecipientProvider'],[$class: 'FailingTestSuspectsRecipientProvider']])
+                mail to: to, cc: emailRecippients, subject: summary, body: message
             }
         }
     }
