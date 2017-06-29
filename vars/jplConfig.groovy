@@ -50,7 +50,7 @@ def call (projectName = 'project', targetPlatform = '', jiraProjectKey = '', rec
     cfg.laneName                            = ((branchName in ["staging","quality","master"]) || branchName.startsWith('release/')) ? branchName.tokenize("/")[0] : 'develop'
     cfg.versionSuffix                       = (branchName == "master") ? '' :  "rc" + env.BUILD_NUMBER + "-" + branchName.tokenize("/")[0]
     cfg.targetPlatform                      = targetPlatform
-    switch (currentBuild.result) {
+    switch (cfg.targetPlatform) {
         case 'android':
             cfg.archivePattern = '**/*.apk'
             break;
