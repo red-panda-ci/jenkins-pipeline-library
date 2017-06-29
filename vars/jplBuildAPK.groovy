@@ -21,7 +21,7 @@ def call(cfg,command='') {
             script {
                 archive '**/*DebugUnitTest.exec'
                 if (!env.BRANCH_NAME.startsWith('PR-')) {
-                    archive '**/*.apk'
+                    archive cfg.archivePattern
                 }
             }
         }
