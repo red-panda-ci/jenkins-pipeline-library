@@ -46,40 +46,40 @@ def call (projectName = 'project', targetPlatform = '', jiraProjectKey = '', rec
     else {
         branchName = env.BRANCH_NAME
     }
-    cfg.projectName                         = projectName
-    cfg.laneName                            = ((branchName in ["staging","quality","master"]) || branchName.startsWith('release/')) ? branchName.tokenize("/")[0] : 'develop'
-    cfg.versionSuffix                       = (branchName == "master") ? '' :  "rc" + env.BUILD_NUMBER + "-" + branchName.tokenize("/")[0]
-    cfg.targetPlatform                      = targetPlatform
-    switch (cfg.targetPlatform) {
+    this.projectName                         = projectName
+    this.laneName                            = ((branchName in ["staging","quality","master"]) || branchName.startsWith('release/')) ? branchName.tokenize("/")[0] : 'develop'
+    this.versionSuffix                       = (branchName == "master") ? '' :  "rc" + env.BUILD_NUMBER + "-" + branchName.tokenize("/")[0]
+    this.targetPlatform                      = targetPlatform
+    switch (this.targetPlatform) {
         case 'android':
-            cfg.archivePattern = '**/*.apk'
+            this.archivePattern = '**/*.apk'
             break;
         case 'ios':
-            cfg.archivePattern = '**/*.ipa'
+            this.archivePattern = '**/*.ipa'
             break;
         default:
-            cfg.artifactsPattern = ''
+            this.artifactsPattern = ''
             break;
     }
 
     //
-    cfg.jira = [:]
-        cfg.jira.projectKey                 = jiraProjectKey
-        cfg.jira.projectData                = ''
+    this.jira = [:]
+        this.jira.projectKey                 = jiraProjectKey
+        this.jira.projectData                = ''
 
     //
-    cfg.sonar = [:]
-        cfg.sonar.toolName                  = "SonarQube"
-        cfg.sonar.abortIfQualityGateFails   = true
+    this.sonar = [:]
+        this.sonar.toolName                  = "SonarQube"
+        this.sonar.abortIfQualityGateFails   = true
     
     //
-    cfg.notify                              = true
-    cfg.recipients                          = recipients
+    this.notify                              = true
+    this.recipients                          = recipients
 
     //-----------------------------------------//
 
     // Do some checks
-    jplJIRA.checkProjectExists(cfg)
+    jplJIRA.checkProjectExists(this)
 
     // Return config HashMap
     return this
