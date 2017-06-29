@@ -56,10 +56,10 @@ def call (projectName = 'project', targetPlatform = '', jiraProjectKey = '', rec
             break;
         case 'ios':
             cfg.archivePattern = '**/*.apk'
-            break:
+            break;
         default:
             cfg.artifactsPattern = ''
-            break:
+            break;
     }
 
     //
