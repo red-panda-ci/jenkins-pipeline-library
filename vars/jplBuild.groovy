@@ -16,7 +16,7 @@ def branchInfo() {
   Summary field for issues and notifications
  */
 def summary(summary = '') {
-    return (summary == '' ? "Job [${env.JOB_NAME}] [#${env.BUILD_NUMBER}] finished with ${this.resultStatus}${this.branchInfo}" : summary)
+    return (summary == '' ? "Job [${env.JOB_NAME}] [#${env.BUILD_NUMBER}] finished with ${this.resultStatus()}${this.branchInfo()}" : summary)
 }
 /**
   Description text for issues and notifications
