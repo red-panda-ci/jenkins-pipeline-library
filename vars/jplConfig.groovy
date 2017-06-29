@@ -55,7 +55,7 @@ def call (projectName = 'project', targetPlatform = '', jiraProjectKey = '', rec
             cfg.archivePattern = '**/*.apk'
             break;
         case 'ios':
-            cfg.archivePattern = '**/*.apk'
+            cfg.archivePattern = '**/*.ipa'
             break;
         default:
             cfg.artifactsPattern = ''
@@ -82,5 +82,5 @@ def call (projectName = 'project', targetPlatform = '', jiraProjectKey = '', rec
     jplJIRA.checkProjectExists(cfg)
 
     // Return config HashMap
-    return cfg
+    return this
 }
