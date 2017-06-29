@@ -34,7 +34,7 @@ def call(cfg, String summary = '', String message = '') {
             hipchatRooms = cfg.recipients.hipchat
             slackChannels = cfg.recipients.slack
             emailRecipients = cfg.recipients.email
-            if (jplBuild.resultStatus == 'SUCCESS') {
+            if (jplBuild.resultStatus() == 'SUCCESS') {
                 slackChannels = ''
                 emailRecipients = ''
             }
