@@ -45,7 +45,7 @@ def call(cfg,repository='',branch='') {
                         branchInfo = ''
                     }
                     else {
-                        branchInfo = " -b  + ${branch}"
+                        branchInfo = " -b ${branch}"
                     }
                     sh "git clone ${repository} ${branchInfo}"
                 }
