@@ -7,7 +7,9 @@
 
   Parameters:
   * cfg jplConfig class object
-  * repository
+  * String repository Repository URL (https://... git@...)
+                      Leave it blank to use "checkout scm" command (multibranch project)
+  * String branch Branch name (blank for HEAD)
 
   cfg usage:
   * targetPlatform
@@ -40,14 +42,12 @@ def call(cfg,repository='',branch='') {
                     }
                 }
                 else {
-                    deleteDir()
                     if (branch == '') {
-                        branchInfo = ''
+                        git url: repository
                     }
                     else {
-                        branchInfo = " -b ${branch}"
+                        git branch: branch, url: repository
                     }
-                    sh "git clone ${repository} ${branchInfo} ."
                 }
 
                 sh 'git submodule update --init'
