@@ -20,7 +20,7 @@ def call(cfg,command='') {
             sh "ci-scripts/.jenkins_library/bin/buildApk.sh --sdkVersion=${cfg.projectName} --command='${command}'"
             script {
                 archive '**/*DebugUnitTest.exec'
-                if (!env.BRANCH_NAME.startsWith('PR-')) {
+                if (!cfg.BRANCH_NAME.startsWith('PR-')) {
                     archive cfg.archivePattern
                 }
             }

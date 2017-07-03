@@ -12,6 +12,7 @@
   cfg definitions
   ---------------
   * string  projectName             Project alias / codename (with no spaces)       (default: "project")
+  * string  BRANCH_NAME             Branch name                                     (default: env.BRANCH_NAME)
   * string  laneName                Fastlane lane name                              (default: related to branch name)
   * string  targetPlatform          Target platform, one of these                   (default: "")
     - "android"
@@ -41,14 +42,14 @@ def call (projectName = 'project', targetPlatform = '', jiraProjectKey = '', rec
     cfg = [:]
     //
     if (env.BRANCH_NAME == null) {
-        branchName = 'develop'
+        cfg.BRANCH_NAME = 'develop'
     }
     else {
-        branchName = env.BRANCH_NAME
+        cfg.BRANCH_NAME = env.BRANCH_NAME
     }
     cfg.projectName                         = projectName
-    cfg.laneName                            = ((branchName in ["staging","quality","master"]) || branchName.startsWith('release/')) ? branchName.tokenize("/")[0] : 'develop'
-    cfg.versionSuffix                       = (branchName == "master") ? '' :  "rc" + env.BUILD_NUMBER + "-" + branchName.tokenize("/")[0]
+    cfg.laneName                            = ((cfg.BRANCH_NAME in ["staging","quality","master"]) || cfg.BRANCH_NAME.startsWith('release/')) ? cfg.BRANCH_NAME.tokenize("/")[0] : 'develop'
+    cfg.versionSuffix                       = (cfg.BRANCH_NAME == "master") ? '' :  "rc" + env.BUILD_NUMBER + "-" + cfg.BRANCH_NAME.tokenize("/")[0]
     cfg.targetPlatform                      = targetPlatform
     switch (cfg.targetPlatform) {
         case 'android':

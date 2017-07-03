@@ -21,21 +21,21 @@ def call(cfg) {
     timestamps {
         ansiColor('xterm') {
             script {
-                if (!env.BRANCH_NAME.startsWith('release/')) {
+                if (!cfg.BRANCH_NAME.startsWith('release/')) {
                     error "The reposisoty must be on release/* branch"
                 }
-                tag = env.BRANCH_NAME.split("/")[1]
+                tag = cfg.BRANCH_NAME.split("/")[1]
             }
             jplCheckoutSCM(cfg)
             // Promote to master
-            sh "wget -O - https://raw.githubusercontent.com/pedroamador/git-promote/master/git-promote | bash -s -- -m 'Merge from ${env.BRANCH_NAME} with Jenkins' ${env.BRANCH_NAME} master"
+            sh "wget -O - https://raw.githubusercontent.com/pedroamador/git-promote/master/git-promote | bash -s -- -m 'Merge from ${cfg.BRANCH_NAME} with Jenkins' ${cfg.BRANCH_NAME} master"
             // Promote to develop
-            sh "wget -O - https://raw.githubusercontent.com/pedroamador/git-promote/master/git-promote | bash -s -- -m 'Merge from ${env.BRANCH_NAME} with Jenkins' ${env.BRANCH_NAME} develop"
+            sh "wget -O - https://raw.githubusercontent.com/pedroamador/git-promote/master/git-promote | bash -s -- -m 'Merge from ${cfg.BRANCH_NAME} with Jenkins' ${cfg.BRANCH_NAME} develop"
             // Release TAG from last non-merge commit of the branch
-            sh 'git tag ' + tag + ' -m "Release ' + tag + '" `git rev-list --no-merges -n 1 ${env.BRANCH_NAME}`'
+            sh 'git tag ' + tag + ' -m "Release ' + tag + '" `git rev-list --no-merges -n 1 ${cfg.BRANCH_NAME}`'
             sh 'git push --tags'
             // Delete release branch from origin
-            sh 'git push origin :' + env.BRANCH_NAME
+            sh 'git push origin :' + cfg.BRANCH_NAME
             // Notify
             if (cfg.notify) {
                 jplNotify(cfg,'New release ${tag} finished',jplBuild.description)
