@@ -47,7 +47,7 @@ def call(cfg,repository='',branch='') {
                     else {
                         branchInfo = " -b ${branch}"
                     }
-                    sh "git clone ${repository} ${branchInfo}"
+                    sh "git clone ${repository} ${branchInfo} ."
                 }
 
                 sh 'git submodule update --init'
