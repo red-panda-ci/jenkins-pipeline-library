@@ -43,6 +43,7 @@ def call(cfg,repository='',branch='') {
                     deleteDir()
                     if (branch == '') {
                         branchInfo = ''
+                    }
                     else {
                         branchInfo = " -b  + ${branch}"
                     }
