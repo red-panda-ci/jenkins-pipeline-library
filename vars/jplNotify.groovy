@@ -45,8 +45,11 @@ def call(cfg, String summary = '', String message = '') {
                 slackSend channel: slackChannels, color: slackColor, message: summary
             }
             if (emailRecipients != "") {
-                def to = emailextrecipients([[$class: 'DevelopersRecipientProvider'],[$class: 'CulpritsRecipientProvider'],[$class: 'UpstreamComitterRecipientProvider'],[$class: 'FirstFailingBuildSuspectsRecipientProvider'],[$class: 'FailingTestSuspectsRecipientProvider']])
-                mail to: to, cc: emailRecippients, subject: summary, body: message
+                //def to = emailextrecipients([[$class: 'DevelopersRecipientProvider'],[$class: 'CulpritsRecipientProvider'],[$class: 'UpstreamComitterRecipientProvider'],[$class: 'FirstFailingBuildSuspectsRecipientProvider'],[$class: 'FailingTestSuspectsRecipientProvider']])
+                //mail to: to, cc: emailRecippients, subject: summary, body: message
+                emailext(body: message, mimeType: 'text/html',
+                    replyTo: '$DEFAULT_REPLYTO', subject: subject,
+                    to: emailRecipients, recipientProviders: [[$class: 'DevelopersRecipientProvider'],[$class: 'CulpritsRecipientProvider'],[$class: 'UpstreamComitterRecipientProvider'],[$class: 'FirstFailingBuildSuspectsRecipientProvider'],[$class: 'FailingTestSuspectsRecipientProvider'], [$class: 'RequesterRecipientProvider']])
             }
         }
     }
