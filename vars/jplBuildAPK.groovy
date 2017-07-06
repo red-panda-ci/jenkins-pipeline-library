@@ -19,9 +19,9 @@ def call(cfg,command='') {
         ansiColor('xterm') {
             sh "ci-scripts/.jenkins_library/bin/buildApk.sh --sdkVersion=${cfg.projectName} --command='${command}'"
             script {
-                archiveArtifacts artifacts: '**/*DebugUnitTest.exec', fingerprint: true
+                archiveArtifacts artifacts: '**/*DebugUnitTest.exec', fingerprint: true, allowEmptyArchive: true
                 if (!cfg.BRANCH_NAME.startsWith('PR-')) {
-                    archiveArtifacts artifacts: cfg.archivePattern, fingerprint: true
+                    archiveArtifacts artifacts: cfg.archivePattern, fingerprint: true, allowEmptyArchive: true
                 }
             }
         }
