@@ -48,7 +48,7 @@ def call (projectName = 'project', targetPlatform = '', jiraProjectKey = '', rec
         cfg.BRANCH_NAME = env.BRANCH_NAME
     }
     cfg.projectName                         = projectName
-    cfg.laneName                            = ((cfg.BRANCH_NAME in ["staging","quality","master"]) || cfg.BRANCH_NAME.startsWith('release/')) ? cfg.BRANCH_NAME.tokenize("/")[0] : 'develop'
+    cfg.laneName                            = ((cfg.BRANCH_NAME in ["staging", "qa", "quality", "master"]) || cfg.BRANCH_NAME.startsWith('release/')) ? cfg.BRANCH_NAME.tokenize("/")[0] : 'develop'
     cfg.versionSuffix                       = (cfg.BRANCH_NAME == "master") ? '' :  "rc" + env.BUILD_NUMBER + "-" + cfg.BRANCH_NAME.tokenize("/")[0]
     cfg.targetPlatform                      = targetPlatform
     switch (cfg.targetPlatform) {
