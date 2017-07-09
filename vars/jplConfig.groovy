@@ -23,6 +23,7 @@
     Defaults
       - Android:  "** /*.apk"
       - iOS:      "** /*.ipa"
+  * boolean promoteBuil             Flag to promote build to release steps          (default: false)
 
   * Hashmap applivery: Applivery parameters
         String token                Account api key                                 (default: jenkins env.APPLIVERY_TOKEN)
@@ -73,7 +74,8 @@ def call (projectName = 'project', targetPlatform = '', jiraProjectKey = '', rec
             cfg.artifactsPattern = ''
             break;
     }
-    
+    cfg.promoteBuild = false
+
     //
     cfg.applivery = [:]
         cfg.applivery.token      = (env.APPLIVERY_TOKEN == null) ? '' : env.APPLIVERY_TOKEN
