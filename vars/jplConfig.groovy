@@ -20,10 +20,21 @@
     - "hybrid"
   * boolean notify                  Automatically send notifications                (default: true)
   * string  archivePattern          Atifacts archive pattern
-    Defaults                                                                                                            (comment trick) */
-//    - Android:  "**/*.apk"
-//    - iOS:      "**/*.ipa"
-                                                                                                                     /* (comment trick)
+    Defaults
+      - Android:  "** /*.apk"
+      - iOS:      "** /*.ipa"
+
+  * Hashmap applivery: Applivery parameters
+        String token                Account api key                                 (default: jenkins env.APPLIVERY_TOKEN)
+        String app                  App ID                                          (default: jenkins env.APPLIVERY_APP)
+        String tags                 Tags                                            (default: '')
+        boolean notify              Send notifications                              (default: true)
+        boolean autotemove          Auto remove old builds                          (default: true)
+
+  * Hashmap appetize: Appetize parameters
+        String token                Token                                           (default: jenkins env.APPETIZE_TOKEN)
+        String app                  App                                             (default: jenkins env.APPETIZE_APP)
+  
   * Hashmap recipients: Recipients used in notifications
         String recipients.hipchat => List of hipchat rooms, comma separated         (default: "")
         String recipients.slack   => List of slack channels, comma separated        (default: "")
@@ -62,6 +73,19 @@ def call (projectName = 'project', targetPlatform = '', jiraProjectKey = '', rec
             cfg.artifactsPattern = ''
             break;
     }
+    
+    //
+    cfg.applivery = [:]
+        cfg.applivery.token      = (env.APPLIVERY_TOKEN == null) ? '' : env.APPLIVERY_TOKEN
+        cfg.applivery.app        = (env.APPLIVERY_APP   == null) ? '' : env.APPLIVERY_APP
+        cfg.applivery.tags       = ''
+        cfg.applivery.notify     = true
+        cfg.applivery.autoremove = true
+
+    //
+    cfg.appetize = [:]
+        cfg.appetize.token = (env.APPETIZE_TOKEN == null) ? '' : env.APPETIZE_TOKEN
+        cfg.appetize.app   = (env.APPETIZE_APP   == null) ? '' : env.APPETIZE_APP
 
     //
     cfg.jira = [:]
