@@ -19,7 +19,7 @@ def call(cfg,String packageFile,String app='',String token='') {
             script {
                 app = (app == '') ? cfg.applivery.app : app
                 token = (token == '') ? cfg.applivery.token : token
-                os = artifact.toLowerCase().endsWith('ipa') ? 'ios' : 'android'
+                os = packageFile.toLowerCase().endsWith('ipa') ? 'ios' : 'android'
                 sh """wget -O - https://raw.githubusercontent.com/pedroamador/jenkins-deploy-script/master/jenkins.sh | bash -s -- \
                         --apikey="${token}" \
                         --app="${app}" \
