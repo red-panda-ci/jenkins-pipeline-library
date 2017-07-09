@@ -13,7 +13,7 @@ def call(cfg, message = "Promote Build", description = "Check to promote the bui
         ansiColor('xterm') {
             try {
                 cfg.promoteBuild = false
-                timeout(time: 30, unit: 'SECONDS') {
+                timeout(time: 8, unit: 'HOURS') {
                     cfg.promoteBuild = input(
                         id: 'promoteBuild', message: message,
                         parameters: [[$class: 'BooleanParameterDefinition', defaultValue: false, description: description, name: 'promoteBuild']]
