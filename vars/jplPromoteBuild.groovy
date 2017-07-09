@@ -20,6 +20,12 @@ def call(cfg, message = "Promote Build", description = "Check to promote the bui
                     )
                 }
             } catch(err) { // timeout reached or input false
+                echo "Timeout reached / User aborted"
+            }
+            if (!cfg.promoteBuild) {
+                echo "Promote this build"
+            }
+            else {
                 echo "Don't promote this build"
             }
         }
