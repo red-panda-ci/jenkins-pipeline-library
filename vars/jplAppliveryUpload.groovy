@@ -4,21 +4,25 @@
 
   Parameters:
   * cfg jplConfig class object
-  * string package File name to upload
+  * String package File name to upload
+  * String app App id
+  * String token Applivery account token
 
   cfg usage:
   * cfg.applivery[:] hashmap
   * cfg.versionSuffix
   
 */
-def call(cfg,package) {
+def call(cfg,package,app='',token='') {
     timestamps {
         ansiColor('xterm') {
             script {
-                os = artifact.toLowerCase().endsWith('ipa') ? 'ipa' : 'apk'
+                app = (app == '') ? cfg.applivery.app : app
+                token = (token == '') ? cfg.applivery.token : token
+                os = artifact.toLowerCase().endsWith('ipa') ? 'ios' : 'android'
                 sh """wget -O - https://raw.githubusercontent.com/pedroamador/jenkins-deploy-script/master/jenkins.sh | bash -s -- \
-                        --apikey="${cfg.applivery.token}" \
-                        --app="${cfg.applivery.app}" \
+                        --apikey="${token}" \
+                        --app="${app}" \
                         --os="${os}" \
                         --package="${package}" \
                         --versionName="${cfg.versionSuffix}" \
