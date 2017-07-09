@@ -13,7 +13,7 @@
   * cfg.versionSuffix
   
 */
-def call(cfg,String packageFile,String app='',String token='') {
+def call(cfg, String packageFile, String app = '', String token = '') {
     timestamps {
         ansiColor('xterm') {
             script {
