@@ -17,8 +17,8 @@ def call(cfg,String packageFile, String app = '', String token = '') {
     timestamps {
         ansiColor('xterm') {
             script {
-                app = (app == '') ? cfg.applivery.app : app
-                token = (token == '') ? cfg.applivery.token : token
+                app = (app == '') ? cfg.appetize.app : app
+                token = (token == '') ? cfg.appetize.token : token
                 platform = packageFile.toLowerCase().endsWith('ipa') ? 'ios' : 'android'
                 sh """curl https://${token}@api.appetize.io/v1/apps/${app} -X POST \
                     -F "file=@${packageFile}" \
