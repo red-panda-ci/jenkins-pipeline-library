@@ -1,5 +1,7 @@
 # Jenkins Pipeline Library
 
+[![Build Status](https://travis-ci.org/pedroamador/jenkins-pipeline-library.svg?branch=develop)](https://travis-ci.org/pedroamador/jenkins-pipeline-library)
+
 ## Description
 
 Library with a set of helpers to be used in Jenkins Scripted or Declarative Pipelines
@@ -33,36 +35,31 @@ TBD
 ```groovy
 #!groovy
 
-@Library('github.com/pedroamador/jenkins-pipeline-library') _
+@Library('github.com/pedroamador/jenkins-pipeline-library@develop') _
 
-// Initialize global config
-jplConfig.initialize(env,'android')
+// Initialize cfg
+cfg = jplConfig('project-alias', 'android', 'JIRAPROJECTKEY', [hipchat:'The-Project,Jenkins QA', slack:'#the-project,#integrations', email:'the-project@example.com,dev-team@example.com,qa-team@example.com'])
 
+// The pipeline
 pipeline {
     agent none
 
     stages {
-        stage ('Checkout') {
+        stage ('Build') {
             agent { label 'docker' }
             steps  {
-                jplCheckoutSCM(jplConfig)
-            }
-        }
-        stage ('Build') {
-            agent { dockerfile { label 'docker' } }
-            steps  {
-                jplBuildAPK(jplConfig)
+                jplCheckoutSCM(cfg)
+                jplBuildAPK(cfg)
             }
         }
         stage('Sonarqube Analysis') {
             agent { label 'docker' }
             when { expression { (env.BRANCH_NAME == 'develop') || env.BRANCH_NAME.startsWith('PR-') } }
             steps {
-                jplSonarScanner ('SonarQube')
+                jplSonarScanner(cfg)
             }
         }
         stage ('Confirm release') {
-            agent none
             when { branch 'release/*' }
             steps {
                 timeout(time: 1, unit: 'DAYS') {
@@ -71,16 +68,15 @@ pipeline {
             }
         }
         stage ('Close release') {
-            agent { label 'master' }
+            agent { label 'docker' }
             when { branch 'release/*' }
             steps {
-                jplCloseRelease()
-                jplNotify('The-Project,Jenkins-QA','#the-project,#integrations','the-project@example.com,pm@example.com,dev-team@example.com,qa-team@example.com')
+                jplCloseRelease(cfg)
             }
         }
         stage ('Clean') {
-            when { expression { env.BRANCH_NAME.startsWith('PR-') } }
             agent { label 'docker' }
+            when { branch 'PR-*' }
             steps {
                 deleteDir()
             }
@@ -89,15 +85,7 @@ pipeline {
 
     post {
         always {
-            echo 'Pipeline finished'
-        }
-        success {
-            echo 'Build OK'
-            jplNotify('Jenkins-QA','','qa-team@example.com')
-        }
-        failure {
-            echo 'Build failed!'
-            jplNotify('The-Project,Jenkins-QA','#the-project,#integrations','the-project@example.com,qa@example.com')
+            jplPostBuild(cfg)
         }
     }
 
