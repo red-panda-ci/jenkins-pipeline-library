@@ -38,7 +38,7 @@ def call(cfg) {
             sh 'git push origin :' + cfg.BRANCH_NAME
             // Notify
             if (cfg.notify) {
-                jplNotify(cfg,'New release ${tag} finished',jplBuild.description)
+                jplNotify(cfg,'New release ${tag} finished',jplBuild.description())
             }
         }
     }
