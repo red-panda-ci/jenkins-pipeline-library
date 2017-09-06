@@ -58,6 +58,9 @@ def call(cfg,String repository, String signingPath, String artifactPath) {
     // Sign
     sh "jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ${repositoryBasePath}/${signingPath}/keystore.jks -storepass ${signingItem.STORE_PASSWORD} -keypass ${signingItem.KEY_PASSWORD} -signedjar ${signedArtifactPath} ${artifactPath} ${signingItem.KEY_ALIAS}"
 
+    // Remove sign repository
+    sh "rm -rf ${repositoryBasePath}"
+
     // Verify
     sh "keytool -list -printcert -jarfile ${signedArtifactPath}"
     signedArtifactSHA1 = sh (
