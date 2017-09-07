@@ -18,6 +18,7 @@
     - "android"
     - "ios"
     - "hybrid"
+    - "backend"
   * boolean notify                  Automatically send notifications                (default: true)
   * string  archivePattern          Atifacts archive pattern
     Defaults

@@ -18,6 +18,10 @@
 
 */
 def call(cfg) {
+    if (!cfg.promoteBuld) {
+        echo "jplCloseRelease: you don't had confirmed the build"
+        return false
+    }
     timestamps {
         ansiColor('xterm') {
             script {
