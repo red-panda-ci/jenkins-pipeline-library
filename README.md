@@ -120,7 +120,7 @@ After that, you can access to the cfg hashmap values individually
 
 If you review the comments on vars/jplConfig.groovy you can see all definitions in the comments
 
-### jplAppetizeUpload
+### jplAppetizeUpload
 
 Upload package to appetize
 
@@ -136,7 +136,7 @@ cfg usage:
 * cfg.appetize[:] hashmap
 * cfg.versionSuffix
 
-### jplAppliveryUpload
+### jplAppliveryUpload
 
 Upload package to applivery
 
@@ -217,7 +217,7 @@ cfg usage:
 * cfg.notify
 * cfg.recipients
 
-### jplIE
+### jplIE
 
 Integration Events (IE) management
 
@@ -288,7 +288,7 @@ cfg usage:
 
 * cfg.jira.*
 
-### jplNotify
+### jplNotify
 
 Notify using multiple methods: hipchat, slack, email
 
@@ -302,7 +302,7 @@ cfg usage:
 
 * cfg.recipients.*
 
-### jplPostBuild
+### jplPostBuild
 
 Post build tasks
 
@@ -326,7 +326,7 @@ Place the jplPostBuild(cfg) line into the "post" block of the pipeline like this
     }
 ´´´
 
-### jplPromoteBuild
+### jplPromoteBuild
 
 Promote build to next steps, waiting for user input
 
