@@ -13,8 +13,8 @@
   * cfg jplConfig class object
 
   cfg usage:
-  - cfg.notify
-  - cfg.recipients
+  * cfg.notify
+  * cfg.recipients
 
 */
 def call(cfg) {

@@ -7,6 +7,9 @@
   * String summary The summary of the message (blank to use defaults)
   * String message The message itself (blank to use defaults)
 
+  cfg usage:
+  * cfg.recipients.*
+
 */
 def call(cfg, String summary = '', String message = '') {
     timestamps {

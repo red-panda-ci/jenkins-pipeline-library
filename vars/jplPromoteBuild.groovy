@@ -4,8 +4,11 @@
 
   Parameters:
   * cfg jplConfig class object
-  * String message User input message
-  * String message User input description
+  * String message User input message, defaults to "Promote Build"
+  * String message User input description, defaults to "Check to promote the build, leave uncheck to finish the build without promote"
+
+  cfg usage:
+  * cfg.promoteBuild
 
 */
 def call(cfg, message = "Promote Build", description = "Check to promote the build, leave uncheck to finish the build without promote") {

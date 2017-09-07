@@ -6,7 +6,7 @@
   * cfg jplConfig class object
 
   cfg usage:
-  - cfg.sonar.*
+  * cfg.sonar.*
 
   To use the jplSonarScanner() tool:
   * Configure Jenkins with SonarQube >= 6.2

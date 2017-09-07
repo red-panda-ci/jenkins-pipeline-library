@@ -12,7 +12,15 @@
   * String branch Branch name (blank for HEAD)
 
   cfg usage:
-  * targetPlatform
+  * cfg.targetPlatform
+
+  This function will do some things for you based on the target platform:
+
+  * "android". Prepare the workspace to build within native Docker of the Jenkins:
+  * Get the contents of the repository https://github.com/pedroamador/ci-scripts on the ci-scripts/.jenkins_library repository
+  * "ios" (TBD)
+  * "hybrid" (TBD)
+  * "backend" (TBD)
 
 */
 def call(cfg,repository='',branch='') {

@@ -9,14 +9,14 @@
   * String artifactPath Path to the artifact file to be signed, relative form the build workspace
 
   cfg usage:
-  - cfg.signing.*
+  * cfg.signing.*
 
   Notes:
 
-    - The artifactPath must be an unsigned APK, it's name should match the pattern "*-unsigned.apk"
-    - Your Jenkins instance must have read access to the repository containing signing data
-    - The signed artifact will be placed on the same route of the artifact to be signed, and named "*-signed.apk"
-    - The repository structure sould be like this:
+    * The artifactPath must be an unsigned APK, it's name should match the pattern "*-unsigned.apk"
+    * Your Jenkins instance must have read access to the repository containing signing data
+    * The signed artifact will be placed on the same route of the artifact to be signed, and named "*-signed.apk"
+    * The repository structure sould be like this:
 
         * Must have a "credentials.json" file with this content:
 

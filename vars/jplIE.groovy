@@ -6,8 +6,7 @@
   * cfg jplConfig class object
 
   cfg usage:
-  - cfg.ie.*
-
+  * cfg.ie.*
 
   Rules:
   - The Integration Event line should start with '@ie'
@@ -20,19 +19,18 @@
   * Example:
     "@ie command parameter1 +option1 -option2 parameter2 +option1 +option2 -option3"
 
-
   Commands:
   - "fastlane": use multiple fastlane lanes, at least one. You can add multiple parameters in each
 
-  * Examples:
-    "@ie fastlane develop"
-    "@ie fastlane develop quality"
-    "@ie fastlane develop -applivery +appetize quality +applivery -appetize"
+    * Examples:
+      "@ie fastlane develop"
+      "@ie fastlane develop quality"
+      "@ie fastlane develop -applivery +appetize quality +applivery -appetize"
 
   - "gradlew": use gradle wrapper tasks
   
-  * Examples:
-    "@ie gradlew clean assembleDebug"
+    * Examples:
+      "@ie gradlew clean assembleDebug"
    
 */
 def call(cfg) {
