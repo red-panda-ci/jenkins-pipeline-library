@@ -18,7 +18,7 @@
 
 */
 def call(cfg) {
-    if (!cfg.promoteBuld) {
+    if (!cfg.promoteBuild) {
         echo "jplCloseRelease: you don't had confirmed the build"
         return false
     }
