@@ -4,7 +4,7 @@
 
   Merge code from upstream branch to downstream branch, then make "push" to the repository
 
-  The function uses "git promote" script
+  The function uses "git promote" script of https://github.com/pedroamador/git-promote
 
   Parameters:
   * cfg jplConfig class object

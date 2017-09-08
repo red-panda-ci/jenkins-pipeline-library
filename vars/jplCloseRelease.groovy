@@ -13,11 +13,15 @@
   * cfg jplConfig class object
 
   cfg usage:
-  - cfg.notify
-  - cfg.recipients
+  * cfg.notify
+  * cfg.recipients
 
 */
 def call(cfg) {
+    if (!cfg.promoteBuild) {
+        echo "jplCloseRelease: you don't had confirmed the build"
+        return false
+    }
     timestamps {
         ansiColor('xterm') {
             script {
@@ -38,7 +42,7 @@ def call(cfg) {
             sh 'git push origin :' + cfg.BRANCH_NAME
             // Notify
             if (cfg.notify) {
-                jplNotify(cfg,'New release ${tag} finished',jplBuild.description)
+                jplNotify(cfg,'New release ${tag} finished',jplBuild.description())
             }
         }
     }

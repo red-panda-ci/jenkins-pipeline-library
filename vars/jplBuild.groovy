@@ -1,4 +1,35 @@
 /**
+
+  Build iOS / Android app with Fastlane
+  - Android app will build using docker into Jenkins
+  - iOS app will build with fastlane directly
+
+  Both builds are based on jpl project configuration
+
+  Parameters:
+  * cfg jplConfig class object
+  * string command What is the command to be executed in the build
+    Example: "./gradlew clean assembleDebug"
+
+  cfg usage:
+  * cfg.targetPlatform
+
+*/
+def call(cfg,String command='') {
+    switch (cfg.targetPlatform) {
+        case 'android':
+            jplBuildAPK(cfg,command)
+            break;
+        case 'ios':
+            echo "Todo: build IPA specific task"
+            break;
+        default:
+            echo "Unknown target platform"
+            break;
+    }
+}
+
+/**
   Return result status of current build
   Return "SUCCESS" on unknown case
 */

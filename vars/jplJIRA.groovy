@@ -20,7 +20,7 @@ def call(cfg) {
   * cfg jplConfig object
 
   cfg usage:
-  - cfg.jira.*
+  + cfg.jira.*
  
 */
 def checkProjectExists(cfg) {
@@ -43,7 +43,7 @@ def checkProjectExists(cfg) {
   * String description: The ddscription of the issue (blank for default summaty)
 
   cfg usage:
-  - cfg.jira.*
+  * cfg.jira.*
  
 */
 def openIssue(cfg,summary='',description='') {

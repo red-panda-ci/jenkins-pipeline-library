@@ -6,19 +6,12 @@
 
 Library with a set of helpers to be used in Jenkins Scripted or Declarative Pipelines
 
-## Notes
-
 This helpers are designed to be used in "Multibranch Pipeline" Jenkins job type, with "git flow" release cycle and at least with the following branches:
 
 * develop
 * master
 
-To use the jplSonarScanner() tool
-
-* Configure Jenkins with SonarQube >= 6.2
-* Configure a webhook in Sonar to your jenkins URL <your-jenkins-instance>/sonar-webhook/ (https://jenkins.io/doc/pipeline/steps/sonar/#waitforqualitygate-wait-for-sonarqube-analysis-to-be-completed-and-return-quality-gate-status)
-
-## Use
+## Usage
 
 Add this line at the top of your Jenkinsfile
 
@@ -35,13 +28,14 @@ TBD
 ```groovy
 #!groovy
 
-@Library('github.com/pedroamador/jenkins-pipeline-library@develop') _
+@Library('github.com/pedroamador/jenkins-pipeline-library') _
 
 // Initialize cfg
 cfg = jplConfig('project-alias', 'android', 'JIRAPROJECTKEY', [hipchat:'The-Project,Jenkins QA', slack:'#the-project,#integrations', email:'the-project@example.com,dev-team@example.com,qa-team@example.com'])
 
 // The pipeline
 pipeline {
+
     agent none
 
     stages {
@@ -49,32 +43,38 @@ pipeline {
             agent { label 'docker' }
             steps  {
                 jplCheckoutSCM(cfg)
-                jplBuildAPK(cfg)
+                jplBuild(cfg)
             }
         }
-        stage('Sonarqube Analysis') {
+        stage('Test') {
             agent { label 'docker' }
             when { expression { (env.BRANCH_NAME == 'develop') || env.BRANCH_NAME.startsWith('PR-') } }
             steps {
                 jplSonarScanner(cfg)
             }
         }
-        stage ('Confirm release') {
+        stage ('Sign') {
+            agent { label 'docker' }
             when { branch 'release/*' }
-            steps {
-                timeout(time: 1, unit: 'DAYS') {
-                    input(message: 'Waiting for approval. Close release?')
-                }
+            steps  {
+                jplSigning(cfg, "git@github.org:gigigo/sign-repsotory.git", "the-project", "app/build/outputs/apk/the-project-unsigned.apk")
+                archiveArtifacts artifacts: "**/*-signed.apk", fingerprint: true, allowEmptyArchive: false
             }
         }
-        stage ('Close release') {
+        stage ('Release confirm') {
+            when { branch 'release/*' }
+            steps {
+                jplPromoteBuild(cfg)
+            }
+        }
+        stage ('Release finish') {
             agent { label 'docker' }
             when { branch 'release/*' }
             steps {
                 jplCloseRelease(cfg)
             }
         }
-        stage ('Clean') {
+        stage ('PR Clean') {
             agent { label 'docker' }
             when { branch 'PR-*' }
             steps {
@@ -90,10 +90,10 @@ pipeline {
     }
 
     options {
-        buildDiscarder(logRotator(artifactNumToKeepStr: '5'))
+        buildDiscarder(logRotator(artifactNumToKeepStr: '20',artifactDaysToKeepStr: '30'))
         disableConcurrentBuilds()
         skipDefaultCheckout()
-        timeout(time: 2, unit: 'DAYS')
+        timeout(time: 1, unit: 'DAYS')
     }
 }
 ```
@@ -104,11 +104,11 @@ pipeline {
 
 Global static var with the pipeline configuration related to "jpl" library
 
-If you want to use jplCheckoutSCM or jplBuildAPK helpers then you should initialize with
+Should be initialized at the begining of the script
 
-* jplConfig.initialize(env,"targetPlatform")
+* cfg = jplConfig("project_name", "targetPlatform", "jiraProjectKey", [ hipchat: "recipients", slack: "recipients", email: "recipients"] )
 
-or init the values individually:
+After that, you can access to the cfg hashmap values individually
 
     [...]
 
@@ -118,47 +118,276 @@ or init the values individually:
 
     [...]
 
-Parameters of jplConfig.initialize:
+If you review the comments on vars/jplConfig.groovy you can see all definitions in the comments
 
-* env (Object). The "env" object of the Jenkins build.
-* targetPlatform (String). What is your target platform.
+### jplAppetizeUpload
 
-The initialize function will set the following configuration values:
-
-* jplconfig.laneName (String). Lane name to be used with Fastlane. The value is related to the actual branch of the repository used in the build as following:
-  * "staging", "quality", "master", "release/*" branches are going to set "staging", "quality", "master" and "release" lane name respectively.
-  * The rest of branch names are going to set set "develop" lane name
-* jplConfig.versionSuffix (String). String to be added to VersionName in Android APK builds. Default value is set to _build number_-_branch name_ if branch is diferent to "master" branch. For other than "staging", "quality" and "release/*" branch names will use "develop" instead.
-  Example: if your are on the first build number of the "develop" branch and the versionName is set to "1.0.0" in build.gradle, the versionSuffix is set to "rc1-staging" and the versionName of the apk is finally set to "1.0.0-rc1-staging".
-* targetPlatform (String). Default set to blank (""), should be one of:
-  * "" (blank value). Not set.
-  * "android". Set Android as target platform.
-
-### jplCheckoutSCM
+Upload package to appetize
 
 Parameters:
 
-* jplConfig (Object). The jplConfig object already initialized (jplConfig.initialize).
+* cfg jplConfig class object
+* String packageFile File name to upload
+* String app App ID
+* String token Appetize token
 
-Get the code from SCM repository (DSL command "checkout scm"). Aditionally:
+cfg usage:
 
-* Change (checkout) to the actual branch name, if not named "PR-*" (pull request).
-* Initialize submodules (shell "git submodule update --init")
+* cfg.appetize[:] hashmap
+* cfg.versionSuffix
+
+### jplAppliveryUpload
+
+Upload package to applivery
+
+Parameters:
+
+* cfg jplConfig class object
+* String packageFile File name to upload. Should be an iOS / Android app artifact.
+* String app App id
+* String token Applivery account token
+
+cfg usage:
+
+* cfg.applivery[:] hashmap
+* cfg.versionSuffix
+
+### jplBuild
+
+Build iOS / Android app with Fastlane
+
+* Android app will build using docker into Jenkins
+* iOS app will build with fastlane directly
+
+Both builds are based on jpl project configuration
+
+Parameters:
+
+* cfg jplConfig class object
+* string command What is the command to be executed in the build
+  Example: "./gradlew clean assembleDebug"
+
+cfg usage:
+
+* cfg.targetPlatform
+
+### jplCheckoutSCM
+
+Checkout SCM
+
+Get the code from SCM and init / update submodules
+Leave the repository on the actual branch, instead of "deatached"
+
+Parameters:
+
+* cfg jplConfig class object
+* String repository Repository URL (https://... git@...)
+                    Leave it blank to use "checkout scm" command (multibranch project)
+* String branch Branch name (blank for HEAD)
+
+cfg usage:
+
+* cfg.targetPlatform
 
 This function will do some things for you based on the target platform:
 
 * "android". Prepare the workspace to build within native Docker of the Jenkins:
-  * Get the Dockerfile of https://github.com/pedroamador/ci-scripts/blob/develop/docker/android-emulator/Dockerfile saving it as "Dockerfile" of the workspace
-  * Concatenate downloaded "Dockerfile" with the "Dockerfile.tail" of the repository.
-  * Create "?/.android" folder on root of the workspace of the build and copy "~/.android/debug.keystore" into it, preparing to build the APK using pipeline native Docker.
+  * Get the contents of the repository https://github.com/pedroamador/ci-scripts on the ci-scripts/.jenkins_library repository
+* "ios" (TBD)
+* "hybrid" (TBD)
+* "backend" (TBD)
 
-### jplBuildAPK
+### jplCloseRelease
 
-Builds the Android APK based on jplConfig values "laneName" and "versionSuffix" using Fastlane. It will archive apk's as artifact builds if you are not in a pull request (branch "PR-*")
+Close release (Branch "release/*")
+
+Merge code from release/vX.Y.Z to "master" and "develop", then "push" to the repository.
+Create new tag with "vX.Y.Z" to the commit
+
+The function uses "git promote" script
+
+Fails if your repository is not in a "release/*" branch
 
 Parameters:
 
-* jplConfig (Object). The jplConfig object already initialized (jplConfig.initialize).
+* cfg jplConfig class object
+
+cfg usage:
+
+* cfg.notify
+* cfg.recipients
+
+### jplIE
+
+Integration Events (IE) management
+
+Parameters:
+
+* cfg jplConfig class object
+
+cfg usage:
+
+* cfg.ie.*
+
+Rules:
+
+* The Integration Event line should start with '@ie'
+* The event can have multiple parameters: "parameter1", "parameter2", etc.
+* Every parameter can have multiple options, starting with "+" or "-": "+option1 -option2"
+  * If an option starts with "+" means the parameter "must have" the option
+  * If an option starts with "-" means the option "should not be" in the parameter
+* You can't use an option after the command. It's mandatory to use a parameter
+
+Example:
+
+  "@ie command parameter1 +option1 -option2 parameter2 +option1 +option2 -option3"
+
+Commands:
+
+* "fastlane": use multiple fastlane lanes, at least one. You can add multiple parameters in each
+
+  Examples:
+
+    "@ie fastlane develop"
+    "@ie fastlane develop quality"
+    "@ie fastlane develop -applivery +appetize quality +applivery -appetize"
+
+* "gradlew": use gradle wrapper tasks
+
+  Examples:
+
+    "@ie gradlew clean assembleDebug"
+
+### jplJIRA.checkProjectExists
+
+Check if the project exists.
+Finish job with error if
+
+* The project doen't exist in JIRA, and
+* JIRA_FAIL_ON_ERROR env variable (or failOnError parameter) is set on "true"
+
+Parameters:
+
+* cfg jplConfig object
+
+cfg usage:
+
+* cfg.jira.*
+
+### jplJIRA.openIssue
+
+Open jira issue
+
+Parameters:
+
+* cfg jplConfig object
+* String summary The summary of the issue (blank for default summaty)
+* String description: The ddscription of the issue (blank for default summaty)
+
+cfg usage:
+
+* cfg.jira.*
+
+### jplNotify
+
+Notify using multiple methods: hipchat, slack, email
+
+Parameters:
+
+* cfg jplConfig class object
+* String summary The summary of the message (blank to use defaults)
+* String message The message itself (blank to use defaults)
+
+cfg usage:
+
+* cfg.recipients.*
+
+### jplPostBuild
+
+Post build tasks
+
+Parameters:
+
+* cfg jplConfig class object
+
+cfg usage:
+
+* cfg.targetPlatform
+* cfg.notify
+* cfg.jiraProjectKey
+
+Place the jplPostBuild(cfg) line into the "post" block of the pipeline like this
+
+´´´
+    post {
+        always {
+            jplPostBuild(cfg)
+        }
+    }
+´´´
+
+### jplPromoteBuild
+
+Promote build to next steps, waiting for user input
+
+Parameters:
+
+* cfg jplConfig class object
+* String message User input message, defaults to "Promote Build"
+* String message User input description, defaults to "Check to promote the build, leave uncheck to finish the build without promote"
+
+cfg usage:
+
+* cfg.promoteBuild
+
+### jplPromoteCode
+
+Promote code on release
+
+Merge code from upstream branch to downstream branch, then make "push" to the repository
+
+The function uses "git promote" script of https://github.com/pedroamador/git-promote
+
+Parameters:
+
+* cfg jplConfig class object
+* String updateBranch The branch "source" of the merge
+* String downstreamBranch The branch "target" of the merge
+
+### jplSigning
+
+App signing management
+
+Parameters:
+
+* cfg jplConfig class object
+* String signingRepository The repository (github, bitbucket, whatever) where the signing information lives
+* String signingPath Relative path to locate the signing data within signing repository
+* String artifactPath Path to the artifact file to be signed, relative form the build workspace
+
+cfg usage:
+
+* cfg.signing.*
+
+Notes:
+
+* The artifactPath must be an unsigned APK, it's name should match the pattern "*-unsigned.apk"
+* Your Jenkins instance must have read access to the repository containing signing data
+* The signed artifact will be placed on the same route of the artifact to be signed, and named "*-signed.apk"
+* The repository structure sould be like this:
+
+    * Must have a "credentials.json" file with this content:
+
+        {
+            "STORE_PASSWORD": "store_password_value",
+            "KEY_ALIAS": "key_alias_value",
+            "KEY_PASSWORD": "key_password_value",
+            "ARTIFACT_SHA1": "D7:22:FF:...."
+        }
+
+    * Must have a "keystore.jks", as the signing keystore file
+
+    Both file should be placed in the a repository path, wich is informed with the "signingPath" parameter
 
 ### jplSonarScanner
 
@@ -166,43 +395,43 @@ Launch SonarQube scanner
 
 Parameters:
 
-* String sonarScanerToolName The name of the SonarQube tool name configured in your Jenkins installation. Default set to "SonarQube"
-* Boolean abortIfQualityGateFails Abort the job with error result. You must have a webhook configured in SonarQube to your Jenkins. Default set to true
+* cfg jplConfig class object
 
-### jplPromote (deprecated)
+cfg usage:
 
-Promote code on release
+* cfg.sonar.*
 
-Merge code from upstream branch to downstream branch, then make "push" to the repository
-When the code is safe in the repository, launch the job with the same name of the downstream branch and wait for the build result
+To use the jplSonarScanner() tool:
 
-The function uses "git promote" script from https://github.com/pedroamador/git-promote
+* Configure Jenkins with SonarQube >= 6.2
+* Configure a webhook in Sonar to your jenkins URL <your-jenkins-instance>/sonar-webhook/ (https://jenkins.io/doc/pipeline/steps/sonar/#waitforqualitygate-wait-for-sonarqube-analysis-to-be-completed-and-return-quality-gate-status)
 
-Parameters:
+## Dependencies
 
-* String updateBranch The branch "source" of the merge
-* String downstreamBranch The branch "target" of the merge
+You should consider the following configurations:
 
-Mantain for backwards compatibility and will be removed in the future.
+### Jenkins service
 
-### jplNotify
+* Install this plugins:
+  * AnsiColor
+  + Bitbucket Branch Source
+  * Bitbucket Plugin
+  * Blue Ocean
+  * Github Branch Source
+  * Github Plugin
+  * Git Plugin
+  * HipChat, if you want to use hipchat as notification channel
+  * JIRA Pipeline Steps, if you want to use a JIRA project
+  * Pipeline
+  * Pipeline Utility Steps, if you want to sign android APK's artifacts with jplSigning
+  * Slack Notification, if you want to use Slack as notification channel
+  * SonarQube Scanner, if you want to use SonerQube as quality gate with jplSonarScanner
+  * Timestamper
+* Configure Jeknins in "Configurtion" main menu option
+  * Enable the checkbox "Environment Variables" and add the following environment variables with each integration key:
+    * APPETIZE_TOKEN
+    * APPLIVERY_TOKEN
+    * APPETIZE_TOKEN
+    * JIRA_SITE
+  * Put the correct Slack, Hipchat and JIRA credentials in their place (read the howto's of the related Jenkins plugins)
 
-Notify using multiple methods (hipchat, slack, email) multiple channels or recipients each
-
-Parameters:
-
-* String hipchatRooms Comma-separated list of hipchat rooms to notify to (if empty, don't notify on hipchat)
-* String slackChannels Comma-separated list of slack channels to notify to (if empty, don't notify on slack)
-* String emailRecipients Comma-separated list of email recipients to notify to (if empty, don't send any mail)
-
-### jplCloseRelease
-
-Close release (Branch "release/*")
-
-* Merge code from release/vX.Y.Z to "master" and "develop", then "push" to the repository.
-* Create new tag with "vX.Y.Z" pointing to the commit, then "push" to the repository.
-* Remove "release/vX.Y.Z" from the repository.
-
-The function uses "git promote" script
-
-Fails if your repository is not in a "release/*" branch

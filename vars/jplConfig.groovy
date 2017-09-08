@@ -18,11 +18,12 @@
     - "android"
     - "ios"
     - "hybrid"
+    - "backend"
   * boolean notify                  Automatically send notifications                (default: true)
   * string  archivePattern          Atifacts archive pattern
     Defaults
-      - Android:  "** /*.apk"
-      - iOS:      "** /*.ipa"
+      - Android:  "** / *.apk"
+      - iOS:      "** / *.ipa"
   * boolean promoteBuil             Flag to promote build to release steps          (default: false)
 
   * Hashmap applivery: Applivery parameters
@@ -37,17 +38,28 @@
         String app                  App                                             (default: jenkins env.APPETIZE_APP)
   
   * Hashmap recipients: Recipients used in notifications
-        String recipients.hipchat => List of hipchat rooms, comma separated         (default: "")
-        String recipients.slack   => List of slack channels, comma separated        (default: "")
-        String recipients.email   => List of email address, comma separated         (default: "")
+        String recipients.hipchat   List of hipchat rooms, comma separated          (default: "")
+        String recipients.slack     List of slack channels, comma separated         (default: "")
+        String recipients.email     List of email address, comma separated          (default: "")
 
   * HashMap sonar: Sonar scanner configuration
         String sonar.toolName                 => Tool name configured in Jenkins    (default: "SonarQube")
         String sonar.abortIfQualityGateFails  => Tool name configured in Jenkins    (default: true)
 
   * HashMap jira: JIRA configuration
-        String jira.projectKey  => JIRA project key                                 (default: "")
-        object jira.projectData => Jira project data                                (default: "")
+        String jira.projectKey      JIRA project key                                (default: "")
+        object jira.projectData     JIRA project data                               (default: "")
+
+  * Hashmap ie: Integration Events configuration
+        String ieCommitRawText      ie text as appears in commit message            (default: "" = no @ie command in the commit)
+        String commandName          Command to be executed                          (default: "")
+        Hashmap parameter           List of parameters and options                  (default: [:])
+                                    Every parameter element of the hash contains:
+                                    - String name: the string with the parameter
+                                    - Hashmap option: List of options for the parameter.
+                                    Every option of the hash contains:
+                                    - String name: Name of the option
+                                    - String status: "enabled" or "disabled", depending of the option status
   
 */
 def call (projectName = 'project', targetPlatform = '', jiraProjectKey = '', recipients = [hipchat:'',slack:'',email:'']) {
@@ -88,6 +100,15 @@ def call (projectName = 'project', targetPlatform = '', jiraProjectKey = '', rec
     cfg.appetize = [:]
         cfg.appetize.token = (env.APPETIZE_TOKEN == null) ? '' : env.APPETIZE_TOKEN
         cfg.appetize.app   = (env.APPETIZE_APP   == null) ? '' : env.APPETIZE_APP
+    
+    //
+    cfg.notify                              = true
+    cfg.recipients                          = recipients
+
+    //
+    cfg.sonar = [:]
+        cfg.sonar.toolName                  = "SonarQube"
+        cfg.sonar.abortIfQualityGateFails   = true
 
     //
     cfg.jira = [:]
@@ -95,13 +116,10 @@ def call (projectName = 'project', targetPlatform = '', jiraProjectKey = '', rec
         cfg.jira.projectData                = ''
 
     //
-    cfg.sonar = [:]
-        cfg.sonar.toolName                  = "SonarQube"
-        cfg.sonar.abortIfQualityGateFails   = true
-    
-    //
-    cfg.notify                              = true
-    cfg.recipients                          = recipients
+    cfg.ie = [:]
+        cfg.ie.ieCommitRawText              = ""
+        cfg.ie.commandName                  = ""
+        cfg.ie.parameter                    = [:]
 
     //-----------------------------------------//
 
