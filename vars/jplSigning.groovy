@@ -71,7 +71,8 @@ def call(cfg,String repository, String signingPath, String artifactPath) {
     if (signedArtifactSHA1[0] != "SHA1:") {
         error("jplSigning: error during sign verification")
     }
+    signedArtifactSHA1[1] = signedArtifactSHA1[1].take(59)
     if (signedArtifactSHA1[1] != signingItem.ARTIFACT_SHA1) {
-        error("jplSigning: signed artifact doesn't match. Expected ${signingItem.ARTIFACT_SHA1} but got ${value}")
+        error("jplSigning: signed artifact doesn't match. Expected '${signingItem.ARTIFACT_SHA1} but got '${signedArtifactSHA1[1]}'. Debug:")
     }
 }
