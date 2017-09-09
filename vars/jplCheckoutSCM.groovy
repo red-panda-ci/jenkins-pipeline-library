@@ -23,7 +23,7 @@
   * "backend" (TBD)
 
 */
-def call(cfg,repository='',branch='') {
+def call(cfg, repository = '', branch = '') {
     timestamps {
         ansiColor('xterm') {
             script {
