@@ -12,7 +12,7 @@
   * String downstreamBranch The branch "target" of the merge
 
 */
-def call(cfg,String upstreamBranch,String downstreamBranch) {
+def call(cfg, String upstreamBranch, String downstreamBranch) {
     timestamps {
         ansiColor('xterm') {
           jplCheckoutSCM(cfg)

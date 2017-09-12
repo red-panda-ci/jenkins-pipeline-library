@@ -46,7 +46,7 @@ def checkProjectExists(cfg) {
   * cfg.jira.*
  
 */
-def openIssue(cfg,summary='',description='') {
+def openIssue(cfg, summary = '', description = '') {
     if (cfg.jira.projectKey != '') {
         // Open JIRA tickets on 'NOT SUCCESS build'
         echo "jpl: open jira issue in JIRA project with key: ${cfg.jira.projectKey}"

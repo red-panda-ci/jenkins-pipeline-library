@@ -32,7 +32,7 @@
         Both file should be placed in the a repository path, wich is informed with the "signingPath" parameter
 
 */
-def call(cfg,String repository, String signingPath, String artifactPath) {
+def call(cfg, String repository, String signingPath, String artifactPath) {
     expectedSigningItem = [ "STORE_PASSWORD","KEY_ALIAS","KEY_PASSWORD","ARTIFACT_SHA1"]
     repositoryBasePath = "ci-scripts/.signing_repository"
 

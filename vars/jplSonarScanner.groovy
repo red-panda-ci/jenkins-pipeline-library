@@ -25,7 +25,7 @@ def call(cfg) {
                     }
                     if (cfg.sonar.abortIfQualityGateFails) {
                         def qg = waitForQualityGate()
-                        if (qg.status != 'OK') {
+                        if (!(qg.status in ['OK', 'WARN'])) {
                             error "Pipeline aborted due to quality gate failure: ${qg.status}"
                         }
                     }

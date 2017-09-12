@@ -15,7 +15,7 @@
   * cfg.targetPlatform
 
 */
-def call(cfg,String command='') {
+def call(cfg, String command = '') {
     switch (cfg.targetPlatform) {
         case 'android':
             jplBuildAPK(cfg,command)
