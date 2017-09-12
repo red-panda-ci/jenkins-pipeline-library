@@ -30,10 +30,10 @@ def call(cfg, quantity = null, preset = null) {
                 commitMessageList = sh (
                     script: "git log --oneline|head -n ${quantity}",
                     returnStdout: true
-                ).trim()
+                ).trim().replace("\n","\\n")
                 echo "ToDo: use docker 'commit validation' dockerized function"
                 print commitMessageList
-                print commitMessageList.tokenize("\n")
+                print commitMessageList.tokenize("\\n")
             }
         }
     }
