@@ -28,7 +28,7 @@ def call(cfg, quantity = null, preset = null) {
                 quantity = (quantity == null) ? cfg.commitValidation.quantity : quantity
                 preset = (preset == null) ? cfg.commitValidation.preset : preset
                 commitMessageList = sh (
-                    script: "git log --oneline|head -n ${quantity}",
+                    script: "git log --oneline --no-merges|head -n ${quantity}",
                     returnStdout: true
                 ).trim().replace("\n","\\n")
                 sh "docker run -t --rm -e COMMITS='${commitMessageList}' -e PRESET='${preset}' madoos/node-commit-validator:latest"
