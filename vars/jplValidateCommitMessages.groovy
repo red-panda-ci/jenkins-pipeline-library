@@ -31,7 +31,7 @@ def call(cfg, quantity = null, preset = null) {
                     script: "git log --oneline|head -n ${quantity}",
                     returnStdout: true
                 ).trim().replace("\n","\\n")
-                sh "docker run -t --rm -e COMMITS='${commitMessagelist}' -e PRESET='${preset}' madoos/node-commit-validator:latest"
+                sh "docker run -t --rm -e COMMITS='${commitMessageList}' -e PRESET='${preset}' madoos/node-commit-validator:latest"
             }
         }
     }
