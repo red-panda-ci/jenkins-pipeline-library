@@ -25,8 +25,8 @@ def call(cfg, quantity = null, preset = null) {
     timestamps {
         ansiColor('xterm') {
             script {
-                quantity = isNull(quantity) ? cfg.commitValidation.quantity : quantity
-                preset = isNull(preset) ? cfg.commitValidation.preset : preset
+                quantity = (quantity == null) ? cfg.commitValidation.quantity : quantity
+                preset = (preset == null) ? cfg.commitValidation.preset : preset
                 commitMessageList = sh (
                     script: "git log --oneline|head -n ${quantity}",
                     returnStdout: true
