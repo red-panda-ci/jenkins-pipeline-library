@@ -31,9 +31,7 @@ def call(cfg, quantity = null, preset = null) {
                     script: "git log --oneline|head -n ${quantity}",
                     returnStdout: true
                 ).trim().replace("\n","\\n")
-                echo "ToDo: use docker 'commit validation' dockerized function"
-                print commitMessageList
-                print commitMessageList.tokenize("\\n")
+                sh "docker run -t --rm -e COMMITS='${commitMessagelist}' -e PRESET='${preset}' madoos/node-commit-validator:latest"
             }
         }
     }
