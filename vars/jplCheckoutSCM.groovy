@@ -57,14 +57,14 @@ def call(cfg, repository = '', branch = '') {
                 }
                 // Make and archive changelog
                 repositoryUrl = sh (
-                    script: "git describe --abbrev=0 --tags||echo ''",
+                    script: "git ls-remote --get-url",
                     returnStdout: true
                 )
                 .trim()
                 .replace('git@github.com:','https://github.com/')
                 .replace('git@bitbucket.ort:','https://bitbucket.org/')
-                sh "mkdir -p ci-scripts/reports && git log --format='%B%n-hash-%n%H%n-gitTags-%n%d%n-committerDate-%n%ci%n------------ _¿? ------------' HEAD --no-merges | docker run --rm -i -e COMMIT_DELIMITER='------------ _¿? ------------' -e PRESET='eslint' -e GIT_URL='${repositoryUrl}' madoos/node-pipe-changelog-generator > ci-scripts/reports/CHANGELOG.md"
-                archiveArtifacts artifacts: 'ci-scripts/reports/CHANGELOG.md', fingerprint: true, allowEmptyArchive: false
+                sh "mkdir -p ci-scripts/reports && git log --format='%B%n-hash-%n%H%n-gitTags-%n%d%n-committerDate-%n%ci%n------------ _¿? ------------' HEAD --no-merges | docker run --rm -i -e COMMIT_DELIMITER='------------ _¿? ------------' -e PRESET='eslint' -e GIT_URL='${repositoryUrl}' -e FORMAT='html' madoos/node-pipe-changelog-generator > ci-scripts/reports/CHANGELOG.html"
+                archiveArtifacts artifacts: 'ci-scripts/reports/CHANGELOG.html', fingerprint: true, allowEmptyArchive: false
             }
         }
     }
