@@ -197,6 +197,8 @@ This function will do some things for you based on the target platform:
 * "hybrid" (TBD)
 * "backend" (TBD)
 
+Also, they execute for the jplValidateCommitMessages on Pull Request, breaking the build if the messages don't complaint with the parse rules
+
 ### jplCloseRelease
 
 Close release (Branch "release/*")
@@ -406,6 +408,33 @@ To use the jplSonarScanner() tool:
 * Configure Jenkins with SonarQube >= 6.2
 * Configure a webhook in Sonar to your jenkins URL <your-jenkins-instance>/sonar-webhook/ (https://jenkins.io/doc/pipeline/steps/sonar/#waitforqualitygate-wait-for-sonarqube-analysis-to-be-completed-and-return-quality-gate-status)
 
+
+### jplValidateCommitMessages
+
+Validate commit messages on PR's using https://github.com/willsoto/validate-commit project
+
+* Check a concrete quantity of commits on the actual PR on the code repository
+* Breaks the build if any commit don'w follow the preset rules
+
+Parameters:
+
+* cfg jplConfig class object
+* int quantity Number of commits to check
+* String preset Preset to use in validation
+
+Should be one of the supported presets of the willsoto validate commit project:
+
+* angular
+* atom
+* eslint
+* ember
+* jquery
+* jshint
+
+cfg usage:
+
+* cfg.commitValidation.*
+
 ## Dependencies
 
 You should consider the following configurations:
@@ -414,7 +443,7 @@ You should consider the following configurations:
 
 * Install this plugins:
   * AnsiColor
-  + Bitbucket Branch Source
+  * Bitbucket Branch Source
   * Bitbucket Plugin
   * Blue Ocean
   * Github Branch Source

@@ -22,6 +22,8 @@
   * "hybrid" (TBD)
   * "backend" (TBD)
 
+  Also, they execute for the jplValidateCommitMessages on Pull Request, breaking the build if the messages don't complaint with the parse rules
+
 */
 def call(cfg, repository = '', branch = '') {
     timestamps {
