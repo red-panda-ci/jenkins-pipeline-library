@@ -73,7 +73,7 @@ def call(cfg, repository = '', branch = '') {
                     publishHTML (target: [
                         allowMissing: false,
                         alwaysLinkToLastBuild: false,
-                        keepAll: true,
+                        keepAll: false,
                         reportDir: 'ci-scripts/reports',
                         reportFiles: 'CHANGELOG.html',
                         reportName: "Changelog"
