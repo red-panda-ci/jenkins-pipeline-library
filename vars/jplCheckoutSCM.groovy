@@ -56,7 +56,7 @@ def call(cfg, repository = '', branch = '') {
                     jplValidateCommitMessages(cfg)
                 }
                 // Build, archive and attach HTML changelog report to the build
-                if (!(cfg.changelogIsBuilded == null) {
+                if (!(cfg.changelogIsBuilded == null)) {
                     repositoryUrl = sh (
                         script: "git ls-remote --get-url",
                         returnStdout: true
