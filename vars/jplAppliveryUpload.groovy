@@ -19,7 +19,7 @@ def call(cfg, String packageFile, String app = '', String token = '') {
             script {
                 app = (app == '') ? cfg.applivery.app : app
                 token = (token == '') ? cfg.applivery.token : token
-                sh """wget -O - https://raw.githubusercontent.com/pedroamador/jenkins-deploy-script/master/jenkins.sh | bash -s -- \
+                sh """wget -O - https://raw.githubusercontent.com/red-panda-ci/jenkins-deploy-script/master/jenkins.sh | bash -s -- \
                         --apikey="${token}" \
                         --app="${app}" \
                         --os="${cfg.targetPlatform}" \
