@@ -15,7 +15,7 @@ This helpers are designed to be used in "Multibranch Pipeline" Jenkins job type,
 
 Add this line at the top of your Jenkinsfile
 
-    @Library('github.com/pedroamador/jenkins-pipeline-library') _
+    @Library('github.com/red-panda-ci/jenkins-pipeline-library') _
 
 Then you can use the helpers in your script
 
@@ -28,7 +28,7 @@ TBD
 ```groovy
 #!groovy
 
-@Library('github.com/pedroamador/jenkins-pipeline-library') _
+@Library('github.com/red-panda-ci/jenkins-pipeline-library') _
 
 // Initialize cfg
 cfg = jplConfig('project-alias', 'android', 'JIRAPROJECTKEY', [hipchat:'The-Project,Jenkins QA', slack:'#the-project,#integrations', email:'the-project@example.com,dev-team@example.com,qa-team@example.com'])
@@ -192,7 +192,7 @@ cfg usage:
 This function will do some things for you based on the target platform:
 
 * "android". Prepare the workspace to build within native Docker of the Jenkins:
-  * Get the contents of the repository https://github.com/pedroamador/ci-scripts on the ci-scripts/.jenkins_library repository
+  * Get the contents of the repository https://github.com/red-panda-ci/ci-scripts on the ci-scripts/.jenkins_library repository
 * "ios" (TBD)
 * "hybrid" (TBD)
 * "backend" (TBD)
@@ -348,7 +348,7 @@ Promote code on release
 
 Merge code from upstream branch to downstream branch, then make "push" to the repository
 
-The function uses "git promote" script of https://github.com/pedroamador/git-promote
+The function uses "git promote" script of https://github.com/red-panda-ci/git-promote
 
 Parameters:
 
