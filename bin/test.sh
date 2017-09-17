@@ -19,5 +19,5 @@ docker exec ${id} wget http://localhost:8080/jnlpJars/jenkins-cli.jar > /dev/nul
 echo "# Execute the test"
 docker exec ${id} java -jar jenkins-cli.jar -s http://localhost:8080 build jplCheckoutSCM --username redpanda --password redpanda -s
 
-echo "# Destroy jenkins daemon container"
-docker rm -f ${id}
+echo "# Stop jenkins daemon container"
+docker stop ${id}
