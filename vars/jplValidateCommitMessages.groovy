@@ -27,7 +27,7 @@ def call(cfg, quantity = null, preset = null) {
             script {
                 quantity = (quantity == null) ? cfg.commitValidation.quantity : quantity
                 preset = (preset == null) ? cfg.commitValidation.preset : preset
-                sh "git log --oneline --no-merges -n ${quantity}|cut -c9-|docker run -i --rm -e PRESET='${preset}' madoos/node-commit-validator:latest"
+                sh "git log --oneline --no-merges -n ${quantity}|cut -c9-|${cfg.dockerFunctionPrefix} -e PRESET='${preset}' madoos/node-commit-validator:latest"
 
             }
         }
