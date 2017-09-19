@@ -66,8 +66,6 @@ def call(cfg, repository = '', branch = '') {
                     .replace('git@bitbucket.org:','https://bitbucket.org/')
                     sh "mkdir -p ci-scripts/reports && git log --format='%B%n-hash-%n%H%n-gitTags-%n%d%n-committerDate-%n%ci%n------------ _¿? ------------' HEAD --no-merges|${cfg.dockerFunctionPrefix} -e COMMIT_DELIMITER='------------ _¿? ------------' -e PRESET='eslint' -e GIT_URL='${repositoryUrl}' -e FORMAT='html' madoos/node-pipe-changelog-generator > ci-scripts/reports/CHANGELOG.html"
                     archiveArtifacts artifacts: 'ci-scripts/reports/CHANGELOG.html', fingerprint: true, allowEmptyArchive: false
-                    fileOperations([fileDeleteOperation(excludes: '', includes: 'ci-scripts/reports/CHANGELOG.html')])
-
                     // publish html
                     // snippet generator doesn't include "target:"
                     // https://issues.jenkins-ci.org/browse/JENKINS-29711.
@@ -80,6 +78,7 @@ def call(cfg, repository = '', branch = '') {
                         reportName: "Changelog"
                         ])
                     cfg.changelogIsBuilded = true;
+                    fileOperations([fileDeleteOperation(excludes: '', includes: 'ci-scripts/reports/CHANGELOG.html')])
                 }
             }
         }
