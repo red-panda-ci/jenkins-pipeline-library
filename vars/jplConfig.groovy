@@ -131,6 +131,9 @@ def call (projectName = 'project', targetPlatform = '', jiraProjectKey = '', rec
         cfg.commitValidation.preset         = "eslint"
         cfg.commitValidation.quantity       = 10
 
+    //
+    cfg.dockerFunctionPrefix                = "docker run -i --rm -v jpl-dind-cache:/var/lib/docker"
+
     //-----------------------------------------//
 
     // Do some checks
