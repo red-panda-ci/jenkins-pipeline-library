@@ -32,6 +32,9 @@
         Both file should be placed in the a repository path, wich is informed with the "signingPath" parameter
 
 */
+/*
+  Refactor: Put a script with the sign into "ci-scripts"
+ */
 def call(cfg, String repository, String signingPath, String artifactPath) {
     expectedSigningItem = [ "STORE_PASSWORD","KEY_ALIAS","KEY_PASSWORD","ARTIFACT_SHA1"]
     repositoryBasePath = "ci-scripts/.signing_repository"
@@ -57,20 +60,20 @@ def call(cfg, String repository, String signingPath, String artifactPath) {
     }
 
     // Signing
-    sh "jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ${repositoryBasePath}/${signingPath}/keystore.jks -storepass ${signingItem.STORE_PASSWORD} -keypass ${signingItem.KEY_PASSWORD} -signedjar ${signedUnalignedArtifactPath} ${artifactPath} ${signingItem.KEY_ALIAS}"
+    sh "ci-scripts/.jenkins_library/bin/buildApk.sh --sdkVersion=${cfg.projectName} --command='jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ${repositoryBasePath}/${signingPath}/keystore.jks -storepass ${signingItem.STORE_PASSWORD} -keypass ${signingItem.KEY_PASSWORD} -signedjar ${signedUnalignedArtifactPath} ${artifactPath} ${signingItem.KEY_ALIAS}'"
 
     // Remove signs repository
     fileOperations([folderDeleteOperation(repositoryBasePath)])
 
     // Align
     zipalignCommandPath = sh (
-        script: "find /usr/local/android-sdk/build-tools/ -name 'zipalign'|tail -n1",
+        script: "ci-scripts/.jenkins_library/bin/buildApk.sh --sdkVersion=${cfg.projectName} --command='find /usr/local/android-sdk/build-tools/ -name zipalign|tail -n1",
         returnStdout: true
     ).trim()
-    sh "${zipalignCommandPath} -v -p 4 ${signedUnalignedArtifactPath} ${signedAlignedArtifactPath}"
+    sh "ci-scripts/.jenkins_library/bin/buildApk.sh --sdkVersion=${cfg.projectName} --command='${zipalignCommandPath} -v -p 4 ${signedUnalignedArtifactPath} ${signedAlignedArtifactPath}'"
 
     // Verify
-    sh "keytool -list -printcert -jarfile ${signedAlignedArtifactPath}"
+    sh "ci-scripts/.jenkins_library/bin/buildApk.sh --sdkVersion=${cfg.projectName} --command='keytool -list -printcert -jarfile ${signedAlignedArtifactPath}'"
     signedArtifactSHA1 = sh (
         script: "keytool -list -printcert -jarfile ${signedAlignedArtifactPath}|grep SHA1",
         returnStdout: true
