@@ -39,5 +39,5 @@ def call(cfg, String signingRepository, String signingPath, String artifactPath)
     if (!artifactPath.endsWith("-unsigned.apk")) {
         error ("jplSign: should have an unsigned APK wich ends with 'signed-apk'")
     }
-    sh "ci-scripts/.jenkins_library/bin/signApk.sh --sdkVersion='${sdkVersion}' --projectName='${cfg.projectName}' --signingRepository='${signingRepository}' --signingPath=${signingPath}  --artifactPath='${artifactPath}'"
+    sh "ci-scripts/.jenkins_library/bin/signApk.sh --sdkVersion='${cfg.projectName}' --projectName='${cfg.projectName}' --signingRepository='${signingRepository}' --signingPath=${signingPath}  --artifactPath='${artifactPath}'"
 }
