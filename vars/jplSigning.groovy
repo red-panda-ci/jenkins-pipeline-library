@@ -40,8 +40,9 @@ def call(cfg, String repository, String signingPath, String artifactPath) {
         error ("jplSign: should have an unsigned APK wich ends with 'signed-apk'")
     }
     signedUnalignedArtifactPath = artifactPath.replace("-unsigned.apk","-signed-unaligned.apk")
+    signedAlignedArtifactPath = artifactPath.replace("-unsigned.apk","-signed-aligned.apk")
 
-    // Clone signing repo
+    // Clone signs repo
     sh "rm -rf ${repositoryBasePath} && mkdir -p ${repositoryBasePath} && git clone ${repository} ${repositoryBasePath}"
 
     // Read items from credentials file
@@ -55,12 +56,11 @@ def call(cfg, String repository, String signingPath, String artifactPath) {
         }
     }
 
-    // Sign
+    // Signing
     sh "jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ${repositoryBasePath}/${signingPath}/keystore.jks -storepass ${signingItem.STORE_PASSWORD} -keypass ${signingItem.KEY_PASSWORD} -signedjar ${signedUnalignedArtifactPath} ${artifactPath} ${signingItem.KEY_ALIAS}"
 
-    // Remove sign repository
-    fileOperations([folderDeleteOperation(["${repositoryBasePath}"]])
-    sh "rm -rf ${repositoryBasePath}"
+    // Remove signs repository
+    fileOperations([folderDeleteOperation(repositoryBasePath)])
 
     // Align
     zipalignCommandPath = sh (
