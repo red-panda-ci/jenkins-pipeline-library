@@ -9,7 +9,7 @@
   * String artifactPath Path to the artifact file to be signed, relative form the build workspace
 
   cfg usage:
-  * cfg.signing.*
+  * cfg.projectName
 
   Notes:
 
@@ -35,56 +35,9 @@
 /*
   Refactor: Put a script with the sign into "ci-scripts"
  */
-def call(cfg, String repository, String signingPath, String artifactPath) {
-    expectedSigningItem = [ "STORE_PASSWORD","KEY_ALIAS","KEY_PASSWORD","ARTIFACT_SHA1"]
-    repositoryBasePath = "ci-scripts/.signing_repository"
-
+def call(cfg, String signingRepository, String signingPath, String artifactPath) {
     if (!artifactPath.endsWith("-unsigned.apk")) {
         error ("jplSign: should have an unsigned APK wich ends with 'signed-apk'")
     }
-    signedUnalignedArtifactPath = artifactPath.replace("-unsigned.apk","-signed-unaligned.apk")
-    signedAlignedArtifactPath = artifactPath.replace("-unsigned.apk","-signed-aligned.apk")
-
-    // Clone signs repo
-    sh "rm -rf ${repositoryBasePath} && mkdir -p ${repositoryBasePath} && git clone ${repository} ${repositoryBasePath}"
-
-    // Read items from credentials file
-    signingItem = readJSON file: "${repositoryBasePath}/${signingPath}/credentials.json"
-
-    // Check presence of all expected items
-    for (int i = 0; i < expectedSigningItem.size(); i++) {
-        key = expectedSigningItem[i]
-        if (!signingItem.containsKey(key)) {
-            error("jplSigning: credentials config file should contain key ${key}")
-        }
-    }
-
-    // Signing
-    sh "ci-scripts/.jenkins_library/bin/buildApk.sh --sdkVersion=${cfg.projectName} --command='jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ${repositoryBasePath}/${signingPath}/keystore.jks -storepass ${signingItem.STORE_PASSWORD} -keypass ${signingItem.KEY_PASSWORD} -signedjar ${signedUnalignedArtifactPath} ${artifactPath} ${signingItem.KEY_ALIAS}'"
-
-    // Remove signs repository
-    fileOperations([folderDeleteOperation(repositoryBasePath)])
-
-    // Align
-    zipalignCommandPath = sh (
-        script: "ci-scripts/.jenkins_library/bin/buildApk.sh --sdkVersion=${cfg.projectName} --command='find /usr/local/android-sdk/build-tools/ -name zipalign|tail -n1'",
-        returnStdout: true
-    ).trim()
-    sh "ci-scripts/.jenkins_library/bin/buildApk.sh --sdkVersion=${cfg.projectName} --command='${zipalignCommandPath} -v -p 4 ${signedUnalignedArtifactPath} ${signedAlignedArtifactPath}'"
-
-    // Verify
-    sh "ci-scripts/.jenkins_library/bin/buildApk.sh --sdkVersion=${cfg.projectName} --command='keytool -list -printcert -jarfile ${signedAlignedArtifactPath}'"
-    signedArtifactSHA1 = sh (
-        script: "keytool -list -printcert -jarfile ${signedAlignedArtifactPath}|grep SHA1",
-        returnStdout: true
-    ).trim().tokenize(" ")
-
-    if (signedArtifactSHA1[0] != "SHA1:") {
-        error("jplSigning: error during sign verification")
-    }
-    signedArtifactSHA1[1] = signedArtifactSHA1[1].take(59)
-    if (signedArtifactSHA1[1] != signingItem.ARTIFACT_SHA1) {
-        error("jplSigning: signed artifact doesn't match. Expected '${signingItem.ARTIFACT_SHA1} but got '${signedArtifactSHA1[1]}'. Debug:")
-    }
-
+    sh "ci-scripts/.jenkins_library/bin/signApk.sh --sdkVersion='${sdkVersion}' --projectName='${cfg.projectName}' --signingRepository='${signingRepository}' --signingPath=${signingPath}  --artifactPath='${artifactPath}'"
 }
