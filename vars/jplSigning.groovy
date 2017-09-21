@@ -9,7 +9,7 @@
   * String artifactPath Path to the artifact file to be signed, relative form the build workspace
 
   cfg usage:
-  * cfg.signing.*
+  * cfg.projectName
 
   Notes:
 
@@ -32,47 +32,12 @@
         Both file should be placed in the a repository path, wich is informed with the "signingPath" parameter
 
 */
-def call(cfg, String repository, String signingPath, String artifactPath) {
-    expectedSigningItem = [ "STORE_PASSWORD","KEY_ALIAS","KEY_PASSWORD","ARTIFACT_SHA1"]
-    repositoryBasePath = "ci-scripts/.signing_repository"
-
+/*
+  Refactor: Put a script with the sign into "ci-scripts"
+ */
+def call(cfg, String signingRepository, String signingPath, String artifactPath) {
     if (!artifactPath.endsWith("-unsigned.apk")) {
         error ("jplSign: should have an unsigned APK wich ends with 'signed-apk'")
     }
-    signedArtifactPath = artifactPath.replace("-unsigned.apk","-signed.apk")
-
-    // Clone signing repo
-    sh "rm -rf ${repositoryBasePath} && mkdir -p ${repositoryBasePath} && git clone ${repository} ${repositoryBasePath}"
-
-    // Read items from credentials file
-    signingItem = readJSON file: "${repositoryBasePath}/${signingPath}/credentials.json"
-
-    // Check presence of all expected items
-    for (int i = 0; i < expectedSigningItem.size(); i++) {
-        key = expectedSigningItem[i]
-        if (!signingItem.containsKey(key)) {
-            error("jplSigning: credentials config file should contain key ${key}")
-        }
-    }
-
-    // Sign
-    sh "jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ${repositoryBasePath}/${signingPath}/keystore.jks -storepass ${signingItem.STORE_PASSWORD} -keypass ${signingItem.KEY_PASSWORD} -signedjar ${signedArtifactPath} ${artifactPath} ${signingItem.KEY_ALIAS}"
-
-    // Remove sign repository
-    sh "rm -rf ${repositoryBasePath}"
-
-    // Verify
-    sh "keytool -list -printcert -jarfile ${signedArtifactPath}"
-    signedArtifactSHA1 = sh (
-        script: "keytool -list -printcert -jarfile ${signedArtifactPath}|grep SHA1",
-        returnStdout: true
-    ).trim().tokenize(" ")
-
-    if (signedArtifactSHA1[0] != "SHA1:") {
-        error("jplSigning: error during sign verification")
-    }
-    signedArtifactSHA1[1] = signedArtifactSHA1[1].take(59)
-    if (signedArtifactSHA1[1] != signingItem.ARTIFACT_SHA1) {
-        error("jplSigning: signed artifact doesn't match. Expected '${signingItem.ARTIFACT_SHA1} but got '${signedArtifactSHA1[1]}'. Debug:")
-    }
+    sh "ci-scripts/.jenkins_library/bin/signApk.sh --sdkVersion='${cfg.projectName}' --signingRepository='${signingRepository}' --signingPath=${signingPath}  --artifactPath='${artifactPath}'"
 }

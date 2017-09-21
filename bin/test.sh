@@ -2,7 +2,7 @@
 cd $(dirname "$0")/..
 
 echo -n "# Start jenkins as a daemon container"
-id=$(docker run -v jpl-dind-cache:/var/lib/docker -v `pwd`:/tmp/jenkins-pipeline-library -d --privileged redpandaci/jenkins-dind)
+id=$(docker run -v jpl-dind-cache:/var/lib/docker -v `pwd`:/tmp/jenkins-pipeline-library -d --privileged -p 8080:8080 redpandaci/jenkins-dind)
 echo " with id ${id}"
 
 echo "# Copy jenkins configuration"
@@ -20,4 +20,4 @@ echo "# Execute the test"
 docker exec ${id} java -jar jenkins-cli.jar -s http://localhost:8080 build jplCheckoutSCM --username redpanda --password redpanda -s
 
 echo "# Stop jenkins daemon container"
-docker rm -f ${id}
+#docker rm -f ${id}
