@@ -67,7 +67,7 @@ def call(cfg, String repository, String signingPath, String artifactPath) {
 
     // Align
     zipalignCommandPath = sh (
-        script: "ci-scripts/.jenkins_library/bin/buildApk.sh --sdkVersion=${cfg.projectName} --command='find /usr/local/android-sdk/build-tools/ -name zipalign|tail -n1",
+        script: "ci-scripts/.jenkins_library/bin/buildApk.sh --sdkVersion=${cfg.projectName} --command='find /usr/local/android-sdk/build-tools/ -name zipalign|tail -n1'",
         returnStdout: true
     ).trim()
     sh "ci-scripts/.jenkins_library/bin/buildApk.sh --sdkVersion=${cfg.projectName} --command='${zipalignCommandPath} -v -p 4 ${signedUnalignedArtifactPath} ${signedAlignedArtifactPath}'"
