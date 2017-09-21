@@ -39,7 +39,7 @@ def call(cfg, String repository, String signingPath, String artifactPath) {
     if (!artifactPath.endsWith("-unsigned.apk")) {
         error ("jplSign: should have an unsigned APK wich ends with 'signed-apk'")
     }
-    signedArtifactPath = artifactPath.replace("-unsigned.apk","-signed.apk")
+    signedUnalignedArtifactPath = artifactPath.replace("-unsigned.apk","-signed-unaligned.apk")
 
     // Clone signing repo
     sh "rm -rf ${repositoryBasePath} && mkdir -p ${repositoryBasePath} && git clone ${repository} ${repositoryBasePath}"
@@ -56,15 +56,23 @@ def call(cfg, String repository, String signingPath, String artifactPath) {
     }
 
     // Sign
-    sh "jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ${repositoryBasePath}/${signingPath}/keystore.jks -storepass ${signingItem.STORE_PASSWORD} -keypass ${signingItem.KEY_PASSWORD} -signedjar ${signedArtifactPath} ${artifactPath} ${signingItem.KEY_ALIAS}"
+    sh "jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ${repositoryBasePath}/${signingPath}/keystore.jks -storepass ${signingItem.STORE_PASSWORD} -keypass ${signingItem.KEY_PASSWORD} -signedjar ${signedUnalignedArtifactPath} ${artifactPath} ${signingItem.KEY_ALIAS}"
 
     // Remove sign repository
+    fileOperations([folderDeleteOperation(["${repositoryBasePath}"]])
     sh "rm -rf ${repositoryBasePath}"
 
+    // Align
+    zipalignCommandPath = sh (
+        script: "find /usr/local/android-sdk/build-tools/ -name 'zipalign'|tail -n1",
+        returnStdout: true
+    ).trim()
+    sh "${zipalignCommandPath} -v -p 4 ${signedUnalignedArtifactPath} ${signedAlignedArtifactPath}"
+
     // Verify
-    sh "keytool -list -printcert -jarfile ${signedArtifactPath}"
+    sh "keytool -list -printcert -jarfile ${signedAlignedArtifactPath}"
     signedArtifactSHA1 = sh (
-        script: "keytool -list -printcert -jarfile ${signedArtifactPath}|grep SHA1",
+        script: "keytool -list -printcert -jarfile ${signedAlignedArtifactPath}|grep SHA1",
         returnStdout: true
     ).trim().tokenize(" ")
 
@@ -75,4 +83,5 @@ def call(cfg, String repository, String signingPath, String artifactPath) {
     if (signedArtifactSHA1[1] != signingItem.ARTIFACT_SHA1) {
         error("jplSigning: signed artifact doesn't match. Expected '${signingItem.ARTIFACT_SHA1} but got '${signedArtifactSHA1[1]}'. Debug:")
     }
+
 }
