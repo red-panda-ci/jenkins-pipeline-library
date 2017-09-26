@@ -1,20 +1,22 @@
 #!groovy
 
-@Library('github.com/red-panda-ci/jenkins-pipeline-library') _
+@Library('github.com/red-panda-ci/jenkins-pipeline-library@develop') _
 
 // Initialize global config
 cfg = jplConfig('jpl','backend','', [hipchat: '', slack: '', email:'redpandaci+jpl@gmail.com'])
 
 pipeline {
-    agent { label 'docker' }
+    agent none
 
     stages {
         stage ('Build') {
+            agent { label 'docker' }
             steps  {
                 jplCheckoutSCM(cfg)
             }
         }
         stage ('Test') {
+            agent { label 'docker' }
             steps  {
                 timestamps {
                     ansiColor('xterm') {
@@ -24,6 +26,7 @@ pipeline {
             }
         }
         stage('Sonarqube Analysis') {
+            agent { label 'docker' }
             steps {
                 jplSonarScanner(cfg)
             }
