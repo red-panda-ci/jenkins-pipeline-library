@@ -71,7 +71,7 @@ def call(cfg) {
             }
         }
         // @ie summary
-        print "@ie command: ${cfg.ie.commandName}, parameters: ${cfg.ie.parameter}"
+        echo "@ie command: ${cfg.ie.commandName}, parameters: ${cfg.ie.parameter}"
 
         // skip
         if (cfg.ie.commandName == "skip") {
@@ -80,7 +80,7 @@ def call(cfg) {
                 error("@ie command 'skip': aborting build")
             }
             else {
-                print "@ie command 'skip': only works in 'develop' branch, you are in ${cfg.BRANCH_NME} branch"
+                echo "@ie command 'skip': only works in 'develop' branch, you are in ${cfg.BRANCH_NME} branch"
             }
         }
     }

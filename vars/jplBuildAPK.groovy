@@ -17,30 +17,26 @@
 
 */
 def call(cfg,String command='') {
-    timestamps {
-        ansiColor('xterm') {
-            // Build default
-            if (command == '') {
-                if (cfg.ie.commandName == "fastlane") {
-                    for (int i = 0; i < cfg.ie.parameter.size(); i++) {
-                        parameter = cfg.ie.parameter[i]
-                        command = "fastlane ${parameter.name} versionSuffix:${cfg.versionSuffix}"
-                        for (int j = 0; j < parameter.option.size(); j++) {
-                            option = parameter.option[j]
-                            command = "${command} ${option.name}:${option.status}"
-                        }
-                        print "Execute @ie on lane '${parameter.name}' with command '${command}'"
-                        this.buildAPK(cfg,command)
-                    }
+    // Build default
+    if (command == '') {
+        if (cfg.ie.commandName == "fastlane") {
+            for (int i = 0; i < cfg.ie.parameter.size(); i++) {
+                parameter = cfg.ie.parameter[i]
+                command = "fastlane ${parameter.name} versionSuffix:${cfg.versionSuffix}"
+                for (int j = 0; j < parameter.option.size(); j++) {
+                    option = parameter.option[j]
+                    command = "${command} ${option.name}:${option.status}"
                 }
-                else {
-                    this.buildAPK(cfg,"fastlane ${cfg.laneName} versionSuffix:${cfg.versionSuffix}")
-                }
-            }
-            else {
+                echo "Execute @ie on lane '${parameter.name}' with command '${command}'"
                 this.buildAPK(cfg,command)
             }
         }
+        else {
+            this.buildAPK(cfg,"fastlane ${cfg.laneName} versionSuffix:${cfg.versionSuffix}")
+        }
+    }
+    else {
+        this.buildAPK(cfg,command)
     }
 }
 
