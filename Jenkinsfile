@@ -25,8 +25,7 @@ pipeline {
         }
         stage('Sonarqube Analysis') {
             steps {
-                //jplSonarScanner(cfg)
-                echo "ToDo: Sonar"
+                jplSonarScanner(cfg)
             }
         }
         stage ('Release confirm') {
