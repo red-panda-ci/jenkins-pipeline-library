@@ -13,17 +13,13 @@
 
 */
 def call(cfg,String packageFile, String app = '', String token = '') {
-    timestamps {
-        ansiColor('xterm') {
-            script {
-                app = (app == '') ? cfg.appetize.app : app
-                token = (token == '') ? cfg.appetize.token : token
-                sh """curl https://${token}@api.appetize.io/v1/apps/${app} -X POST \
-                    -F "file=@${packageFile}" \
-                    -F "note=branch:${BRANCH_NAME}, build: #${BUILD_NUMBER}" \
-                    -F "platform=${cfg.targetPlatform}"
-                """
-            }
-        }
+    script {
+        app = (app == '') ? cfg.appetize.app : app
+        token = (token == '') ? cfg.appetize.token : token
+        sh """curl https://${token}@api.appetize.io/v1/apps/${app} -X POST \
+            -F "file=@${packageFile}" \
+            -F "note=branch:${BRANCH_NAME}, build: #${BUILD_NUMBER}" \
+            -F "platform=${cfg.targetPlatform}"
+        """
     }
 }

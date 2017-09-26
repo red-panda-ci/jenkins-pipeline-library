@@ -13,10 +13,6 @@
 
 */
 def call(cfg, String upstreamBranch, String downstreamBranch) {
-    timestamps {
-        ansiColor('xterm') {
-          jplCheckoutSCM(cfg)
-          sh "wget -O - https://raw.githubusercontent.com/red-panda-ci/git-promote/master/git-promote | bash -s -- -m 'Merge from ${upstreamBranch} with Jenkins' ${upstreamBranch} ${downstreamBranch}"
-        }
-    }
+      jplCheckoutSCM(cfg)
+      sh "wget -O - https://raw.githubusercontent.com/red-panda-ci/git-promote/master/git-promote | bash -s -- -m 'Merge from ${upstreamBranch} with Jenkins' ${upstreamBranch} ${downstreamBranch}"
 }
