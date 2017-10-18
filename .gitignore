@@ -5,3 +5,5 @@
 # git
 !.gitignore
 !.gitkeep
+
+node_modules
