@@ -6,6 +6,8 @@
   * cfg jplConfig class object
 
 */
+def call(cfg) {
+}
 
 /**
 
