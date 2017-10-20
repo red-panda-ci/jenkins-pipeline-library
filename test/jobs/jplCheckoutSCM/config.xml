@@ -19,7 +19,7 @@
 
 node {
    echo &apos;jplCheckout text&apos;
-   jplCheckoutSCM(cfg,&apos;file:///tmp/jenkins-pipeline-library&apos;)
+   jplCheckoutSCM(cfg, &apos;https://github.com/red-panda-ci/jenkins-pipeline-library&apos;, &apos;develop&apos;)
 }
 </script>
     <sandbox>true</sandbox>
