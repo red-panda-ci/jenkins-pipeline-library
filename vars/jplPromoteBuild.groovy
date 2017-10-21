@@ -5,13 +5,13 @@
   Parameters:
   * cfg jplConfig class object
   * String message User input message, defaults to "Promote Build"
-  * String message User input description, defaults to "Check to promote the build, leave uncheck to finish the build without promote"
+  * String description User input description, defaults to "Check to promote the build, leave uncheck to finish the build without promote"
 
   cfg usage:
   * cfg.promoteBuild
 
 */
-def call(cfg, message = "Promote Build", description = "Check to promote the build, leave uncheck to finish the build without promote") {
+def call(cfg, String message = 'Promote Build', String description = 'Check to promote the build, leave uncheck to finish the build without promote') {
     try {
         cfg.promoteBuild = false
         timeout(time: 8, unit: 'HOURS') {
@@ -21,12 +21,12 @@ def call(cfg, message = "Promote Build", description = "Check to promote the bui
             )
         }
     } catch(err) { // timeout reached or input false
-        echo "Timeout reached / User aborted"
+        echo 'Timeout reached / User aborted'
     }
-    if (!cfg.promoteBuild) {
-        echo "Promote this build"
+    if (cfg.promoteBuild) {
+        echo 'Promote this build'
     }
     else {
-        echo "Don't promote this build"
+        echo 'Does not promote this build'
     }
 }
