@@ -11,11 +11,12 @@
   * String dockerfilePath The path where the Dockerfile is placed, default to the root path of the repository
 
 */
-def call(cfg, String dockerImageName, String dockerRegistryURL = '', String dockerRegistryJenkinsCredentials = '', String dockerfilePath = "./") {
+def call(cfg, String dockerImageName = '', String dockerRegistryURL = '', String dockerRegistryJenkinsCredentials = '', String dockerfilePath = "./") {
 
     script {
         def app
         dockerRegistryURL = (dockerRegistryURL == '') ? 'https://registry.hub.docker.com' : dockerRegistryURL
+        dockerImageName = (dockerImageName == '') ? cfg.projectName : dockerImageName
         dir(dockerfilePath) {
             app = docker.build(dockerImageName)
         }
