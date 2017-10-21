@@ -5,7 +5,7 @@ RETURN_VALUE=0
 TIMEBOX_SECONDS=3000
 
 echo -n "# Start jenkins as a time-boxed daemon container, running for max ${TIMEBOX_SECONDS} seconds"
-id=$(docker run -p 8080:8080 --rm -v jpl-dind-cache:/var/lib/docker -v `pwd`:/tmp/jenkins-pipeline-library -d --privileged redpandaci/jenkins-dind timeout ${TIMEBOX_SECONDS} /usr/bin/supervisord)
+id=$(docker run --rm -v jpl-dind-cache:/var/lib/docker -v `pwd`:/tmp/jenkins-pipeline-library -d --privileged redpandaci/jenkins-dind timeout ${TIMEBOX_SECONDS} /usr/bin/supervisord)
 RETURN_VALUE=$((RETURN_VALUE + $?))
 echo " with id ${id}"
 
@@ -32,7 +32,7 @@ docker exec ${id} java -jar jenkins-cli.jar -s http://localhost:8080 build jplDo
 RETURN_VALUE=$((RETURN_VALUE + $?))
 
 echo "# Stop jenkins daemon container"
-#docker rm -f ${id}
+docker rm -f ${id}
 RETURN_VALUE=$((RETURN_VALUE + $?))
 
 exit ${RETURN_VALUE}
