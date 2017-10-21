@@ -2,10 +2,10 @@
 cd $(dirname "$0")/..
 
 RETURN_VALUE=0
-TIMEBOX_SECONDS=300
+TIMEBOX_SECONDS=3000
 
 echo -n "# Start jenkins as a time-boxed daemon container, running for max ${TIMEBOX_SECONDS} seconds"
-id=$(docker run -v jpl-dind-cache:/var/lib/docker -v `pwd`:/tmp/jenkins-pipeline-library -d --privileged redpandaci/jenkins-dind timeout ${TIMEBOX_SECONDS} /usr/bin/supervisord)
+id=$(docker run -p 8080:8080 --rm -v jpl-dind-cache:/var/lib/docker -v `pwd`:/tmp/jenkins-pipeline-library -d --privileged redpandaci/jenkins-dind timeout ${TIMEBOX_SECONDS} /usr/bin/supervisord)
 RETURN_VALUE=$((RETURN_VALUE + $?))
 echo " with id ${id}"
 
@@ -24,15 +24,15 @@ echo "# Download jenkins cli"
 docker exec ${id} wget http://localhost:8080/jnlpJars/jenkins-cli.jar -q > /dev/null
 RETURN_VALUE=$((RETURN_VALUE + $?))
 
-echo -n "# Run jplCheckoutSCM Test... "
+echo "# Run jplCheckoutSCM Test..."
 docker exec ${id} java -jar jenkins-cli.jar -s http://localhost:8080 build jplCheckoutSCM --username redpanda --password redpanda -s
 RETURN_VALUE=$((RETURN_VALUE + $?))
-echo -n "# Run jplDocker Test... "
+echo "# Run jplDocker Test..."
 docker exec ${id} java -jar jenkins-cli.jar -s http://localhost:8080 build jplDocker --username redpanda --password redpanda -s
 RETURN_VALUE=$((RETURN_VALUE + $?))
 
 echo "# Stop jenkins daemon container"
-docker rm -f ${id}
+#docker rm -f ${id}
 RETURN_VALUE=$((RETURN_VALUE + $?))
 
 exit ${RETURN_VALUE}
