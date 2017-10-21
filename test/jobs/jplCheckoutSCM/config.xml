@@ -17,9 +17,11 @@
   <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.40">
     <script>cfg = jplConfig(&apos;jplCheckoutSCMTest&apos;, &apos;backend&apos;, &apos;&apos;, [hipchat: &apos;&apos;, slack: &apos;&apos;, email: &apos;&apos;])
 
-node {
-   echo &apos;jplCheckoutSCM test&apos;
-   jplCheckoutSCM(cfg, &apos;https://github.com/red-panda-ci/jenkins-pipeline-library&apos;, &apos;develop&apos;)
+stage (&apos;Test&apos;) {
+  node {
+    echo &apos;jplCheckoutSCM test&apos;
+    jplCheckoutSCM(cfg, &apos;https://github.com/red-panda-ci/jenkins-pipeline-library&apos;, &apos;develop&apos;)
+  }
 }
 </script>
     <sandbox>true</sandbox>
