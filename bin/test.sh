@@ -24,8 +24,11 @@ echo "# Download jenkins cli"
 docker exec ${id} wget http://localhost:8080/jnlpJars/jenkins-cli.jar -q > /dev/null
 RETURN_VALUE=$((RETURN_VALUE + $?))
 
-echo "# Execute the test"
+echo -n "# Run jplCheckoutSCM Test... "
 docker exec ${id} java -jar jenkins-cli.jar -s http://localhost:8080 build jplCheckoutSCM --username redpanda --password redpanda -s
+RETURN_VALUE=$((RETURN_VALUE + $?))
+echo -n "# Run jplDocker Test... "
+docker exec ${id} java -jar jenkins-cli.jar -s http://localhost:8080 build jplDocker --username redpanda --password redpanda -s
 RETURN_VALUE=$((RETURN_VALUE + $?))
 
 echo "# Stop jenkins daemon container"
