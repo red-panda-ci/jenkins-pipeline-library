@@ -21,7 +21,8 @@ def call(cfg, String message = 'Promote Build', String description = 'Check to p
             )
         }
     } catch(err) { // timeout reached or input false
-        echo 'Timeout reached / User aborted'
+        currentBuild.result = 'ABORTED'
+        error ('jplPromoteBuild: Timeout reached / User aborted. Aborting')
     }
     if (cfg.promoteBuild) {
         echo 'Promote this build'
