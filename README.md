@@ -230,7 +230,7 @@ cfg usage:
 * cfg.notify
 * cfg.recipients
 
-### jplDockerPush
+### jplDockerPush
 
 Docker image build & push to registry
 
@@ -238,7 +238,7 @@ Parameters:
 
 * cfg jplConfig class object
 * String dockerImageName Name of the docker image, defaults to cfg.projectName
-* String dockerRegistryURL The URL of the docker registry. Defaults to https://registry.hub.docker.com
+* String dockerRegistryURL The URL of the docker registry. Defaults to <https://registry.hub.docker.com>
 * String dockerRegistryJenkinsCredentials Jenkins credentials for the docker registry
 * String dockerfilePath The path where the Dockerfile is placed, default to the root path of the repository
 
@@ -347,13 +347,13 @@ cfg usage:
 
 Place the jplPostBuild(cfg) line into the "post" block of the pipeline like this
 
-´´´
+```groovy
     post {
         always {
             jplPostBuild(cfg)
         }
     }
-´´´
+```
 
 ### jplPromoteBuild
 
@@ -375,7 +375,7 @@ Promote code on release
 
 Merge code from upstream branch to downstream branch, then make "push" to the repository
 
-The function uses "git promote" script of https://github.com/red-panda-ci/git-promote
+The function uses "git promote" script of <https://github.com/red-panda-ci/git-promote>
 
 Parameters:
 
@@ -407,12 +407,14 @@ Notes:
 
     * Must have a "credentials.json" file with this content:
 
+        ```json
         {
             "STORE_PASSWORD": "store_password_value",
             "KEY_ALIAS": "key_alias_value",
             "KEY_PASSWORD": "key_password_value",
             "ARTIFACT_SHA1": "D7:22:FF:...."
         }
+        ```
 
     * Must have a "keystore.jks", as the signing keystore file
 
@@ -433,12 +435,11 @@ cfg usage:
 To use the jplSonarScanner() tool:
 
 * Configure Jenkins with SonarQube >= 6.2
-* Configure a webhook in Sonar to your jenkins URL <your-jenkins-instance>/sonar-webhook/ (https://jenkins.io/doc/pipeline/steps/sonar/#waitforqualitygate-wait-for-sonarqube-analysis-to-be-completed-and-return-quality-gate-status)
+* Configure a webhook in Sonar to your jenkins URL <your-jenkins-instance>/sonar-webhook/ (<https://jenkins.io/doc/pipeline/steps/sonar/#waitforqualitygate-wait-for-sonarqube-analysis-to-be-completed-and-return-quality-gate-status)>
 
+### jplValidateCommitMessages
 
-### jplValidateCommitMessages
-
-Validate commit messages on PR's using https://github.com/willsoto/validate-commit project
+Validate commit messages on PR's using <https://github.com/willsoto/validate-commit> project
 
 * Check a concrete quantity of commits on the actual PR on the code repository
 * Breaks the build if any commit don'w follow the preset rules
@@ -483,7 +484,7 @@ You should consider the following configurations:
   * Slack Notification, if you want to use Slack as notification channel
   * SonarQube Scanner, if you want to use SonerQube as quality gate with jplSonarScanner
   * Timestamper
-* Configure Jeknins in "Configurtion" main menu option
+* Configure Jeknins in "Configuration" main menu option
   * Enable the checkbox "Environment Variables" and add the following environment variables with each integration key:
     * APPETIZE_TOKEN
     * APPLIVERY_TOKEN
@@ -491,3 +492,74 @@ You should consider the following configurations:
     * JIRA_SITE
   * Put the correct Slack, Hipchat and JIRA credentials in their place (read the howto's of the related Jenkins plugins)
 
+## Testing
+
+You can run all tests in your workstations as if they run in Jenkins. The tests are executed in "jenkins-dind" docker image <https://hub.docker.com/r/redpandaci/jenkins-dind/> and uses a docker container with a time box run of 300 seconds. After the tests, or reaching the timeout, the container will be destroyed
+
+```bash
+$ bin/test.sh
+# Start jenkins as a time-boxed daemon container, running for max 300 seconds with id be376b46f66fc44cb4ee7ad6fb64e6cd5a94fdd8e3e79d89fcb61a4415580c53
+# Copy jenkins configuration
+# Preparing jpl code for testing
+Switched to a new branch 'release/v9.9.9'
+M	vars/jplPromoteCode.groovy
+M	vars/jplSonarScanner.groovy
+Switched to a new branch 'jpl-test'
+M	vars/jplPromoteCode.groovy
+M	vars/jplSonarScanner.groovy
+# Wait for jenkins service to be initialized
+# Download jenkins cli
+# Run jplCheckoutSCM Test...
+Started jplCheckoutSCM #1
+Completed jplCheckoutSCM #1 : SUCCESS
+# Run jplDockerPush Test...
+Started jplDockerPush #1
+Completed jplDockerPush #1 : SUCCESS
+# Run jplPromoteBuild Test...
+Started jplPromoteBuild #1
+Completed jplPromoteBuild #1 : ABORTED
+# Stop jenkins daemon container
+be376b46f66fc44cb4ee7ad6fb64e6cd5a94fdd8e3e79d89fcb61a4415580c53
+```
+
+If you are a library developer, you can use "local test" options for the test cript. In this case, the container open "8080" port to jenkins-dind with "redpanda/redpanda" credentials, so you can open the Jenkins in a web browser in <http://localhost:8080>
+
+After the test, the container will not be destroyed, so you must destroy it by yourself with "docker rm -f CONTAINER_ID"
+
+With "local test" options the script will test the library code that you're working on, taking changes of all helpers.
+
+```bash
+$ bin/test.sh local test
+# Start jenkins as a time-boxed daemon container, running for max 0 seconds with id 525dc9e86eb6abae8fbda933eb94fe4c8e463f761ae24c9a2dd5f16d2b09c9b5
+# Copy jenkins configuration
+# Preparing jpl code for testing
+Switched to a new branch 'release/v9.9.9'
+Switched to a new branch 'jpl-test'
+M	vars/jplPromoteCode.groovy
+M	vars/jplSonarScanner.groovy
+M	vars/jplPromoteCode.groovy
+M	vars/jplSonarScanner.groovy
+# Local test requested: Commit local jpl changes
+[jpl-test f8a6dea] test within docker
+ 2 files changed, 5 insertions(+), 3 deletions(-)
+# Wait for jenkins service to be initialized
+# Download jenkins cli
+# Run jplCheckoutSCM Test...
+Started jplCheckoutSCM #1
+Completed jplCheckoutSCM #1 : SUCCESS
+# Run jplDockerPush Test...
+Started jplDockerPush #1
+Completed jplDockerPush #1 : SUCCESS
+# Run jplPromoteBuild Test...
+Started jplPromoteBuild #1
+Completed jplPromoteBuild #1 : ABORTED
+$ echo $?
+0
+$ docker ps -a
+CONTAINER ID        IMAGE                     COMMAND                  CREATED             STATUS              PORTS                            NAMES
+525dc9e86eb6        redpandaci/jenkins-dind   "timeout 0 /usr/bi..."   2 minutes ago       Up About a minute   22/tcp, 0.0.0.0:8080->8080/tcp   stupefied_keller
+$ docker kill stupefied_keller 
+stupefied_keller
+$ docker ps -a
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+```
