@@ -15,11 +15,11 @@
     </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
   </properties>
   <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.40">
-    <script>cfg = jplConfig(&apos;jplDockerTest&apos;, &apos;backend&apos;, &apos;&apos;, [hipchat: &apos;&apos;, slack: &apos;&apos;, email: &apos;&apos;])
+    <script>cfg = jplConfig(&apos;jplDockerPushTest&apos;, &apos;backend&apos;, &apos;&apos;, [hipchat: &apos;&apos;, slack: &apos;&apos;, email: &apos;&apos;])
 
 stage (&apos;Test&apos;) {
   node {
-    echo &apos;jplDocker test&apos;
+    echo &apos;jplDockerPush test&apos;
     sh &apos;docker run -d -p 5000:5000 registry:2&apos;
     deleteDir()
     sh &apos;echo &quot;FROM ubuntu&quot; &gt; Dockerfile&apos;

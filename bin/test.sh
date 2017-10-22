@@ -4,42 +4,65 @@
 function runWithinDocker () {
     command=$1
     docker exec ${id} bash -c "${command}"
-    RETURN_VALUE=$((RETURN_VALUE + $?))
+    returnValue=$((returnValue + $?))
 }
 
 function runTest () {
-    echo "# Run ${testName} Test..."
     testName=$1
-    runWithinDocker "java -jar jenkins-cli.jar -s http://localhost:8080 build ${testName} --username redpanda --password redpanda -s"
-    docker cp ${id}:/root/.jenkins/jobs/jplCheckoutSCM/builds/1/log test/reports/${testName}.log
-    RETURN_VALUE=$((RETURN_VALUE + $?))
+    echo "# Run ${testName} Test..."
+    if [[ "$2" == "" ]]
+    then
+        expectedResult=0
+    else
+        expectedResult=$2
+    fi
+    docker exec ${id} bash -c "java -jar jenkins-cli.jar -s http://localhost:8080 build ${testName} --username redpanda --password redpanda -s"
+    if [[ "$?" -ne "${expectedResult}" ]]
+    then
+        returnValue=$((returnValue + 1))
+    fi
+    docker cp ${id}:/root/.jenkins/jobs/${testName}/builds/1/log test/reports/${testName}.log
+    returnValue=$((returnValue + $?))
 }
 
 # Configuration
 cd $(dirname "$0")/..
 mkdir -p test/reports
 rm -f test/reports/*
-RETURN_VALUE=0
-TIMEBOX_SECONDS=300
+returnValue=0
+doTests="false"
+if [[ "$1" == "local" ]]
+then
+    timeoutSeconds=0
+    containerPort="-p 8080:8080"
+    if [[ "$2" == "test" ]]
+    then
+        doTests="true"
+    fi
+else
+    doTests="true"
+    timeoutSeconds=300
+    containerPort=''
+fi
 
 # Main
-echo -n "# Start jenkins as a time-boxed daemon container, running for max ${TIMEBOX_SECONDS} seconds"
-id=$(docker run --rm -v jpl-dind-cache:/var/lib/docker -d --privileged redpandaci/jenkins-dind timeout ${TIMEBOX_SECONDS} /usr/bin/supervisord)
-RETURN_VALUE=$((RETURN_VALUE + $?))
+echo -n "# Start jenkins as a time-boxed daemon container, running for max ${timeoutSeconds} seconds"
+id=$(docker run ${containerPort} --rm -v jpl-dind-cache:/var/lib/docker -d --privileged redpandaci/jenkins-dind timeout ${timeoutSeconds} /usr/bin/supervisord)
+returnValue=$((returnValue + $?))
 echo " with id ${id}"
 
 echo "# Copy jenkins configuration"
 docker cp test/config/org.jenkinsci.plugins.workflow.libs.GlobalLibraries.xml ${id}:/root/.jenkins
-RETURN_VALUE=$((RETURN_VALUE + $?))
+returnValue=$((returnValue + $?))
 docker cp test/jobs/ ${id}:/root/.jenkins/jobs/
-RETURN_VALUE=$((RETURN_VALUE + $?))
+returnValue=$((returnValue + $?))
 
 echo "# Preparing jpl code for testing"
 docker cp `pwd` ${id}:/tmp/jenkins-pipeline-library
-RETURN_VALUE=$((RETURN_VALUE + $?))
-runWithinDocker "cd /tmp/jenkins-pipeline-library; git checkout -b 'jpl-test'"
+returnValue=$((returnValue + $?))
+runWithinDocker "cd /tmp/jenkins-pipeline-library; git checkout -b 'release/v9.9.9'; git checkout -b 'jpl-test'"
 
-if [[ $1 == 'local' ]]
+if [[ "$1" == 'local' ]]
 then
     echo "# Local test requested: Commit local jpl changes"
     runWithinDocker "git config --global user.email 'redpandaci@gmail.com'; git config --global user.name 'Red Panda CI'; cd /tmp/jenkins-pipeline-library; rm -f .git/hooks/*; git commit -am 'test within docker'"
@@ -52,15 +75,19 @@ echo "# Download jenkins cli"
 runWithinDocker "sleep 2; wget http://localhost:8080/jnlpJars/jenkins-cli.jar -q > /dev/null"
 
 # Run tests
-runTest "jplCheckoutSCM"
-runTest "jplDockerPush"
+if [[ ${doTests} == "true" ]]
+then
+    runTest "jplCheckoutSCM"
+    runTest "jplDockerPush"
+    runTest "jplPromoteBuild" 4
+fi
 
 # Remove container
-if [[ $1 != 'local' ]]
+if [[ "$1" != "local" ]]
 then
     echo "# Stop jenkins daemon container"
     docker rm -f ${id}
-    RETURN_VALUE=$((RETURN_VALUE + $?))
+    returnValue=$((returnValue + $?))
 fi
 
-exit ${RETURN_VALUE}
+exit ${returnValue}
