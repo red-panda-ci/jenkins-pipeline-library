@@ -1,6 +1,6 @@
 # Jenkins Pipeline Library
 
-[![Build Status](https://travis-ci.org/pedroamador/jenkins-pipeline-library.svg?branch=develop)](https://travis-ci.org/pedroamador/jenkins-pipeline-library)
+[![Build Status](https://jenkins.redpandaci.com/buildStatus/icon?job=red-panda-ci/jenkins-pipeline-library/develop)](https://jenkins.redpandaci.com/job/red-panda-ci/jenkins-pipeline-library/develop) [![Build Status](https://travis-ci.org/red-panda-ci/jenkins-pipeline-library.svg?branch=develop)](https://travis-ci.org/red-panda-ci/jenkins-pipeline-library)
 
 ## Description
 
@@ -39,10 +39,21 @@ pipeline {
     agent none
 
     stages {
+        stage ('Checkout') {
+            agent { label 'docker' }
+            steps  {
+                jplBuild(cfg)
+            }
+        }
+        stage ('Docker push') {
+            agent { label 'docker' }
+            steps  {
+                jplDockerPush(cfg, 'the-project/docker-image', 'https://registry.hub.docker.com', 'docker-hub-credentials', 'dockerfile-path')
+            }
+        }
         stage ('Build') {
             agent { label 'docker' }
             steps  {
-                jplCheckoutSCM(cfg)
                 jplBuild(cfg)
             }
         }
@@ -57,7 +68,7 @@ pipeline {
             agent { label 'docker' }
             when { branch 'release/*' }
             steps  {
-                jplSigning(cfg, "git@github.org:gigigo/sign-repsotory.git", "the-project", "app/build/outputs/apk/the-project-unsigned.apk")
+                jplSigning(cfg, "git@github.org:the-project/sign-repsotory.git", "the-project", "app/build/outputs/apk/the-project-unsigned.apk")
                 archiveArtifacts artifacts: "**/*-signed.apk", fingerprint: true, allowEmptyArchive: false
             }
         }
@@ -218,6 +229,22 @@ cfg usage:
 
 * cfg.notify
 * cfg.recipients
+
+### jplDockerPush
+
+Docker image build & push to registry
+
+Parameters:
+
+* cfg jplConfig class object
+* String dockerImageName Name of the docker image, defaults to cfg.projectName
+* String dockerRegistryURL The URL of the docker registry. Defaults to https://registry.hub.docker.com
+* String dockerRegistryJenkinsCredentials Jenkins credentials for the docker registry
+* String dockerfilePath The path where the Dockerfile is placed, default to the root path of the repository
+
+cfg usage:
+
+* cfg.projectName
 
 ### jplIE
 
