@@ -28,9 +28,11 @@ docker cp test/jobs/ ${id}:/root/.jenkins/jobs/
 RETURN_VALUE=$((RETURN_VALUE + $?))
 docker cp `pwd` ${id}:/tmp/jenkins-pipeline-library
 
+echo "# Preparing jpl for test"
+docker exec ${id} bash -c "cd /tmp/jenkins-pipeline-library; git checkout -b 'jpl-test'"
 if [[ $1 == 'local' ]]
 then
-    echo "# Commit local jpl changes"
+    echo "# Local test requested: Commit local jpl changes"
     docker exec ${id} bash -c "git config --global user.email 'redpandaci@gmail.com'; git config --global user.name 'Red Panda CI'; cd /tmp/jenkins-pipeline-library; rm -f .git/hooks/*; git commit -am 'test within docker'"
 fi
 
@@ -48,7 +50,7 @@ runTestWithinJenkins "jplCheckoutSCM"
 runTestWithinJenkins "jplDockerPush"
 
 echo "# Stop jenkins daemon container"
-docker rm -f ${id}
+#docker rm -f ${id}
 RETURN_VALUE=$((RETURN_VALUE + $?))
 
 exit ${RETURN_VALUE}
