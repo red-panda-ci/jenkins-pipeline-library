@@ -17,12 +17,10 @@ pipeline {
         }
         stage ('Test') {
             agent { label 'docker' }
+            when { expression { (env.BRANCH_NAME == 'develop') || env.BRANCH_NAME.startsWith('PR-') } }
             steps  {
-                timestamps {
-                    ansiColor('xterm') {
-                        sh 'bin/test.sh'
-                    }
-                }
+                sh 'bin/test.sh'
+                archiveArtifacts artifacts: 'test/reports/*', fingerprint: true, allowEmptyArchive: false
             }
         }
         stage('Sonarqube Analysis') {
