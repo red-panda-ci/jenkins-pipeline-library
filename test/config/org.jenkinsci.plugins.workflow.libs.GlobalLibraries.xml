@@ -13,7 +13,7 @@
           </traits>
         </scm>
       </retriever>
-      <defaultVersion>develop</defaultVersion>
+      <defaultVersion>jpl-test</defaultVersion>
       <implicit>true</implicit>
       <allowVersionOverride>true</allowVersionOverride>
       <includeInChangesets>true</includeInChangesets>
