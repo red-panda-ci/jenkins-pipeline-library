@@ -6,4 +6,4 @@
 !.gitignore
 !.gitkeep
 
-node_modules
+/test/reports
