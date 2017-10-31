@@ -78,7 +78,7 @@ runWithinDocker "sleep 2; wget http://localhost:8080/jnlpJars/jenkins-cli.jar -q
 # Run tests
 if [[ ${doTests} == "true" ]]
 then
-    runTest "jplCheckoutSCM"
+    runTest "jplCheckoutSCMTest"
     runTest "jplDockerPush"
     runTest "jplPromoteBuild" 4
     runTest "jplCloseReleaseTest"
