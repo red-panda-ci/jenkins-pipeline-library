@@ -62,7 +62,7 @@ docker cp `pwd` ${id}:/tmp/jenkins-pipeline-library
 returnValue=$((returnValue + $?))
 runWithinDocker "cd /tmp/jenkins-pipeline-library; git checkout -b 'release/v9.9.9'; git checkout -b 'jpl-test'"
 
-if [[ "$1" == 'local' ]]
+if [[ "$1" == "local" ]]
 then
     echo "# Local test requested: Commit local jpl changes"
     runWithinDocker "git config --global user.email 'redpandaci@gmail.com'; git config --global user.name 'Red Panda CI'; cd /tmp/jenkins-pipeline-library; rm -f .git/hooks/*; git commit -am 'test within docker'"
