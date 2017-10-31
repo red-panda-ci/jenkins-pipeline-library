@@ -80,7 +80,7 @@ if [[ ${doTests} == "true" ]]
 then
     runTest "jplCheckoutSCMTest"
     runTest "jplDockerPush"
-    runTest "jplPromoteBuild" 4
+    runTest "jplPromoteBuildTest" 4
     runTest "jplCloseReleaseTest"
 fi
 
