@@ -60,13 +60,14 @@ returnValue=$((returnValue + $?))
 echo "# Preparing jpl code for testing"
 docker cp `pwd` ${id}:/tmp/jenkins-pipeline-library
 returnValue=$((returnValue + $?))
-runWithinDocker "cd /tmp/jenkins-pipeline-library; git checkout -b 'release/v9.9.9'; git checkout -b 'jpl-test'"
-
 if [[ "$1" == "local" ]]
 then
     echo "# Local test requested: Commit local jpl changes"
-    runWithinDocker "git config --global user.email 'redpandaci@gmail.com'; git config --global user.name 'Red Panda CI'; cd /tmp/jenkins-pipeline-library; rm -f .git/hooks/*; git commit -am 'test within docker'"
+    runWithinDocker "git config --global user.email 'redpandaci@gmail.com'; git config --global user.name 'Red Panda CI'; cd /tmp/jenkins-pipeline-library; rm -f .git/hooks/*; git add -A; git commit -m 'test within docker'"
 fi
+runWithinDocker "cd /tmp/jenkins-pipeline-library; grep '\+refs/heads/\*:refs/remotes/origin/\*' .git/config -q || git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/*"
+runWithinDocker "cd /tmp/jenkins-pipeline-library; git checkout -b 'release/v9.9.9'; git checkout -b 'jpl-test'"
+
 
 echo "# Wait for jenkins service to be initialized"
 runWithinDocker "sleep 10; curl --max-time 50 --retry 10 --retry-delay 5 --retry-max-time 32 http://localhost:8080 -s > /dev/null"
@@ -80,6 +81,7 @@ then
     runTest "jplCheckoutSCM"
     runTest "jplDockerPush"
     runTest "jplPromoteBuild" 4
+    runTest "jplCloseReleaseTest"
 fi
 
 # Remove container
