@@ -28,7 +28,7 @@ def call(cfg) {
         }
         tag = cfg.BRANCH_NAME.split("/")[1]
     }
-    sh "grep '\\+refs/heads/\\*:refs/remotes/origin/\\*' .git/config -q || git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/*"
+    sh "git config credential.helper store; grep '\\+refs/heads/\\*:refs/remotes/origin/\\*' .git/config -q || git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/*"
     jplCheckoutSCM(cfg)
     // Promote to master
     sh "wget -O - https://raw.githubusercontent.com/red-panda-ci/git-promote/master/git-promote | bash -s -- -m 'Merge from ${cfg.BRANCH_NAME} with Jenkins' ${cfg.BRANCH_NAME} master"
