@@ -65,8 +65,7 @@ then
     echo "# Local test requested: Commit local jpl changes"
     runWithinDocker "git config --global user.email 'redpandaci@gmail.com'; git config --global user.name 'Red Panda CI'; cd /tmp/jenkins-pipeline-library; rm -f .git/hooks/*; git add -A; git commit -m 'test within docker'"
 fi
-runWithinDocker "cd /tmp/jenkins-pipeline-library; grep '\+refs/heads/\*:refs/remotes/origin/\*' .git/config -q || git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/*"
-runWithinDocker "cd /tmp/jenkins-pipeline-library; git checkout -b 'release/v9.9.9'; git checkout -b 'jpl-test'"
+runWithinDocker "cd /tmp/jenkins-pipeline-library; git checkout -b 'release/v9.9.9'; git checkout -b 'jpl-test'; git checkout -b develop; git checkout -b master"
 
 
 echo "# Wait for jenkins service to be initialized"
