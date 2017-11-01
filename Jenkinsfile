@@ -17,27 +17,28 @@ pipeline {
         }
         stage ('Test') {
             agent { label 'docker' }
-            when { expression { (env.BRANCH_NAME == 'develop') || env.BRANCH_NAME.startsWith('PR-') } }
+            when { expression { (env.BRANCH_NAME == 'develop') || env.BRANCH_NAME.startsWith('release/v') || env.BRANCH_NAME.startsWith('PR-') } }
             steps  {
                 sh 'bin/test.sh'
                 archiveArtifacts artifacts: 'test/reports/*', fingerprint: true, allowEmptyArchive: false
             }
         }
         stage('Sonarqube Analysis') {
+            when { expression { (env.BRANCH_NAME == 'develop') || env.BRANCH_NAME.startsWith('PR-') } }
             agent { label 'docker' }
             steps {
                 jplSonarScanner(cfg)
             }
         }
         stage ('Release confirm') {
-            when { branch 'release/*' }
+            when { branch 'release/v*' }
             steps {
                 jplPromoteBuild(cfg)
             }
         }
         stage ('Release finish') {
             agent { label 'docker' }
-            when { branch 'release/*' }
+            when { branch 'release/v*' }
             steps {
                 jplCloseRelease(cfg)
             }

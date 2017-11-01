@@ -101,6 +101,8 @@ pipeline {
     }
 
     options {
+        timestamps()
+        ansiColor('xterm')
         buildDiscarder(logRotator(artifactNumToKeepStr: '20',artifactDaysToKeepStr: '30'))
         disableConcurrentBuilds()
         skipDefaultCheckout()
@@ -203,7 +205,7 @@ cfg usage:
 This function will do some things for you based on the target platform:
 
 * "android". Prepare the workspace to build within native Docker of the Jenkins:
-  * Get the contents of the repository https://github.com/red-panda-ci/ci-scripts on the ci-scripts/.jenkins_library repository
+  * Get the contents of the repository <https://github.com/red-panda-ci/ci-scripts> on the ci-scripts/.jenkins_library repository
 * "ios" (TBD)
 * "hybrid" (TBD)
 * "backend" (TBD)
@@ -469,22 +471,28 @@ You should consider the following configurations:
 
 ### Jenkins service
 
+* Configure "git" to be able to make push to the repositories.
+  * Configure git credentials (username, password) <https://git-scm.com/docs/git-credential-store> for use with "https" remote repositories.
+  * Configure ssh public key for use with "ssh" remote repositories.
+* Install docker and enable Jenkins syste user to use the docker daemon.
 * Install this plugins:
   * AnsiColor
   * Bitbucket Branch Source
   * Bitbucket Plugin
   * Blue Ocean
+  * File Operations
   * Github Branch Source
   * Github Plugin
   * Git Plugin
   * HipChat, if you want to use hipchat as notification channel
+  * HTML Publisher
   * JIRA Pipeline Steps, if you want to use a JIRA project
   * Pipeline
   * Pipeline Utility Steps, if you want to sign android APK's artifacts with jplSigning
   * Slack Notification, if you want to use Slack as notification channel
   * SonarQube Scanner, if you want to use SonerQube as quality gate with jplSonarScanner
   * Timestamper
-* Configure Jeknins in "Configuration" main menu option
+* Setup Jeknins in "Configuration" main menu option
   * Enable the checkbox "Environment Variables" and add the following environment variables with each integration key:
     * APPETIZE_TOKEN
     * APPLIVERY_TOKEN

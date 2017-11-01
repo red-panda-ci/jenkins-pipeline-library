@@ -1,0 +1,27 @@
+cfg = jplConfig("jplCloseReleaseTest", "backend", "", [hipchat: "", slack: "", email: ""])
+cfg.promoteBuild = true
+cfg.BRANCH_NAME = "release/v9.9.9"
+
+pipeline {
+
+    agent any
+
+    stages {
+        stage ("Checkout SCM") {
+            steps  {
+                jplCheckoutSCM(cfg)
+            }
+        }
+        stage ("Close Release") {
+            steps {
+                jplCloseRelease(cfg)
+            }
+        }
+    }
+
+    options {
+        timestamps()
+        ansiColor("xterm")
+        skipDefaultCheckout()
+    }
+}
