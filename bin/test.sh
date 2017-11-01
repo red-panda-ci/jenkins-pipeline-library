@@ -66,7 +66,7 @@ then
     echo "# Local test requested: Commit local jpl changes"
     runWithinDocker "cd /tmp/jenkins-pipeline-library; rm -f .git/hooks/*; git add -A; git commit -m 'test within docker'"
 fi
-runWithinDocker "cd /tmp/jenkins-pipeline-library; git checkout -b 'release/v9.9.9'; git checkout -b 'jpl-test'; git checkout -b develop; git checkout -b master"
+runWithinDocker "cd /tmp/jenkins-pipeline-library; git checkout -b develop; git checkout -b master; git checkout -b 'jpl-test'; git checkout -b 'release/v9.9.9'"
 
 
 echo "# Wait for jenkins service to be initialized"
