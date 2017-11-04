@@ -39,16 +39,16 @@ pipeline {
     agent none
 
     stages {
-        stage ('Checkout') {
+        stage ('Initialize') {
             agent { label 'docker' }
             steps  {
-                jplBuild(cfg)
+                jplStart(cfg)
             }
         }
         stage ('Docker push') {
             agent { label 'docker' }
             steps  {
-                jplDockerPush(cfg, 'the-project/docker-image', 'https://registry.hub.docker.com', 'docker-hub-credentials', 'dockerfile-path')
+                jplDockerPush(cfg, 'the-project/docker-image', 'https://registry.hub.docker.com', 'dockerhub-credentials', 'dockerfile-path')
             }
         }
         stage ('Build') {
@@ -66,21 +66,21 @@ pipeline {
         }
         stage ('Sign') {
             agent { label 'docker' }
-            when { branch 'release/*' }
+            when { branch 'release/v*' }
             steps  {
                 jplSigning(cfg, "git@github.org:the-project/sign-repsotory.git", "the-project", "app/build/outputs/apk/the-project-unsigned.apk")
                 archiveArtifacts artifacts: "**/*-signed.apk", fingerprint: true, allowEmptyArchive: false
             }
         }
         stage ('Release confirm') {
-            when { branch 'release/*' }
+            when { branch 'release/v*' }
             steps {
                 jplPromoteBuild(cfg)
             }
         }
         stage ('Release finish') {
             agent { label 'docker' }
-            when { branch 'release/*' }
+            when { branch 'release/v*' }
             steps {
                 jplCloseRelease(cfg)
             }
@@ -439,6 +439,37 @@ To use the jplSonarScanner() tool:
 * Configure Jenkins with SonarQube >= 6.2
 * Configure a webhook in Sonar to your jenkins URL <your-jenkins-instance>/sonar-webhook/ (<https://jenkins.io/doc/pipeline/steps/sonar/#waitforqualitygate-wait-for-sonarqube-analysis-to-be-completed-and-return-quality-gate-status)>
 
+### jplStart
+
+Start library activities
+
+This helper should be executed as first step of the pipeline.
+
+* Prepare some things based on the target platform:
+  * "android". Prepare the workspace to build within native Docker of the Jenkins:
+  * Get the contents of the repository https://github.com/red-panda-ci/ci-scripts on the ci-scripts/.jenkins_library repository
+  * "ios" (TBD)
+  * "hybrid" (TBD)
+  * "backend" (TBD)
+* Execute for the jplValidateCommitMessages on Pull Request, breaking the build if the messages don't complaint with the parse rules
+* Execute jplBuildChangelog and attach the CHANGELOG.html as artifact of the build
+
+Parameters:
+
+* cfg jplConfig class object
+
+jpl usage:
+
+* jplBuildChangeLog
+* jplCheckoutSCM
+* jplIE
+* jplValidateCommitMessages
+
+cfg usage:
+
+* cfg.targetPlatform
+* cfg.isJplStarted
+
 ### jplValidateCommitMessages
 
 Validate commit messages on PR's using <https://github.com/willsoto/validate-commit> project
@@ -471,6 +502,11 @@ You should consider the following configurations:
 
 ### Jenkins service
 
+* Install Java "jre" and "jdk"
+```bash
+$ apt-get install default-jre default-jdk
+[...]
+```
 * Configure "git" to be able to make push to the repositories.
   * Configure git credentials (username, password) <https://git-scm.com/docs/git-credential-store> for use with "https" remote repositories and set "store" as global config option, with global user name and global email
     ```bash
@@ -520,6 +556,7 @@ You should consider the following configurations:
   * Bitbucket Branch Source
   * Bitbucket Plugin
   * Blue Ocean
+  * Copy Artifact Plugin
   * File Operations
   * Github Branch Source
   * Github Plugin

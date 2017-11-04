@@ -1,15 +1,17 @@
 /**
 
-  Upload package to appetize
+Upload package to appetize
 
-  Parameters:
-  * cfg jplConfig class object
-  * String packageFile File name to upload
-  * String app App ID
-  * String token Appetize token
+Parameters:
 
-  cfg usage:
-  * cfg.appetize[:] hashmap
+* cfg jplConfig class object
+* String packageFile File name to upload
+* String app App ID
+* String token Appetize token
+
+cfg usage:
+
+* cfg.appetize[:] hashmap
 
 */
 def call(cfg,String packageFile, String app = '', String token = '') {

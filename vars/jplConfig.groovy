@@ -26,6 +26,10 @@
       - iOS:      "** / *.ipa"
   * boolean promoteBuil             Flag to promote build to release steps          (default: false)
 
+  * Hashmap repository: repository parametes. You can use it for non-multibranch repository
+        String url                  URL                                             (default: '')
+        String branch               branch                                          (default: '')
+
   * Hashmap applivery: Applivery parameters
         String token                Account api key                                 (default: jenkins env.APPLIVERY_TOKEN)
         String app                  App ID                                          (default: jenkins env.APPLIVERY_APP)
@@ -65,6 +69,10 @@
         boolean enabled             Commit validation enabled status                (default: true)
         String preset               One of the willsoto validate commit presets     (default: 'eslint')
         int quantity                Number of commits to be checked                 (default: 10)
+
+  * Boolean buildChangelog          Automatically build changelog file              (default: true)
+                                    * Archive as artifact build on every commit
+                                    * Build and commit on jplCloseRelease
 */
 def call (projectName = 'project', targetPlatform = '', jiraProjectKey = '', recipients = [hipchat:'',slack:'',email:'']) {
     cfg = [:]
@@ -91,6 +99,11 @@ def call (projectName = 'project', targetPlatform = '', jiraProjectKey = '', rec
             break;
     }
     cfg.promoteBuild = false
+
+    //
+    cfg.repository = [:]
+    cfg.repository.url = ''
+    cfg.repository.branch = ''
 
     //
     cfg.applivery = [:]
@@ -132,7 +145,12 @@ def call (projectName = 'project', targetPlatform = '', jiraProjectKey = '', rec
         cfg.commitValidation.quantity       = 10
 
     //
-    cfg.dockerFunctionPrefix                = "docker run -i --rm -v jpl-dind-cache:/var/lib/docker"
+    cfg.buildChangelog                      = true
+
+    //
+    cfg.dockerFunctionPrefix                = "docker run -i --rm -v jpl-cache:/var/lib/docker"
+    cfg.isJplStarted                        = false
+
 
     //-----------------------------------------//
 

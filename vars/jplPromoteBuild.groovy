@@ -1,14 +1,16 @@
 /**
 
-  Promote build to next steps, waiting for user input
+Promote build to next steps, waiting for user input
 
-  Parameters:
-  * cfg jplConfig class object
-  * String message User input message, defaults to "Promote Build"
-  * String description User input description, defaults to "Check to promote the build, leave uncheck to finish the build without promote"
+Parameters:
 
-  cfg usage:
-  * cfg.promoteBuild
+* cfg jplConfig class object
+* String message User input message, defaults to "Promote Build"
+* String description User input description, defaults to "Check to promote the build, leave uncheck to finish the build without promote"
+
+cfg usage:
+
+* cfg.promoteBuild
 
 */
 def call(cfg, String message = 'Promote Build', String description = 'Check to promote the build, leave uncheck to finish the build without promote') {

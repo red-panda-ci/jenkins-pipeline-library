@@ -1,16 +1,19 @@
 /**
 
-  Launch SonarQube scanner
+Launch SonarQube scanner
 
-  Parameters:
-  * cfg jplConfig class object
+Parameters:
 
-  cfg usage:
-  * cfg.sonar.*
+* cfg jplConfig class object
 
-  To use the jplSonarScanner() tool:
-  * Configure Jenkins with SonarQube >= 6.2
-  * Configure a webhook in Sonar to your jenkins URL <your-jenkins-instance>/sonarqube-webhook/ (https://jenkins.io/doc/pipeline/steps/sonar/#waitforqualitygate-wait-for-sonarqube-analysis-to-be-completed-and-return-quality-gate-status)
+cfg usage:
+
+* cfg.sonar.*
+
+To use the jplSonarScanner() tool:
+
+* Configure Jenkins with SonarQube >= 6.2
+* Configure a webhook in Sonar to your jenkins URL <your-jenkins-instance>/sonarqube-webhook/ (https://jenkins.io/doc/pipeline/steps/sonar/#waitforqualitygate-wait-for-sonarqube-analysis-to-be-completed-and-return-quality-gate-status)
 
 */
 def call(cfg) {

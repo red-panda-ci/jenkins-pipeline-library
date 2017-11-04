@@ -1,9 +1,10 @@
 /**
 
-  JIRA management
+JIRA management
 
-  Parameters:
-  * cfg jplConfig class object
+Parameters:
+
+* cfg jplConfig class object
 
 */
 
@@ -15,16 +16,19 @@ def call(cfg) {
 
 /**
 
-  Check if the project exists.
-  Finish job with error if
-  - The project doen't exist in JIRA, and
-  - JIRA_FAIL_ON_ERROR env variable (or failOnError parameter) is set on "true"
+Check if the project exists.
+Finish job with error if
 
-  Parameters:
-  * cfg jplConfig object
+- The project doen't exist in JIRA, and
+- JIRA_FAIL_ON_ERROR env variable (or failOnError parameter) is set on "true"
 
-  cfg usage:
-  + cfg.jira.*
+Parameters:
+
+* cfg jplConfig object
+
+cfg usage:
+
++ cfg.jira.*
  
 */
 def checkProjectExists(cfg) {

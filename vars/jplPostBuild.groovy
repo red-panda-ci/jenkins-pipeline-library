@@ -1,16 +1,18 @@
 /**
 
-  Post build tasks
+Post build tasks
 
-  Parameters:
-  * cfg jplConfig class object
+Parameters:
 
-  cfg usage:
-  * cfg.targetPlatform
-  * cfg.notify
-  * cfg.jiraProjectKey
+* cfg jplConfig class object
 
-  Place the jplPostBuild(cfg) line into the "post" block of the pipeline like this
+cfg usage:
+
+* cfg.targetPlatform
+* cfg.notify
+* cfg.jiraProjectKey
+
+Place the jplPostBuild(cfg) line into the "post" block of the pipeline like this
 
     post {
         always {
