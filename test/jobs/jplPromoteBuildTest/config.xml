@@ -18,11 +18,11 @@
   <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.40">
     <script>#!groovy
 
-@Library(&apos;github.com/red-panda-ci/jenkins-pipeline-library&apos;) _
-
 // Initialize cfg
 cfg = jplConfig(&apos;jplPromoteBuildTest&apos;, &apos;backend&apos;, &apos;&apos;, [hipchat: &apos;&apos;, slack: &apos;&apos;, email: &apos;&apos;])
 cfg.BRANCH_NAME=&quot;release/v9.9.9&quot;
+cfg.repository.url = &apos;file:////tmp/jenkins-pipeline-library&apos;
+cfg.repository.branch = &apos;release/v9.9.9&apos;
 
 // The pipeline
 pipeline {
@@ -33,7 +33,7 @@ pipeline {
         stage (&apos;Checkout&apos;) {
             agent any
             steps  {
-                jplCheckoutSCM(cfg, &apos;file:///tmp/jenkins-pipeline-library&apos;, &apos;release/v9.9.9&apos;)
+                jplCheckoutSCM(cfg)
             }
         }
         stage (&apos;Release confirm&apos;) {
