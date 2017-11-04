@@ -1,5 +1,5 @@
 cfg = jplConfig("jplCloseReleaseTest", "backend", "", [hipchat: "", slack: "", email: ""])
-cfg.promoteBuild = true
+cfg.promoteBuild.active = true
 cfg.BRANCH_NAME = "release/v9.9.9"
 
 pipeline {

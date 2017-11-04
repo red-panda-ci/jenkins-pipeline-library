@@ -19,7 +19,7 @@ cfg usage:
 
 */
 def call(cfg) {
-    if (!cfg.promoteBuild) {
+    if (!cfg.promoteBuild.active) {
         echo "jplCloseRelease: you don't had confirmed the build"
         return false
     }
