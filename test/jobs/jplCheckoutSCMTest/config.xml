@@ -17,6 +17,9 @@
   <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.40">
     <script>cfg = jplConfig(&apos;jplCheckoutSCMTest&apos;, &apos;backend&apos;, &apos;&apos;, [hipchat: &apos;&apos;, slack: &apos;&apos;, email: &apos;&apos;])
 
+cfg.repository.url = &apos;file:////tmp/jenkins-pipeline-library&apos;
+cfg.repository.branch = &apos;jpl-test&apos;
+
 pipeline {
 
     agent any
@@ -25,7 +28,7 @@ pipeline {
         stage (&apos;Checkout SCM Test&apos;) {
             steps  {
                 echo &quot;jplCheckoutSCM Test&quot;;
-                jplCheckoutSCM(cfg, &apos;file:////tmp/jenkins-pipeline-library&apos;, &apos;jpl-test&apos;)
+                jplCheckoutSCM(cfg)
             }
         }
     }
