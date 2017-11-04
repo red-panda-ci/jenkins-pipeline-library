@@ -1,20 +1,21 @@
 /**
 
-  Close release (Branch "release/*")
+Close release (Branch "release/*")
 
-  Merge code from release/vX.Y.Z to "master" and "develop", then "push" to the repository.
-  Create new tag with "vX.Y.Z" to the commit
+Merge code from release/vX.Y.Z to "master" and "develop", then "push" to the repository.
+Create new tag with "vX.Y.Z" to the commit
 
-  The function uses "git promote" script
+The function uses "git promote" script
 
-  Fails if your repository is not in a "release/*" branch
+Fails if your repository is not in a "release/*" branch
 
-  Parameters:
-  * cfg jplConfig class object
+Parameters:
+* cfg jplConfig class object
 
-  cfg usage:
-  * cfg.notify
-  * cfg.recipients
+cfg usage:
+
+* cfg.notify
+* cfg.recipients
 
 */
 def call(cfg) {
@@ -29,13 +30,23 @@ def call(cfg) {
         tag = cfg.BRANCH_NAME.split("/")[1]
     }
     sh "grep '\\+refs/heads/\\*:refs/remotes/origin/\\*' .git/config -q || git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/*"
-    jplCheckoutSCM(cfg)
+    sh "git fetch -p"
+    // Build and commit changelog
+    if (cfg.buildChangelog) {
+        sh 'git tag ' + tag + ' -m "Release ' + tag + '" `git rev-list --no-merges -n 1 ' + cfg.BRANCH_NAME + '`'
+        sh "mkdir -p ci-scripts/reports"
+        jplBuildChangelog(cfg, tag, 'md', 'ci-scripts/reports/CHANGELOG.md')
+        sh "tail -n +7 ci-scripts/reports/CHANGELOG.md > CHANGELOG.md"
+        fileOperations([fileDeleteOperation(excludes: '', includes: 'ci-scripts/reports/CHANGELOG.md')])
+        sh 'git tag ' + tag + ' -d; git add CHANGELOG.md; git commit -m "Build: Update CHANGELOG.md to ' + tag + ' with Red Panda JPL"'
+    }
+
     // Promote to master
-    sh "wget -O - https://raw.githubusercontent.com/red-panda-ci/git-promote/master/git-promote | bash -s -- -m 'Merge from ${cfg.BRANCH_NAME} with Jenkins' ${cfg.BRANCH_NAME} master"
+    sh "wget -O - https://raw.githubusercontent.com/red-panda-ci/git-promote/master/git-promote | bash -s -- -m 'Merge from ${cfg.BRANCH_NAME} with Red Panda jpl' ${cfg.BRANCH_NAME} master"
     // Promote to develop
-    sh "wget -O - https://raw.githubusercontent.com/red-panda-ci/git-promote/master/git-promote | bash -s -- -m 'Merge from ${cfg.BRANCH_NAME} with Jenkins' ${cfg.BRANCH_NAME} develop"
+    sh "wget -O - https://raw.githubusercontent.com/red-panda-ci/git-promote/master/git-promote | bash -s -- -m 'Merge from ${cfg.BRANCH_NAME} with Red Panda jpl' ${cfg.BRANCH_NAME} develop"
     // Release TAG from last non-merge commit of the branch
-    sh 'git tag ' + tag + ' -m "Release ' + tag + '" `git rev-list --no-merges -n 1 ${cfg.BRANCH_NAME}`'
+    sh 'git tag ' + tag + ' -m "Release ' + tag + '" `git rev-list --no-merges -n 1 ' + cfg.BRANCH_NAME + '`'
     sh 'git push --tags'
     // Delete release branch from origin
     sh 'git push origin :' + cfg.BRANCH_NAME
