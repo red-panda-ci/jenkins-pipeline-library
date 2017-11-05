@@ -1,6 +1,8 @@
+#!groovy
 cfg = jplConfig("jplCloseReleaseTest", "backend", "", [hipchat: "", slack: "", email: ""])
-cfg.promoteBuild.active = true
+cfg.promoteBuild.enabled = true
 cfg.BRANCH_NAME = "release/v9.9.9"
+cfg.changelog.firstTag = "v0.8.0"
 
 pipeline {
 

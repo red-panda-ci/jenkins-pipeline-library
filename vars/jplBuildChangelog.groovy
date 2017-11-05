@@ -19,6 +19,14 @@
 */
 def call(cfg, String range = 'HEAD', String format = 'md', String filename = 'CHANGELOG.md') {
     script {
+        // Check firstTag range
+        if (cfg.changelog.firstTag != "") {
+            if (cfg.changelog.firstTag.startsWith("...")) {
+                range = range + cfg.changelog.firstTag
+            } else {
+                range = range + "..." + cfg.changelog.firstTag
+            }
+        }
         // Build changelog report to the build
         repositoryUrl = sh (
             script: "git ls-remote --get-url",

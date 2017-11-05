@@ -19,7 +19,7 @@ cfg usage:
 
 */
 def call(cfg) {
-    if (!cfg.promoteBuild.active) {
+    if (!cfg.promoteBuild.enabled) {
         echo "jplCloseRelease: you don't had confirmed the build"
         return false
     }
@@ -32,7 +32,7 @@ def call(cfg) {
     sh "grep '\\+refs/heads/\\*:refs/remotes/origin/\\*' .git/config -q || git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/*"
     sh "git fetch -p"
     // Build and commit changelog
-    if (cfg.buildChangelog) {
+    if (cfg.changelog.enabled) {
         sh 'git tag ' + tag + ' -m "Release ' + tag + '" `git rev-list --no-merges -n 1 ' + cfg.BRANCH_NAME + '`'
         sh "mkdir -p ci-scripts/reports"
         jplBuildChangelog(cfg, tag, 'md', 'ci-scripts/reports/CHANGELOG.md')

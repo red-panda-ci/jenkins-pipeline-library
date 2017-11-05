@@ -49,7 +49,7 @@ def call(cfg) {
             jplValidateCommitMessages(cfg)
         }
         // Build, archive and attach HTML changelog report to the build
-        if (cfg.buildChangelog) {
+        if (cfg.changelog.enabled) {
             sh "mkdir -p ci-scripts/reports"
             jplBuildChangelog(cfg, 'HEAD', 'html', 'ci-scripts/reports/CHANGELOG.html')
             archiveArtifacts artifacts: 'ci-scripts/reports/CHANGELOG.html', fingerprint: true, allowEmptyArchive: false
