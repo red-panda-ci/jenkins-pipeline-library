@@ -3,11 +3,11 @@
   <actions>
     <io.jenkins.blueocean.service.embedded.BlueOceanUrlAction plugin="blueocean-rest-impl@1.2.2">
       <blueOceanUrlObject class="io.jenkins.blueocean.service.embedded.BlueOceanUrlObjectImpl">
-        <mappedUrl>blue/organizations/jenkins/jplCheckoutSCMTest</mappedUrl>
+        <mappedUrl>blue/organizations/jenkins/jplStartTest</mappedUrl>
       </blueOceanUrlObject>
     </io.jenkins.blueocean.service.embedded.BlueOceanUrlAction>
   </actions>
-  <description>jplCheckoutSCMTest</description>
+  <description>jplStartTest</description>
   <keepDependencies>false</keepDependencies>
   <properties>
     <org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
@@ -15,8 +15,10 @@
     </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
   </properties>
   <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.40">
-    <script>cfg = jplConfig(&apos;jplCheckoutSCMTest&apos;, &apos;backend&apos;, &apos;&apos;, [hipchat: &apos;&apos;, slack: &apos;&apos;, email: &apos;&apos;])
+    <script>#!groovy
 
+// Initialize cfg
+cfg = jplConfig(&apos;jplPromoteBuildTest&apos;, &apos;backend&apos;, &apos;&apos;, [hipchat: &apos;&apos;, slack: &apos;&apos;, email: &apos;&apos;])
 cfg.repository.url = &apos;file:////tmp/jenkins-pipeline-library&apos;
 cfg.repository.branch = &apos;jpl-test&apos;
 
@@ -25,10 +27,10 @@ pipeline {
     agent any
 
     stages {
-        stage (&apos;Checkout SCM Test&apos;) {
+        stage (&apos;Start Test&apos;) {
             steps  {
-                echo &quot;jplCheckoutSCM Test&quot;;
-                jplCheckoutSCM(cfg)
+                echo &quot;jplStart Test&quot;;
+                jplStart(cfg)
             }
         }
     }
@@ -36,6 +38,7 @@ pipeline {
     options {
         timestamps()
         ansiColor(&apos;xterm&apos;)
+        skipDefaultCheckout()
     }
 }</script>
     <sandbox>true</sandbox>

@@ -24,7 +24,10 @@
     Defaults
       - Android:  "** / *.apk"
       - iOS:      "** / *.ipa"
-  * boolean promoteBuil             Flag to promote build to release steps          (default: false)
+
+  * Hashmap repository: repository parametes. You can use it for non-multibranch repository
+        String url                  URL                                             (default: '')
+        String branch               branch                                          (default: '')
 
   * Hashmap applivery: Applivery parameters
         String token                Account api key                                 (default: jenkins env.APPLIVERY_TOKEN)
@@ -65,6 +68,16 @@
         boolean enabled             Commit validation enabled status                (default: true)
         String preset               One of the willsoto validate commit presets     (default: 'eslint')
         int quantity                Number of commits to be checked                 (default: 10)
+
+  * Boolean buildChangelog          Automatically build changelog file              (default: true)
+                                    * Archive as artifact build on every commit
+                                    * Build and commit on jplCloseRelease
+
+  Other options for internal use:
+  * Hashmap promoteBuild: Promote build workflow configuration
+        Integer timeoutHours        * Number of hours to wait from user input       (default: 48)
+        boolean active              * Flag to promote build to release steps        (default: false)
+  
 */
 def call (projectName = 'project', targetPlatform = '', jiraProjectKey = '', recipients = [hipchat:'',slack:'',email:'']) {
     cfg = [:]
@@ -90,7 +103,11 @@ def call (projectName = 'project', targetPlatform = '', jiraProjectKey = '', rec
             cfg.artifactsPattern = ''
             break;
     }
-    cfg.promoteBuild = false
+
+    //
+    cfg.repository = [:]
+    cfg.repository.url = ''
+    cfg.repository.branch = ''
 
     //
     cfg.applivery = [:]
@@ -132,7 +149,16 @@ def call (projectName = 'project', targetPlatform = '', jiraProjectKey = '', rec
         cfg.commitValidation.quantity       = 10
 
     //
-    cfg.dockerFunctionPrefix                = "docker run -i --rm -v jpl-dind-cache:/var/lib/docker"
+    cfg.buildChangelog                      = true
+
+    //-----------------------------------------//
+
+    //
+    cfg.dockerFunctionPrefix                = "docker run -i --rm -v jpl-cache:/var/lib/docker"
+    cfg.promoteBuild                        = [:]
+        cfg.promoteBuild.active             = false
+        cfg.promoteBuild.timeoutHours       = 48
+    cfg.isJplStarted                        = false
 
     //-----------------------------------------//
 

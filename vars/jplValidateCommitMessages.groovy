@@ -1,24 +1,26 @@
 /**
 
-  Validate commit messages on PR's using https://github.com/willsoto/validate-commit project
+Validate commit messages on PR's using https://github.com/willsoto/validate-commit project
 
-  - Check a concrete quantity of commits on the actual PR on the code repository
-  - Breaks the build if any commit don'w follow the preset rules
+- Check a concrete quantity of commits on the actual PR on the code repository
+- Breaks the build if any commit don'w follow the preset rules
 
-  Parameters:
-  * cfg jplConfig class object
-  * int quantity Number of commits to check
-  * String preset Preset to use in validation
-    Should be one of the supported presets of the willsoto validate commit project:
-    - angular
-    - atom
-    - eslint
-    - ember
-    - jquery
-    - jshint
+Parameters:
 
-  cfg usage:
-  * cfg.commitValidation.*
+* cfg jplConfig class object
+* int quantity Number of commits to check
+* String preset Preset to use in validation
+  Should be one of the supported presets of the willsoto validate commit project:
+  - angular
+  - atom
+  - eslint
+  - ember
+  - jquery
+  - jshint
+
+cfg usage:
+
+* cfg.commitValidation.*
 
 */
 def call(cfg, quantity = null, preset = null) {

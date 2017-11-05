@@ -1,16 +1,18 @@
 /**
 
-  Upload package to applivery
+Upload package to applivery
 
-  Parameters:
-  * cfg jplConfig class object
-  * String packageFile File name to upload. Should be an iOS / Android app artifact.
-  * String app App id
-  * String token Applivery account token
+Parameters:
 
-  cfg usage:
-  * cfg.applivery[:] hashmap
-  * cfg.versionSuffix
+* cfg jplConfig class object
+* String packageFile File name to upload. Should be an iOS / Android app artifact.
+* String app App id
+* String token Applivery account token
+
+cfg usage:
+
+* cfg.applivery[:] hashmap
+* cfg.versionSuffix
   
 */
 def call(cfg, String packageFile, String app = '', String token = '') {

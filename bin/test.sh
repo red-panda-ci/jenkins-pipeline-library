@@ -60,7 +60,7 @@ returnValue=$((returnValue + $?))
 echo "# Preparing jpl code for testing"
 docker cp `pwd` ${id}:/tmp/jenkins-pipeline-library
 returnValue=$((returnValue + $?))
-runWithinDocker "git config --global user.email 'redpandaci@gmail.com'; git config --global user.name 'Red Panda CI'"
+runWithinDocker "git config --global push.default simple; git config --global user.email 'redpandaci@gmail.com'; git config --global user.name 'Red Panda CI'"
 if [[ "$1" == "local" ]]
 then
     echo "# Local test requested: Commit local jpl changes"
@@ -78,6 +78,7 @@ runWithinDocker "sleep 2; wget http://localhost:8080/jnlpJars/jenkins-cli.jar -q
 if [[ ${doTests} == "true" ]]
 then
     runTest "jplCheckoutSCMTest"
+    runTest "jplStartTest"
     runTest "jplDockerPush"
     runTest "jplPromoteBuildTest" 4
     runTest "jplCloseReleaseTest"

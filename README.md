@@ -39,16 +39,16 @@ pipeline {
     agent none
 
     stages {
-        stage ('Checkout') {
+        stage ('Initialize') {
             agent { label 'docker' }
             steps  {
-                jplBuild(cfg)
+                jplStart(cfg)
             }
         }
         stage ('Docker push') {
             agent { label 'docker' }
             steps  {
-                jplDockerPush(cfg, 'the-project/docker-image', 'https://registry.hub.docker.com', 'docker-hub-credentials', 'dockerfile-path')
+                jplDockerPush(cfg, 'the-project/docker-image', 'https://registry.hub.docker.com', 'dockerhub-credentials', 'dockerfile-path')
             }
         }
         stage ('Build') {
@@ -66,21 +66,21 @@ pipeline {
         }
         stage ('Sign') {
             agent { label 'docker' }
-            when { branch 'release/*' }
+            when { branch 'release/v*' }
             steps  {
                 jplSigning(cfg, "git@github.org:the-project/sign-repsotory.git", "the-project", "app/build/outputs/apk/the-project-unsigned.apk")
                 archiveArtifacts artifacts: "**/*-signed.apk", fingerprint: true, allowEmptyArchive: false
             }
         }
         stage ('Release confirm') {
-            when { branch 'release/*' }
+            when { branch 'release/v*' }
             steps {
                 jplPromoteBuild(cfg)
             }
         }
         stage ('Release finish') {
             agent { label 'docker' }
-            when { branch 'release/*' }
+            when { branch 'release/v*' }
             steps {
                 jplCloseRelease(cfg)
             }
@@ -439,6 +439,37 @@ To use the jplSonarScanner() tool:
 * Configure Jenkins with SonarQube >= 6.2
 * Configure a webhook in Sonar to your jenkins URL <your-jenkins-instance>/sonar-webhook/ (<https://jenkins.io/doc/pipeline/steps/sonar/#waitforqualitygate-wait-for-sonarqube-analysis-to-be-completed-and-return-quality-gate-status)>
 
+### jplStart
+
+Start library activities
+
+This helper should be executed as first step of the pipeline.
+
+* Prepare some things based on the target platform:
+  * "android". Prepare the workspace to build within native Docker of the Jenkins:
+  * Get the contents of the repository https://github.com/red-panda-ci/ci-scripts on the ci-scripts/.jenkins_library repository
+  * "ios" (TBD)
+  * "hybrid" (TBD)
+  * "backend" (TBD)
+* Execute for the jplValidateCommitMessages on Pull Request, breaking the build if the messages don't complaint with the parse rules
+* Execute jplBuildChangelog and attach the CHANGELOG.html as artifact of the build
+
+Parameters:
+
+* cfg jplConfig class object
+
+jpl usage:
+
+* jplBuildChangeLog
+* jplCheckoutSCM
+* jplIE
+* jplValidateCommitMessages
+
+cfg usage:
+
+* cfg.targetPlatform
+* cfg.isJplStarted
+
 ### jplValidateCommitMessages
 
 Validate commit messages on PR's using <https://github.com/willsoto/validate-commit> project
@@ -471,15 +502,61 @@ You should consider the following configurations:
 
 ### Jenkins service
 
+* Install Java "jre" and "jdk"
+```bash
+$ apt-get install default-jre default-jdk
+[...]
+```
 * Configure "git" to be able to make push to the repositories.
-  * Configure git credentials (username, password) <https://git-scm.com/docs/git-credential-store> for use with "https" remote repositories.
+  * Configure git credentials (username, password) <https://git-scm.com/docs/git-credential-store> for use with "https" remote repositories and set "store" as global config option, with global user name and global email
+    ```bash
+    $ git config --global credential.helper store
+    $ git config --global user.name "Red Panda"
+    $ git config --global user.email "redpandaci@gmail.com"
+    $ cat .gitconfig
+    [user]
+        email = redpandaci@gmail.com
+        name = Red Panda
+    [push]
+        default = simple
+    [credential]
+        helper = store
+    $ cat ~/.git-credentials
+    https://redpandaci%40gmail.com:fake-password@github.com
+    ```
   * Configure ssh public key for use with "ssh" remote repositories.
+  ```bash
+    $ ssh-keygen
+    Generating public/private rsa key pair.
+    Enter file in which to save the key (/var/lib/jenkins/.ssh/id_rsa): 
+    Enter passphrase (empty for no passphrase):
+    Enter same passphrase again:
+    Your identification has been saved in /var/lib/jenkins/.ssh/id_rsa.
+    Your public key has been saved in /var/lib/jenkins/.ssh/id_rsa.pub.
+    The key fingerprint is:
+    SHA256:+IKayZj7m06twLgUSWyb2jLINPjzp6uQeeyA8nmYjqk server@jenkins
+    The key's randomart image is:
+    +---[RSA 2048]----+
+    |                 |
+    |.                |
+    | +               |
+    |+ +    .         |
+    |.B    . S        |
+    |O*o. . .         |
+    |#+Boo . .        |
+    |o^oX. ..         |
+    |E=^+++           |
+    +----[SHA256]-----+
+    jenkins@server:~$ cat .ssh/id_rsa.pub
+    ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC72EdmruDtEoqF3BK7JPjgVGMfL7hnPVymdUEt76gk1U/sSaYsijbqxyhSbdp/8W7l1dwGA1Vs7cAn15qVzbUoJzmmM1rm7wPOBU7oBH1//oopA5U1XauXRuKWFQ8LDbjdaHBriBP4IyIG9fS+afgRwDlwlxx2mKuWhuYlHbBAxGwwDpxtTnvJ9JAnWG5eJ+8cXJ2PaIBlhc8jkjWkvLOnAWx729LdFQqWrikY5YwtNKw0CnU5XGBP96GcyR+k7PPkdr8LcVCewE042n6pw43e3H4GRlWU2w/nj/JniF6Tyx76hxSX9UMFiCKVXqM8blftqn9H7WGStt0b1pPhwtGT server@jenkins
+  ```
 * Install docker and enable Jenkins syste user to use the docker daemon.
 * Install this plugins:
   * AnsiColor
   * Bitbucket Branch Source
   * Bitbucket Plugin
   * Blue Ocean
+  * Copy Artifact Plugin
   * File Operations
   * Github Branch Source
   * Github Plugin

@@ -9,10 +9,10 @@ pipeline {
     agent none
 
     stages {
-        stage ('Build') {
+        stage ('Initialize') {
             agent { label 'docker' }
             steps  {
-                jplCheckoutSCM(cfg)
+                jplStart(cfg)
             }
         }
         stage ('Test') {

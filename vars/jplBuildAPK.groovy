@@ -1,19 +1,22 @@
 /**
 
-  Build APK with Fastlane within docker into Jenkins, based on jpl project configuration
+Build APK with Fastlane within docker into Jenkins, based on jpl project configuration
 
-  Parameters:
-  * cfg jplConfig class object
-  * string command What is the command to be executed in the build
-    Example: "./gradlew clean assembleDebug"
+Parameters:
 
-  cfg usage:
-  * cfg.projectName
-  * cfg.laneName
-  * cfg.versionSuffix
+* cfg jplConfig class object
+* string command What is the command to be executed in the build
+Example: "./gradlew clean assembleDebug"
 
-  Notes:
-  * Marked as DEPRECATED by jplBuild on 2017-09-02. Removed on a future release.
+cfg usage:
+
+* cfg.projectName
+* cfg.laneName
+* cfg.versionSuffix
+
+Notes:
+
+* Marked as DEPRECATED by jplBuild on 2017-09-02. Removed on a future release.
 
 */
 def call(cfg,String command='') {

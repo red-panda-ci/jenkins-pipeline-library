@@ -1,14 +1,16 @@
 /**
 
-  Notify using multiple methods: hipchat, slack, email
+Notify using multiple methods: hipchat, slack, email
 
-  Parameters:
-  * cfg jplConfig class object
-  * String summary The summary of the message (blank to use defaults)
-  * String message The message itself (blank to use defaults)
+Parameters:
 
-  cfg usage:
-  * cfg.recipients.*
+* cfg jplConfig class object
+* String summary The summary of the message (blank to use defaults)
+* String message The message itself (blank to use defaults)
+
+cfg usage:
+
+* cfg.recipients.*
 
 */
 def call(cfg, String summary = '', String message = '') {
