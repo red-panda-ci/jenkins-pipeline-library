@@ -47,7 +47,7 @@ fi
 
 # Main
 echo -n "# Start jenkins as a time-boxed daemon container, running for max ${timeoutSeconds} seconds"
-id=$(docker run ${containerPort} --rm -v jpl-dind-cache:/var/lib/docker -d --privileged redpandaci/jenkins-dind timeout ${timeoutSeconds} /usr/bin/supervisord)
+id=$(docker run ${containerPort} --rm -v jpl-dind-cache:/var/lib/docker -d --privileged redpandaci/jenkins-dind timeout ${timeoutSeconds} java -jar /usr/share/jenkins/jenkins.war)
 returnValue=$((returnValue + $?))
 echo " with id ${id}"
 
