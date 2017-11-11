@@ -34,9 +34,6 @@ Notes:
     Both file should be placed in the a repository path, wich is informed with the "signingPath" parameter
 
 */
-/*
-  Refactor: Put a script with the sign into "ci-scripts"
- */
 def call(cfg, String signingRepository, String signingPath, String artifactPath) {
     if (!artifactPath.endsWith("-unsigned.apk")) {
         error ("jplSign: should have an unsigned APK wich ends with 'signed-apk'")
