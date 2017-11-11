@@ -1,7 +1,4 @@
 /**
-
-Checkout SCM
-
 Get the code from SCM and init / update submodules
 Leave the repository on the actual branch, instead of "deatached"
 
@@ -13,7 +10,6 @@ cfg uage:
 
 * cfg.repository.url
 * cfg.repository.branch
-
 */
 def call(cfg) {
     script {

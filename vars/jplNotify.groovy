@@ -1,5 +1,4 @@
 /**
-
 Notify using multiple methods: hipchat, slack, email
 
 Parameters:
@@ -11,7 +10,6 @@ Parameters:
 cfg usage:
 
 * cfg.recipients.*
-
 */
 def call(cfg, String summary = '', String message = '') {
     script {

@@ -1,4 +1,4 @@
-/**
+
 Post build tasks
 
 Parameters:
@@ -18,9 +18,4 @@ Place the jplPostBuild(cfg) line into the "post" block of the pipeline like this
             jplPostBuild(cfg)
         }
     }
-*/
-def call(cfg) {
-    if (cfg.notify) {
-        jplNotify(cfg)
-    }
-}
+

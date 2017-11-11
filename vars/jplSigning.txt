@@ -1,4 +1,4 @@
-/**
+
 App signing management
 
 Parameters:
@@ -31,10 +31,4 @@ Notes:
     * Must have a "keystore.jks", as the signing keystore file
 
     Both file should be placed in the a repository path, wich is informed with the "signingPath" parameter
-*/
-def call(cfg, String signingRepository, String signingPath, String artifactPath) {
-    if (!artifactPath.endsWith("-unsigned.apk")) {
-        error ("jplSign: should have an unsigned APK wich ends with 'signed-apk'")
-    }
-    sh "ci-scripts/.jenkins_library/bin/signApk.sh --sdkVersion='${cfg.projectName}' --signingRepository='${signingRepository}' --signingPath=${signingPath}  --artifactPath='${artifactPath}'"
-}
+

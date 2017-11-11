@@ -1,6 +1,4 @@
-#!groovy
 /**
-
 Docker image build & push to registry
 
 Parameters:
@@ -15,7 +13,6 @@ Parameters:
 cfg usage:
 
 * cfg.projectName
-
 */
 def call(cfg, String dockerImageName = "", String dockerImageTag = "latest", String dockerRegistryURL = "", String dockerRegistryJenkinsCredentials = "", String dockerfilePath = "./") {
 

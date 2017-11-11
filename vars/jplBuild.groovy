@@ -1,5 +1,4 @@
 /**
-
 Build iOS / Android app with Fastlane
 
 - Android app will build using docker into Jenkins
@@ -17,7 +16,6 @@ Example: "./gradlew clean assembleDebug"
 cfg usage:
 
 * cfg.targetPlatform
-
 */
 def call(cfg, String command = '') {
     switch (cfg.targetPlatform) {

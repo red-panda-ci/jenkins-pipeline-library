@@ -1,5 +1,4 @@
 /**
-
 Upload package to applivery
 
 Parameters:
@@ -13,7 +12,6 @@ cfg usage:
 
 * cfg.applivery[:] hashmap
 * cfg.versionSuffix
-  
 */
 def call(cfg, String packageFile, String app = '', String token = '') {
     script {

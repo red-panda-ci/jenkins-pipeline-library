@@ -1,0 +1,18 @@
+
+Close release (Branch "release/*")
+
+Merge code from release/vX.Y.Z to "master" and "develop", then "push" to the repository.
+Create new tag with "vX.Y.Z" to the commit
+
+The function uses "git promote" script
+
+Fails if your repository is not in a "release/*" branch
+
+Parameters:
+* cfg jplConfig class object
+
+cfg usage:
+
+* cfg.notify
+* cfg.recipients
+

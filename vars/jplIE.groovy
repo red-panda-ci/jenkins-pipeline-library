@@ -1,5 +1,4 @@
 /**
-
 Integration Events (IE) management
 
 Parameters:
@@ -38,7 +37,6 @@ Commands:
 * Examples:
 
     "@ie gradlew clean assembleDebug"
-
 */
 def call(cfg) {
     cfg.ie.ieCommitRawText = sh (

@@ -128,7 +128,6 @@ cfg usage:
 
 * cfg.appetize[:] hashmap
 
-
 ### jplAppliveryUpload
 
 Upload package to applivery
@@ -144,7 +143,6 @@ cfg usage:
 
 * cfg.applivery[:] hashmap
 * cfg.versionSuffix
-  
 
 ### jplBuild
 
@@ -166,7 +164,6 @@ cfg usage:
 
 * cfg.targetPlatform
 
-
 ### jplBuildAPK
 
 Build APK with Fastlane within docker into Jenkins, based on jpl project configuration
@@ -187,7 +184,6 @@ Notes:
 
 * Marked as DEPRECATED by jplBuild on 2017-09-02. Removed on a future release.
 
-
 ### jplBuildChangelog
 
   Build changelog file based on the commit messages
@@ -206,10 +202,7 @@ Notes:
 
   * cfg.BRNACH_NAME
 
-
 ### jplCheckoutSCM
-
-Checkout SCM
 
 Get the code from SCM and init / update submodules
 Leave the repository on the actual branch, instead of "deatached"
@@ -222,7 +215,6 @@ cfg uage:
 
 * cfg.repository.url
 * cfg.repository.branch
-
 
 ### jplCloseRelease
 
@@ -242,7 +234,6 @@ cfg usage:
 
 * cfg.notify
 * cfg.recipients
-
 
 ### jplConfig
 
@@ -325,10 +316,8 @@ cfg usage:
   * Hashmap promoteBuild: Promote build workflow configuration
         Integer timeoutHours        * Number of hours to wait from user input       (default: 48)
         boolean enabled             * Flag to promote build to release steps        (default: false)
-  
 
-### jplDockerPush#!groovy
-
+### jplDockerPush
 
 Docker image build & push to registry
 
@@ -344,7 +333,6 @@ Parameters:
 cfg usage:
 
 * cfg.projectName
-
 
 ### jplIE
 
@@ -387,7 +375,6 @@ Commands:
 
     "@ie gradlew clean assembleDebug"
 
-
 ### jplJIRA
 
 JIRA management
@@ -413,7 +400,6 @@ cfg usage:
 
 * cfg.recipients.*
 
-
 ### jplPostBuild
 
 Post build tasks
@@ -436,8 +422,6 @@ Place the jplPostBuild(cfg) line into the "post" block of the pipeline like this
         }
     }
 
-
-
 ### jplPromoteBuild
 
 Promote build to next steps, waiting for user input
@@ -452,7 +436,6 @@ cfg usage:
 
 * cfg.promoteBuild
 
-
 ### jplPromoteCode
 
 Promote code on release
@@ -466,7 +449,6 @@ Parameters:
 * cfg jplConfig class object
 * String updateBranch The branch "source" of the merge
 * String downstreamBranch The branch "target" of the merge
-
 
 ### jplSigning
 
@@ -503,10 +485,6 @@ Notes:
 
     Both file should be placed in the a repository path, wich is informed with the "signingPath" parameter
 
-
-/*
-  Refactor: Put a script with the sign into "ci-scripts"
- 
 ### jplSonarScanner
 
 Launch SonarQube scanner
@@ -523,7 +501,6 @@ To use the jplSonarScanner() tool:
 
 * Configure Jenkins with SonarQube >= 6.2
 * Configure a webhook in Sonar to your jenkins URL <your-jenkins-instance>/sonarqube-webhook/ (https://jenkins.io/doc/pipeline/steps/sonar/#waitforqualitygate-wait-for-sonarqube-analysis-to-be-completed-and-return-quality-gate-status)
-
 
 ### jplStart
 
@@ -555,7 +532,6 @@ cfg usage:
 
 * cfg.targetPlatform
 * cfg.isJplStarted
-
 
 ### jplValidateCommitMessages
 

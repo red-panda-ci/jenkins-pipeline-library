@@ -1,0 +1,13 @@
+
+Get the code from SCM and init / update submodules
+Leave the repository on the actual branch, instead of "deatached"
+
+Parameters:
+
+* cfg jplConfig class object
+
+cfg uage:
+
+* cfg.repository.url
+* cfg.repository.branch
+

@@ -1,4 +1,4 @@
-/**
+
 Validate commit messages on PR's using https://github.com/willsoto/validate-commit project
 
 - Check a concrete quantity of commits on the actual PR on the code repository
@@ -20,11 +20,4 @@ Parameters:
 cfg usage:
 
 * cfg.commitValidation.*
-*/
-def call(cfg, quantity = null, preset = null) {
-    script {
-        quantity = (quantity == null) ? cfg.commitValidation.quantity : quantity
-        preset = (preset == null) ? cfg.commitValidation.preset : preset
-        sh "git log --oneline --no-merges -n ${quantity}|cut -c9-|${cfg.dockerFunctionPrefix} -e PRESET='${preset}' madoos/node-commit-validator:latest"
-    }
-}
+

@@ -5,8 +5,9 @@ cd $(dirname "$0")/..
 DOCUMENTATION="$(cd vars
 for file in jpl*.groovy 
 do
-    echo -n "###" `echo -n ${file}|cut -f 1 -d "."`
-    sed "/def call/Q" ${file} |sed "s/\/\*\*//g"|sed "s/\*\///g"
+    title=`echo -n ${file}|cut -f 1 -d "."`
+    echo "### ${title}"
+    sed "/def call/Q" ${file}|sed "s/\/\*\*//g"|sed "s/\*\///g" |tee ${title}.txt
 done
 )"
 
