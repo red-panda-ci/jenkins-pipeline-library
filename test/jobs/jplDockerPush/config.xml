@@ -23,7 +23,7 @@ stage (&apos;Test&apos;) {
     sh &apos;docker run -d -p 5000:5000 registry:2&apos;
     deleteDir()
     sh &apos;echo &quot;FROM ubuntu&quot; &gt; Dockerfile&apos;
-    jplDockerPush(cfg, &apos;jpl-docker-test&apos;, &apos;http://localhost:5000&apos;)
+    jplDockerPush(cfg, &apos;jpl-docker-test&apos;, &apos;test&apos;, &apos;http://localhost:5000&apos;)
   }
 }
 </script>

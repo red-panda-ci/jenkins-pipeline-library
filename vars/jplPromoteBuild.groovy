@@ -15,9 +15,9 @@ cfg usage:
 */
 def call(cfg, String message = 'Promote Build', String description = 'Check to promote the build, leave uncheck to finish the build without promote') {
     try {
-        cfg.promoteBuild.active = false
+        cfg.promoteBuild.enabled = false
         timeout(time: cfg.promoteBuild.timeoutHours, unit: 'HOURS') {
-            cfg.promoteBuild.active = input(
+            cfg.promoteBuild.enabled = input(
                 id: 'promoteBuild', message: message,
                 parameters: [[$class: 'BooleanParameterDefinition', defaultValue: false, description: description, name: 'promoteBuild']]
             )
@@ -26,7 +26,7 @@ def call(cfg, String message = 'Promote Build', String description = 'Check to p
         currentBuild.result = 'ABORTED'
         error ('jplPromoteBuild: Timeout reached / User aborted. Aborting')
     }
-    if (cfg.promoteBuild.active) {
+    if (cfg.promoteBuild.enabled) {
         echo 'Promote this build'
     }
     else {

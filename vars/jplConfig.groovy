@@ -69,14 +69,16 @@
         String preset               One of the willsoto validate commit presets     (default: 'eslint')
         int quantity                Number of commits to be checked                 (default: 10)
 
-  * Boolean buildChangelog          Automatically build changelog file              (default: true)
+  * Hashmap changelog: Changelog building configuration
+        boolean enabled             Automatically build changelog file              (default: true)
                                     * Archive as artifact build on every commit
                                     * Build and commit on jplCloseRelease
+        String firstTag             First tag, branch or commit to be reviewed      (default: "")
 
   Other options for internal use:
   * Hashmap promoteBuild: Promote build workflow configuration
         Integer timeoutHours        * Number of hours to wait from user input       (default: 48)
-        boolean active              * Flag to promote build to release steps        (default: false)
+        boolean enabled             * Flag to promote build to release steps        (default: false)
   
 */
 def call (projectName = 'project', targetPlatform = '', jiraProjectKey = '', recipients = [hipchat:'',slack:'',email:'']) {
@@ -149,14 +151,16 @@ def call (projectName = 'project', targetPlatform = '', jiraProjectKey = '', rec
         cfg.commitValidation.quantity       = 10
 
     //
-    cfg.buildChangelog                      = true
+    cfg.changelog                           = [:]
+        cfg.changelog.enabled               = true
+        cfg.changelog.firstTag              = ""
 
     //-----------------------------------------//
 
     //
     cfg.dockerFunctionPrefix                = "docker run -i --rm -v jpl-cache:/var/lib/docker"
     cfg.promoteBuild                        = [:]
-        cfg.promoteBuild.active             = false
+        cfg.promoteBuild.enabled            = false
         cfg.promoteBuild.timeoutHours       = 48
     cfg.isJplStarted                        = false
 
