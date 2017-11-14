@@ -16,7 +16,7 @@ pipeline {
         }
         stage ("Close Release") {
             steps {
-                echo "Closing release: ${cfg.releaseTag}"
+                echo "Closing release: ${cfg.releaseTag}, short one ${cfg.releaseTagNumber}"
                 jplCloseRelease(cfg)
             }
         }

@@ -24,6 +24,9 @@
       - Android:  "** / *.apk"
       - iOS:      "** / *.ipa"
   * String releaseTag               Release tag for branches like "release/vX.Y.Z"  (default: related tag or "" on non-release branches)
+                                    The releaseTag for this case is "vX.Y.Z"
+  * String releaseTagNumber         Release tag for branches like "release/vX.Y.Z"  (default: related tag or "" on non-release branches)
+                                    only the number part. Refers to "X.Y.Z" without the starting "v" 
 
   * Hashmap repository: repository parametes. You can use it for non-multibranch repository
         String url                  URL                                             (default: '')
@@ -106,6 +109,7 @@ def call (projectName = 'project', targetPlatform = '', jiraProjectKey = '', rec
             break;
     }
     cfg.releaseTag                          = cfg.BRANCH_NAME.startsWith('release/v') ? cfg.BRANCH_NAME.tokenize("/")[1] : ""
+    cfg.releaseTagNumber                    = cfg.BRANCH_NAME.startsWith('release/v') ? cfg.BRANCH_NAME.tokenize("/")[1].substring(1,6) : ""
 
     //
     cfg.repository = [:]

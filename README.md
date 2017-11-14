@@ -1,6 +1,6 @@
 # Jenkins Pipeline Library
 
-[![Build Status](http://jenkins.redpandaci.com/buildStatus/icon?job=red-panda-ci/jenkins-pipeline-library/develop)](http://jenkins.redpandaci.com/job/red-panda-ci/job/jenkins-pipeline-library/job/develop/) [![Build Status](https://travis-ci.org/red-panda-ci/jenkins-pipeline-library.svg?branch=develop)](https://travis-ci.org/red-panda-ci/jenkins-pipeline-library)
+[![Build Status](http://jenkins.redpandaci.com/buildStatus/icon?job=red-panda-ci/jenkins-pipeline-library/develop)](https://jenkins.redpandaci.com/job/red-panda-ci/job/jenkins-pipeline-library/job/develop/) [![Build Status](https://travis-ci.org/red-panda-ci/jenkins-pipeline-library.svg?branch=develop)](https://travis-ci.org/red-panda-ci/jenkins-pipeline-library)
 
 ## Description
 
