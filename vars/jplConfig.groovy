@@ -10,19 +10,20 @@
   ---------------
   cfg definitions
   ---------------
-  * string  projectName             Project alias / codename (with no spaces)       (default: "project")
-  * string  BRANCH_NAME             Branch name                                     (default: env.BRANCH_NAME)
-  * string  laneName                Fastlane lane name                              (default: related to branch name)
-  * string  targetPlatform          Target platform, one of these                   (default: "")
+  * String  projectName             Project alias / codename (with no spaces)       (default: "project")
+  * String  BRANCH_NAME             Branch name                                     (default: env.BRANCH_NAME)
+  * String  laneName                Fastlane lane name                              (default: related to branch name)
+  * String  targetPlatform          Target platform, one of these                   (default: "")
     - "android"
     - "ios"
     - "hybrid"
     - "backend"
   * boolean notify                  Automatically send notifications                (default: true)
-  * string  archivePattern          Atifacts archive pattern
+  * String  archivePattern          Atifacts archive pattern
     Defaults
       - Android:  "** / *.apk"
       - iOS:      "** / *.ipa"
+  * String releaseTag               Release tag for branches like "release/vX.Y.Z"  (default: related tag or "" on non-release branches)
 
   * Hashmap repository: repository parametes. You can use it for non-multibranch repository
         String url                  URL                                             (default: '')
@@ -78,6 +79,7 @@
   * Hashmap promoteBuild: Promote build workflow configuration
         Integer timeoutHours        * Number of hours to wait from user input       (default: 48)
         boolean enabled             * Flag to promote build to release steps        (default: false)
+
 */
 def call (projectName = 'project', targetPlatform = '', jiraProjectKey = '', recipients = [hipchat:'',slack:'',email:'']) {
     cfg = [:]
@@ -103,6 +105,7 @@ def call (projectName = 'project', targetPlatform = '', jiraProjectKey = '', rec
             cfg.artifactsPattern = ''
             break;
     }
+    cfg.releaseTag                          = cfg.BRANCH_NAME.startsWith('release/v') ? cfg.BRANCH_NAME.tokenize("/")[1] : ""
 
     //
     cfg.repository = [:]
