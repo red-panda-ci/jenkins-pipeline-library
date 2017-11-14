@@ -10,19 +10,23 @@
   ---------------
   cfg definitions
   ---------------
-  * string  projectName             Project alias / codename (with no spaces)       (default: "project")
-  * string  BRANCH_NAME             Branch name                                     (default: env.BRANCH_NAME)
-  * string  laneName                Fastlane lane name                              (default: related to branch name)
-  * string  targetPlatform          Target platform, one of these                   (default: "")
+  * String  projectName             Project alias / codename (with no spaces)       (default: "project")
+  * String  BRANCH_NAME             Branch name                                     (default: env.BRANCH_NAME)
+  * String  laneName                Fastlane lane name                              (default: related to branch name)
+  * String  targetPlatform          Target platform, one of these                   (default: "")
     - "android"
     - "ios"
     - "hybrid"
     - "backend"
   * boolean notify                  Automatically send notifications                (default: true)
-  * string  archivePattern          Atifacts archive pattern
+  * String  archivePattern          Atifacts archive pattern
     Defaults
       - Android:  "** / *.apk"
       - iOS:      "** / *.ipa"
+  * String releaseTag               Release tag for branches like "release/vX.Y.Z"  (default: related tag or "" on non-release branches)
+                                    The releaseTag for this case is "vX.Y.Z"
+  * String releaseTagNumber         Release tag for branches like "release/vX.Y.Z"  (default: related tag or "" on non-release branches)
+                                    only the number part. Refers to "X.Y.Z" without the starting "v"
 
   * Hashmap repository: repository parametes. You can use it for non-multibranch repository
         String url                  URL                                             (default: '')
@@ -78,4 +82,5 @@
   * Hashmap promoteBuild: Promote build workflow configuration
         Integer timeoutHours        * Number of hours to wait from user input       (default: 48)
         boolean enabled             * Flag to promote build to release steps        (default: false)
+
 

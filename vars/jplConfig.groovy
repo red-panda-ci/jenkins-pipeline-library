@@ -26,7 +26,7 @@
   * String releaseTag               Release tag for branches like "release/vX.Y.Z"  (default: related tag or "" on non-release branches)
                                     The releaseTag for this case is "vX.Y.Z"
   * String releaseTagNumber         Release tag for branches like "release/vX.Y.Z"  (default: related tag or "" on non-release branches)
-                                    only the number part. Refers to "X.Y.Z" without the starting "v" 
+                                    only the number part. Refers to "X.Y.Z" without the starting "v"
 
   * Hashmap repository: repository parametes. You can use it for non-multibranch repository
         String url                  URL                                             (default: '')
