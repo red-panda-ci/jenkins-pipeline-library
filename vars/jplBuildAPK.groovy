@@ -1,5 +1,4 @@
 /**
-
 Build APK with Fastlane within docker into Jenkins, based on jpl project configuration
 
 Parameters:
@@ -17,7 +16,6 @@ cfg usage:
 Notes:
 
 * Marked as DEPRECATED by jplBuild on 2017-09-02. Removed on a future release.
-
 */
 def call(cfg,String command='') {
     // Build default

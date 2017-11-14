@@ -5,15 +5,16 @@ cd $(dirname "$0")/..
 DOCUMENTATION="$(cd vars
 for file in jpl*.groovy 
 do
-    echo -n "###" `echo -n ${file}|cut -f 1 -d "."`
-    sed "/def call/Q" ${file} |sed "s/\/\*\*//g"|sed "s/\*\///g"
+    title=`echo -n ${file}|cut -f 1 -d "."`
+    echo "### ${title}"
+    sed "/def call/Q" ${file}|sed "s/\/\*\*//g"|sed "s/\*\///g" |tee ${title}.txt
 done
 )"
 
 cat << EOF
 # Jenkins Pipeline Library
 
-[![Build Status](http://jenkins.redpandaci.com/buildStatus/icon?job=red-panda-ci/jenkins-pipeline-library/develop)](http://jenkins.redpandaci.com/job/red-panda-ci/job/jenkins-pipeline-library/job/develop/) [![Build Status](https://travis-ci.org/red-panda-ci/jenkins-pipeline-library.svg?branch=develop)](https://travis-ci.org/red-panda-ci/jenkins-pipeline-library)
+[![Build Status](http://jenkins.redpandaci.com/buildStatus/icon?job=red-panda-ci/jenkins-pipeline-library/develop)](https://jenkins.redpandaci.com/job/red-panda-ci/job/jenkins-pipeline-library/job/develop/)
 
 ## Description
 

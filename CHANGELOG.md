@@ -1,3 +1,30 @@
+<a name="2.1.1"></a>
+## 2.1.1 (2017-11-14)
+
+
+### Build
+
+* Remove travis integration and related build status badge ([438eb9aa81c5259882e738b320257ebb00ee5533](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/438eb9aa81c5259882e738b320257ebb00ee5533))
+* Update version number in Sonar properties file ([b36e0c4216c300ba8fdca63a87cee75a9a078df6](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/b36e0c4216c300ba8fdca63a87cee75a9a078df6))
+
+### Docs
+
+* Add pipeline documentation in vars/*.txt files ([aa3634beae90a34d4f4dc8e5b6e6e3e9a1d77f65](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/aa3634beae90a34d4f4dc8e5b6e6e3e9a1d77f65))
+* Fix doc typo in CONTRIBUTING.md ([67fde91fc53bf0a92baaa64d070ba6d8af34134b](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/67fde91fc53bf0a92baaa64d070ba6d8af34134b))
+* Update README.md ([cab61561451bb7ab1764f7f5fcfe8131f7249523](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/cab61561451bb7ab1764f7f5fcfe8131f7249523))
+
+### New
+
+* Add new cfg.releaseTagNumber key ([ed30682ac4086e4ec79ade9f03f6ab85828262db](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/ed30682ac4086e4ec79ade9f03f6ab85828262db))
+* Add new config.releaseTag key ([8d95a98b29856a80d777638161799fbccff8893d](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/8d95a98b29856a80d777638161799fbccff8893d))
+
+### Update
+
+* Change jplCloseRelease test adding cfg.releaseTag info ([b2f9de060ff311f25908e00c0cafc257a3c6ff03](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/b2f9de060ff311f25908e00c0cafc257a3c6ff03))
+* Remove deprecated info in jplSigning helper ([886a77fc6c90bf79396bad808f610a9d93c7d240](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/886a77fc6c90bf79396bad808f610a9d93c7d240))
+
+
+
 <a name="2.1.0"></a>
 # 2.1.0 (2017-11-11)
 
@@ -9,6 +36,7 @@
 ### Build
 
 * Set firstTag for changelog build ([0b5d5c6bb6b4b6e463217bcfd386b915bdddc151](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/0b5d5c6bb6b4b6e463217bcfd386b915bdddc151))
+* Update CHANGELOG.md to v2.1.0 with Red Panda JPL ([bb62b872529114875809f5a80ebcd7681c3c168e](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/bb62b872529114875809f5a80ebcd7681c3c168e))
 
 ### Docs
 

@@ -1,6 +1,6 @@
 # Jenkins Pipeline Library
 
-[![Build Status](http://jenkins.redpandaci.com/buildStatus/icon?job=red-panda-ci/jenkins-pipeline-library/develop)](http://jenkins.redpandaci.com/job/red-panda-ci/job/jenkins-pipeline-library/job/develop/) [![Build Status](https://travis-ci.org/red-panda-ci/jenkins-pipeline-library.svg?branch=develop)](https://travis-ci.org/red-panda-ci/jenkins-pipeline-library)
+[![Build Status](http://jenkins.redpandaci.com/buildStatus/icon?job=red-panda-ci/jenkins-pipeline-library/develop)](https://jenkins.redpandaci.com/job/red-panda-ci/job/jenkins-pipeline-library/job/develop/)
 
 ## Description
 
@@ -128,7 +128,6 @@ cfg usage:
 
 * cfg.appetize[:] hashmap
 
-
 ### jplAppliveryUpload
 
 Upload package to applivery
@@ -144,7 +143,6 @@ cfg usage:
 
 * cfg.applivery[:] hashmap
 * cfg.versionSuffix
-  
 
 ### jplBuild
 
@@ -166,7 +164,6 @@ cfg usage:
 
 * cfg.targetPlatform
 
-
 ### jplBuildAPK
 
 Build APK with Fastlane within docker into Jenkins, based on jpl project configuration
@@ -187,7 +184,6 @@ Notes:
 
 * Marked as DEPRECATED by jplBuild on 2017-09-02. Removed on a future release.
 
-
 ### jplBuildChangelog
 
   Build changelog file based on the commit messages
@@ -206,10 +202,7 @@ Notes:
 
   * cfg.BRNACH_NAME
 
-
 ### jplCheckoutSCM
-
-Checkout SCM
 
 Get the code from SCM and init / update submodules
 Leave the repository on the actual branch, instead of "deatached"
@@ -222,7 +215,6 @@ cfg uage:
 
 * cfg.repository.url
 * cfg.repository.branch
-
 
 ### jplCloseRelease
 
@@ -243,7 +235,6 @@ cfg usage:
 * cfg.notify
 * cfg.recipients
 
-
 ### jplConfig
 
   Global config variables
@@ -257,19 +248,23 @@ cfg usage:
   ---------------
   cfg definitions
   ---------------
-  * string  projectName             Project alias / codename (with no spaces)       (default: "project")
-  * string  BRANCH_NAME             Branch name                                     (default: env.BRANCH_NAME)
-  * string  laneName                Fastlane lane name                              (default: related to branch name)
-  * string  targetPlatform          Target platform, one of these                   (default: "")
+  * String  projectName             Project alias / codename (with no spaces)       (default: "project")
+  * String  BRANCH_NAME             Branch name                                     (default: env.BRANCH_NAME)
+  * String  laneName                Fastlane lane name                              (default: related to branch name)
+  * String  targetPlatform          Target platform, one of these                   (default: "")
     - "android"
     - "ios"
     - "hybrid"
     - "backend"
   * boolean notify                  Automatically send notifications                (default: true)
-  * string  archivePattern          Atifacts archive pattern
+  * String  archivePattern          Atifacts archive pattern
     Defaults
       - Android:  "** / *.apk"
       - iOS:      "** / *.ipa"
+  * String releaseTag               Release tag for branches like "release/vX.Y.Z"  (default: related tag or "" on non-release branches)
+                                    The releaseTag for this case is "vX.Y.Z"
+  * String releaseTagNumber         Release tag for branches like "release/vX.Y.Z"  (default: related tag or "" on non-release branches)
+                                    only the number part. Refers to "X.Y.Z" without the starting "v"
 
   * Hashmap repository: repository parametes. You can use it for non-multibranch repository
         String url                  URL                                             (default: '')
@@ -325,10 +320,9 @@ cfg usage:
   * Hashmap promoteBuild: Promote build workflow configuration
         Integer timeoutHours        * Number of hours to wait from user input       (default: 48)
         boolean enabled             * Flag to promote build to release steps        (default: false)
-  
 
-### jplDockerPush#!groovy
 
+### jplDockerPush
 
 Docker image build & push to registry
 
@@ -344,7 +338,6 @@ Parameters:
 cfg usage:
 
 * cfg.projectName
-
 
 ### jplIE
 
@@ -387,7 +380,6 @@ Commands:
 
     "@ie gradlew clean assembleDebug"
 
-
 ### jplJIRA
 
 JIRA management
@@ -413,7 +405,6 @@ cfg usage:
 
 * cfg.recipients.*
 
-
 ### jplPostBuild
 
 Post build tasks
@@ -436,8 +427,6 @@ Place the jplPostBuild(cfg) line into the "post" block of the pipeline like this
         }
     }
 
-
-
 ### jplPromoteBuild
 
 Promote build to next steps, waiting for user input
@@ -452,7 +441,6 @@ cfg usage:
 
 * cfg.promoteBuild
 
-
 ### jplPromoteCode
 
 Promote code on release
@@ -466,7 +454,6 @@ Parameters:
 * cfg jplConfig class object
 * String updateBranch The branch "source" of the merge
 * String downstreamBranch The branch "target" of the merge
-
 
 ### jplSigning
 
@@ -503,10 +490,6 @@ Notes:
 
     Both file should be placed in the a repository path, wich is informed with the "signingPath" parameter
 
-
-/*
-  Refactor: Put a script with the sign into "ci-scripts"
- 
 ### jplSonarScanner
 
 Launch SonarQube scanner
@@ -523,7 +506,6 @@ To use the jplSonarScanner() tool:
 
 * Configure Jenkins with SonarQube >= 6.2
 * Configure a webhook in Sonar to your jenkins URL <your-jenkins-instance>/sonarqube-webhook/ (https://jenkins.io/doc/pipeline/steps/sonar/#waitforqualitygate-wait-for-sonarqube-analysis-to-be-completed-and-return-quality-gate-status)
-
 
 ### jplStart
 
@@ -555,7 +537,6 @@ cfg usage:
 
 * cfg.targetPlatform
 * cfg.isJplStarted
-
 
 ### jplValidateCommitMessages
 

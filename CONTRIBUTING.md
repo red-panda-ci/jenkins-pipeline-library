@@ -10,7 +10,7 @@ Issues are always very welcome - after all. However, there are a couple of thing
   * Post a _minimal_ code sample and library use case that reproduces the issue. Attaching the entire pipeline script is the best option
   * What do you expect to happen?
   * What is actually happening?
-* Which kind of pipeline are you using: scripted / (postgres, mysql etc)?
+* Which kind of pipeline are you using: _scripted_ or _declarative_
 * Which jpl version are you using?
 
 When you post code, please use [Github flavored markdown](https://help.github.com/articles/github-flavored-markdown), in order to get proper syntax highlighting!

@@ -1,7 +1,7 @@
 #!groovy
+env.BRANCH_NAME = "release/v9.9.9"
 cfg = jplConfig("jplCloseReleaseTest", "backend", "", [hipchat: "", slack: "", email: ""])
 cfg.promoteBuild.enabled = true
-cfg.BRANCH_NAME = "release/v9.9.9"
 cfg.changelog.firstTag = "v0.8.0"
 
 pipeline {
@@ -9,13 +9,14 @@ pipeline {
     agent any
 
     stages {
-        stage ("Checkout SCM") {
+        stage ("Initialize") {
             steps  {
-                jplCheckoutSCM(cfg)
+                jplStart(cfg)
             }
         }
         stage ("Close Release") {
             steps {
+                echo "Closing release: ${cfg.releaseTag}, short one ${cfg.releaseTagNumber}"
                 jplCloseRelease(cfg)
             }
         }

@@ -1,5 +1,4 @@
 /**
-
 Start library activities
 
 This helper should be executed as first step of the pipeline.
@@ -28,7 +27,6 @@ cfg usage:
 
 * cfg.targetPlatform
 * cfg.isJplStarted
-
 */
 def call(cfg) {
     script {

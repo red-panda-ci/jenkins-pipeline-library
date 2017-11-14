@@ -1,5 +1,4 @@
 /**
-
 JIRA management
 
 Parameters:
@@ -29,7 +28,6 @@ Parameters:
 cfg usage:
 
 + cfg.jira.*
- 
 */
 def checkProjectExists(cfg) {
     if (cfg.jira.projectKey != '') {

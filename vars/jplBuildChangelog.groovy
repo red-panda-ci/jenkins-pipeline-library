@@ -1,5 +1,4 @@
 /**
-
   Build changelog file based on the commit messages
 
   You can build the changelog between two commits, tags or branches if you use range format "v1.1.0...v1.0.0"
@@ -15,7 +14,6 @@
   cfg usage:
 
   * cfg.BRNACH_NAME
-
 */
 def call(cfg, String range = 'HEAD', String format = 'md', String filename = 'CHANGELOG.md') {
     script {

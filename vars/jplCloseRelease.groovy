@@ -1,5 +1,4 @@
 /**
-
 Close release (Branch "release/*")
 
 Merge code from release/vX.Y.Z to "master" and "develop", then "push" to the repository.
@@ -16,7 +15,6 @@ cfg usage:
 
 * cfg.notify
 * cfg.recipients
-
 */
 def call(cfg) {
     if (!cfg.promoteBuild.enabled) {

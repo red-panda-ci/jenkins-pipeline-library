@@ -1,5 +1,4 @@
 /**
-
 Upload package to appetize
 
 Parameters:
@@ -12,7 +11,6 @@ Parameters:
 cfg usage:
 
 * cfg.appetize[:] hashmap
-
 */
 def call(cfg,String packageFile, String app = '', String token = '') {
     script {

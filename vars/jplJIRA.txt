@@ -1,0 +1,10 @@
+
+JIRA management
+
+Parameters:
+
+* cfg jplConfig class object
+
+
+
+/*
