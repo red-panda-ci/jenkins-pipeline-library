@@ -40,9 +40,9 @@ def call(cfg) {
     }
 
     // Promote to master
-    sh "wget -O - https://raw.githubusercontent.com/red-panda-ci/git-promote/master/git-promote | bash -s -- -m 'Merge from ${cfg.BRANCH_NAME} with Red Panda jpl' ${cfg.BRANCH_NAME} master"
+    sh "wget -O - https://raw.githubusercontent.com/red-panda-ci/git-promote/master/git-promote | bash -s -- -m 'Merge from ${cfg.BRANCH_NAME} with Red Panda JPL' ${cfg.BRANCH_NAME} master"
     // Promote to develop
-    sh "wget -O - https://raw.githubusercontent.com/red-panda-ci/git-promote/master/git-promote | bash -s -- -m 'Merge from ${cfg.BRANCH_NAME} with Red Panda jpl' ${cfg.BRANCH_NAME} develop"
+    sh "wget -O - https://raw.githubusercontent.com/red-panda-ci/git-promote/master/git-promote | bash -s -- -m 'Merge from ${cfg.BRANCH_NAME} with Red Panda JPL' ${cfg.BRANCH_NAME} develop"
     // Release TAG from last non-merge commit of the branch
     sh 'git tag ' + tag + ' -m "Release ' + tag + '" `git rev-list --no-merges -n 1 ' + cfg.BRANCH_NAME + '`'
     sh 'git push --tags'
