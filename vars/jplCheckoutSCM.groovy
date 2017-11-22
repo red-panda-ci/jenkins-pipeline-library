@@ -1,5 +1,5 @@
 /**
-Get the code from SCM and init / update submodules
+Get the code from SCM and init
 Leave the repository on the actual branch, instead of "deatached"
 
 Parameters:
@@ -16,7 +16,7 @@ def call(cfg) {
         if (cfg.repository.url == '') {
             checkout scm
             if (!cfg.BRANCH_NAME.startsWith('PR-')) {
-                sh 'git checkout ' + cfg.BRANCH_NAME + ' && git pull '
+                sh 'git checkout ' + cfg.BRANCH_NAME
             }
         }
         else {
