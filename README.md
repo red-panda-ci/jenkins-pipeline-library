@@ -204,7 +204,7 @@ Notes:
 
 ### jplCheckoutSCM
 
-Get the code from SCM and init / update submodules
+Get the code from SCM and init
 Leave the repository on the actual branch, instead of "deatached"
 
 Parameters:
@@ -265,6 +265,7 @@ cfg usage:
                                     The releaseTag for this case is "vX.Y.Z"
   * String releaseTagNumber         Release tag for branches like "release/vX.Y.Z"  (default: related tag or "" on non-release branches)
                                     only the number part. Refers to "X.Y.Z" without the starting "v"
+  * String androidPackages          SDK packages to install within docker image     (default: "build-tools-27.0.0,android-27")
 
   * Hashmap repository: repository parametes. You can use it for non-multibranch repository
         String url                  URL                                             (default: '')
@@ -514,8 +515,7 @@ Start library activities
 This helper should be executed as first step of the pipeline.
 
 * Prepare some things based on the target platform:
-  * "android". Prepare the workspace to build within native Docker of the Jenkins:
-  * Get the contents of the repository https://github.com/red-panda-ci/ci-scripts on the ci-scripts/.jenkins_library repository
+  * "android". Prepare the workspace to build within native Docker of the Jenkins
   * "ios" (TBD)
   * "hybrid" (TBD)
   * "backend" (TBD)

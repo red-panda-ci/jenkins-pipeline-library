@@ -27,6 +27,7 @@
                                     The releaseTag for this case is "vX.Y.Z"
   * String releaseTagNumber         Release tag for branches like "release/vX.Y.Z"  (default: related tag or "" on non-release branches)
                                     only the number part. Refers to "X.Y.Z" without the starting "v"
+  * String androidPackages          SDK packages to install within docker image     (default: "build-tools-27.0.0,android-27")
 
   * Hashmap repository: repository parametes. You can use it for non-multibranch repository
         String url                  URL                                             (default: '')
