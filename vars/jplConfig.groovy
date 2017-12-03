@@ -71,7 +71,7 @@
   * Hashmap commitValidation: Commit message validation configuration on PR's, using project https://github.com/willsoto/validate-commit
         boolean enabled             Commit validation enabled status                (default: true)
         String preset               One of the willsoto validate commit presets     (default: 'eslint')
-        int quantity                Number of commits to be checked                 (default: 10)
+        int quantity                Number of commits to be checked                 (default: 1)
 
   * Hashmap changelog: Changelog building configuration
         boolean enabled             Automatically build changelog file              (default: true)
@@ -156,7 +156,7 @@ def call (projectName = 'project', targetPlatform = '', jiraProjectKey = '', rec
     cfg.commitValidation                    = [:]
         cfg.commitValidation.enabled        = true
         cfg.commitValidation.preset         = "eslint"
-        cfg.commitValidation.quantity       = 10
+        cfg.commitValidation.quantity       = 1
 
     //
     cfg.changelog                           = [:]

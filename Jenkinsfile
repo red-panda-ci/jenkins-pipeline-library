@@ -5,6 +5,7 @@
 // Initialize global config
 cfg = jplConfig('jpl','backend','', [hipchat: '', slack: '#integrations', email:'redpandaci+jpl@gmail.com'])
 cfg.changelog.firstTag = "v0.8.0"
+cfg.commitValidation.quantity = 1
 
 pipeline {
     agent none
