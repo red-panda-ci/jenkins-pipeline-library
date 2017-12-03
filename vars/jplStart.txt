@@ -4,8 +4,7 @@ Start library activities
 This helper should be executed as first step of the pipeline.
 
 * Prepare some things based on the target platform:
-  * "android". Prepare the workspace to build within native Docker of the Jenkins:
-  * Get the contents of the repository https://github.com/red-panda-ci/ci-scripts on the ci-scripts/.jenkins_library repository
+  * "android". Prepare the workspace to build within native Docker of the Jenkins
   * "ios" (TBD)
   * "hybrid" (TBD)
   * "backend" (TBD)

@@ -60,7 +60,7 @@ def buildDockerImage(cfg) {
         deleteDockerignoreAfterBuild = true
         dockerignoreContent = ''
     }
-    writeFile file: '.dockerignore', text: dockerignoreContent + '\n?\n.git\n'
+    writeFile file: '.dockerignore', text: dockerignoreContent + '\n.gradle\n.android\n.git\n'
     docker.build("jpl-android:${cfg.projectName}")
     if (deleteDockerfileAfterBuild) {
         fileOperations([fileDeleteOperation(includes: 'Dockerfile')])
@@ -72,12 +72,9 @@ def buildDockerImage(cfg) {
 
 def buildAPK(cfg,command) {
     docker.image("jpl-android:${cfg.projectName}").inside {
-        sh "mkdir -p ?/.android; [ -f .android/debug.keystore ] && cp .android/debug.keystore ?/.android || true"
-        sh '[ ! -f ?/.android/debug.keystore ] && keytool -genkey -v -keystore ?/.android/debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "C=US, O=Android, CN=Android Debug" || true'
-        sh "${command}"
+        sh 'mkdir -p .android .gradle; [ ! -f .android/debug.keystore ] && keytool -genkey -v -keystore .android/debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "C=US, O=Android, CN=Android Debug" || true'
+        sh "export HOME=`pwd` ANDROID_SDK_HOME=`pwd` GRADLE_USER_HOME=`pwd`/.gradle; ${command}"
     }
     archiveArtifacts artifacts: '**/*DebugUnitTest.exec', fingerprint: true, allowEmptyArchive: true
-    if (!cfg.BRANCH_NAME.startsWith('PR-')) {
-        archiveArtifacts artifacts: cfg.archivePattern, fingerprint: true, allowEmptyArchive: true
-    }
+    archiveArtifacts artifacts: cfg.archivePattern, fingerprint: true, allowEmptyArchive: true
 }
