@@ -1,6 +1,24 @@
+<a name="2.2.1"></a>
+## 2.2.1 (2017-12-03)
+
+
+### Build
+
+* Remove Travis CI integration ([e87a789f950aa78c21f433b2a3911e1b2016786c](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/e87a789f950aa78c21f433b2a3911e1b2016786c))
+
+### Docs
+
+* Update README.md and helper docs ([336914ae190a3b88302e0cb336a51ef3626c9d28](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/336914ae190a3b88302e0cb336a51ef3626c9d28))
+
+
+
 <a name="2.2.0"></a>
 # 2.2.0 (2017-12-03)
 
+
+### Build
+
+* Update CHANGELOG.md to v2.2.0 with Red Panda JPL ([efeee5d81f0ae07dbf77c9bd7c4463cc2dc0b6d0](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/efeee5d81f0ae07dbf77c9bd7c4463cc2dc0b6d0))
 
 ### New
 
