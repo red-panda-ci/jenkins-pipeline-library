@@ -1,3 +1,19 @@
+<a name="2.2.0"></a>
+# 2.2.0 (2017-12-03)
+
+
+### New
+
+* Build APK with Jenkins Pipeline docker way  ([7f2d36d1ac5c665c799aef78339c360aff8896f5](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/7f2d36d1ac5c665c799aef78339c360aff8896f5)), closes [#5](https://github.com/madoos/node-changelog-generator/issues/5) [#36](https://github.com/madoos/node-changelog-generator/issues/36)
+
+### Update
+
+* Align commit messages on git tasks ([8c77588c9849ee4c019022f03945c9752cd10881](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/8c77588c9849ee4c019022f03945c9752cd10881))
+* Avoid to do a pull in jplCheckoutSCM ([073540541071f326c4908f7b104c6bd1b0835817](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/073540541071f326c4908f7b104c6bd1b0835817))
+* Revert checkout behauviour ([401ba224db581b615f4f0b19f370bbb20484b3e4](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/401ba224db581b615f4f0b19f370bbb20484b3e4))
+
+
+
 <a name="2.1.1"></a>
 ## 2.1.1 (2017-11-14)
 
@@ -5,6 +21,7 @@
 ### Build
 
 * Remove travis integration and related build status badge ([438eb9aa81c5259882e738b320257ebb00ee5533](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/438eb9aa81c5259882e738b320257ebb00ee5533))
+* Update CHANGELOG.md to v2.1.1 with Red Panda JPL ([8805a8e932d414b1efaceabae47046611efca23d](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/8805a8e932d414b1efaceabae47046611efca23d))
 * Update version number in Sonar properties file ([b36e0c4216c300ba8fdca63a87cee75a9a078df6](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/b36e0c4216c300ba8fdca63a87cee75a9a078df6))
 
 ### Docs
@@ -212,36 +229,11 @@
 # 1.3.0 (2017-09-15)
 
 
-### Update
-
-* Alignd with latest commit validator container interface ([d25dd43ba833fae1502d24ac2f1da00b1ef90577](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/d25dd43ba833fae1502d24ac2f1da00b1ef90577))
-* Change all repository dependencies to red-panda-ci ([472b000ef81c9b17d527e645a1252d037d892b80](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/472b000ef81c9b17d527e645a1252d037d892b80))
-
-
-
-<a name="1.2.2"></a>
-## 1.2.2 (2017-09-14)
-
-
-### Fix
-
-* Brackets typo ([18e562ce02c4478b0b174b70b4e2c0ffad3feda8](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/18e562ce02c4478b0b174b70b4e2c0ffad3feda8))
-* Build the changelog report only once ([a54befecd3d72750de568d5ccc22634b82267335](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/a54befecd3d72750de568d5ccc22634b82267335))
-
-### Update
-
-* Don't keep all changelog html reports ([3ae2af3567c0e40dcc78f0594ebbe05351848743](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/3ae2af3567c0e40dcc78f0594ebbe05351848743))
-* Set correct changelog generation condition ([5a1fdff75d45fa1c3ddc02538a53e74d79222825](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/5a1fdff75d45fa1c3ddc02538a53e74d79222825))
-
-
-
-<a name="1.2.1"></a>
-## 1.2.1 (2017-09-14)
-
-
 ### Fix
 
 * Avoid use of merges in commit messages recovery of jplValidateCommitMessages ([6ab4d962ff9ac71fa0427d770f55013d825641c9](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/6ab4d962ff9ac71fa0427d770f55013d825641c9))
+* Brackets typo ([18e562ce02c4478b0b174b70b4e2c0ffad3feda8](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/18e562ce02c4478b0b174b70b4e2c0ffad3feda8))
+* Build the changelog report only once ([a54befecd3d72750de568d5ccc22634b82267335](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/a54befecd3d72750de568d5ccc22634b82267335))
 * isNull function groovy doesn't exist ([0da2f9f06c36a57281a23e0f221285e27d86a636](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/0da2f9f06c36a57281a23e0f221285e27d86a636))
 * Typo ([03bf598107409bbca434df4fd966ee720716d775](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/03bf598107409bbca434df4fd966ee720716d775))
 
@@ -254,9 +246,13 @@
 
 ### Update
 
+* Alignd with latest commit validator container interface ([d25dd43ba833fae1502d24ac2f1da00b1ef90577](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/d25dd43ba833fae1502d24ac2f1da00b1ef90577))
+* Change all repository dependencies to red-panda-ci ([472b000ef81c9b17d527e645a1252d037d892b80](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/472b000ef81c9b17d527e645a1252d037d892b80))
 * Change jplValidateCommit function container usage ([9ec0c104742a53ac6f50004182bada7aec09c7e6](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/9ec0c104742a53ac6f50004182bada7aec09c7e6))
 * Convert commit delimiter to '\n' string ([417328846c290ecd8e6fec546f2785560b4f85b7](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/417328846c290ecd8e6fec546f2785560b4f85b7))
 * Don't break the build when the result of sonar is a warning ([5d4eb3e2a0ad63174833b59c5915bead3720fcd6](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/5d4eb3e2a0ad63174833b59c5915bead3720fcd6))
+* Don't keep all changelog html reports ([3ae2af3567c0e40dcc78f0594ebbe05351848743](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/3ae2af3567c0e40dcc78f0594ebbe05351848743))
+* Set correct changelog generation condition ([5a1fdff75d45fa1c3ddc02538a53e74d79222825](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/5a1fdff75d45fa1c3ddc02538a53e74d79222825))
 * Use new 'FORMAT' parameter in changelog report, output as html ([09753cbcbc06a18e584d77ae506cbe3498534399](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/09753cbcbc06a18e584d77ae506cbe3498534399))
 
 
