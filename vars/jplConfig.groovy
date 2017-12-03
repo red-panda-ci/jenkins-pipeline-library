@@ -27,6 +27,7 @@
                                     The releaseTag for this case is "vX.Y.Z"
   * String releaseTagNumber         Release tag for branches like "release/vX.Y.Z"  (default: related tag or "" on non-release branches)
                                     only the number part. Refers to "X.Y.Z" without the starting "v"
+  * String androidPackages          SDK packages to install within docker image     (default: "build-tools-27.0.0,android-27")
 
   * Hashmap repository: repository parametes. You can use it for non-multibranch repository
         String url                  URL                                             (default: '')
@@ -100,6 +101,7 @@ def call (projectName = 'project', targetPlatform = '', jiraProjectKey = '', rec
     switch (cfg.targetPlatform) {
         case 'android':
             cfg.archivePattern = '**/*.apk'
+            cfg.android = [:]
             break;
         case 'ios':
             cfg.archivePattern = '**/*.ipa'
@@ -108,6 +110,7 @@ def call (projectName = 'project', targetPlatform = '', jiraProjectKey = '', rec
             cfg.artifactsPattern = ''
             break;
     }
+    cfg.androidPackages                     = 'build-tools-27.0.0,android-27'
     cfg.releaseTag                          = cfg.BRANCH_NAME.startsWith('release/v') ? cfg.BRANCH_NAME.tokenize("/")[1] : ""
     cfg.releaseTagNumber                    = cfg.BRANCH_NAME.startsWith('release/v') ? cfg.BRANCH_NAME.tokenize("/")[1].substring(1,6) : ""
 

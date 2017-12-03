@@ -35,7 +35,7 @@ def call(cfg) {
         sh "mkdir -p ci-scripts/reports"
         jplBuildChangelog(cfg, tag, 'md', 'ci-scripts/reports/CHANGELOG.md')
         sh "tail -n +7 ci-scripts/reports/CHANGELOG.md > CHANGELOG.md"
-        fileOperations([fileDeleteOperation(excludes: '', includes: 'ci-scripts/reports/CHANGELOG.md')])
+        fileOperations([fileDeleteOperation(includes: 'ci-scripts/reports/CHANGELOG.md')])
         sh 'git tag ' + tag + ' -d; git add CHANGELOG.md; git commit -m "Build: Update CHANGELOG.md to ' + tag + ' with Red Panda JPL"'
     }
 
