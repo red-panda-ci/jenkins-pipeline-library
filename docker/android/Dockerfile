@@ -32,6 +32,12 @@ RUN ( sleep 4 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk --
 
 RUN [ -e ${ANDROID_HOME}/temp/*.zip ] && unzip ${ANDROID_HOME}/temp/*.zip -d ${ANDROID_HOME} && rm ${ANDROID_HOME}/temp/*.zip || echo "No unzip"
 
+RUN echo "y" | android update adb
+
+# Create fake keymap file
+RUN mkdir /usr/local/android-sdk/tools/keymaps && \
+    touch /usr/local/android-sdk/tools/keymaps/en-us
+
 # Locale settings
 RUN locale-gen en_US.UTF-8
 
