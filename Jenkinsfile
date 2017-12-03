@@ -16,6 +16,12 @@ pipeline {
                 jplStart(cfg)
             }
         }
+        stage ('Build') {
+            agent { label 'docker' }
+            steps {
+                jplDockerPush (cfg, 'redpandaci/jpl-android-base', 'latest', 'https://registry.hub.docker.com', 'redpandaci-docker-credentials', 'docker/android')
+            }
+        }
         stage ('Test') {
             agent { label 'docker' }
             when { expression { (env.BRANCH_NAME == 'develop') || env.BRANCH_NAME.startsWith('release/v') || env.BRANCH_NAME.startsWith('PR-') } }

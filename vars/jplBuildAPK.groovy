@@ -17,7 +17,10 @@ Notes:
 
 * Marked as DEPRECATED by jplBuild on 2017-09-02. Removed on a future release.
 */
-def call(cfg,String command='') {
+def call(cfg, String command='') {
+    // Build Docker image
+    buildDockerImage(cfg)
+
     // Build default
     if (command == '') {
         if (cfg.ie.commandName == "fastlane") {
@@ -41,8 +44,38 @@ def call(cfg,String command='') {
     }
 }
 
+def buildDockerImage(cfg) {
+    if (fileExists('Dockerfile')) {
+        deleteDockefileAfterBuild = false
+    }
+    else {
+        deleteDockerfileAfterBuild = true
+        writeFile file: 'Dockerfile', text: 'FROM redpandaci/jpl-android-base\nRUN ( sleep 4 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk --no-ui --force -a --filter ' + cfg.androidPackages + '\n'
+    }
+    if (fileExists('.dockerignore')) {
+        deleteDockerignoreAfterBuild = false
+        dockerignoreContent = readFile '.dockerignore'
+    }
+    else {
+        deleteDockerignoreAfterBuild = true
+        dockerignoreContent = ''
+    }
+    writeFile file: '.dockerignore', text: dockerignoreContent + '\n?\n.git\n'
+    docker.build("jpl-android:${cfg.projectName}")
+    if (deleteDockerfileAfterBuild) {
+        fileOperations([fileDeleteOperation(includes: 'Dockerfile')])
+    }
+    if (deleteDockerignoreAfterBuild) {
+        fileOperations([fileDeleteOperation(includes: '.dockerignore')])
+    }
+}
+
 def buildAPK(cfg,command) {
-    sh "ci-scripts/.jenkins_library/bin/buildApk.sh --sdkVersion=${cfg.projectName} --command='${command}'"
+    docker.image("jpl-android:${cfg.projectName}").inside {
+        sh "mkdir -p ?/.android; [ -f .android/debug.keystore ] && cp .android/debug.keystore ?/.android || true"
+        sh '[ ! -f ?/.android/debug.keystore ] && keytool -genkey -v -keystore ?/.android/debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "C=US, O=Android, CN=Android Debug" || true'
+        sh "${command}"
+    }
     archiveArtifacts artifacts: '**/*DebugUnitTest.exec', fingerprint: true, allowEmptyArchive: true
     if (!cfg.BRANCH_NAME.startsWith('PR-')) {
         archiveArtifacts artifacts: cfg.archivePattern, fingerprint: true, allowEmptyArchive: true

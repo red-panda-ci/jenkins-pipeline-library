@@ -14,5 +14,5 @@ Parameters:
 def call(cfg, String upstreamBranch, String downstreamBranch) {
     sh "grep '\\+refs/heads/\\*:refs/remotes/origin/\\*' .git/config -q || git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/*"
     jplCheckout(cfg)
-    sh "wget -O - https://raw.githubusercontent.com/red-panda-ci/git-promote/master/git-promote | bash -s -- -m 'Merge from ${upstreamBranch} with Red Panda jpl' ${upstreamBranch} ${downstreamBranch}"
+    sh "wget -O - https://raw.githubusercontent.com/red-panda-ci/git-promote/master/git-promote | bash -s -- -m 'Merge from ${upstreamBranch} with Red Panda JPL' ${upstreamBranch} ${downstreamBranch}"
 }

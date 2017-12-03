@@ -35,14 +35,14 @@ def call(cfg) {
         sh "mkdir -p ci-scripts/reports"
         jplBuildChangelog(cfg, tag, 'md', 'ci-scripts/reports/CHANGELOG.md')
         sh "tail -n +7 ci-scripts/reports/CHANGELOG.md > CHANGELOG.md"
-        fileOperations([fileDeleteOperation(excludes: '', includes: 'ci-scripts/reports/CHANGELOG.md')])
+        fileOperations([fileDeleteOperation(includes: 'ci-scripts/reports/CHANGELOG.md')])
         sh 'git tag ' + tag + ' -d; git add CHANGELOG.md; git commit -m "Build: Update CHANGELOG.md to ' + tag + ' with Red Panda JPL"'
     }
 
     // Promote to master
-    sh "wget -O - https://raw.githubusercontent.com/red-panda-ci/git-promote/master/git-promote | bash -s -- -m 'Merge from ${cfg.BRANCH_NAME} with Red Panda jpl' ${cfg.BRANCH_NAME} master"
+    sh "wget -O - https://raw.githubusercontent.com/red-panda-ci/git-promote/master/git-promote | bash -s -- -m 'Merge from ${cfg.BRANCH_NAME} with Red Panda JPL' ${cfg.BRANCH_NAME} master"
     // Promote to develop
-    sh "wget -O - https://raw.githubusercontent.com/red-panda-ci/git-promote/master/git-promote | bash -s -- -m 'Merge from ${cfg.BRANCH_NAME} with Red Panda jpl' ${cfg.BRANCH_NAME} develop"
+    sh "wget -O - https://raw.githubusercontent.com/red-panda-ci/git-promote/master/git-promote | bash -s -- -m 'Merge from ${cfg.BRANCH_NAME} with Red Panda JPL' ${cfg.BRANCH_NAME} develop"
     // Release TAG from last non-merge commit of the branch
     sh 'git tag ' + tag + ' -m "Release ' + tag + '" `git rev-list --no-merges -n 1 ' + cfg.BRANCH_NAME + '`'
     sh 'git push --tags'
