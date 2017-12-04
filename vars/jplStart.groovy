@@ -25,10 +25,10 @@ jpl usage:
 cfg usage:
 
 * cfg.targetPlatform
-* cfg.isJplStarted
+* cfg.flags.isJplStarted
 */
 def call(cfg) {
-    if (cfg.isJplStarted) {
+    if (cfg.flags.isJplStarted) {
         error ("ERROR: jplStart already executed")
     }
     jplCheckoutSCM(cfg)
@@ -60,5 +60,5 @@ def call(cfg) {
         cfg.changelogIsBuilded = true;
         fileOperations([fileDeleteOperation(includes: 'ci-scripts/reports/CHANGELOG.html')])
     }
-    cfg.isJplStarted = true
+    cfg.flags.isJplStarted = true
 }

@@ -42,8 +42,8 @@ ENV LANG=en_US.UTF-8 \
 # FASTLANE STUFF
 RUN gem install fastlane -NV
 
-RUN mkdir /.gem && \
-    chmod 777 -R /.gem /var/lib/gems/2.3.0 /home
+RUN mkdir /.gem /.crashlytics && \
+    chmod 777 -R /.gem /.crashlytics /var/lib/gems/2.3.0 /home
 
 # Work directory
 WORKDIR /home

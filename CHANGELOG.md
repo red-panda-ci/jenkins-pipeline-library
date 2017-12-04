@@ -1,3 +1,14 @@
+<a name="2.2.2"></a>
+## 2.2.2 (2017-12-04)
+
+
+### Update
+
+* Add old config to Docker android base ([e129898fa81b3335f639f155f6fafe322ab5a90b](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/e129898fa81b3335f639f155f6fafe322ab5a90b))
+* Change jplBuildAPK workflow ([e6c530b66ca024e40379079a221bfa498f095ef6](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/e6c530b66ca024e40379079a221bfa498f095ef6))
+
+
+
 <a name="2.2.1"></a>
 ## 2.2.1 (2017-12-03)
 
@@ -5,6 +16,7 @@
 ### Build
 
 * Remove Travis CI integration ([e87a789f950aa78c21f433b2a3911e1b2016786c](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/e87a789f950aa78c21f433b2a3911e1b2016786c))
+* Update CHANGELOG.md to v2.2.1 with Red Panda JPL ([388ddb7636ce05bb918bfe8d73e617b491a2e591](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/388ddb7636ce05bb918bfe8d73e617b491a2e591))
 
 ### Docs
 
