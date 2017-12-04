@@ -170,7 +170,11 @@ def call (projectName = 'project', targetPlatform = '', jiraProjectKey = '', rec
     cfg.promoteBuild                        = [:]
         cfg.promoteBuild.enabled            = false
         cfg.promoteBuild.timeoutHours       = 48
-    cfg.isJplStarted                        = false
+
+    //
+    cfg.flags = [:]
+        cfg.flags.isJplStarted              = false
+        cfg.flags.isAndroidImageBuilded     = false
 
     //-----------------------------------------//
 

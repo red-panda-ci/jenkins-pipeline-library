@@ -25,5 +25,5 @@ jpl usage:
 cfg usage:
 
 * cfg.targetPlatform
-* cfg.isJplStarted
+* cfg.flags.isJplStarted
 

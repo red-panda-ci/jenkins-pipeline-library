@@ -18,9 +18,6 @@ Notes:
 * Marked as DEPRECATED by jplBuild on 2017-09-02. Removed on a future release.
 */
 def call(cfg, String command='') {
-    // Build Docker image
-    buildDockerImage(cfg)
-
     // Build default
     if (command == '') {
         if (cfg.ie.commandName == "fastlane") {
@@ -44,37 +41,38 @@ def call(cfg, String command='') {
     }
 }
 
-def buildDockerImage(cfg) {
-    if (fileExists('Dockerfile')) {
-        deleteDockefileAfterBuild = false
-    }
-    else {
-        deleteDockerfileAfterBuild = true
-        writeFile file: 'Dockerfile', text: 'FROM redpandaci/jpl-android-base\nRUN ( sleep 4 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk --no-ui --force -a --filter ' + cfg.androidPackages + '\n'
-    }
-    if (fileExists('.dockerignore')) {
-        deleteDockerignoreAfterBuild = false
-        dockerignoreContent = readFile '.dockerignore'
-    }
-    else {
-        deleteDockerignoreAfterBuild = true
-        dockerignoreContent = ''
-    }
-    writeFile file: '.dockerignore', text: dockerignoreContent + '\n.gradle\n.android\n.git\n'
-    docker.build("jpl-android:${cfg.projectName}")
-    if (deleteDockerfileAfterBuild) {
-        fileOperations([fileDeleteOperation(includes: 'Dockerfile')])
-    }
-    if (deleteDockerignoreAfterBuild) {
-        fileOperations([fileDeleteOperation(includes: '.dockerignore')])
-    }
-}
+def buildAPK(cfg, command) {
+    def nodeData = [:]
+    def dockerImage
 
-def buildAPK(cfg,command) {
-    docker.image("jpl-android:${cfg.projectName}").inside {
-        sh 'mkdir -p .android .gradle; [ ! -f .android/debug.keystore ] && keytool -genkey -v -keystore .android/debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "C=US, O=Android, CN=Android Debug" || true'
-        sh "export HOME=`pwd` ANDROID_SDK_HOME=`pwd` GRADLE_USER_HOME=`pwd`/.gradle; ${command}"
+    nodeData.jenkinsWorkspace = sh (script: 'pwd', returnStdout: true).trim()
+    if (!cfg.flags.isAndroidImageBuilded) {
+            nodeData.systemUserId    = sh (script: 'id -u', returnStdout: true).trim()
+            nodeData.systemGroupId   = sh (script: 'id -g', returnStdout: true).trim()
+            nodeData.systemUserName  = sh (script: 'whoami', returnStdout: true).trim()
+            nodeData.systemGroupName = sh (script: "id -g -n ${nodeData.systemUserName}", returnStdout: true).trim()
+        dockerImage = buildDockerImage(cfg, nodeData)
+        cfg.flags.isAndroidImageBuilded = true
+    }
+    dockerImage.inside {
+        sh 'mkdir -p .android; [ ! -f .android/debug.keystore ] && keytool -genkey -v -keystore .android/debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "C=US, O=Android, CN=Android Debug" || true'
+        sh "${command}"
     }
     archiveArtifacts artifacts: '**/*DebugUnitTest.exec', fingerprint: true, allowEmptyArchive: true
     archiveArtifacts artifacts: cfg.archivePattern, fingerprint: true, allowEmptyArchive: true
+}
+
+def buildDockerImage(cfg, nodeData) {
+    writeFile file: 'ci-scripts/.temp/android/Dockerfile', text: """# jpl Android Dockerfile
+FROM redpandaci/jpl-android-base
+
+RUN ( sleep 4 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk --no-ui --force -a --filter ${cfg.androidPackages}
+
+RUN groupadd ${nodeData.systemGroupName} -g ${nodeData.systemGroupId} && \
+useradd ${nodeData.systemUserName} -g ${nodeData.systemGroupId} -u ${nodeData.systemUserId} -d ${nodeData.jenkinsWorkspace}
+
+ENV ANDROID_SDK_HOME=${nodeData.jenkinsWorkspace} \
+    GRADLE_USER_HOME=${nodeData.jenkinsWorkspace}/.gradle
+"""
+    return docker.build("jpl-android:${cfg.projectName}", '-f ci-scripts/.temp/android/Dockerfile .')
 }
