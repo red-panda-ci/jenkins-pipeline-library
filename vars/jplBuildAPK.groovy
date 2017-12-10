@@ -66,13 +66,16 @@ def buildDockerImage(cfg, nodeData) {
     writeFile file: 'ci-scripts/.temp/android/Dockerfile', text: """# jpl Android Dockerfile
 FROM redpandaci/jpl-android-base
 
-RUN ( sleep 4 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk --no-ui --force -a --filter ${cfg.androidPackages}
+WORKDIR /usr/local/android-sdk-linux
+RUN echo y | sdkmanager ${cfg.androidPackages}
 
-RUN groupadd ${nodeData.systemGroupName} -g ${nodeData.systemGroupId} && \
-useradd ${nodeData.systemUserName} -g ${nodeData.systemGroupId} -u ${nodeData.systemUserId} -d ${nodeData.jenkinsWorkspace}
+RUN groupadd ${nodeData.systemGroupName} -g ${nodeData.systemGroupId} || true
+RUN useradd ${nodeData.systemUserName} -g ${nodeData.systemGroupId} -u ${nodeData.systemUserId} -d ${nodeData.jenkinsWorkspace} || true
 
 ENV ANDROID_SDK_HOME=${nodeData.jenkinsWorkspace} \
     GRADLE_USER_HOME=${nodeData.jenkinsWorkspace}/.gradle
+
+WORKDIR ${nodeData.jenkinsWorkspace}
 """
     return docker.build("jpl-android:${cfg.projectName}", '-f ci-scripts/.temp/android/Dockerfile .')
 }

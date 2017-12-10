@@ -149,4 +149,4 @@ As part of the test process, all commit messages will be linted, and your PR wil
 1. Create a new release with git flow and the `major(X) minor(Y) patch(Z)` (`git flow release start vX.Y.Z`) (see [Semantic Versioning](http://semver.org))
 1. Publish the release `git flow feature publish vX.Y.Z`
 
-The rest of the work will be completed within Jenkin, following the `Jenkinfile` pipeline script.
+The rest of the work will be completed within Jenkins, following the `Jenkinfile` pipeline script.

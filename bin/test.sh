@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Use "bin/test.sh local test [testname]"" to run only one specific test
+# Example: "bin/test.sh local test jplStartTest"
+
 # Functions
 function runWithinDocker () {
     command=$1
@@ -16,6 +19,11 @@ function runTest () {
     else
         expectedResult=$2
     fi
+    if [[ "$uniqueTestName" != "" ]] && [[ "$uniqueTestName" != "$testName" ]]
+    then
+        echo -e "\t\t(Mock)"
+        return 0
+    fi
     docker exec ${id} bash -c "java -jar jenkins-cli.jar -s http://localhost:8080 build ${testName} --username redpanda --password redpanda -s"
     if [[ "$?" -ne "${expectedResult}" ]]
     then
@@ -31,6 +39,8 @@ mkdir -p test/reports
 rm -f test/reports/*
 returnValue=0
 doTests="false"
+testName=""
+uniqueTestName=""
 if [[ "$1" == "local" ]]
 then
     timeoutSeconds=0
@@ -38,6 +48,10 @@ then
     if [[ "$2" == "test" ]]
     then
         doTests="true"
+        if [[ "$3" != "" ]]
+        then
+            uniqueTestName=$3
+        fi
     fi
 else
     doTests="true"
@@ -64,7 +78,7 @@ runWithinDocker "git config --global push.default simple; git config --global us
 if [[ "$1" == "local" ]]
 then
     echo "# Local test requested: Commit local jpl changes"
-    runWithinDocker "cd /tmp/jenkins-pipeline-library; rm -f .git/hooks/*; git add -A; git commit -m 'test within docker'"
+    runWithinDocker "cd /tmp/jenkins-pipeline-library; rm -f .git/hooks/*; git add -A; git commit -m 'test within docker' || true"
 fi
 runWithinDocker "cd /tmp/jenkins-pipeline-library; git rev-parse --verify develop || git checkout -b develop; git rev-parse --verify master || git checkout -b master; git checkout -b 'release/v9.9.9'; git checkout -b 'jpl-test'"
 
@@ -79,8 +93,9 @@ if [[ ${doTests} == "true" ]]
 then
     runTest "jplCheckoutSCMTest"
     runTest "jplStartTest"
-    runTest "jplDockerPush"
+    runTest "jplDockerPushTest"
     runTest "jplPromoteBuildTest" 4
+    runTest "jplBuildAPKTest"
     runTest "jplCloseReleaseTest"
 fi
 
