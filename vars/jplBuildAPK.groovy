@@ -64,7 +64,7 @@ def buildAPK(cfg, command) {
 
 def buildDockerImage(cfg, nodeData) {
     writeFile file: 'ci-scripts/.temp/android/Dockerfile', text: """# jpl Android Dockerfile
-FROM redpandaci/jpl-android-base:develop
+FROM redpandaci/jpl-android-base
 
 WORKDIR /usr/local/android-sdk-linux
 RUN echo y | sdkmanager ${cfg.androidPackages}
