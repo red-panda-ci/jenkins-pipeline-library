@@ -5,7 +5,6 @@
 // Initialize global config
 cfg = jplConfig('jpl','backend','', [hipchat: '', slack: '#integrations', email:'redpandaci+jpl@gmail.com'])
 cfg.changelog.firstTag = "v0.8.0"
-cfg.commitValidation.quantity = 1
 
 pipeline {
     agent none
@@ -17,15 +16,9 @@ pipeline {
                 jplStart(cfg)
             }
         }
-        stage ('Build') {
-            agent { label 'docker' }
-            steps {
-                jplDockerPush (cfg, 'redpandaci/jpl-android-base', 'latest', 'https://registry.hub.docker.com', 'redpandaci-docker-credentials', 'docker/android')
-            }
-        }
         stage ('Test') {
             agent { label 'docker' }
-            when { expression { (env.BRANCH_NAME == 'develop') || env.BRANCH_NAME.startsWith('release/v') || env.BRANCH_NAME.startsWith('PR-') } }
+            when { expression { (env.BRANCH_NAME == 'develop') || env.BRANCH_NAME.startsWith('release/v') || env.BRANCH_NAME.startsWith('PR-') || env.BRANCH_NAME.startsWith('feature/')  } }
             steps  {
                 sh 'bin/test.sh'
                 archiveArtifacts artifacts: 'test/reports/*', fingerprint: true, allowEmptyArchive: false

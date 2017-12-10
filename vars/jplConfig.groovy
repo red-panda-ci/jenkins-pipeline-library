@@ -175,6 +175,7 @@ def call (projectName = 'project', targetPlatform = '', jiraProjectKey = '', rec
     cfg.flags = [:]
         cfg.flags.isJplStarted              = false
         cfg.flags.isAndroidImageBuilded     = false
+        cfg.flags.wereScriptsDownloaded     = false
 
     //-----------------------------------------//
 
@@ -183,4 +184,18 @@ def call (projectName = 'project', targetPlatform = '', jiraProjectKey = '', rec
 
     // Return config HashMap
     return cfg
+}
+
+// Get ci-scripts
+def downloadScripts (cfg) {
+    if (cfg.flags.wereScriptsDownloaded) {
+        if (!fileExists('ci-scripts/.jpl-scripts/README.md')) {
+            unstash 'jpl-scripts'
+        }
+    }
+    else {
+        sh "rm -rf ci-scripts/.jpl-scripts && mkdir -p ci-scripts/.temp && cd ci-scripts/.temp/ && wget -q -O - https://github.com/red-panda-ci/ci-scripts/archive/develop.zip | jar xvf /dev/stdin > /dev/null && chmod +x ci-scripts-develop/bin/*.sh && mv ci-scripts-develop ../.jpl-scripts"
+        stash includes: 'ci-scripts/.jpl-scripts/**/*', name: 'jpl-scripts'
+        cfg.flags.wereScriptsDownloaded = true
+    }
 }
