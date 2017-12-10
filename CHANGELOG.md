@@ -1,6 +1,22 @@
+<a name="2.3.0"></a>
+# 2.3.0 (2017-12-10)
+
+
+### Update
+
+* Refactor for release v2.3.0  ([696c7970e48b9cd8bc7c4b0039afc220495c674a](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/696c7970e48b9cd8bc7c4b0039afc220495c674a))
+* Use latest docker image of redpandaci/jpl-android-base  ([64d37b399c973ed4cdce63c319291cdbcbb5faf1](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/64d37b399c973ed4cdce63c319291cdbcbb5faf1))
+* Use the right android docker image ([865a2b4cea30128e5b69cd7684ec8b5961d47424](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/865a2b4cea30128e5b69cd7684ec8b5961d47424))
+
+
+
 <a name="2.2.2"></a>
 ## 2.2.2 (2017-12-04)
 
+
+### Build
+
+* Update CHANGELOG.md to v2.2.2 with Red Panda JPL ([428a5c54a6677da1c26c867d80a8d365f1114b45](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/428a5c54a6677da1c26c867d80a8d365f1114b45))
 
 ### Update
 
