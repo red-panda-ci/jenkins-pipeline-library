@@ -194,7 +194,7 @@ def downloadScripts (cfg) {
         }
     }
     else {
-        sh "rm -rf ci-scripts/.jpl-scripts && mkdir -p ci-scripts/.temp && cd ci-scripts/.temp/ && wget -q -O - https://github.com/red-panda-ci/ci-scripts/archive/develop.zip | jar xvf /dev/stdin > /dev/null && chmod +x ci-scripts-develop/bin/*.sh && mv ci-scripts-develop ../.jpl-scripts"
+        sh "rm -rf ci-scripts/.jpl-scripts && mkdir -p ci-scripts/.temp && cd ci-scripts/.temp/ && wget -q -O - https://github.com/red-panda-ci/jpl-scripts/archive/master.zip | jar xvf /dev/stdin > /dev/null && chmod +x jpl-scripts-master/bin/*.sh && mv jpl-scripts-master ../.jpl-scripts"
         stash includes: 'ci-scripts/.jpl-scripts/**/*', name: 'jpl-scripts'
         cfg.flags.wereScriptsDownloaded = true
     }
