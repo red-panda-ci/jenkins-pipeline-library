@@ -1,6 +1,21 @@
+<a name="2.3.1"></a>
+## 2.3.1 (2017-12-12)
+
+
+### Fix
+
+* Use jpl-scripts istead ci-scripts library ([3bbb558ff39525afe995ca44c41709b360f22468](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/3bbb558ff39525afe995ca44c41709b360f22468))
+* Use master branch of jpl-scripts library ([59e5797e46149222771f9ea01d0bafdf5bda88d5](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/59e5797e46149222771f9ea01d0bafdf5bda88d5))
+
+
+
 <a name="2.3.0"></a>
 # 2.3.0 (2017-12-10)
 
+
+### Build
+
+* Update CHANGELOG.md to v2.3.0 with Red Panda JPL ([0eeebcfccfe066a7e775dec35d97437cd85116cd](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/0eeebcfccfe066a7e775dec35d97437cd85116cd))
 
 ### Update
 
