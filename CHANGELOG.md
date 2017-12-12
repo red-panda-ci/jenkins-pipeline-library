@@ -1,6 +1,20 @@
+<a name="2.3.2"></a>
+## 2.3.2 (2017-12-12)
+
+
+### Fix
+
+* Use the right jplCheckoutSCM helper within jplPromoteCode ([6b2af9a1f5d0b976bb1ccabecdb663816c4a904f](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/6b2af9a1f5d0b976bb1ccabecdb663816c4a904f))
+
+
+
 <a name="2.3.1"></a>
 ## 2.3.1 (2017-12-12)
 
+
+### Build
+
+* Update CHANGELOG.md to v2.3.1 with Red Panda JPL ([8301d3283681f83c3b2e40826a4fcf0a634dd905](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/8301d3283681f83c3b2e40826a4fcf0a634dd905))
 
 ### Fix
 
