@@ -15,6 +15,6 @@ def call(cfg, String upstreamBranch, String downstreamBranch) {
     // Download ci-scripts
     jplConfig.downloadScripts(cfg)
     sh "grep '\\+refs/heads/\\*:refs/remotes/origin/\\*' .git/config -q || git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/*"
-    jplCheckout(cfg)
+    jplCheckoutSCM(cfg)
     sh "ci-scripts/.jpl-scripts/bin/git-promote.sh -m 'Merge from ${upstreamBranch} with Red Panda JPL' ${upstreamBranch} ${downstreamBranch}"
 }
