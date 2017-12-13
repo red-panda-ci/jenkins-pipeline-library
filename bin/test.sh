@@ -93,9 +93,10 @@ if [[ ${doTests} == "true" ]]
 then
     runTest "jplCheckoutSCMTest"
     runTest "jplStartTest"
+    runTest "jplDockerBuildTest"
     runTest "jplDockerPushTest"
     runTest "jplPromoteBuildTest" 4
-    runTest "jplBuildAPKTest"
+    [ "$1" != "local" ] && runTest "jplBuildAPKTest"
     runTest "jplCloseReleaseTest"
 fi
 

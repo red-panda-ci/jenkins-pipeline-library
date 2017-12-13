@@ -1,6 +1,24 @@
+<a name="2.3.3"></a>
+## 2.3.3 (2017-12-13)
+
+
+### Build
+
+* Use last stable jpl release ([d2ed8719ea5072bf98b53449d3ff3d62d8480282](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/d2ed8719ea5072bf98b53449d3ff3d62d8480282))
+
+### New
+
+* Add jplDockerBuild helper, with tests ([eece8ccd6c305242b4026cd5efddd2a0579e65c5](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/eece8ccd6c305242b4026cd5efddd2a0579e65c5))
+
+
+
 <a name="2.3.2"></a>
 ## 2.3.2 (2017-12-12)
 
+
+### Build
+
+* Update CHANGELOG.md to v2.3.2 with Red Panda JPL ([8da776199c35c70a464f61d79830ebe6de0a0237](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/8da776199c35c70a464f61d79830ebe6de0a0237))
 
 ### Fix
 
@@ -329,6 +347,16 @@
 * Don't keep all changelog html reports ([3ae2af3567c0e40dcc78f0594ebbe05351848743](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/3ae2af3567c0e40dcc78f0594ebbe05351848743))
 * Set correct changelog generation condition ([5a1fdff75d45fa1c3ddc02538a53e74d79222825](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/5a1fdff75d45fa1c3ddc02538a53e74d79222825))
 * Use new 'FORMAT' parameter in changelog report, output as html ([09753cbcbc06a18e584d77ae506cbe3498534399](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/09753cbcbc06a18e584d77ae506cbe3498534399))
+
+
+
+<a name="0.8.0"></a>
+# 0.8.0 (2017-06-25)
+
+
+### jplCloseRelease
+
+* merge code from release to master and tag non-merge commit ([005a78e6639ccd791e0a0a96af3e4c95d4a6534f](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/005a78e6639ccd791e0a0a96af3e4c95d4a6534f))
 
 
 

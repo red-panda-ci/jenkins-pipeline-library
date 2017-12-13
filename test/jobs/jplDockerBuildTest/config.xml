@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@2.14.1">
+  <actions>
+    <io.jenkins.blueocean.service.embedded.BlueOceanUrlAction plugin="blueocean-rest-impl@1.2.4">
+      <blueOceanUrlObject class="io.jenkins.blueocean.service.embedded.BlueOceanUrlObjectImpl">
+        <mappedUrl>blue/organizations/jenkins/jplDockerBuildTest</mappedUrl>
+      </blueOceanUrlObject>
+    </io.jenkins.blueocean.service.embedded.BlueOceanUrlAction>
+  </actions>
+  <description>jplDockerBuildTest</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+      <triggers/>
+    </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+  </properties>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.40">
+    <script>#!groovy
+
+// Initialize cfg
+cfg = jplConfig(&apos;jplDockerBuildTest&apos;, &apos;backend&apos;, &apos;&apos;, [hipchat: &apos;&apos;, slack: &apos;&apos;, email: &apos;&apos;])
+
+stage (&apos;Test&apos;) {
+  node {
+    echo &apos;jplDockerBuild test&apos;
+    deleteDir()
+    sh &apos;docker rmi -f jpl-dockerbuild-test:test 2&gt; /dev/null || true&apos;
+    sh &apos;mkdir jplDockerBuildTempFolder &amp;&amp; echo -n &quot;FROM ubuntu\nRUN echo Hello, docker&quot; &gt; jplDockerBuildTempFolder/Dockerfile&apos;
+    jplDockerBuild(cfg, &apos;jpl-dockerbuild-test&apos;, &apos;test&apos;, &apos;jplDockerBuildTempFolder&apos;)
+  }
+}
+</script>
+    <sandbox>true</sandbox>
+  </definition>
+  <triggers/>
+  <disabled>false</disabled>
+</flow-definition>
