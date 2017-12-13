@@ -23,11 +23,13 @@ cfg = jplConfig(&apos;jplDockerPushTest&apos;, &apos;backend&apos;, &apos;&apos;
 stage (&apos;Test&apos;) {
   node {
     echo &apos;jplDockerPush test&apos;
+    sh &apos;docker rmi -f jpl-dockerpush-test:test localhost:5000/jpl-dockerpush-test:test 2&gt; /dev/null || true&apos;
     sh &apos;docker rm -f jpl-registry 2&gt; /dev/null || true&apos;
     sh &apos;docker run --name jpl-registry -d -p 5000:5000 registry:2&apos;
     deleteDir()
+    sh &apos;mkdir jplDockerPushTempFolder &amp;&amp; echo -n &quot;FROM ubuntu\nRUN echo Hello, jplDockerPush&quot; &gt; jplDockerPushTempFolder/Dockerfile&apos;
     sh &apos;echo &quot;FROM ubuntu&quot; &gt; Dockerfile&apos;
-    jplDockerPush(cfg, &apos;jpl-docker-test&apos;, &apos;test&apos;, &apos;http://localhost:5000&apos;)
+    jplDockerPush(cfg, &apos;jpl-dockerpush-test&apos;, &apos;test&apos;, 'jplDockerPushTempFolder', &apos;http://localhost:5000&apos;)
     sh &apos;docker rm -f jpl-registry 2&gt; /dev/null || true&apos;
   }
 }
