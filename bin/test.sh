@@ -93,6 +93,7 @@ if [[ ${doTests} == "true" ]]
 then
     runTest "jplCheckoutSCMTest"
     runTest "jplStartTest"
+    runTest "jplGitCacheHappyTest"
     runTest "jplDockerBuildTest"
     runTest "jplDockerPushTest"
     runTest "jplPromoteBuildTest" 4

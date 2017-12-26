@@ -79,6 +79,10 @@
                                     * Build and commit on jplCloseRelease
         String firstTag             First tag, branch or commit to be reviewed      (default: "")
 
+  * Hashmap gitCache: Git cache configuration
+        boolean enabled             Git cache status                                (default: true)
+        String path                 Path to git cache files                         (default: ".jpl_temp/jpl-git-cache/")
+
   Other options for internal use:
   * Hashmap promoteBuild: Promote build workflow configuration
         Integer timeoutHours        * Number of hours to wait from user input       (default: 48)
@@ -94,10 +98,10 @@ def call (projectName = 'project', targetPlatform = '', jiraProjectKey = '', rec
     else {
         cfg.BRANCH_NAME = env.BRANCH_NAME
     }
-    cfg.projectName                         = projectName
-    cfg.laneName                            = ((cfg.BRANCH_NAME in ["staging", "qa", "quality", "master"]) || cfg.BRANCH_NAME.startsWith('release/')) ? cfg.BRANCH_NAME.tokenize("/")[0] : 'develop'
-    cfg.versionSuffix                       = (cfg.BRANCH_NAME == "master") ? '' :  "rc" + env.BUILD_NUMBER + "-" + cfg.BRANCH_NAME.tokenize("/")[0]
-    cfg.targetPlatform                      = targetPlatform
+    cfg.projectName                                 = projectName
+    cfg.laneName                                    = ((cfg.BRANCH_NAME in ["staging", "qa", "quality", "master"]) || cfg.BRANCH_NAME.startsWith('release/')) ? cfg.BRANCH_NAME.tokenize("/")[0] : 'develop'
+    cfg.versionSuffix                               = (cfg.BRANCH_NAME == "master") ? '' :  "rc" + env.BUILD_NUMBER + "-" + cfg.BRANCH_NAME.tokenize("/")[0]
+    cfg.targetPlatform                              = targetPlatform
     switch (cfg.targetPlatform) {
         case 'android':
             cfg.archivePattern = '**/*.apk'
@@ -110,9 +114,9 @@ def call (projectName = 'project', targetPlatform = '', jiraProjectKey = '', rec
             cfg.artifactsPattern = ''
             break;
     }
-    cfg.androidPackages                     = 'build-tools-27.0.0,android-27'
-    cfg.releaseTag                          = cfg.BRANCH_NAME.startsWith('release/v') ? cfg.BRANCH_NAME.tokenize("/")[1] : ""
-    cfg.releaseTagNumber                    = cfg.BRANCH_NAME.startsWith('release/v') ? cfg.BRANCH_NAME.tokenize("/")[1].substring(1,6) : ""
+    cfg.androidPackages                             = 'build-tools-27.0.0,android-27'
+    cfg.releaseTag                                  = cfg.BRANCH_NAME.startsWith('release/v') ? cfg.BRANCH_NAME.tokenize("/")[1] : ""
+    cfg.releaseTagNumber                            = cfg.BRANCH_NAME.startsWith('release/v') ? cfg.BRANCH_NAME.tokenize("/")[1].substring(1,6) : ""
 
     //
     cfg.repository = [:]
@@ -121,61 +125,68 @@ def call (projectName = 'project', targetPlatform = '', jiraProjectKey = '', rec
 
     //
     cfg.applivery = [:]
-        cfg.applivery.token      = (env.APPLIVERY_TOKEN == null) ? '' : env.APPLIVERY_TOKEN
-        cfg.applivery.app        = (env.APPLIVERY_APP   == null) ? '' : env.APPLIVERY_APP
-        cfg.applivery.tags       = ''
-        cfg.applivery.notify     = true
-        cfg.applivery.autoremove = true
+        cfg.applivery.token                         = (env.APPLIVERY_TOKEN == null) ? '' : env.APPLIVERY_TOKEN
+        cfg.applivery.app                           = (env.APPLIVERY_APP   == null) ? '' : env.APPLIVERY_APP
+        cfg.applivery.tags                          = ''
+        cfg.applivery.notify                        = true
+        cfg.applivery.autoremove                    = true
 
     //
     cfg.appetize = [:]
-        cfg.appetize.token = (env.APPETIZE_TOKEN == null) ? '' : env.APPETIZE_TOKEN
-        cfg.appetize.app   = (env.APPETIZE_APP   == null) ? '' : env.APPETIZE_APP
+        cfg.appetize.token                          = (env.APPETIZE_TOKEN == null) ? '' : env.APPETIZE_TOKEN
+        cfg.appetize.app                            = (env.APPETIZE_APP   == null) ? '' : env.APPETIZE_APP
     
     //
-    cfg.notify                              = true
-    cfg.recipients                          = recipients
+    cfg.notify                                      = true
+    cfg.recipients                                  = recipients
 
     //
     cfg.sonar = [:]
-        cfg.sonar.toolName                  = "SonarQube"
-        cfg.sonar.abortIfQualityGateFails   = true
+        cfg.sonar.toolName                          = "SonarQube"
+        cfg.sonar.abortIfQualityGateFails           = true
 
     //
     cfg.jira = [:]
-        cfg.jira.projectKey                 = jiraProjectKey
-        cfg.jira.projectData                = ''
+        cfg.jira.projectKey                         = jiraProjectKey
+        cfg.jira.projectData                        = ''
 
     //
     cfg.ie = [:]
-        cfg.ie.ieCommitRawText              = ""
-        cfg.ie.commandName                  = ""
-        cfg.ie.parameter                    = [:]
+        cfg.ie.ieCommitRawText                      = ""
+        cfg.ie.commandName                          = ""
+        cfg.ie.parameter                            = [:]
 
     //
-    cfg.commitValidation                    = [:]
-        cfg.commitValidation.enabled        = true
-        cfg.commitValidation.preset         = "eslint"
-        cfg.commitValidation.quantity       = 1
+    cfg.commitValidation                            = [:]
+        cfg.commitValidation.enabled                = true
+        cfg.commitValidation.preset                 = "eslint"
+        cfg.commitValidation.quantity               = 1
 
     //
-    cfg.changelog                           = [:]
-        cfg.changelog.enabled               = true
-        cfg.changelog.firstTag              = ""
+    cfg.changelog                                   = [:]
+        cfg.changelog.enabled                       = true
+        cfg.changelog.firstTag                      = ""
+
+    //
+    cfg.gitCache                                    = [:]
+        cfg.gitCache.enabled                        = true
+        cfg.gitCache.path                           = ".jpl_temp/git-cache/"
+        cfg.gitCache.gitCacheProjectRelativePath    = "${cfg.gitCache.path}/${cfg.projectName}"
 
     //-----------------------------------------//
 
     //
-    cfg.dockerFunctionPrefix                = "docker run -i --rm -v jpl-cache:/var/lib/docker"
-    cfg.promoteBuild                        = [:]
-        cfg.promoteBuild.enabled            = false
-        cfg.promoteBuild.timeoutHours       = 48
+    cfg.dockerFunctionPrefix                        = "docker run -i --rm -v jpl-cache:/var/lib/docker"
+    cfg.promoteBuild                                = [:]
+        cfg.promoteBuild.enabled                    = false
+        cfg.promoteBuild.timeoutHours               = 48
 
     //
     cfg.flags = [:]
-        cfg.flags.isJplStarted              = false
-        cfg.flags.isAndroidImageBuilded     = false
-        cfg.flags.wereScriptsDownloaded     = false
+        cfg.flags.isJplConfigured                   = true
+        cfg.flags.isJplStarted                      = false
+        cfg.flags.isAndroidImageBuilded             = false
+        cfg.flags.wereScriptsDownloaded             = false
 
     //-----------------------------------------//
 
@@ -186,8 +197,8 @@ def call (projectName = 'project', targetPlatform = '', jiraProjectKey = '', rec
     return cfg
 }
 
-// Get ci-scripts
-def downloadScripts (cfg) {
+// Get jpl-scripts
+def downloadScripts(cfg) {
     if (cfg.flags.wereScriptsDownloaded) {
         if (!fileExists('ci-scripts/.jpl-scripts/README.md')) {
             unstash 'jpl-scripts'
@@ -197,5 +208,11 @@ def downloadScripts (cfg) {
         sh "rm -rf ci-scripts/.jpl-scripts && mkdir -p ci-scripts/.temp && cd ci-scripts/.temp/ && wget -q -O - https://github.com/red-panda-ci/jpl-scripts/archive/master.zip | jar xvf /dev/stdin > /dev/null && chmod +x jpl-scripts-master/bin/*.sh && mv jpl-scripts-master ../.jpl-scripts"
         stash includes: 'ci-scripts/.jpl-scripts/**/*', name: 'jpl-scripts'
         cfg.flags.wereScriptsDownloaded = true
+    }
+}
+
+def checkInitializationStatus(cfg) {
+    if (!cfg.flags.isJplConfigured) {
+        error ("ERROR: You should call to jplConfig first")
     }
 }

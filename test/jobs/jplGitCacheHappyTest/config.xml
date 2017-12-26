@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@2.16">
+  <actions>
+    <io.jenkins.blueocean.service.embedded.BlueOceanUrlAction plugin="blueocean-rest-impl@1.3.5">
+      <blueOceanUrlObject class="io.jenkins.blueocean.service.embedded.BlueOceanUrlObjectImpl">
+        <mappedUrl>blue/organizations/jenkins/jplGitCacheHappyTest</mappedUrl>
+      </blueOceanUrlObject>
+    </io.jenkins.blueocean.service.embedded.BlueOceanUrlAction>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobAction plugin="pipeline-model-definition@1.2.5"/>
+  </actions>
+  <description>jplGitCacheHappyTest</description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.42">
+    <script>#!groovy
+
+// Initialize cfg
+cfg = jplConfig(&apos;jplGitCacheHappyTest&apos;, &apos;backend&apos;, &apos;&apos;, [hipchat: &apos;&apos;, slack: &apos;&apos;, email: &apos;&apos;])
+cfg.repository.url = &apos;file:////tmp/jenkins-pipeline-library&apos;
+cfg.repository.branch = &apos;jpl-test&apos;
+gitCacheProjectAbsolutePath = &quot;${env.JENKINS_HOME}/${cfg.gitCache.gitCacheProjectRelativePath}&quot;
+
+pipeline {
+
+    agent any
+
+    stages {
+        stage (&apos;jplGitCache Happy Test - Start&apos;) {
+            steps  {
+                echo &quot;jplGitCache Happy Test - Start&quot;
+                jplStart(cfg)
+                sh &quot;[ -f ${gitCacheProjectAbsolutePath}/.git/config ] &amp;&amp; echo &apos;Cache hitted OK&apos; &amp;&amp; touch ${gitCacheProjectAbsolutePath}/.git/cache_flag&quot;
+            }
+        }
+        stage (&apos;jplGitCache Happy Test - Use jpl-git-cache&apos;) {
+            steps  {
+                echo &quot;jplGitCache Happy Test - Use jpl-git-cache&quot;
+                deleteDir()
+                jplCheckoutSCM(cfg)
+                sh &quot;[ -f ${gitCacheProjectAbsolutePath}/.git/cache_flag ] &amp;&amp; echo &apos;Cache retrieved OK&apos;&quot;
+            }
+        }
+    }
+
+    options {
+        timestamps()
+        ansiColor(&apos;xterm&apos;)
+        skipDefaultCheckout()
+    }
+}</script>
+    <sandbox>true</sandbox>
+  </definition>
+  <disabled>false</disabled>
+</flow-definition>
