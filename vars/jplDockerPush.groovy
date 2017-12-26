@@ -15,14 +15,12 @@ cfg usage:
 * cfg.projectName
 */
 def call(cfg, String dockerImageName = "", String dockerImageTag = "latest", String dockerfilePath = "./", String dockerRegistryURL = "", String dockerRegistryJenkinsCredentials = "") {
-
-    script {
-        def app
-        dockerRegistryURL = (dockerRegistryURL == '') ? 'https://registry.hub.docker.com' : dockerRegistryURL
-        dockerImageName = (dockerImageName == '') ? cfg.projectName : dockerImageName
-        app = jplDockerBuild(cfg, dockerImageName, dockerImageTag, dockerfilePath)
-        docker.withRegistry(dockerRegistryURL, dockerRegistryJenkinsCredentials) {
-            app.push(dockerImageTag)
-        }
+    jplConfig.checkInitializationStatus(cfg)
+    def app
+    dockerRegistryURL = (dockerRegistryURL == '') ? 'https://registry.hub.docker.com' : dockerRegistryURL
+    dockerImageName = (dockerImageName == '') ? cfg.projectName : dockerImageName
+    app = jplDockerBuild(cfg, dockerImageName, dockerImageTag, dockerfilePath)
+    docker.withRegistry(dockerRegistryURL, dockerRegistryJenkinsCredentials) {
+        app.push(dockerImageTag)
     }
 }

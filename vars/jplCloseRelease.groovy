@@ -17,6 +17,7 @@ cfg usage:
 * cfg.recipients
 */
 def call(cfg) {
+    jplConfig.checkInitializationStatus(cfg)
     if (!cfg.promoteBuild.enabled) {
         echo "jplCloseRelease: you don't had confirmed the build"
         return false

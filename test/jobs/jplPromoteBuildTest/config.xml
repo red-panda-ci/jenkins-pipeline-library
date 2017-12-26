@@ -30,14 +30,16 @@ pipeline {
     agent none
 
     stages {
-        stage (&apos;Checkout&apos;) {
+        stage (&apos;jplPromoteBuild Test - Initialize&apos;) {
             agent any
             steps  {
-                jplCheckoutSCM(cfg)
+                echo &quot;jplPromoteBuild Test - Initialize&quot;
+                jplStart(cfg)
             }
         }
-        stage (&apos;Release confirm&apos;) {
+        stage (&apos;jplPromoteBuild Test - Promote Build&apos;) {
             steps {
+                echo &quot;jplPromoteBuild Test - Promote Build&quot;;
                 timeout(time: 5, unit: &apos;SECONDS&apos;) {
                     jplPromoteBuild(cfg)
                 }

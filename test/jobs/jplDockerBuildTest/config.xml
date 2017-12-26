@@ -20,9 +20,9 @@
 // Initialize cfg
 cfg = jplConfig(&apos;jplDockerBuildTest&apos;, &apos;backend&apos;, &apos;&apos;, [hipchat: &apos;&apos;, slack: &apos;&apos;, email: &apos;&apos;])
 
-stage (&apos;Test&apos;) {
+stage (&apos;jplDockerBuild Test&apos;) {
   node {
-    echo &apos;jplDockerBuild test&apos;
+    echo &apos;jplDockerBuild Test&apos;
     deleteDir()
     sh &apos;docker rmi -f jpl-dockerbuild-test:test 2&gt; /dev/null || true&apos;
     sh &apos;mkdir jplDockerBuildTempFolder &amp;&amp; echo -n &quot;FROM ubuntu\nRUN echo Hello, docker&quot; &gt; jplDockerBuildTempFolder/Dockerfile&apos;
