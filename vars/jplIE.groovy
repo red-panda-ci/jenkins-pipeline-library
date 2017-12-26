@@ -39,6 +39,7 @@ Commands:
     "@ie gradlew clean assembleDebug"
 */
 def call(cfg) {
+    jplConfig.checkInitializationStatus(cfg)
     cfg.ie.ieCommitRawText = sh (
         script: "git log -n1|grep '@ie'||echo ''",
         returnStdout: true

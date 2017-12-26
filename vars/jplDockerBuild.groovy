@@ -13,13 +13,11 @@ cfg usage:
 * cfg.projectName
 */
 def call(cfg, String dockerImageName = '', String dockerImageTag = 'latest', String dockerfilePath = './') {
-
-    script {
-        def app
-        dockerImageName = (dockerImageName == '') ? cfg.projectName : dockerImageName
-        dir(dockerfilePath) {
-            app = docker.build("${dockerImageName}:${dockerImageTag}")
-        }
-        return app
+    jplConfig.checkInitializationStatus(cfg)
+    def app
+    dockerImageName = (dockerImageName == '') ? cfg.projectName : dockerImageName
+    dir(dockerfilePath) {
+        app = docker.build("${dockerImageName}:${dockerImageTag}")
     }
+    return app
 }

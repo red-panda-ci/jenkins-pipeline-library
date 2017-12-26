@@ -30,12 +30,11 @@ cfg usage:
 + cfg.jira.*
 */
 def checkProjectExists(cfg) {
+    jplConfig.checkInitializationStatus(cfg)
     if (cfg.jira.projectKey != '') {
-        script {
-            // Look at https://jenkinsci.github.io/jira-steps-plugin/jira_get_project.html for more info
-            def jiraProject = jiraGetProject idOrKey: cfg.jira.projectKey
-            cfg.jira.projectData = jiraProject
-        }
+        // Look at https://jenkinsci.github.io/jira-steps-plugin/jira_get_project.html for more info
+        def jiraProject = jiraGetProject idOrKey: cfg.jira.projectKey
+        cfg.jira.projectData = jiraProject
     }
 }
 
@@ -53,6 +52,7 @@ def checkProjectExists(cfg) {
  
 */
 def openIssue(cfg, summary = '', description = '') {
+    jplConfig.checkInitializationStatus(cfg)
     if (cfg.jira.projectKey != '') {
         // Open JIRA tickets on 'NOT SUCCESS build'
         echo "jpl: open jira issue in JIRA project with key: ${cfg.jira.projectKey}"

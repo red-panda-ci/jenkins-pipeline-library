@@ -18,6 +18,7 @@ cfg usage:
 * cfg.targetPlatform
 */
 def call(cfg, String command = '') {
+    jplConfig.checkInitializationStatus(cfg)
     switch (cfg.targetPlatform) {
         case 'android':
             jplBuildAPK(cfg,command)

@@ -18,6 +18,7 @@ Notes:
 * Marked as DEPRECATED by jplBuild on 2017-09-02. Removed on a future release.
 */
 def call(cfg, String command='') {
+    jplConfig.checkInitializationStatus(cfg)
     // Build default
     if (command == '') {
         if (cfg.ie.commandName == "fastlane") {

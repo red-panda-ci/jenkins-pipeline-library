@@ -16,33 +16,32 @@
   * cfg.BRNACH_NAME
 */
 def call(cfg, String range = 'HEAD', String format = 'md', String filename = 'CHANGELOG.md') {
-    script {
-        // Check firstTag range
-        if (cfg.changelog.firstTag != "") {
-            if (cfg.changelog.firstTag.startsWith("...")) {
-                range = range + cfg.changelog.firstTag
-            } else {
-                range = range + "..." + cfg.changelog.firstTag
-            }
-        }
-        // Build changelog report to the build
-        repositoryUrl = sh (
-            script: "git ls-remote --get-url",
-            returnStdout: true
-        )
-        .trim()
-        .replace('git@github.com:','https://github.com/')
-        .replace('git@bitbucket.org:','https://bitbucket.org/')
-        if (repositoryUrl.endsWith(".git")) {
-            repositoryUrl = repositoryUrl.substring(0, repositoryUrl.length() - 4)
-        }
-        if (repositoryUrl.startsWith("https://github.com")) {
-            repositoryUrl = repositoryUrl + "/commit"
-        } else if (repositoryUrl.startsWith("https://bitbucket.org")) {
-            repositoryUrl = repositoryUrl + "/commits"
+    jplConfig.checkInitializationStatus(cfg)
+    // Check firstTag range
+    if (cfg.changelog.firstTag != "") {
+        if (cfg.changelog.firstTag.startsWith("...")) {
+            range = range + cfg.changelog.firstTag
         } else {
-            repositoryUrl = repositoryUrl + "/commit"
+            range = range + "..." + cfg.changelog.firstTag
         }
-        sh "git log --format='%B%n-hash-%n%H%n-gitTags-%n%d%n-committerDate-%n%ci%n------------ _¿? ------------' ${range} --no-merges|${cfg.dockerFunctionPrefix} -e COMMIT_DELIMITER='------------ _¿? ------------' -e PRESET='eslint' -e GIT_URL='${repositoryUrl}' -e FORMAT='${format}' redpandaci/node-pipe-changelog-generator > ${filename}"
     }
+    // Build changelog report to the build
+    repositoryUrl = sh (
+        script: "git ls-remote --get-url",
+        returnStdout: true
+    )
+    .trim()
+    .replace('git@github.com:','https://github.com/')
+    .replace('git@bitbucket.org:','https://bitbucket.org/')
+    if (repositoryUrl.endsWith(".git")) {
+        repositoryUrl = repositoryUrl.substring(0, repositoryUrl.length() - 4)
+    }
+    if (repositoryUrl.startsWith("https://github.com")) {
+        repositoryUrl = repositoryUrl + "/commit"
+    } else if (repositoryUrl.startsWith("https://bitbucket.org")) {
+        repositoryUrl = repositoryUrl + "/commits"
+    } else {
+        repositoryUrl = repositoryUrl + "/commit"
+    }
+    sh "git log --format='%B%n-hash-%n%H%n-gitTags-%n%d%n-committerDate-%n%ci%n------------ _¿? ------------' ${range} --no-merges|${cfg.dockerFunctionPrefix} -e COMMIT_DELIMITER='------------ _¿? ------------' -e PRESET='eslint' -e GIT_URL='${repositoryUrl}' -e FORMAT='${format}' redpandaci/node-pipe-changelog-generator > ${filename}"
 }

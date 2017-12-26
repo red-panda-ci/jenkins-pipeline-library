@@ -33,6 +33,7 @@ Notes:
     Both file should be placed in the a repository path, wich is informed with the "signingPath" parameter
 */
 def call(cfg, String signingRepository, String signingPath, String artifactPath) {
+    jplConfig.checkInitializationStatus(cfg)
     if (!artifactPath.endsWith("-unsigned.apk")) {
         error ("jplSign: should have an unsigned APK wich ends with 'signed-apk'")
     }
