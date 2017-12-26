@@ -22,9 +22,8 @@ cfg usage:
 * cfg.commitValidation.*
 */
 def call(cfg, quantity = null, preset = null) {
-    script {
-        quantity = (quantity == null) ? cfg.commitValidation.quantity : quantity
-        preset = (preset == null) ? cfg.commitValidation.preset : preset
-        sh "git log --oneline --no-merges -n ${quantity}|cut -c9-|${cfg.dockerFunctionPrefix} -e PRESET='${preset}' madoos/node-commit-validator:latest"
-    }
+    jplConfig.checkInitializationStatus(cfg)
+    quantity = (quantity == null) ? cfg.commitValidation.quantity : quantity
+    preset = (preset == null) ? cfg.commitValidation.preset : preset
+    sh "git log --oneline --no-merges -n ${quantity}|cut -c9-|${cfg.dockerFunctionPrefix} -e PRESET='${preset}' madoos/node-commit-validator:latest"
 }

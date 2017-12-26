@@ -317,6 +317,10 @@ cfg usage:
                                     * Build and commit on jplCloseRelease
         String firstTag             First tag, branch or commit to be reviewed      (default: "")
 
+  * Hashmap gitCache: Git cache configuration
+        boolean enabled             Git cache status                                (default: true)
+        String path                 Path to git cache files                         (default: ".jpl_temp/jpl-git-cache/")
+
   Other options for internal use:
   * Hashmap promoteBuild: Promote build workflow configuration
         Integer timeoutHours        * Number of hours to wait from user input       (default: 48)

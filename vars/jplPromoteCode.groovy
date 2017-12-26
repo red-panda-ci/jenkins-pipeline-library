@@ -12,7 +12,7 @@ Parameters:
 * String downstreamBranch The branch "target" of the merge
 */
 def call(cfg, String upstreamBranch, String downstreamBranch) {
-    // Download ci-scripts
+    jplConfig.checkInitializationStatus(cfg)
     jplConfig.downloadScripts(cfg)
     sh "grep '\\+refs/heads/\\*:refs/remotes/origin/\\*' .git/config -q || git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/*"
     jplCheckoutSCM(cfg)

@@ -9,14 +9,15 @@ pipeline {
     agent any
 
     stages {
-        stage ("Initialize") {
+        stage ("jplCloseRelease Test - Initialize") {
             steps  {
+                echo "jplCloseRelease Test - Initialize"
                 jplStart(cfg)
             }
         }
-        stage ("Close Release") {
+        stage ("jplCloseRelease Test - Close Release") {
             steps {
-                echo "Closing release: ${cfg.releaseTag}, short one ${cfg.releaseTagNumber}"
+                echo "jplCloseRelease Test - Closing release: ${cfg.releaseTag}, short one ${cfg.releaseTagNumber}"
                 jplCloseRelease(cfg)
             }
         }

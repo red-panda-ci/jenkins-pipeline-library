@@ -28,6 +28,7 @@ cfg usage:
 * cfg.flags.isJplStarted
 */
 def call(cfg) {
+    jplConfig.checkInitializationStatus(cfg)
     if (cfg.flags.isJplStarted) {
         error ("ERROR: jplStart already executed")
     }

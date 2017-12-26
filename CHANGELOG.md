@@ -1,9 +1,29 @@
+<a name="2.3.4"></a>
+## 2.3.4 (2017-12-26)
+
+
+### Docs
+
+* Update readme ([2cdc43bceeccb747d8b4324bbd6a8695d02290a6](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/2cdc43bceeccb747d8b4324bbd6a8695d02290a6))
+
+### New
+
+* Add jpl git cache capability  ([d0df6bda28f5e0e0e9f5039e71a4655f358ab28a](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/d0df6bda28f5e0e0e9f5039e71a4655f358ab28a)), closes [#50](https://github.com/madoos/node-changelog-generator/issues/50) [#51](https://github.com/madoos/node-changelog-generator/issues/51)
+
+### Update
+
+* Add config test to all jpl helpers ([78164fef5b310901c55095fea0d6c66e4dc9cc91](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/78164fef5b310901c55095fea0d6c66e4dc9cc91))
+* Refactor test ([bcb5dd6f88391a46bfb47df468887aa9317d9b73](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/bcb5dd6f88391a46bfb47df468887aa9317d9b73))
+
+
+
 <a name="2.3.3"></a>
 ## 2.3.3 (2017-12-13)
 
 
 ### Build
 
+* Update CHANGELOG.md to v2.3.3 with Red Panda JPL ([87a84803c18535619e0434d9bfe1d3f0c7dcdeef](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/87a84803c18535619e0434d9bfe1d3f0c7dcdeef))
 * Use last stable jpl release ([d2ed8719ea5072bf98b53449d3ff3d62d8480282](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/d2ed8719ea5072bf98b53449d3ff3d62d8480282))
 
 ### New

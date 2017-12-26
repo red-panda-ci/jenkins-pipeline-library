@@ -14,20 +14,19 @@ cfg usage:
 * cfg.versionSuffix
 */
 def call(cfg, String packageFile, String app = '', String token = '') {
-    script {
-        app = (app == '') ? cfg.applivery.app : app
-        token = (token == '') ? cfg.applivery.token : token
-        sh """wget -O - https://raw.githubusercontent.com/red-panda-ci/jenkins-deploy-script/master/jenkins.sh | bash -s -- \
-                --apikey="${token}" \
-                --app="${app}" \
-                --os="${cfg.targetPlatform}" \
-                --package="${packageFile}" \
-                --versionName="${cfg.versionSuffix}" \
-                --notes="branch:${BRANCH_NAME}, build: #${BUILD_NUMBER}" \
-                --notify=${cfg.applivery.notify} \
-                --tags="${cfg.applivery.tags}" \
-                --autoremove=${cfg.applivery.autoremove} \
-                --deployer="jenkins"
-            """
-    }
+    jplConfig.checkInitializationStatus(cfg)
+    app = (app == '') ? cfg.applivery.app : app
+    token = (token == '') ? cfg.applivery.token : token
+    sh """wget -O - https://raw.githubusercontent.com/red-panda-ci/jenkins-deploy-script/master/jenkins.sh | bash -s -- \
+            --apikey="${token}" \
+            --app="${app}" \
+            --os="${cfg.targetPlatform}" \
+            --package="${packageFile}" \
+            --versionName="${cfg.versionSuffix}" \
+            --notes="branch:${BRANCH_NAME}, build: #${BUILD_NUMBER}" \
+            --notify=${cfg.applivery.notify} \
+            --tags="${cfg.applivery.tags}" \
+            --autoremove=${cfg.applivery.autoremove} \
+            --deployer="jenkins"
+        """
 }

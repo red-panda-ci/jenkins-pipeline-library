@@ -15,19 +15,17 @@ To use the jplSonarScanner() tool:
 * Configure a webhook in Sonar to your jenkins URL <your-jenkins-instance>/sonarqube-webhook/ (https://jenkins.io/doc/pipeline/steps/sonar/#waitforqualitygate-wait-for-sonarqube-analysis-to-be-completed-and-return-quality-gate-status)
 */
 def call(cfg) {
-    jplCheckoutSCM(cfg)
-    script {
-        timeout(time: 1, unit: 'HOURS') {
-            def sonarHome = tool cfg.sonar.toolName;
-            withSonarQubeEnv(cfg.sonar.toolName) {
-                sh "${sonarHome}/bin/sonar-scanner"
-            }
-            if (cfg.sonar.abortIfQualityGateFails) {
-                def qg = waitForQualityGate()
-                if (!(qg.status in ['OK', 'WARN'])) {
-                    currentBuild.result = 'ABORTED'
-                    error "jplSonarScanner: Pipeline aborted due to quality gate failure: ${qg.status}"
-                }
+    jplConfig.checkInitializationStatus(cfg)
+    timeout(time: 1, unit: 'HOURS') {
+        def sonarHome = tool cfg.sonar.toolName;
+        withSonarQubeEnv(cfg.sonar.toolName) {
+            sh "${sonarHome}/bin/sonar-scanner"
+        }
+        if (cfg.sonar.abortIfQualityGateFails) {
+            def qg = waitForQualityGate()
+            if (!(qg.status in ['OK', 'WARN'])) {
+                currentBuild.result = 'ABORTED'
+                error "jplSonarScanner: Pipeline aborted due to quality gate failure: ${qg.status}"
             }
         }
     }

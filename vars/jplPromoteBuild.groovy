@@ -12,6 +12,7 @@ cfg usage:
 * cfg.promoteBuild
 */
 def call(cfg, String message = 'Promote Build', String description = 'Check to promote the build, leave uncheck to finish the build without promote') {
+    jplConfig.checkInitializationStatus(cfg)
     try {
         cfg.promoteBuild.enabled = false
         timeout(time: cfg.promoteBuild.timeoutHours, unit: 'HOURS') {

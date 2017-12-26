@@ -20,6 +20,7 @@ Place the jplPostBuild(cfg) line into the "post" block of the pipeline like this
     }
 */
 def call(cfg) {
+    jplConfig.checkInitializationStatus(cfg)
     if (cfg.notify) {
         jplNotify(cfg)
     }
