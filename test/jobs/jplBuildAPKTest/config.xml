@@ -18,8 +18,10 @@
   <keepDependencies>false</keepDependencies>
   <properties/>
   <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.42">
-    <script>cfg = jplConfig(&apos;jplBuildAPKTest&apos;, &apos;android&apos;, &apos;&apos;, [hipchat: &apos;&apos;, slack: &apos;&apos;, email: &apos;&apos;])
+    <script>#!groovy
 
+// Initialize cfg
+cfg = jplConfig(&apos;jplBuildAPKTest&apos;, &apos;android&apos;, &apos;&apos;, [hipchat: &apos;&apos;, slack: &apos;&apos;, email: &apos;&apos;])
 cfg.repository.url = &apos;https://github.com/red-panda-ci/android-testing&apos;
 cfg.repository.branch = &apos;master&apos;
 cfg.androidPackages = &apos;&quot;build-tools;27.0.1&quot; &quot;platforms;android-27&quot;&apos;
@@ -29,15 +31,16 @@ pipeline {
     agent any
 
     stages {
-        stage (&apos;Initialize&apos;) {
+        stage (&apos;jplBuildAPK Test - Initialize&apos;) {
             steps  {
+                echo &apos;jplBuildAPK Test - Initialize&apos;
                 jplStart(cfg)
             }
         }
 
-        stage (&apos;Build&apos;) {
+        stage (&apos;jplBuildAPK Test - Build&apos;) {
             steps  {
-                echo &quot;jplBuildAPK Test&quot;;
+                echo &quot;jplBuildAPK Test - Build&quot;;
                 jplBuild(cfg, &quot;./gradlew clean assembleDebug&quot;)
             }
         }
