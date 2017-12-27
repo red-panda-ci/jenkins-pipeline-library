@@ -13,7 +13,7 @@
   * String  projectName             Project alias / codename (with no spaces)       (default: "project")
   * String  BRANCH_NAME             Branch name                                     (default: env.BRANCH_NAME)
   * String  laneName                Fastlane lane name                              (default: related to branch name)
-  * String  targetPlatform          Target platform, one of these                   (default: "")
+  * String  targetPlatform          Target platform, one of these                   (default: "any")
     - "android"
     - "ios"
     - "hybrid"
@@ -89,7 +89,7 @@
         boolean enabled             * Flag to promote build to release steps        (default: false)
 
 */
-def call (projectName = 'project', targetPlatform = '', jiraProjectKey = '', recipients = [hipchat:'',slack:'',email:'']) {
+def call (projectName = 'project', targetPlatform = 'any', jiraProjectKey = '', recipients = [hipchat:'',slack:'',email:'']) {
     cfg = [:]
     //
     if (env.BRANCH_NAME == null) {
@@ -171,7 +171,7 @@ def call (projectName = 'project', targetPlatform = '', jiraProjectKey = '', rec
     cfg.gitCache                                    = [:]
         cfg.gitCache.enabled                        = true
         cfg.gitCache.path                           = ".jpl_temp/git-cache/"
-        cfg.gitCache.gitCacheProjectRelativePath    = "${cfg.gitCache.path}/${cfg.projectName}"
+        cfg.gitCache.gitCacheProjectRelativePath    = "${cfg.gitCache.path}/${cfg.projectName}-${cfg.targetPlatform}"
 
     //-----------------------------------------//
 
