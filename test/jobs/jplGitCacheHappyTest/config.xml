@@ -18,7 +18,7 @@
 cfg = jplConfig(&apos;jplGitCacheHappyTest&apos;, &apos;backend&apos;, &apos;&apos;, [hipchat: &apos;&apos;, slack: &apos;&apos;, email: &apos;&apos;])
 cfg.repository.url = &apos;file:////tmp/jenkins-pipeline-library&apos;
 cfg.repository.branch = &apos;jpl-test&apos;
-gitCacheProjectAbsolutePath = &quot;${env.JENKINS_HOME}/${cfg.gitCache.gitCacheProjectRelativePath}&quot;
+def gitCacheProjectAbsolutePath
 
 pipeline {
 
@@ -29,6 +29,7 @@ pipeline {
             steps  {
                 echo &quot;jplGitCache Happy Test - Start&quot;
                 jplStart(cfg)
+                script { gitCacheProjectAbsolutePath = &quot;${env.HOME}/${cfg.gitCache.gitCacheProjectRelativePath}&quot; }
                 sh &quot;[ -f ${gitCacheProjectAbsolutePath}/.git/config ] &amp;&amp; echo &apos;Cache hitted OK&apos; &amp;&amp; touch ${gitCacheProjectAbsolutePath}/.git/cache_flag&quot;
             }
         }

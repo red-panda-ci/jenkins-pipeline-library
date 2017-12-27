@@ -8,17 +8,35 @@ Parameters:
 
 cfg uage:
 
-* cfg.repository.url
+* cfg.BRANCH_NAME
+* cfg.repository.*
 * cfg.repository.branch
 */
 def call(cfg) {
     jplConfig.checkInitializationStatus(cfg)
     if (cfg.gitCache.enabled) {
-        gitCacheProjectAbsolutePath = "${env.JENKINS_HOME}/${cfg.gitCache.gitCacheProjectRelativePath}"
+        gitCacheProjectAbsolutePath = "${env.HOME}/${cfg.gitCache.gitCacheProjectRelativePath}"
         if (fileExists("${gitCacheProjectAbsolutePath}/.git/config")) {
             sh "echo 'jpl-git-cache: Hitting cache at ${gitCacheProjectAbsolutePath}' && rsync -a --delete ${gitCacheProjectAbsolutePath}/.git/ .git/"
         }
     }
+    try {
+        // First checkout try
+        echo "jplCheckoutSCM: checkout code, first try"
+        this.checkoutCode(cfg)
+    } catch(err) {
+        // Second checkout try after wipe project workspace
+        echo "jplCheckoutSCM: wipe directory before second checkout try"
+        deleteDir()
+        this.checkoutCode(cfg)
+    }
+    if (cfg.gitCache.enabled) {
+        sh "echo 'Storing cache at ${gitCacheProjectAbsolutePath}' && grep '\\+refs/heads/\\*:refs/remotes/origin/\\*' .git/config -q || git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/*"
+        sh "git fetch -p; mkdir -p ${gitCacheProjectAbsolutePath} && rsync -a --delete .git/ ${gitCacheProjectAbsolutePath}/.git/"
+    }
+}
+
+def checkoutCode(cfg) {
     if (cfg.repository.url == '') {
         checkout scm
         if (!cfg.BRANCH_NAME.startsWith('PR-')) {
@@ -32,8 +50,5 @@ def call(cfg) {
         else {
             git branch: cfg.repository.branch, url: cfg.repository.url
         }
-    }
-    if (cfg.gitCache.enabled) {
-        sh "echo 'Storing cache at ${gitCacheProjectAbsolutePath}' && mkdir -p ${gitCacheProjectAbsolutePath} && rsync -a --delete .git/ ${gitCacheProjectAbsolutePath}/.git/"
     }
 }

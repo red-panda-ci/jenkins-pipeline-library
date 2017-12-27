@@ -213,7 +213,8 @@ Parameters:
 
 cfg uage:
 
-* cfg.repository.url
+* cfg.BRANCH_NAME
+* cfg.repository.*
 * cfg.repository.branch
 
 ### jplCloseRelease
