@@ -1,6 +1,20 @@
+<a name="2.3.5"></a>
+## 2.3.5 (2017-12-27)
+
+
+### Update
+
+* Do a second checkout try wiping directory if the first try fails ([138a5d412606a7f7350fcd27ae21ad5c71212270](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/138a5d412606a7f7350fcd27ae21ad5c71212270))
+
+
+
 <a name="2.3.4"></a>
 ## 2.3.4 (2017-12-26)
 
+
+### Build
+
+* Update CHANGELOG.md to v2.3.4 with Red Panda JPL ([09df88bba14fa257d1109aa6e7af534d94b046ff](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/09df88bba14fa257d1109aa6e7af534d94b046ff))
 
 ### Docs
 
