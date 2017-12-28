@@ -9,11 +9,8 @@ Example: "./gradlew clean assembleDebug"
 
 cfg usage:
 
-* cfg.projectName
-* cfg.laneName
+* cfg.archivePattern
+* cfg.ie.*
+* cfg.flags.isAndroidImageBuilded
 * cfg.versionSuffix
-
-Notes:
-
-* Marked as DEPRECATED by jplBuild on 2017-09-02. Removed on a future release.
 

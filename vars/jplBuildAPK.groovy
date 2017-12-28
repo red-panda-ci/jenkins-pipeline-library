@@ -9,13 +9,10 @@ Example: "./gradlew clean assembleDebug"
 
 cfg usage:
 
-* cfg.projectName
-* cfg.laneName
+* cfg.archivePattern
+* cfg.ie.*
+* cfg.flags.isAndroidImageBuilded
 * cfg.versionSuffix
-
-Notes:
-
-* Marked as DEPRECATED by jplBuild on 2017-09-02. Removed on a future release.
 */
 def call(cfg, String command='') {
     jplConfig.checkInitializationStatus(cfg)
@@ -59,8 +56,9 @@ def buildAPK(cfg, command) {
         sh 'mkdir -p .android; [ ! -f .android/debug.keystore ] && keytool -genkey -v -keystore .android/debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "C=US, O=Android, CN=Android Debug" || true'
         sh "${command}"
     }
-    archiveArtifacts artifacts: '**/*DebugUnitTest.exec', fingerprint: true, allowEmptyArchive: true
-    archiveArtifacts artifacts: cfg.archivePattern, fingerprint: true, allowEmptyArchive: true
+    if (cfg.archivePattern != '') {
+        archiveArtifacts artifacts: cfg.archivePattern, fingerprint: true, allowEmptyArchive: true
+    }
 }
 
 def buildDockerImage(cfg, nodeData) {

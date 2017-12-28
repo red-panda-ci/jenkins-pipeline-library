@@ -176,13 +176,10 @@ Example: "./gradlew clean assembleDebug"
 
 cfg usage:
 
-* cfg.projectName
-* cfg.laneName
+* cfg.archivePattern
+* cfg.ie.*
+* cfg.flags.isAndroidImageBuilded
 * cfg.versionSuffix
-
-Notes:
-
-* Marked as DEPRECATED by jplBuild on 2017-09-02. Removed on a future release.
 
 ### jplBuildChangelog
 
@@ -201,6 +198,22 @@ Notes:
   cfg usage:
 
   * cfg.BRNACH_NAME
+
+### jplBuildIPA
+
+Build IPA with Fastlane based on jpl project configuration
+
+Parameters:
+
+* cfg jplConfig class object
+* string command What's' the command to be executed in the build
+Example: "fastlane test"
+
+cfg usage:
+
+* cfg.archivePattern
+* cfg.ie.*
+* cfg.versionSuffix
 
 ### jplCheckoutSCM
 
