@@ -265,6 +265,7 @@ cfg usage:
   * String  projectName             Project alias / codename (with no spaces)       (default: "project")
   * String  BRANCH_NAME             Branch name                                     (default: env.BRANCH_NAME)
   * String  laneName                Fastlane lane name                              (default: related to branch name)
+                                    The laneName is asigned to "[laneName]" part of the branch in case of "fastlane/[laneName]" branches
   * String  targetPlatform          Target platform, one of these                   (default: "any")
     - "android"
     - "ios"
