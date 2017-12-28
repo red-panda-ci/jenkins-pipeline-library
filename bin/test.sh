@@ -98,6 +98,7 @@ then
     runTest "jplDockerPushTest"
     runTest "jplPromoteBuildTest" 4
     [ "$1" != "local" ] && runTest "jplBuildAPKTest"
+    runTest "jplBuildIPAHappyTest"
     runTest "jplCloseReleaseTest"
 fi
 

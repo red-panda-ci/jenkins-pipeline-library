@@ -1,6 +1,24 @@
+<a name="2.4.0"></a>
+# 2.4.0 (2017-12-28)
+
+
+### New
+
+* Set fastlane trigers asociated with fastlane/* branches on android/iOS buidls  ([e76d9ba343171601242f65cf8c7f5082a3a8c338](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/e76d9ba343171601242f65cf8c7f5082a3a8c338)), closes [#49](https://github.com/madoos/node-changelog-generator/issues/49) [#57](https://github.com/madoos/node-changelog-generator/issues/57) [#49](https://github.com/madoos/node-changelog-generator/issues/49)
+
+### Update
+
+* Add target platform to jpl-git-cache project folder ([42e0be5457bacd85a004ef40b770035e14b7e9bd](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/42e0be5457bacd85a004ef40b770035e14b7e9bd))
+
+
+
 <a name="2.3.5"></a>
 ## 2.3.5 (2017-12-27)
 
+
+### Build
+
+* Update CHANGELOG.md to v2.3.5 with Red Panda JPL ([1efe0c6b22e023879caf9e348247ea5ddf2f3475](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/1efe0c6b22e023879caf9e348247ea5ddf2f3475))
 
 ### Update
 

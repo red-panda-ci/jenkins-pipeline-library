@@ -24,7 +24,7 @@ def call(cfg, String command = '') {
             jplBuildAPK(cfg,command)
             break;
         case 'ios':
-            echo "Todo: build IPA specific task"
+            jplBuildIPA(cfg,command)
             break;
         default:
             echo "Unknown target platform"

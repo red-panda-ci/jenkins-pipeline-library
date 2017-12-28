@@ -1,0 +1,15 @@
+
+Build IPA with Fastlane based on jpl project configuration
+
+Parameters:
+
+* cfg jplConfig class object
+* string command What's' the command to be executed in the build
+Example: "fastlane test"
+
+cfg usage:
+
+* cfg.archivePattern
+* cfg.ie.*
+* cfg.versionSuffix
+

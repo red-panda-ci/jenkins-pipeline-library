@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@2.16">
+  <actions>
+    <io.jenkins.blueocean.service.embedded.BlueOceanUrlAction plugin="blueocean-rest-impl@1.3.4">
+      <blueOceanUrlObject class="io.jenkins.blueocean.service.embedded.BlueOceanUrlObjectImpl">
+        <mappedUrl>blue/organizations/jenkins/jplBuildIPAHappyTest</mappedUrl>
+        <modelObject class="flow-definition" reference="../../../.."/>
+      </blueOceanUrlObject>
+    </io.jenkins.blueocean.service.embedded.BlueOceanUrlAction>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobAction plugin="pipeline-model-definition@1.2.5"/>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction plugin="pipeline-model-definition@1.2.5">
+      <jobProperties/>
+      <triggers/>
+      <parameters/>
+    </org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction>
+  </actions>
+  <description>jplBuildIPAHappyTest</description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.42">
+    <script>#!groovy
+
+// Initialize cfg
+cfg = jplConfig(&apos;jplBuildIPAHappyTest&apos;, &apos;ios&apos;)
+cfg.repository.url = &apos;file:////tmp/jenkins-pipeline-library&apos;
+cfg.repository.branch = &apos;jpl-test&apos;
+
+pipeline {
+
+    agent any
+
+    stages {
+        stage (&apos;jplBuildIPA Happy Test - Initialize&apos;) {
+            steps  {
+                echo &apos;jplBuildIPA Happy Test - Initialize&apos;
+                jplStart(cfg)
+                sh &quot;echo &apos;jplBuildIPAHappyTest&apos; &gt; README.md; echo &apos;jplBuildIPAHappyTest&apos; &gt; random_file.txt&quot;
+            }
+        }
+        stage (&apos;jplBuildIPA Happy Test - Build&apos;) {
+            steps  {
+                echo &quot;jplBuildIPA Happy Test - Build&quot;;
+                jplBuild(cfg, &quot;echo &apos;jplBuildIPAHappyTest&apos;&quot;)
+            }
+        }
+        stage (&apos;jplBuildIPA Happy Test - Check&apos;) {
+            steps  {
+                echo &quot;jplBuildIPA Happy Test - Check&quot;;
+                sh &quot;git diff --exit-code&quot;
+            }
+        }
+    }
+
+    options {
+        timestamps()
+        ansiColor(&apos;xterm&apos;)
+    }
+}</script>
+    <sandbox>true</sandbox>
+  </definition>
+  <triggers/>
+  <disabled>false</disabled>
+</flow-definition>
