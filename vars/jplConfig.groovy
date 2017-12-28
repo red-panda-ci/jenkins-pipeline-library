@@ -13,6 +13,7 @@
   * String  projectName             Project alias / codename (with no spaces)       (default: "project")
   * String  BRANCH_NAME             Branch name                                     (default: env.BRANCH_NAME)
   * String  laneName                Fastlane lane name                              (default: related to branch name)
+                                    The laneName is asigned to "[laneName]" part of the branch in case of "fastlane/[laneName]" branches
   * String  targetPlatform          Target platform, one of these                   (default: "any")
     - "android"
     - "ios"
@@ -99,7 +100,12 @@ def call (projectName = 'project', targetPlatform = 'any', jiraProjectKey = '', 
         cfg.BRANCH_NAME = env.BRANCH_NAME
     }
     cfg.projectName                                 = projectName
-    cfg.laneName                                    = ((cfg.BRANCH_NAME in ["staging", "qa", "quality", "master"]) || cfg.BRANCH_NAME.startsWith('release/')) ? cfg.BRANCH_NAME.tokenize("/")[0] : 'develop'
+    if (cfg.BRANCH_NAME.startsWith('fastlane/')) {
+        cfg.laneName                                = cfg.BRANCH_NAME.tokenize("/")[1]
+    }
+    else {
+        cfg.laneName                                = ((cfg.BRANCH_NAME in ["staging", "qa", "quality", "master"]) || cfg.BRANCH_NAME.startsWith('release/')) ? cfg.BRANCH_NAME.tokenize("/")[0] : 'develop'
+    }
     cfg.versionSuffix                               = (cfg.BRANCH_NAME == "master") ? '' :  "rc" + env.BUILD_NUMBER + "-" + cfg.BRANCH_NAME.tokenize("/")[0]
     cfg.targetPlatform                              = targetPlatform
     switch (cfg.targetPlatform) {
