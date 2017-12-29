@@ -176,7 +176,7 @@ def call (projectName = 'project', targetPlatform = 'any', jiraProjectKey = '', 
     //
     cfg.gitCache                                    = [:]
         cfg.gitCache.enabled                        = true
-        cfg.gitCache.path                           = ".jpl_temp/git-cache/"
+        cfg.gitCache.path                           = ".jpl_temp/git-cache"
         cfg.gitCache.gitCacheProjectRelativePath    = "${cfg.gitCache.path}/${cfg.projectName}-${cfg.targetPlatform}"
 
     //-----------------------------------------//

@@ -31,8 +31,7 @@ def call(cfg) {
         this.checkoutCode(cfg)
     }
     if (cfg.gitCache.enabled) {
-        sh "echo 'Storing cache at ${gitCacheProjectAbsolutePath}' && grep '\\+refs/heads/\\*:refs/remotes/origin/\\*' .git/config -q || git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/*"
-        sh "git fetch -p; mkdir -p ${gitCacheProjectAbsolutePath} && rsync -a --delete .git/ ${gitCacheProjectAbsolutePath}/.git/"
+        sh "echo 'jpl-git-cache: Storing cache at ${gitCacheProjectAbsolutePath}' && mkdir -p ${gitCacheProjectAbsolutePath} && rsync -a --delete .git/ ${gitCacheProjectAbsolutePath}/.git/"
     }
 }
 
@@ -49,6 +48,9 @@ def checkoutCode(cfg) {
         }
         else {
             git branch: cfg.repository.branch, url: cfg.repository.url
+            sh "git branch --set-upstream-to=origin/${cfg.repository.branch} ${cfg.repository.branch}"
         }
     }
+    sh "grep '\\+refs/heads/\\*:refs/remotes/origin/\\*' .git/config -q || git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/*"
+    sh "git fetch -p"
 }

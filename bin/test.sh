@@ -74,19 +74,21 @@ returnValue=$((returnValue + $?))
 echo "# Preparing jpl code for testing"
 docker cp `pwd` ${id}:/tmp/jenkins-pipeline-library
 returnValue=$((returnValue + $?))
-runWithinDocker "git config --global push.default simple; git config --global user.email 'redpandaci@gmail.com'; git config --global user.name 'Red Panda CI'"
-if [[ "$1" == "local" ]]
+runWithinDocker "rm -f /tmp/jenkins-pipeline-library/.git/hooks/* && git config --global push.default simple && git config --global user.email 'redpandaci@gmail.com' && git config --global user.name 'Red Panda CI'"
+if [[ "$1" == "local" ]] && [[ "$(git status --porcelain)" != "" ]]
 then
     echo "# Local test requested: Commit local jpl changes"
-    runWithinDocker "cd /tmp/jenkins-pipeline-library; rm -f .git/hooks/*; git add -A; git commit -m 'test within docker' || true"
+    runWithinDocker "cd /tmp/jenkins-pipeline-library && git add -A && git commit -m 'test within docker'"
 fi
-runWithinDocker "cd /tmp/jenkins-pipeline-library; git rev-parse --verify develop || git checkout -b develop; git rev-parse --verify master || git checkout -b master; git checkout -b 'release/v9.9.9'; git checkout -b 'jpl-test'"
+runWithinDocker "cd /tmp/jenkins-pipeline-library && git rev-parse --verify develop || git checkout -b develop"
+runWithinDocker "cd /tmp/jenkins-pipeline-library && git rev-parse --verify master || git checkout -b master"
+runWithinDocker "cd /tmp/jenkins-pipeline-library && git checkout -b 'release/v9.9.9' && git checkout -b 'jpl-test-promoted' && git checkout -b 'jpl-test' && git checkout `git rev-parse HEAD` > /dev/null 2>&1"
 
 echo "# Wait for jenkins service to be initialized"
-runWithinDocker "sleep 10; curl --max-time 50 --retry 10 --retry-delay 5 --retry-max-time 32 http://localhost:8080 -s > /dev/null"
+runWithinDocker "sleep 10 && curl --max-time 50 --retry 10 --retry-delay 5 --retry-max-time 32 http://localhost:8080 -s > /dev/null"
 
 echo "# Download jenkins cli"
-runWithinDocker "sleep 2; wget http://localhost:8080/jnlpJars/jenkins-cli.jar -q > /dev/null"
+runWithinDocker "sleep 2 && wget http://localhost:8080/jnlpJars/jenkins-cli.jar -q > /dev/null"
 
 # Run tests
 if [[ ${doTests} == "true" ]]
@@ -96,6 +98,7 @@ then
     runTest "jplGitCacheHappyTest"
     runTest "jplDockerBuildTest"
     runTest "jplDockerPushTest"
+    runTest "jplPromoteCodeHappyTest"
     runTest "jplPromoteBuildTest" 4
     [ "$1" != "local" ] && runTest "jplBuildAPKTest"
     runTest "jplBuildIPAHappyTest"
