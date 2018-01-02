@@ -76,5 +76,5 @@ ENV ANDROID_SDK_HOME=${nodeData.jenkinsWorkspace} \
 
 WORKDIR ${nodeData.jenkinsWorkspace}
 """
-    return docker.build("jpl-android:${cfg.projectName}", '-f ci-scripts/.temp/android/Dockerfile .')
+    return docker.build("jpl-android:${cfg.projectName}", '--pull -f ci-scripts/.temp/android/Dockerfile .')
 }
