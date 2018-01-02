@@ -59,7 +59,8 @@
         object jira.projectData     JIRA project data                               (default: "")
 
   * Hashmap ie: Integration Events configuration
-        String ieCommitRawText      ie text as appears in commit message            (default: "" = no @ie command in the commit)
+        boolean enabled             Integration Events enabled status               (default: false)
+        String commitRawText        ie text as appears in commit message            (default: "" = no @ie command in the commit)
         String commandName          Command to be executed                          (default: "")
         Hashmap parameter           List of parameters and options                  (default: [:])
                                     Every parameter element of the hash contains:
@@ -158,7 +159,8 @@ def call (projectName = 'project', targetPlatform = 'any', jiraProjectKey = '', 
 
     //
     cfg.ie = [:]
-        cfg.ie.ieCommitRawText                      = ""
+        cfg.ie.enabled                              = false
+        cfg.ie.commitRawText                        = ""
         cfg.ie.commandName                          = ""
         cfg.ie.parameter                            = [:]
 

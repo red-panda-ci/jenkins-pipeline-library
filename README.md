@@ -311,7 +311,8 @@ cfg usage:
         object jira.projectData     JIRA project data                               (default: "")
 
   * Hashmap ie: Integration Events configuration
-        String ieCommitRawText      ie text as appears in commit message            (default: "" = no @ie command in the commit)
+        boolean enabled             Integration Events enabled status               (default: false)
+        String commitRawText        ie text as appears in commit message            (default: "" = no @ie command in the commit)
         String commandName          Command to be executed                          (default: "")
         Hashmap parameter           List of parameters and options                  (default: [:])
                                     Every parameter element of the hash contains:
@@ -384,10 +385,12 @@ Parameters:
 
 cfg usage:
 
+* cfg.BRANCH_NAME
 * cfg.ie.*
 
 Rules:
 
+- The cfg option "cfg.ie.enabled" should be 'true'
 - The Integration Event line should start with '@ie'
 - The event can have multiple parameters: "parameter1", "parameter2", etc.
 - Every parameter can have multiple options, starting with "+" or "-": "+option1 -option2"

@@ -37,7 +37,9 @@ def call(cfg) {
         script: "git describe --abbrev=0 --tags||echo ''",
         returnStdout: true
     ).trim()
-    jplIE(cfg)
+    if (cfg.ie.enabled) {
+        jplIE(cfg)
+    }
     sh 'git submodule update --init'
     if (cfg.commitValidation.enabled && cfg.BRANCH_NAME.startsWith('PR')) {
         jplValidateCommitMessages(cfg)
