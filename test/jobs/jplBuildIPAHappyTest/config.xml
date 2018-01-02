@@ -33,6 +33,8 @@ pipeline {
         stage (&apos;jplBuildIPA Happy Test - Initialize&apos;) {
             steps  {
                 echo &apos;jplBuildIPA Happy Test - Initialize&apos;
+                sh &quot;printenv&quot;
+                println cfg
                 jplStart(cfg)
                 sh &quot;echo &apos;jplBuildIPAHappyTest&apos; &gt; README.md; echo &apos;jplBuildIPAHappyTest&apos; &gt; random_file.txt&quot;
             }

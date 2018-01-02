@@ -146,6 +146,9 @@ def call (projectName = 'project', targetPlatform = 'any', jiraProjectKey = '', 
     //
     cfg.notify                                      = true
     cfg.recipients                                  = recipients
+    cfg.recipients.slack = cfg.recipients.slack ?: ''
+    cfg.recipients.hipchat = cfg.recipients.hipchat ?: ''
+    cfg.recipients.email = cfg.recipients.email ?: ''
 
     //
     cfg.sonar = [:]
