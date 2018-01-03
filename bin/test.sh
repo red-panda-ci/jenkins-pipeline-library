@@ -6,7 +6,7 @@
 # Functions
 function runWithinDocker () {
     command=$1
-    docker-compose exec jenkins-dind bash -c "${command}"
+    docker exec ${id} bash -c "${command}"
     returnValue=$((returnValue + $?))
 }
 
@@ -24,7 +24,7 @@ function runTest () {
         echo -e "\t\t(Mock)"
         return 0
     fi
-    docker-compose exec jenkins-dind bash -c "java -jar jenkins-cli.jar -s http://localhost:8080 build ${testName} --username redpanda --password redpanda -s"
+    docker exec ${id} bash -c "java -jar jenkins-cli.jar -s http://localhost:8080 build ${testName} --username redpanda --password redpanda -s"
     if [[ "$?" -ne "${expectedResult}" ]]
     then
         returnValue=$((returnValue + 1))
