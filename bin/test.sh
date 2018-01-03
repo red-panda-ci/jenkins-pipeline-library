@@ -6,7 +6,7 @@
 # Functions
 function runWithinDocker () {
     command=$1
-    docker exec ${id} bash -c "${command}"
+    docker-compose exec jenkins-dind bash -c "${command}"
     returnValue=$((returnValue + $?))
 }
 
@@ -24,7 +24,7 @@ function runTest () {
         echo -e "\t\t(Mock)"
         return 0
     fi
-    docker exec ${id} bash -c "java -jar jenkins-cli.jar -s http://localhost:8080 build ${testName} --username redpanda --password redpanda -s"
+    docker-compose exec jenkins-dind bash -c "java -jar jenkins-cli.jar -s http://localhost:8080 build ${testName} --username redpanda --password redpanda -s"
     if [[ "$?" -ne "${expectedResult}" ]]
     then
         returnValue=$((returnValue + 1))
@@ -43,8 +43,6 @@ testName=""
 uniqueTestName=""
 if [[ "$1" == "local" ]]
 then
-    timeoutSeconds=0
-    containerPort="-p 8080:8080"
     if [[ "$2" == "test" ]]
     then
         doTests="true"
@@ -55,15 +53,17 @@ then
     fi
 else
     doTests="true"
-    timeoutSeconds=300
-    containerPort=''
 fi
 
 # Main
-echo -n "# Start jenkins as a time-boxed daemon container, running for max ${timeoutSeconds} seconds"
-id=$(docker run ${containerPort} --rm -v jpl-dind-cache:/var/lib/docker -d --privileged redpandaci/jenkins-dind timeout ${timeoutSeconds} java -jar /usr/share/jenkins/jenkins.war)
+echo -n "# Start jenkins as a docker-compose daemon"
+docker volume create jpl-dind-cache
 returnValue=$((returnValue + $?))
-echo " with id ${id}"
+docker-compose up -d
+returnValue=$((returnValue + $?))
+id=$(docker-compose ps -q jenkins-dind)
+returnValue=$((returnValue + $?))
+echo " with id ${id} and port $(docker-compose port jenkins-dind 8080)"
 
 echo "# Copy jenkins configuration"
 docker cp test/config/org.jenkinsci.plugins.workflow.libs.GlobalLibraries.xml ${id}:/root/.jenkins
@@ -105,11 +105,11 @@ then
     runTest "jplCloseReleaseTest"
 fi
 
-# Remove container
+# Remove compose
 if [[ "$1" != "local" ]]
 then
-    echo "# Stop jenkins daemon container"
-    docker rm -f ${id}
+    echo "# Switch down and clear compose"
+    docker-compose down
     returnValue=$((returnValue + $?))
 fi
 
