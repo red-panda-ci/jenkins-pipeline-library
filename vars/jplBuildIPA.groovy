@@ -39,6 +39,7 @@ def call(cfg, String command='') {
 }
 
 def buildIPA(cfg, command) {
+    sh '[ -f Gemfile ] && bundle install'
     sh 'git clean -fd; git reset --hard HEAD'
     sh "${command}"
     if (command == 'fastlane test') {
