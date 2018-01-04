@@ -59,7 +59,7 @@ fi
 echo -n "# Start jenkins as a docker-compose daemon"
 docker volume create jpl-dind-cache
 returnValue=$((returnValue + $?))
-docker-compose up -d
+docker-compose up -d --force-recreate
 returnValue=$((returnValue + $?))
 id=$(docker-compose ps -q jenkins-dind)
 returnValue=$((returnValue + $?))

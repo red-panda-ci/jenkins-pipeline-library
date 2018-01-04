@@ -1,0 +1,43 @@
+#!groovy
+
+// Initialize cfg
+cfg = jplConfig('jplBuildAPKTest', 'android')
+cfg.repository.url = 'https://github.com/red-panda-ci/android-testing'
+cfg.repository.branch = 'master'
+cfg.androidPackages = '"build-tools;27.0.1" "platforms;android-27"'
+
+pipeline {
+
+    agent any
+
+    stages {
+        stage ('jplBuildAPK Test - Initialize') {
+            steps  {
+                echo 'jplBuildAPK Test - Initialize'
+                sh "printenv"
+                println cfg
+                jplStart(cfg)
+            }
+        }
+
+        stage ('jplBuildAPK Test - Build') {
+            steps  {
+                echo "jplBuildAPK Test - Build";
+                jplBuild(cfg, "./gradlew clean assembleRelease")
+            }
+        }
+
+        stage ('jplBuildAPK Test - Sign') {
+            steps  {
+                jplSigning(cfg, "file:////tmp/jenkins-pipeline-library", "test/jobs/jplBuildAPKTest/sign", "app/build/outputs/apk/prod/release/app-prod-release-unsigned.apk")
+                archiveArtifacts artifacts: "app/build/outputs/apk/prod/release/app-prod-release-signed-aligned.apk", fingerprint: true, allowEmptyArchive: false
+            }
+        }
+    }
+
+    options {
+        timestamps()
+        ansiColor('xterm')
+        skipDefaultCheckout()
+    }
+}
