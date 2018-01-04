@@ -43,8 +43,6 @@ testName=""
 uniqueTestName=""
 if [[ "$1" == "local" ]]
 then
-    timeoutSeconds=0
-    containerPort="-p 8080:8080"
     if [[ "$2" == "test" ]]
     then
         doTests="true"
@@ -55,15 +53,17 @@ then
     fi
 else
     doTests="true"
-    timeoutSeconds=300
-    containerPort=''
 fi
 
 # Main
-echo -n "# Start jenkins as a time-boxed daemon container, running for max ${timeoutSeconds} seconds"
-id=$(docker run ${containerPort} --rm -v jpl-dind-cache:/var/lib/docker -d --privileged redpandaci/jenkins-dind timeout ${timeoutSeconds} java -jar /usr/share/jenkins/jenkins.war)
+echo -n "# Start jenkins as a docker-compose daemon"
+docker volume create jpl-dind-cache
 returnValue=$((returnValue + $?))
-echo " with id ${id}"
+docker-compose up -d --force-recreate
+returnValue=$((returnValue + $?))
+id=$(docker-compose ps -q jenkins-dind)
+returnValue=$((returnValue + $?))
+echo " with id ${id} and port $(docker-compose port jenkins-dind 8080)"
 
 echo "# Copy jenkins configuration"
 docker cp test/config/org.jenkinsci.plugins.workflow.libs.GlobalLibraries.xml ${id}:/root/.jenkins
@@ -74,19 +74,21 @@ returnValue=$((returnValue + $?))
 echo "# Preparing jpl code for testing"
 docker cp `pwd` ${id}:/tmp/jenkins-pipeline-library
 returnValue=$((returnValue + $?))
-runWithinDocker "git config --global push.default simple; git config --global user.email 'redpandaci@gmail.com'; git config --global user.name 'Red Panda CI'"
-if [[ "$1" == "local" ]]
+runWithinDocker "rm -f /tmp/jenkins-pipeline-library/.git/hooks/* && git config --global push.default simple && git config --global user.email 'redpandaci@gmail.com' && git config --global user.name 'Red Panda CI'"
+if [[ "$1" == "local" ]] && [[ "$(git status --porcelain)" != "" ]]
 then
     echo "# Local test requested: Commit local jpl changes"
-    runWithinDocker "cd /tmp/jenkins-pipeline-library; rm -f .git/hooks/*; git add -A; git commit -m 'test within docker' || true"
+    runWithinDocker "cd /tmp/jenkins-pipeline-library && git add -A && git commit -m 'test within docker'"
 fi
-runWithinDocker "cd /tmp/jenkins-pipeline-library; git rev-parse --verify develop || git checkout -b develop; git rev-parse --verify master || git checkout -b master; git checkout -b 'release/v9.9.9'; git checkout -b 'jpl-test'"
+runWithinDocker "cd /tmp/jenkins-pipeline-library && git rev-parse --verify develop || git checkout -b develop"
+runWithinDocker "cd /tmp/jenkins-pipeline-library && git rev-parse --verify master || git checkout -b master"
+runWithinDocker "cd /tmp/jenkins-pipeline-library && git checkout -b 'release/v9.9.9' && git checkout -b 'jpl-test-promoted' && git checkout -b 'jpl-test' && git checkout `git rev-parse HEAD` > /dev/null 2>&1"
 
 echo "# Wait for jenkins service to be initialized"
-runWithinDocker "sleep 10; curl --max-time 50 --retry 10 --retry-delay 5 --retry-max-time 32 http://localhost:8080 -s > /dev/null"
+runWithinDocker "sleep 10 && curl --max-time 50 --retry 10 --retry-delay 5 --retry-max-time 32 http://localhost:8080 -s > /dev/null"
 
 echo "# Download jenkins cli"
-runWithinDocker "sleep 2; wget http://localhost:8080/jnlpJars/jenkins-cli.jar -q > /dev/null"
+runWithinDocker "sleep 2 && wget http://localhost:8080/jnlpJars/jenkins-cli.jar -q > /dev/null"
 
 # Run tests
 if [[ ${doTests} == "true" ]]
@@ -96,17 +98,18 @@ then
     runTest "jplGitCacheHappyTest"
     runTest "jplDockerBuildTest"
     runTest "jplDockerPushTest"
+    runTest "jplPromoteCodeHappyTest"
     runTest "jplPromoteBuildTest" 4
     [ "$1" != "local" ] && runTest "jplBuildAPKTest"
     runTest "jplBuildIPAHappyTest"
     runTest "jplCloseReleaseTest"
 fi
 
-# Remove container
+# Remove compose
 if [[ "$1" != "local" ]]
 then
-    echo "# Stop jenkins daemon container"
-    docker rm -f ${id}
+    echo "# Switch down and clear compose"
+    docker-compose down
     returnValue=$((returnValue + $?))
 fi
 

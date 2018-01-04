@@ -1,8 +1,7 @@
 #!groovy
 env.BRANCH_NAME = "release/v9.9.9"
-cfg = jplConfig("jplCloseReleaseTest", "backend", "", [hipchat: "", slack: "", email: ""])
+cfg = jplConfig("jplCloseReleaseTest", "backend")
 cfg.promoteBuild.enabled = true
-cfg.changelog.firstTag = "v0.8.0"
 
 pipeline {
 
@@ -12,6 +11,8 @@ pipeline {
         stage ("jplCloseRelease Test - Initialize") {
             steps  {
                 echo "jplCloseRelease Test - Initialize"
+                sh "printenv"
+                println cfg
                 jplStart(cfg)
             }
         }

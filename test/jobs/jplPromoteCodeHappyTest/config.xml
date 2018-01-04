@@ -3,7 +3,7 @@
   <actions>
     <io.jenkins.blueocean.service.embedded.BlueOceanUrlAction plugin="blueocean-rest-impl@1.2.4">
       <blueOceanUrlObject class="io.jenkins.blueocean.service.embedded.BlueOceanUrlObjectImpl">
-        <mappedUrl>blue/organizations/jenkins/jplPromoteBuildTest</mappedUrl>
+        <mappedUrl>blue/organizations/jenkins/jplPromoteCodeHappyTest</mappedUrl>
       </blueOceanUrlObject>
     </io.jenkins.blueocean.service.embedded.BlueOceanUrlAction>
     <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction plugin="pipeline-model-definition@1.1.9">
@@ -12,17 +12,17 @@
       <parameters/>
     </org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction>
   </actions>
-  <description>jplPromoteBuildTest</description>
+  <description>jplPromoteCodeHappyTest</description>
   <keepDependencies>false</keepDependencies>
   <properties/>
   <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.40">
     <script>#!groovy
 
 // Initialize cfg
-cfg = jplConfig(&apos;jplPromoteBuildTest&apos;, &apos;backend&apos;)
+cfg = jplConfig(&apos;jplPromoteCodeHappyTest&apos;, &apos;backend&apos;)
 cfg.BRANCH_NAME=&quot;release/v9.9.9&quot;
 cfg.repository.url = &apos;file:////tmp/jenkins-pipeline-library&apos;
-cfg.repository.branch = &apos;release/v9.9.9&apos;
+cfg.repository.branch = &apos;jpl-test&apos;
 
 // The pipeline
 pipeline {
@@ -30,21 +30,21 @@ pipeline {
     agent none
 
     stages {
-        stage (&apos;jplPromoteBuild Test - Initialize&apos;) {
+        stage (&apos;jplPromoteCode Happy Test - Initialize&apos;) {
             agent any
             steps  {
-                echo &quot;jplPromoteBuild Test - Initialize&quot;
+                echo &quot;jplPromoteCode Happy Test - Initialize&quot;
                 sh &quot;printenv&quot;
                 println cfg
                 jplStart(cfg)
             }
         }
-        stage (&apos;jplPromoteBuild Test - Promote Build&apos;) {
+        stage (&apos;jplPromoteCode Happy Test - Promote Code&apos;) {
+            agent any
             steps {
-                echo &quot;jplPromoteBuild Test - Promote Build&quot;;
-                timeout(time: 5, unit: &apos;SECONDS&apos;) {
-                    jplPromoteBuild(cfg)
-                }
+                echo &quot;jplPromoteCode Happy Test - Promote Code&quot;;
+                sh &quot;echo &apos;jplPromoteCodeHappyTest&apos; &gt; test/jplPromoteCodeHappyTest.txt; git add test/jplPromoteCodeHappyTest.txt; git commit -m &apos;Build: Test file for jplPromoteCodeHappyTest&apos;;git push&quot;
+                jplPromoteCode(cfg, 'jpl-test', 'jpl-test-promoted')
             }
         }
     }

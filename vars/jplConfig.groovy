@@ -59,7 +59,8 @@
         object jira.projectData     JIRA project data                               (default: "")
 
   * Hashmap ie: Integration Events configuration
-        String ieCommitRawText      ie text as appears in commit message            (default: "" = no @ie command in the commit)
+        boolean enabled             Integration Events enabled status               (default: false)
+        String commitRawText        ie text as appears in commit message            (default: "" = no @ie command in the commit)
         String commandName          Command to be executed                          (default: "")
         Hashmap parameter           List of parameters and options                  (default: [:])
                                     Every parameter element of the hash contains:
@@ -106,7 +107,7 @@ def call (projectName = 'project', targetPlatform = 'any', jiraProjectKey = '', 
     else {
         cfg.laneName                                = ((cfg.BRANCH_NAME in ["staging", "qa", "quality", "master"]) || cfg.BRANCH_NAME.startsWith('release/')) ? cfg.BRANCH_NAME.tokenize("/")[0] : 'develop'
     }
-    cfg.versionSuffix                               = (cfg.BRANCH_NAME == "master") ? '' :  "rc" + env.BUILD_NUMBER + "-" + cfg.BRANCH_NAME.tokenize("/")[0]
+    cfg.versionSuffix                               = ((cfg.BRANCH_NAME == "master") || cfg.BRANCH_NAME.startsWith("release/v")) ? '' :  "rc" + env.BUILD_NUMBER + "-" + cfg.BRANCH_NAME.tokenize("/")[0]
     cfg.targetPlatform                              = targetPlatform
     switch (cfg.targetPlatform) {
         case 'android':
@@ -145,6 +146,9 @@ def call (projectName = 'project', targetPlatform = 'any', jiraProjectKey = '', 
     //
     cfg.notify                                      = true
     cfg.recipients                                  = recipients
+    cfg.recipients.slack = cfg.recipients.slack ?: ''
+    cfg.recipients.hipchat = cfg.recipients.hipchat ?: ''
+    cfg.recipients.email = cfg.recipients.email ?: ''
 
     //
     cfg.sonar = [:]
@@ -158,7 +162,8 @@ def call (projectName = 'project', targetPlatform = 'any', jiraProjectKey = '', 
 
     //
     cfg.ie = [:]
-        cfg.ie.ieCommitRawText                      = ""
+        cfg.ie.enabled                              = false
+        cfg.ie.commitRawText                        = ""
         cfg.ie.commandName                          = ""
         cfg.ie.parameter                            = [:]
 
@@ -176,7 +181,7 @@ def call (projectName = 'project', targetPlatform = 'any', jiraProjectKey = '', 
     //
     cfg.gitCache                                    = [:]
         cfg.gitCache.enabled                        = true
-        cfg.gitCache.path                           = ".jpl_temp/git-cache/"
+        cfg.gitCache.path                           = ".jpl_temp/git-cache"
         cfg.gitCache.gitCacheProjectRelativePath    = "${cfg.gitCache.path}/${cfg.projectName}-${cfg.targetPlatform}"
 
     //-----------------------------------------//

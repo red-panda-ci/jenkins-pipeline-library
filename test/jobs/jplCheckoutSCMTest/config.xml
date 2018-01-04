@@ -18,7 +18,7 @@
     <script>#!groovy
 
 // Initialize cfg
-cfg = jplConfig(&apos;jplCheckoutSCMTest&apos;, &apos;backend&apos;, &apos;&apos;, [hipchat: &apos;&apos;, slack: &apos;&apos;, email: &apos;&apos;])
+cfg = jplConfig(&apos;jplCheckoutSCMTest&apos;, &apos;backend&apos;)
 cfg.repository.url = &apos;file:////tmp/jenkins-pipeline-library&apos;
 cfg.repository.branch = &apos;jpl-test&apos;
 
@@ -30,6 +30,8 @@ pipeline {
         stage (&apos;jplCheckoutSCM Test&apos;) {
             steps  {
                 echo &quot;jplCheckoutSCM Test&quot;;
+                sh &quot;printenv&quot;
+                println cfg
                 jplCheckoutSCM(cfg)
             }
         }

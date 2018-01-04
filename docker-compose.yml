@@ -1,0 +1,12 @@
+version: '3'
+services:
+  jenkins-dind:
+    image: "redpandaci/jenkins-dind"
+    ports: 
+      - "8080"
+    volumes:
+      - jpl-dind-cache:/var/lib/docker
+    privileged: true
+volumes:
+  jpl-dind-cache:
+    external: true

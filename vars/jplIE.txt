@@ -7,10 +7,12 @@ Parameters:
 
 cfg usage:
 
+* cfg.BRANCH_NAME
 * cfg.ie.*
 
 Rules:
 
+- The cfg option "cfg.ie.enabled" should be 'true'
 - The Integration Event line should start with '@ie'
 - The event can have multiple parameters: "parameter1", "parameter2", etc.
 - Every parameter can have multiple options, starting with "+" or "-": "+option1 -option2"

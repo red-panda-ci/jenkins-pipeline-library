@@ -20,7 +20,11 @@ pipeline {
             when { expression { (env.BRANCH_NAME == 'develop') || env.BRANCH_NAME.startsWith('release/v') || env.BRANCH_NAME.startsWith('PR-') || env.BRANCH_NAME.startsWith('feature/') } }
             steps  {
                 sh 'bin/test.sh'
-                archiveArtifacts artifacts: 'test/reports/*', fingerprint: true, allowEmptyArchive: false
+            }
+            post {
+                always {
+                    archiveArtifacts artifacts: 'test/reports/*', fingerprint: true, allowEmptyArchive: false
+                }
             }
         }
         stage('Sonarqube Analysis') {
