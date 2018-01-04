@@ -1,6 +1,41 @@
+<a name="2.5.0"></a>
+# 2.5.0 (2018-01-04)
+
+
+### Build
+
+* Fix docker-compose issue ([46d72693ebeef094020baa88dfa5c33b59700393](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/46d72693ebeef094020baa88dfa5c33b59700393))
+* Run test using docker compose, instead of standalone docker ([9eb20b96ebbc183ccf0cfbce40795fdb261a16a2](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/9eb20b96ebbc183ccf0cfbce40795fdb261a16a2))
+
+### Docs
+
+* Update README.md ([051102a55cd1d40b14f5ce4c3b4dc1d735d9067c](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/051102a55cd1d40b14f5ce4c3b4dc1d735d9067c))
+
+### Fix
+
+* Manage return value checking Gemfile in jplBuildIPA ([d403bd3b56b73c019c2d54dd423aa62cb9cc2fee](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/d403bd3b56b73c019c2d54dd423aa62cb9cc2fee))
+
+### New
+
+* Add jplPromoteCode test  ([18626fc4facf2bbac2b5031840b5759facde9d75](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/18626fc4facf2bbac2b5031840b5759facde9d75)), closes [#46](https://github.com/madoos/node-changelog-generator/issues/46)
+
+### Update
+
+* Add '--pull' option to docker build image in jplBuildAPK  ([16200c4a1758c5f025fc2563000a80fc50d1dd5f](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/16200c4a1758c5f025fc2563000a80fc50d1dd5f)), closes [#43](https://github.com/madoos/node-changelog-generator/issues/43)
+* Add 'bundle install' to IPA build ([acfd40b0d2df01bdbb5b80a1cf8deead5aec13cc](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/acfd40b0d2df01bdbb5b80a1cf8deead5aec13cc))
+* Add enabled flag to 'Integration Events'  ([1e19593adfc2a0daa0769d1385f8f9fd42cf0ede](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/1e19593adfc2a0daa0769d1385f8f9fd42cf0ede)), closes [#60](https://github.com/madoos/node-changelog-generator/issues/60)
+* Convert recipients hash (hipchat, slack, email) to optional configurations ([497ec310e677bd93df8c04a3589512fc87e774b5](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/497ec310e677bd93df8c04a3589512fc87e774b5))
+* Review versionSuffix behaviour  ([98b5ed17c4705225ba1e5212b8e75466a9334151](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/98b5ed17c4705225ba1e5212b8e75466a9334151)), closes [#18](https://github.com/madoos/node-changelog-generator/issues/18)
+
+
+
 <a name="2.4.0"></a>
 # 2.4.0 (2017-12-28)
 
+
+### Build
+
+* Update CHANGELOG.md to v2.4.0 with Red Panda JPL ([2f43d1e452ca4514216516d8b6d900be5654e6da](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/2f43d1e452ca4514216516d8b6d900be5654e6da))
 
 ### New
 
