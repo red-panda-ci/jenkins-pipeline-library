@@ -44,9 +44,7 @@ pipeline {
         stage ('Release confirm') {
             when { branch 'release/v*' }
             steps {
-                unstash "clone"
                 jplPromoteBuild(cfg)
-                deleteDir()
             }
         }
         stage ('Release finish') {
