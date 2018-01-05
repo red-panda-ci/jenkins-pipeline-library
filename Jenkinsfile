@@ -10,20 +10,25 @@ pipeline {
 
     stages {
         stage ('Initialize') {
-            agent { label 'docker' }
+            agent { label 'master' }
             steps  {
+                deleteDir()
                 jplStart(cfg)
+                stash name: "clone", useDefaultExcludes: false
+                deleteDir()
             }
         }
         stage ('Test') {
             agent { label 'docker' }
             when { expression { (env.BRANCH_NAME == 'develop') || env.BRANCH_NAME.startsWith('release/v') || env.BRANCH_NAME.startsWith('PR-') || env.BRANCH_NAME.startsWith('feature/') } }
             steps  {
+                unstash "clone"
                 sh 'bin/test.sh'
             }
             post {
                 always {
                     archiveArtifacts artifacts: 'test/reports/*', fingerprint: true, allowEmptyArchive: false
+                    deleteDir()
                 }
             }
         }
@@ -31,26 +36,25 @@ pipeline {
             when { expression { (env.BRANCH_NAME == 'develop') || env.BRANCH_NAME.startsWith('PR-') } }
             agent { label 'docker' }
             steps {
+                unstash "clone"
                 jplSonarScanner(cfg)
+                deleteDir()
             }
         }
         stage ('Release confirm') {
             when { branch 'release/v*' }
             steps {
+                unstash "clone"
                 jplPromoteBuild(cfg)
+                deleteDir()
             }
         }
         stage ('Release finish') {
             agent { label 'docker' }
             when { branch 'release/v*' }
             steps {
+                unstash "clone"
                 jplCloseRelease(cfg)
-            }
-        }
-        stage ('PR Clean') {
-            agent { label 'docker' }
-            when { branch 'PR-*' }
-            steps {
                 deleteDir()
             }
         }
