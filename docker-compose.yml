@@ -7,7 +7,6 @@ services:
     volumes:
       - jpl-dind-cache:/var/lib/docker
     privileged: true
-    network_mode: bridge
 volumes:
   jpl-dind-cache:
     external: true
