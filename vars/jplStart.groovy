@@ -40,7 +40,6 @@ def call(cfg) {
     if (cfg.ie.enabled) {
         jplIE(cfg)
     }
-    sh 'git submodule update --init'
     if (cfg.commitValidation.enabled && cfg.BRANCH_NAME.startsWith('PR')) {
         jplValidateCommitMessages(cfg)
     }

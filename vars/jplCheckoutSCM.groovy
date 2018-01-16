@@ -52,5 +52,5 @@ def checkoutCode(cfg) {
         }
     }
     sh "grep '\\+refs/heads/\\*:refs/remotes/origin/\\*' .git/config -q || git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/*"
-    sh "git fetch -p"
+    sh "git fetch -p; git submodule update --init"
 }
