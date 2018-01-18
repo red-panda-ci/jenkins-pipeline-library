@@ -14,7 +14,7 @@ done
 cat << EOF
 # Jenkins Pipeline Library
 
-[![Build Status](http://jenkins.redpandaci.com/buildStatus/icon?job=red-panda-ci/jenkins-pipeline-library/develop)](https://jenkins.redpandaci.com/job/red-panda-ci/job/jenkins-pipeline-library/job/develop/)
+[![Build Status](http://jenkins.redpandaci.com/buildStatus/icon?job=red-panda-ci/jenkins-pipeline-library/develop)](https://jenkins.redpandaci.com/job/red-panda-ci/job/jenkins-pipeline-library/job/develop/) [![Join the chat at https://gitter.im/red-panda-ci/jenkins-pipeline-library](https://badges.gitter.im/red-panda-ci/jenkins-pipeline-library.svg)](https://gitter.im/red-panda-ci/jenkins-pipeline-library?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Description
 

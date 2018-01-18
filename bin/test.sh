@@ -85,10 +85,10 @@ runWithinDocker "cd /tmp/jenkins-pipeline-library && git rev-parse --verify mast
 runWithinDocker "cd /tmp/jenkins-pipeline-library && git checkout -b 'release/v9.9.9' && git checkout -b 'jpl-test-promoted' && git checkout -b 'jpl-test' && git checkout `git rev-parse HEAD` > /dev/null 2>&1"
 
 echo "# Wait for jenkins service to be initialized"
-runWithinDocker "sleep 10 && curl --max-time 50 --retry 10 --retry-delay 5 --retry-max-time 32 http://localhost:8080 -s > /dev/null"
+runWithinDocker "sleep 10 && curl --max-time 50 --retry 10 --retry-delay 5 --retry-max-time 32 http://localhost:8080 -s > /dev/null; sleep 10"
 
 echo "# Download jenkins cli"
-runWithinDocker "sleep 2 && wget http://localhost:8080/jnlpJars/jenkins-cli.jar -q > /dev/null"
+runWithinDocker "wget http://localhost:8080/jnlpJars/jenkins-cli.jar -q > /dev/null"
 
 # Run tests
 if [[ ${doTests} == "true" ]]

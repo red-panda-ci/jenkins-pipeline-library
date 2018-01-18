@@ -1,3 +1,35 @@
+<a name="2.6.0"></a>
+# 2.6.0 (2018-01-18)
+
+
+### Build
+
+* Add bridged network_model to compose ([df9af34c4bf0dc017c800fcd1b8fea4ad5aa32fe](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/df9af34c4bf0dc017c800fcd1b8fea4ad5aa32fe))
+* Add brtidge to network mode in docker-comppose ([6dbd3c2e6db41779e6f23c18bc551d1b6ff2e6ff](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/6dbd3c2e6db41779e6f23c18bc551d1b6ff2e6ff))
+* Add more wait time before cli downloading ([0749fc6794a666ab277f8be8d68c7d29fbd593a5](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/0749fc6794a666ab277f8be8d68c7d29fbd593a5))
+* Avoid use bridge network mode forced in compose ([c4950cb877b6447d9dac77c13dabb570b1b4bd44](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/c4950cb877b6447d9dac77c13dabb570b1b4bd44))
+* Configure stash/unstash within stages ([ed8ef0e26ddf26fa0308251065ce140fc225deae](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/ed8ef0e26ddf26fa0308251065ce140fc225deae))
+* Remove unstash in promote build stage ([093a9298b9f00f34c9a04a6a7ff1b2d2809431dd](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/093a9298b9f00f34c9a04a6a7ff1b2d2809431dd))
+* Update release number in sonar properties file ([7a9318d99fb03676d29695af24227d0c0ea29b88](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/7a9318d99fb03676d29695af24227d0c0ea29b88))
+
+### Docs
+
+* Update README.md ([f0ad43b1b8cfd681d688e1d135e924712b718867](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/f0ad43b1b8cfd681d688e1d135e924712b718867))
+
+### Fix
+
+* Place submodule init in the right place for jplCheckoutSCM / jplStart ([06942e89b9bfae430c12f4c7ae64cf269a119c54](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/06942e89b9bfae430c12f4c7ae64cf269a119c54))
+
+### New
+
+* Add Gitter badge ([c9afed49d7faafa4a25b7e792f2f671710c5145d](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/c9afed49d7faafa4a25b7e792f2f671710c5145d))
+
+### Update
+
+* Add gitter badge to readme template ([82ecde0b0492606f03c1d15a6e943d3e63ae509b](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/82ecde0b0492606f03c1d15a6e943d3e63ae509b))
+
+
+
 <a name="2.5.0"></a>
 # 2.5.0 (2018-01-04)
 
@@ -6,6 +38,7 @@
 
 * Fix docker-compose issue ([46d72693ebeef094020baa88dfa5c33b59700393](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/46d72693ebeef094020baa88dfa5c33b59700393))
 * Run test using docker compose, instead of standalone docker ([9eb20b96ebbc183ccf0cfbce40795fdb261a16a2](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/9eb20b96ebbc183ccf0cfbce40795fdb261a16a2))
+* Update CHANGELOG.md to v2.5.0 with Red Panda JPL ([bf44e9f486130d060544a7d639b0c9d2d6c7b112](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/bf44e9f486130d060544a7d639b0c9d2d6c7b112))
 
 ### Docs
 
