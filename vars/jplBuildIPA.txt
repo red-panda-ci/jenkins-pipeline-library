@@ -11,5 +11,4 @@ cfg usage:
 
 * cfg.archivePattern
 * cfg.ie.*
-* cfg.versionSuffix
 

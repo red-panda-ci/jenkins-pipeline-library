@@ -3,7 +3,7 @@
 @Library('github.com/red-panda-ci/jenkins-pipeline-library') _
 
 // Initialize global config
-cfg = jplConfig('jpl','backend','', [hipchat: '', slack: '#integrations', email:'redpandaci+jpl@gmail.com'])
+cfg = jplConfig('jpl','backend','', [slack: '#integrations', email:'redpandaci+jpl@gmail.com'])
 
 pipeline {
     agent none

@@ -105,9 +105,8 @@ def call (projectName = 'project', targetPlatform = 'any', jiraProjectKey = '', 
         cfg.laneName                                = cfg.BRANCH_NAME.tokenize("/")[1]
     }
     else {
-        cfg.laneName                                = ((cfg.BRANCH_NAME in ["staging", "qa", "quality", "master"]) || cfg.BRANCH_NAME.startsWith('release/')) ? cfg.BRANCH_NAME.tokenize("/")[0] : 'develop'
+        cfg.laneName                                = ((cfg.BRANCH_NAME in ["staging", "quality", "master"]) || cfg.BRANCH_NAME.startsWith('release/v') || cfg.BRANCH_NAME.startsWith('hotfix/v')) ? cfg.BRANCH_NAME.tokenize("/")[0] : 'develop'
     }
-    cfg.versionSuffix                               = ((cfg.BRANCH_NAME == "master") || cfg.BRANCH_NAME.startsWith("release/v")) ? '' :  "rc" + env.BUILD_NUMBER + "-" + cfg.BRANCH_NAME.tokenize("/")[0]
     cfg.targetPlatform                              = targetPlatform
     switch (cfg.targetPlatform) {
         case 'android':
@@ -122,8 +121,8 @@ def call (projectName = 'project', targetPlatform = 'any', jiraProjectKey = '', 
             break;
     }
     cfg.androidPackages                             = 'build-tools-27.0.0,android-27'
-    cfg.releaseTag                                  = cfg.BRANCH_NAME.startsWith('release/v') ? cfg.BRANCH_NAME.tokenize("/")[1] : ""
-    cfg.releaseTagNumber                            = cfg.BRANCH_NAME.startsWith('release/v') ? cfg.BRANCH_NAME.tokenize("/")[1].substring(1,6) : ""
+    cfg.releaseTag                                  = (cfg.BRANCH_NAME.startsWith('release/v') || cfg.BRANCH_NAME.startsWith('hotfix/v')) ? cfg.BRANCH_NAME.tokenize("/")[1] : ""
+    cfg.releaseTagNumber                            = (cfg.BRANCH_NAME.startsWith('release/v') || cfg.BRANCH_NAME.startsWith('hotfix/v')) ? cfg.BRANCH_NAME.tokenize("/")[1].substring(1,6) : ""
 
     //
     cfg.repository = [:]

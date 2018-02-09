@@ -142,7 +142,7 @@ Parameters:
 cfg usage:
 
 * cfg.applivery[:] hashmap
-* cfg.versionSuffix
+* cfg.releaseTag
 
 ### jplBuild
 
@@ -179,7 +179,6 @@ cfg usage:
 * cfg.archivePattern
 * cfg.ie.*
 * cfg.flags.isAndroidImageBuilded
-* cfg.versionSuffix
 
 ### jplBuildChangelog
 
@@ -213,7 +212,6 @@ cfg usage:
 
 * cfg.archivePattern
 * cfg.ie.*
-* cfg.versionSuffix
 
 ### jplCheckoutSCM
 

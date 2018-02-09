@@ -11,7 +11,7 @@ Parameters:
 cfg usage:
 
 * cfg.applivery[:] hashmap
-* cfg.versionSuffix
+* cfg.releaseTag
 */
 def call(cfg, String packageFile, String app = '', String token = '') {
     jplConfig.checkInitializationStatus(cfg)
@@ -22,7 +22,7 @@ def call(cfg, String packageFile, String app = '', String token = '') {
             --app="${app}" \
             --os="${cfg.targetPlatform}" \
             --package="${packageFile}" \
-            --versionName="${cfg.versionSuffix}" \
+            --versionName="${cfg.releaseTag}" \
             --notes="branch:${BRANCH_NAME}, build: #${BUILD_NUMBER}" \
             --notify=${cfg.applivery.notify} \
             --tags="${cfg.applivery.tags}" \
