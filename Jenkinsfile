@@ -42,14 +42,14 @@ pipeline {
             }
         }
         stage ('Release confirm') {
-            when { expression { env.BRANCH_NAME.startsWith('release/v') || env.BRANCH_NAME.startsWith('hotfix/v' } }
+            when { expression { env.BRANCH_NAME.startsWith('release/v') || env.BRANCH_NAME.startsWith('hotfix/v') } }
             steps {
                 jplPromoteBuild(cfg)
             }
         }
         stage ('Release finish') {
             agent { label 'docker' }
-            when { expression { env.BRANCH_NAME.startsWith('release/v') || env.BRANCH_NAME.startsWith('hotfix/v' } }
+            when { expression { env.BRANCH_NAME.startsWith('release/v') || env.BRANCH_NAME.startsWith('hotfix/v') } }
             steps {
                 unstash "clone"
                 jplCloseRelease(cfg)
