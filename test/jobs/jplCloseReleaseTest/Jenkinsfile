@@ -16,10 +16,16 @@ pipeline {
                 jplStart(cfg)
             }
         }
+        stage ("jplCloseRelease Test - Prepare test") {
+            steps {
+                echo "jplCloseRelease Test - Prepare test"
+                sh "git merge origin/master; git push"
+                deleteDir()
+            }
+        }
         stage ("jplCloseRelease Test - Close Release") {
             steps {
                 echo "jplCloseRelease Test - Closing release: ${cfg.releaseTag}, short one ${cfg.releaseTagNumber}"
-                sh "git merge origin/master; git push"
                 jplCloseRelease(cfg)
             }
         }

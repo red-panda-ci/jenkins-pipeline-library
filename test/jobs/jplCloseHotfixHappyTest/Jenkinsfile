@@ -16,10 +16,16 @@ pipeline {
                 jplStart(cfg)
             }
         }
+        stage ("jplCloseHotfixHappy Test - Prepare test") {
+            steps {
+                echo "jplCloseHotfixHappy Test - Prepare test"
+                sh "git merge origin/master; git push"
+                deleteDir()
+            }
+        }
         stage ("jplCloseHotfixHappy Test - Close Hotfix") {
             steps {
                 echo "jplCloseHotfixHappy Test - Closing hotfix: ${cfg.releaseTag}, short one ${cfg.releaseTagNumber}"
-                sh "git merge origin/master; git push"
                 jplCloseRelease(cfg)
             }
         }
