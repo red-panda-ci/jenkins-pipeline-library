@@ -1,3 +1,29 @@
+<a name="2.6.1"></a>
+## 2.6.1 (2018-02-10)
+
+
+### Build
+
+* Disable test on release ([f8b3e66a9aa6a546dcc1b44ca6597ab234972b25](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/f8b3e66a9aa6a546dcc1b44ca6597ab234972b25))
+* Don't break the build if there is not documentation update ([0c24f82fb627a031c9523dc4eb3411f5cb7cb6e1](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/0c24f82fb627a031c9523dc4eb3411f5cb7cb6e1))
+* Fix Jenkinsfile typo ([1461fc9f0ab9be5038ef74ef06b4ccc1c3141a51](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/1461fc9f0ab9be5038ef74ef06b4ccc1c3141a51))
+* Update close release tests ([694eb9710872d451ad5b7d18f370d7dd96c0321b](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/694eb9710872d451ad5b7d18f370d7dd96c0321b))
+
+### Docs
+
+* Update README.md and Jenkins doc help files ([b7acb92746a67ed528501d0d0551ff9bad547c8c](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/b7acb92746a67ed528501d0d0551ff9bad547c8c))
+
+### New
+
+* Add hotfix support, with tests  ([7ae15dccd89f0ec332bfb46fc0195834afbc7ca9](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/7ae15dccd89f0ec332bfb46fc0195834afbc7ca9)), closes [#67](https://github.com/madoos/node-changelog-generator/issues/67)
+
+### Update
+
+* Add URL to slack and hipchat notifications  ([dc1360ffbb1925686f0bf3dfa300f6e2ffb816ce](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/dc1360ffbb1925686f0bf3dfa300f6e2ffb816ce)), closes [#68](https://github.com/madoos/node-changelog-generator/issues/68)
+* Remove versionSuffix behaviour  ([103320565febeba8b96e1371e84ae08ecc8833ae](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/103320565febeba8b96e1371e84ae08ecc8833ae)), closes [#69](https://github.com/madoos/node-changelog-generator/issues/69)
+
+
+
 <a name="2.6.0"></a>
 # 2.6.0 (2018-01-18)
 
@@ -10,6 +36,7 @@
 * Avoid use bridge network mode forced in compose ([c4950cb877b6447d9dac77c13dabb570b1b4bd44](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/c4950cb877b6447d9dac77c13dabb570b1b4bd44))
 * Configure stash/unstash within stages ([ed8ef0e26ddf26fa0308251065ce140fc225deae](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/ed8ef0e26ddf26fa0308251065ce140fc225deae))
 * Remove unstash in promote build stage ([093a9298b9f00f34c9a04a6a7ff1b2d2809431dd](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/093a9298b9f00f34c9a04a6a7ff1b2d2809431dd))
+* Update CHANGELOG.md to v2.6.0 with Red Panda JPL ([e3e9e6ae06829011a9352903d5d8c417f1e95ab1](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/e3e9e6ae06829011a9352903d5d8c417f1e95ab1))
 * Update release number in sonar properties file ([7a9318d99fb03676d29695af24227d0c0ea29b88](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/7a9318d99fb03676d29695af24227d0c0ea29b88))
 
 ### Docs
