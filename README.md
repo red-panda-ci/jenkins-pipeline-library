@@ -144,26 +144,6 @@ cfg usage:
 * cfg.applivery[:] hashmap
 * cfg.releaseTag
 
-### jplBuild
-
-Build iOS / Android app with Fastlane
-
-- Android app will build using docker into Jenkins
-- iOS app will build with fastlane directly
-
-Both builds are based on jpl project configuration
-
-Parameters:
-
-* cfg jplConfig class object
-* string command What is the command to be executed in the build
-
-Example: "./gradlew clean assembleDebug"
-
-cfg usage:
-
-* cfg.targetPlatform
-
 ### jplBuildAPK
 
 Build APK with Fastlane within docker into Jenkins, based on jpl project configuration
@@ -198,6 +178,26 @@ cfg usage:
 
   * cfg.BRNACH_NAME
 
+### jplBuild
+
+Build iOS / Android app with Fastlane
+
+- Android app will build using docker into Jenkins
+- iOS app will build with fastlane directly
+
+Both builds are based on jpl project configuration
+
+Parameters:
+
+* cfg jplConfig class object
+* string command What is the command to be executed in the build
+
+Example: "./gradlew clean assembleDebug"
+
+cfg usage:
+
+* cfg.targetPlatform
+
 ### jplBuildIPA
 
 Build IPA with Fastlane based on jpl project configuration
@@ -230,14 +230,14 @@ cfg uage:
 
 ### jplCloseRelease
 
-Close release (Branch "release/*")
+Close release (Branches "release/v*" or "hotfix/v*")
 
 Merge code from release/vX.Y.Z to "master" and "develop", then "push" to the repository.
 Create new tag with "vX.Y.Z" to the commit
 
 The function uses "git promote" script
 
-Fails if your repository is not in a "release/*" branch
+Fails if your repository is not in a "release/v*" nor "hotfix/v*" branch
 
 Parameters:
 * cfg jplConfig class object
