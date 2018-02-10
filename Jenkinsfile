@@ -52,7 +52,7 @@ pipeline {
             when { expression { env.BRANCH_NAME.startsWith('release/v') || env.BRANCH_NAME.startsWith('hotfix/v') } }
             steps {
                 unstash "clone"
-                sh "make; git add README.md vars/*.txt; git commit -m 'Docs: Update README.md and Jenkins doc help files'; git push -u origin ${env.BRANCH_NAME}"
+                sh "make; git add README.md vars/*.txt; git commit -m 'Docs: Update README.md and Jenkins doc help files'; git push -u origin ${env.BRANCH_NAME} || true"
                 jplCloseRelease(cfg)
                 deleteDir()
             }
