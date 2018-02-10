@@ -41,10 +41,10 @@ def call(cfg, String summary = '', String message = '') {
         emailRecipients = ''
     }
     if (hipchatRooms != "") {
-        hipchatSend color: hipchatColor, failOnError: true, room: hipchatRooms, message: summary, notify: true, server: 'api.hipchat.com', v2enabled: true
+        hipchatSend color: hipchatColor, failOnError: true, room: hipchatRooms, message: "${summary}\n${message}", notify: true, server: 'api.hipchat.com', v2enabled: true
     }
     if (slackChannels != "") {
-        slackSend channel: slackChannels, color: slackColor, message: summary
+        slackSend channel: slackChannels, color: slackColor, message: "${summary}\n${message}"
     }
     if (emailRecipients != "") {
         //def to = emailextrecipients([[$class: 'DevelopersRecipientProvider'],[$class: 'CulpritsRecipientProvider'],[$class: 'UpstreamComitterRecipientProvider'],[$class: 'FirstFailingBuildSuspectsRecipientProvider'],[$class: 'FailingTestSuspectsRecipientProvider']])
