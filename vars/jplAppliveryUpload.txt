@@ -11,5 +11,5 @@ Parameters:
 cfg usage:
 
 * cfg.applivery[:] hashmap
-* cfg.versionSuffix
+* cfg.releaseTag
 

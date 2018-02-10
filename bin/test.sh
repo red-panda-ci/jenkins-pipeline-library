@@ -56,14 +56,14 @@ else
 fi
 
 # Main
-echo -n "# Start jenkins as a docker-compose daemon"
+echo "# Start jenkins as a docker-compose daemon"
 docker volume create jpl-dind-cache
 returnValue=$((returnValue + $?))
 docker-compose up -d --force-recreate
 returnValue=$((returnValue + $?))
 id=$(docker-compose ps -q jenkins-dind)
 returnValue=$((returnValue + $?))
-echo " with id ${id} and port $(docker-compose port jenkins-dind 8080)"
+echo "# Started platform with id ${id} and port $(docker-compose port jenkins-dind 8080)"
 
 echo "# Copy jenkins configuration"
 docker cp test/config/org.jenkinsci.plugins.workflow.libs.GlobalLibraries.xml ${id}:/root/.jenkins
@@ -82,7 +82,7 @@ then
 fi
 runWithinDocker "cd /tmp/jenkins-pipeline-library && git rev-parse --verify develop || git checkout -b develop"
 runWithinDocker "cd /tmp/jenkins-pipeline-library && git rev-parse --verify master || git checkout -b master"
-runWithinDocker "cd /tmp/jenkins-pipeline-library && git checkout -b 'release/v9.9.9' && git checkout -b 'jpl-test-promoted' && git checkout -b 'jpl-test' && git checkout `git rev-parse HEAD` > /dev/null 2>&1"
+runWithinDocker "cd /tmp/jenkins-pipeline-library && git checkout -b 'release/v9.9.9' && git checkout -b 'hotfix/v9.9.9-hotfix-1' && git checkout -b 'jpl-test-promoted' && git checkout -b 'jpl-test' && git checkout `git rev-parse HEAD` > /dev/null 2>&1"
 
 echo "# Wait for jenkins service to be initialized"
 runWithinDocker "sleep 10 && curl --max-time 50 --retry 10 --retry-delay 5 --retry-max-time 32 http://localhost:8080 -s > /dev/null; sleep 10"
@@ -103,6 +103,7 @@ then
     [ "$1" != "local" ] && runTest "jplBuildAPKTest"
     runTest "jplBuildIPAHappyTest"
     runTest "jplCloseReleaseTest"
+    runTest "jplCloseHotfixHappyTest"
 fi
 
 # Remove compose

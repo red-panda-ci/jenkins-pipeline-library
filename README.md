@@ -142,7 +142,41 @@ Parameters:
 cfg usage:
 
 * cfg.applivery[:] hashmap
-* cfg.versionSuffix
+* cfg.releaseTag
+
+### jplBuildAPK
+
+Build APK with Fastlane within docker into Jenkins, based on jpl project configuration
+
+Parameters:
+
+* cfg jplConfig class object
+* string command What is the command to be executed in the build
+Example: "./gradlew clean assembleDebug"
+
+cfg usage:
+
+* cfg.archivePattern
+* cfg.ie.*
+* cfg.flags.isAndroidImageBuilded
+
+### jplBuildChangelog
+
+  Build changelog file based on the commit messages
+
+  You can build the changelog between two commits, tags or branches if you use range format "v1.1.0...v1.0.0"
+  If you don fill the parameter then the "from HEAD to beginning" range is used
+
+  Parameters:
+
+  * cfg jplConfig class object
+  * String range Commit range: tags, commits or branches    (defaults to "HEAD")
+  * String format Changelog format: "md" or "html"          (defaults to "md")
+  * String filename Changelog file name                     (defaults to "CHANGELOG.md")
+
+  cfg usage:
+
+  * cfg.BRNACH_NAME
 
 ### jplBuild
 
@@ -164,41 +198,6 @@ cfg usage:
 
 * cfg.targetPlatform
 
-### jplBuildAPK
-
-Build APK with Fastlane within docker into Jenkins, based on jpl project configuration
-
-Parameters:
-
-* cfg jplConfig class object
-* string command What is the command to be executed in the build
-Example: "./gradlew clean assembleDebug"
-
-cfg usage:
-
-* cfg.archivePattern
-* cfg.ie.*
-* cfg.flags.isAndroidImageBuilded
-* cfg.versionSuffix
-
-### jplBuildChangelog
-
-  Build changelog file based on the commit messages
-
-  You can build the changelog between two commits, tags or branches if you use range format "v1.1.0...v1.0.0"
-  If you don fill the parameter then the "from HEAD to beginning" range is used
-
-  Parameters:
-
-  * cfg jplConfig class object
-  * String range Commit range: tags, commits or branches    (defaults to "HEAD")
-  * String format Changelog format: "md" or "html"          (defaults to "md")
-  * String filename Changelog file name                     (defaults to "CHANGELOG.md")
-
-  cfg usage:
-
-  * cfg.BRNACH_NAME
-
 ### jplBuildIPA
 
 Build IPA with Fastlane based on jpl project configuration
@@ -213,7 +212,6 @@ cfg usage:
 
 * cfg.archivePattern
 * cfg.ie.*
-* cfg.versionSuffix
 
 ### jplCheckoutSCM
 
@@ -232,14 +230,14 @@ cfg uage:
 
 ### jplCloseRelease
 
-Close release (Branch "release/*")
+Close release (Branches "release/v*" or "hotfix/v*")
 
 Merge code from release/vX.Y.Z to "master" and "develop", then "push" to the repository.
 Create new tag with "vX.Y.Z" to the commit
 
 The function uses "git promote" script
 
-Fails if your repository is not in a "release/*" branch
+Fails if your repository is not in a "release/v*" nor "hotfix/v*" branch
 
 Parameters:
 * cfg jplConfig class object

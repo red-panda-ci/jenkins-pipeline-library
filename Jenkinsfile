@@ -3,7 +3,7 @@
 @Library('github.com/red-panda-ci/jenkins-pipeline-library') _
 
 // Initialize global config
-cfg = jplConfig('jpl','backend','', [hipchat: '', slack: '#integrations', email:'redpandaci+jpl@gmail.com'])
+cfg = jplConfig('jpl','backend','', [slack: '#integrations', email:'redpandaci+jpl@gmail.com'])
 
 pipeline {
     agent none
@@ -20,7 +20,7 @@ pipeline {
         }
         stage ('Test') {
             agent { label 'docker' }
-            when { expression { (env.BRANCH_NAME == 'develop') || env.BRANCH_NAME.startsWith('release/v') || env.BRANCH_NAME.startsWith('PR-') || env.BRANCH_NAME.startsWith('feature/') } }
+            when { expression { (env.BRANCH_NAME == 'develop') || env.BRANCH_NAME.startsWith('PR-') || env.BRANCH_NAME.startsWith('feature/') } }
             steps  {
                 unstash "clone"
                 sh 'bin/test.sh'
@@ -42,16 +42,18 @@ pipeline {
             }
         }
         stage ('Release confirm') {
-            when { branch 'release/v*' }
+            when { expression { env.BRANCH_NAME.startsWith('release/v') || env.BRANCH_NAME.startsWith('hotfix/v') } }
             steps {
                 jplPromoteBuild(cfg)
             }
         }
         stage ('Release finish') {
             agent { label 'docker' }
-            when { branch 'release/v*' }
+            when { expression { env.BRANCH_NAME.startsWith('release/v') || env.BRANCH_NAME.startsWith('hotfix/v') } }
             steps {
                 unstash "clone"
+                sh "make; git add README.md vars/*.txt; git commit -m 'Docs: Update README.md and Jenkins doc help files' || true"
+                sh "git push -u origin ${env.BRANCH_NAME} || true"
                 jplCloseRelease(cfg)
                 deleteDir()
             }

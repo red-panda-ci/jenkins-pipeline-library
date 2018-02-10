@@ -12,5 +12,4 @@ cfg usage:
 * cfg.archivePattern
 * cfg.ie.*
 * cfg.flags.isAndroidImageBuilded
-* cfg.versionSuffix
 

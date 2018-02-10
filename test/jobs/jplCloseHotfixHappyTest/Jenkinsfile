@@ -1,6 +1,6 @@
 #!groovy
-env.BRANCH_NAME = "release/v9.9.9"
-cfg = jplConfig("jplCloseReleaseTest", "backend")
+env.BRANCH_NAME = "hotfix/v9.9.9-hotfix-1"
+cfg = jplConfig("jplCloseHotfixHappyTest", "backend")
 cfg.promoteBuild.enabled = true
 
 pipeline {
@@ -8,24 +8,24 @@ pipeline {
     agent any
 
     stages {
-        stage ("jplCloseRelease Test - Initialize") {
+        stage ("jplCloseHotfixHappy Test - Initialize") {
             steps  {
-                echo "jplCloseRelease Test - Initialize"
+                echo "jplCloseHotfixHappy Test - Initialize"
                 sh "printenv"
                 println cfg
                 jplStart(cfg)
             }
         }
-        stage ("jplCloseRelease Test - Prepare test") {
+        stage ("jplCloseHotfixHappy Test - Prepare test") {
             steps {
-                echo "jplCloseRelease Test - Prepare test"
+                echo "jplCloseHotfixHappy Test - Prepare test"
                 sh "git merge origin/master; git push"
                 deleteDir()
             }
         }
-        stage ("jplCloseRelease Test - Close Release") {
+        stage ("jplCloseHotfixHappy Test - Close Hotfix") {
             steps {
-                echo "jplCloseRelease Test - Closing release: ${cfg.releaseTag}, short one ${cfg.releaseTagNumber}"
+                echo "jplCloseHotfixHappy Test - Closing hotfix: ${cfg.releaseTag}, short one ${cfg.releaseTagNumber}"
                 jplCloseRelease(cfg)
             }
         }
