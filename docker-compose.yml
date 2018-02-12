@@ -8,17 +8,17 @@ services:
       - jpl-dind-cache:/var/lib/docker
       - ./:/tmp/jpl-source
     privileged: true
-    network_mode: bridge
   jenkins-agent1:
     image: "jenkins/jnlp-slave"
     entrypoint: ""
     command: 'bash -c "tail -f /var/log/*.log"'
-    network_mode: bridge
+    volumes:
+      - ./:/tmp/jpl-source
   jenkins-agent2:
     image: "jenkins/jnlp-slave"
     entrypoint: ""
     command: 'bash -c "tail -f /var/log/*.log"'
-    network_mode: bridge
+    volumes:
+      - ./:/tmp/jpl-source
 volumes:
   jpl-dind-cache:
-    external: true

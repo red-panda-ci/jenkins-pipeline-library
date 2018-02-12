@@ -8,7 +8,7 @@ cfg.androidPackages = '"build-tools;27.0.1" "platforms;android-27"'
 
 pipeline {
 
-    agent any
+    agent { label "master" }
 
     stages {
         stage ('jplBuildAPK Test - Initialize') {

@@ -31,7 +31,7 @@ pipeline {
 
     stages {
         stage (&apos;jplPromoteCode Happy Test - Initialize&apos;) {
-            agent any
+            agent { label &apos;master&apos; }
             steps  {
                 echo &quot;jplPromoteCode Happy Test - Initialize&quot;
                 sh &quot;printenv&quot;
@@ -40,7 +40,7 @@ pipeline {
             }
         }
         stage (&apos;jplPromoteCode Happy Test - Promote Code&apos;) {
-            agent any
+            agent { label &apos;master&apos; }
             steps {
                 echo &quot;jplPromoteCode Happy Test - Promote Code&quot;;
                 sh &quot;echo &apos;jplPromoteCodeHappyTest&apos; &gt; test/jplPromoteCodeHappyTest.txt; git add test/jplPromoteCodeHappyTest.txt; git commit -m &apos;Build: Test file for jplPromoteCodeHappyTest&apos;;git push&quot;

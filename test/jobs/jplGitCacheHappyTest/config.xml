@@ -22,7 +22,7 @@ def gitCacheProjectAbsolutePath
 
 pipeline {
 
-    agent any
+    agent { label &apos;master&apos; }
 
     stages {
         stage (&apos;jplGitCache Happy Test - Start&apos;) {
