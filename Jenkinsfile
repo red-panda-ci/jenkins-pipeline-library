@@ -12,23 +12,18 @@ pipeline {
         stage ('Initialize') {
             agent { label 'master' }
             steps  {
-                deleteDir()
                 jplStart(cfg)
-                stash name: "clone", useDefaultExcludes: false
-                deleteDir()
             }
         }
         stage ('Test') {
             agent { label 'docker' }
             when { expression { (env.BRANCH_NAME == 'develop') || env.BRANCH_NAME.startsWith('PR-') || env.BRANCH_NAME.startsWith('feature/') } }
             steps  {
-                unstash "clone"
                 sh 'bin/test.sh'
             }
             post {
                 always {
                     archiveArtifacts artifacts: 'test/reports/*', fingerprint: true, allowEmptyArchive: false
-                    deleteDir()
                 }
             }
         }
@@ -36,9 +31,7 @@ pipeline {
             when { expression { (env.BRANCH_NAME == 'develop') || env.BRANCH_NAME.startsWith('PR-') } }
             agent { label 'docker' }
             steps {
-                unstash "clone"
                 jplSonarScanner(cfg)
-                deleteDir()
             }
         }
         stage ('Release confirm') {
@@ -49,13 +42,11 @@ pipeline {
         }
         stage ('Release finish') {
             agent { label 'docker' }
-            when { expression { env.BRANCH_NAME.startsWith('release/v') || env.BRANCH_NAME.startsWith('hotfix/v') } }
+            when { expression { ( env.BRANCH_NAME.startsWith('release/v') || env.BRANCH_NAME.startsWith('hotfix/v')) && cfg.promoteBuild.enabled } }
             steps {
-                unstash "clone"
                 sh "make; git add README.md vars/*.txt; git commit -m 'Docs: Update README.md and Jenkins doc help files' || true"
                 sh "git push -u origin ${env.BRANCH_NAME} || true"
                 jplCloseRelease(cfg)
-                deleteDir()
             }
         }
     }
