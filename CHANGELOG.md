@@ -1,3 +1,17 @@
+<a name="2.6.2"></a>
+## 2.6.2 (2018-03-18)
+
+
+### Build
+
+* Remove Jenkins stash/unstash from pipeline ([64a3a7fedb78e9b4f43bd4ca0f04db1db30f3c1f](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/64a3a7fedb78e9b4f43bd4ca0f04db1db30f3c1f))
+
+### Fix
+
+* Substring bug extracting release number ([b6026ea1ef3bc15d80cd19c1a81ec2e0e447404a](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/b6026ea1ef3bc15d80cd19c1a81ec2e0e447404a))
+
+
+
 <a name="2.6.1"></a>
 ## 2.6.1 (2018-02-10)
 
@@ -7,6 +21,7 @@
 * Disable test on release ([f8b3e66a9aa6a546dcc1b44ca6597ab234972b25](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/f8b3e66a9aa6a546dcc1b44ca6597ab234972b25))
 * Don't break the build if there is not documentation update ([0c24f82fb627a031c9523dc4eb3411f5cb7cb6e1](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/0c24f82fb627a031c9523dc4eb3411f5cb7cb6e1))
 * Fix Jenkinsfile typo ([1461fc9f0ab9be5038ef74ef06b4ccc1c3141a51](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/1461fc9f0ab9be5038ef74ef06b4ccc1c3141a51))
+* Update CHANGELOG.md to v2.6.1 with Red Panda JPL ([bdc27fe4e818b3988327f216c04cdbacb82885ca](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/bdc27fe4e818b3988327f216c04cdbacb82885ca))
 * Update close release tests ([694eb9710872d451ad5b7d18f370d7dd96c0321b](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/694eb9710872d451ad5b7d18f370d7dd96c0321b))
 
 ### Docs
