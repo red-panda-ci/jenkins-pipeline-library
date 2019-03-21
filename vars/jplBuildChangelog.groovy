@@ -33,7 +33,7 @@ def call(cfg, String range = 'HEAD', String format = 'md', String filename = 'CH
     .trim()
     .replace('git@github.com:','https://github.com/')
     .replace('git@bitbucket.org:','https://bitbucket.org/')
-    .replace('git@gitlab.com:','https://gitlab.com')
+    .replace('git@gitlab.com:','https://gitlab.com/')
     if (repositoryUrl.endsWith(".git")) {
         repositoryUrl = repositoryUrl.substring(0, repositoryUrl.length() - 4)
     }
