@@ -1,3 +1,17 @@
+<a name="2.7.0"></a>
+# 2.7.0 (2019-03-21)
+
+
+### Fix
+
+* Add final slash to changelog generator URL forming ([728a51068fdfd0058928853e89946e789ebbc667](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/728a51068fdfd0058928853e89946e789ebbc667))
+
+### Update
+
+* Add gitlab.com repository support to changelog generator ([eb1648c16faa5981b09480756cb5f55ffa6face7](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/eb1648c16faa5981b09480756cb5f55ffa6face7))
+
+
+
 <a name="2.6.2"></a>
 ## 2.6.2 (2018-03-18)
 
@@ -5,6 +19,7 @@
 ### Build
 
 * Remove Jenkins stash/unstash from pipeline ([64a3a7fedb78e9b4f43bd4ca0f04db1db30f3c1f](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/64a3a7fedb78e9b4f43bd4ca0f04db1db30f3c1f))
+* Update CHANGELOG.md to v2.6.2 with Red Panda JPL ([e9da189fb798a457228f5e208843c8b4b5a321c6](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/e9da189fb798a457228f5e208843c8b4b5a321c6))
 
 ### Fix
 
