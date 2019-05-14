@@ -45,9 +45,10 @@ def call(cfg, String range = 'HEAD', String format = 'md', String filename = 'CH
         repositoryUrl = repositoryUrl + "/commit"
     }
     if (format == "md") {
-        sh "docker run --rm -i -v $(pwd):$(pwd):ro -w $(pwd) kairops/dc-git-changelog-generator > ${filename}"
+        sh "docker run --rm -i -v `pwd`:`pwd`:ro -w `pwd` kairops/dc-git-changelog-generator > ${filename}"
     }
     else {
-        sh "docker run --rm -i -v $(pwd):$(pwd):ro -w $(pwd) kairops/dc-git-changelog-generator | docker run --rm -i kairops/dc-md2html > ${filename}"
+        sh "docker run --rm -i -v `pwd`:`pwd`:ro -w `pwd` kairops/dc-git-changelog-generator > ${filename}.tmp"
+        sh "docker run --rm -i -v `pwd`:`pwd`:ro -w `pwd` kairops/dc-md2html ${filename}.tmp > ${filename} && rm ${filename}.tmp"
     }
 }
