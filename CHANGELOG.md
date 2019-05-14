@@ -1,6 +1,28 @@
+<a name="2.8.0"></a>
+# 2.8.0 (2019-05-14)
+
+
+### Build
+
+* Restrict ammount of memory used in the testsç ([98cd9947e6ad18f70d0a871c6742f2f76614b67f](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/98cd9947e6ad18f70d0a871c6742f2f76614b67f))
+
+### Fix
+
+* Use the right docker command with new changelog generator ([2ce873ed048eb5bfbf19a2eb9930e4e6f70a24d8](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/2ce873ed048eb5bfbf19a2eb9930e4e6f70a24d8))
+
+### Update
+
+* Use docker command changelog generator ([fb9f99fd377b912ac0bb01ae16764d9b5d77e16e](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/fb9f99fd377b912ac0bb01ae16764d9b5d77e16e))
+
+
+
 <a name="2.7.0"></a>
 # 2.7.0 (2019-03-21)
 
+
+### Build
+
+* Update CHANGELOG.md to v2.7.0 with Red Panda JPL ([801e485a6009dd32e06104b5080d6641f3be1550](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/801e485a6009dd32e06104b5080d6641f3be1550))
 
 ### Fix
 
