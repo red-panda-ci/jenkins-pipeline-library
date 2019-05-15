@@ -24,7 +24,7 @@ pipeline {
             }
             post {
                 always {
-                    archiveArtifacts artifacts: 'test/reports/*', fingerprint: true, allowEmptyArchive: false
+                    archiveArtifacts artifacts: 'test/reports/*', fingerprint: true, allowEmptyArchive: true
                 }
             }
         }
