@@ -1,561 +1,713 @@
-<a name="2.8.0"></a>
-# 2.8.0 (2019-05-14)
-
-
-### Build
-
-* Restrict ammount of memory used in the testsç ([98cd9947e6ad18f70d0a871c6742f2f76614b67f](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/98cd9947e6ad18f70d0a871c6742f2f76614b67f))
-
-### Fix
-
-* Use the right docker command with new changelog generator ([2ce873ed048eb5bfbf19a2eb9930e4e6f70a24d8](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/2ce873ed048eb5bfbf19a2eb9930e4e6f70a24d8))
+* Include test execution on all branches ([9451ae9](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/9451ae9))
 
 ### Update
 
-* Use docker command changelog generator ([fb9f99fd377b912ac0bb01ae16764d9b5d77e16e](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/fb9f99fd377b912ac0bb01ae16764d9b5d77e16e))
-
-
-
-<a name="2.7.0"></a>
-# 2.7.0 (2019-03-21)
-
-
-### Build
-
-* Update CHANGELOG.md to v2.7.0 with Red Panda JPL ([801e485a6009dd32e06104b5080d6641f3be1550](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/801e485a6009dd32e06104b5080d6641f3be1550))
+* Refactor build chnagelog execution ([6c9700f](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/6c9700f))
+* Disable test execution on Jenkins temporary ([6743fc9](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/6743fc9))
+* Disable git cache by default ([36109c1](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/36109c1))
 
 ### Fix
 
-* Add final slash to changelog generator URL forming ([728a51068fdfd0058928853e89946e789ebbc667](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/728a51068fdfd0058928853e89946e789ebbc667))
+* Allow empy test results ([1c02806](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/1c02806))
+
+### Build
+
+* Execute sonarqube analysis stage on master node ([87aa6f5](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/87aa6f5))
+* Execute release finish stage on master node ([e0e0270](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/e0e0270))
+
+## v2.8.0 (2019-05-14)
 
 ### Update
 
-* Add gitlab.com repository support to changelog generator ([eb1648c16faa5981b09480756cb5f55ffa6face7](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/eb1648c16faa5981b09480756cb5f55ffa6face7))
-
-
-
-<a name="2.6.2"></a>
-## 2.6.2 (2018-03-18)
-
-
-### Build
-
-* Remove Jenkins stash/unstash from pipeline ([64a3a7fedb78e9b4f43bd4ca0f04db1db30f3c1f](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/64a3a7fedb78e9b4f43bd4ca0f04db1db30f3c1f))
-* Update CHANGELOG.md to v2.6.2 with Red Panda JPL ([e9da189fb798a457228f5e208843c8b4b5a321c6](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/e9da189fb798a457228f5e208843c8b4b5a321c6))
+* Use docker command changelog generator ([fb9f99f](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/fb9f99f))
 
 ### Fix
 
-* Substring bug extracting release number ([b6026ea1ef3bc15d80cd19c1a81ec2e0e447404a](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/b6026ea1ef3bc15d80cd19c1a81ec2e0e447404a))
-
-
-
-<a name="2.6.1"></a>
-## 2.6.1 (2018-02-10)
-
+* Use the right docker command with new changelog generator ([2ce873e](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/2ce873e))
 
 ### Build
 
-* Disable test on release ([f8b3e66a9aa6a546dcc1b44ca6597ab234972b25](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/f8b3e66a9aa6a546dcc1b44ca6597ab234972b25))
-* Don't break the build if there is not documentation update ([0c24f82fb627a031c9523dc4eb3411f5cb7cb6e1](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/0c24f82fb627a031c9523dc4eb3411f5cb7cb6e1))
-* Fix Jenkinsfile typo ([1461fc9f0ab9be5038ef74ef06b4ccc1c3141a51](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/1461fc9f0ab9be5038ef74ef06b4ccc1c3141a51))
-* Update CHANGELOG.md to v2.6.1 with Red Panda JPL ([bdc27fe4e818b3988327f216c04cdbacb82885ca](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/bdc27fe4e818b3988327f216c04cdbacb82885ca))
-* Update close release tests ([694eb9710872d451ad5b7d18f370d7dd96c0321b](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/694eb9710872d451ad5b7d18f370d7dd96c0321b))
+* Update CHANGELOG.md to v2.8.0 with Red Panda JPL ([e2d175e](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/e2d175e))
+* Restrict ammount of memory used in the testsç ([98cd994](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/98cd994))
+
+## v2.7.0 (2019-03-21)
+
+### Update
+
+* Add gitlab.com repository support to changelog generator ([eb1648c](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/eb1648c))
+
+### Fix
+
+* Add final slash to changelog generator URL forming ([728a510](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/728a510))
+
+### Build
+
+* Update CHANGELOG.md to v2.7.0 with Red Panda JPL ([801e485](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/801e485))
+
+## v2.6.2 (2018-03-18)
+
+### Fix
+
+* Substring bug extracting release number ([b6026ea](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/b6026ea))
+
+### Build
+
+* Update CHANGELOG.md to v2.6.2 with Red Panda JPL ([e9da189](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/e9da189))
+* Remove Jenkins stash/unstash from pipeline ([64a3a7f](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/64a3a7f))
+
+## v2.6.1 (2018-02-10)
+
+### New
+
+* Add hotfix support, with tests (fixes #67) ([7ae15dc](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/7ae15dc))
+
+### Update
+
+* Add URL to slack and hipchat notifications (fixes #68) ([dc1360f](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/dc1360f))
+* Remove versionSuffix behaviour (#69) ([1033205](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/1033205))
+
+### Build
+
+* Update CHANGELOG.md to v2.6.1 with Red Panda JPL ([bdc27fe](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/bdc27fe))
+* Disable test on release ([f8b3e66](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/f8b3e66))
+* Don't break the build if there is not documentation update ([0c24f82](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/0c24f82))
+* Update close release tests ([694eb97](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/694eb97))
+* Fix Jenkinsfile typo ([1461fc9](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/1461fc9))
 
 ### Docs
 
-* Update README.md and Jenkins doc help files ([b7acb92746a67ed528501d0d0551ff9bad547c8c](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/b7acb92746a67ed528501d0d0551ff9bad547c8c))
+* Update README.md and Jenkins doc help files ([b7acb92](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/b7acb92))
+
+## v2.6.0 (2018-01-18)
 
 ### New
 
-* Add hotfix support, with tests  ([7ae15dccd89f0ec332bfb46fc0195834afbc7ca9](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/7ae15dccd89f0ec332bfb46fc0195834afbc7ca9)), closes [#67](https://github.com/madoos/node-changelog-generator/issues/67)
+* Add Gitter badge ([c9afed4](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/c9afed4))
 
 ### Update
 
-* Add URL to slack and hipchat notifications  ([dc1360ffbb1925686f0bf3dfa300f6e2ffb816ce](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/dc1360ffbb1925686f0bf3dfa300f6e2ffb816ce)), closes [#68](https://github.com/madoos/node-changelog-generator/issues/68)
-* Remove versionSuffix behaviour  ([103320565febeba8b96e1371e84ae08ecc8833ae](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/103320565febeba8b96e1371e84ae08ecc8833ae)), closes [#69](https://github.com/madoos/node-changelog-generator/issues/69)
-
-
-
-<a name="2.6.0"></a>
-# 2.6.0 (2018-01-18)
-
-
-### Build
-
-* Add bridged network_model to compose ([df9af34c4bf0dc017c800fcd1b8fea4ad5aa32fe](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/df9af34c4bf0dc017c800fcd1b8fea4ad5aa32fe))
-* Add brtidge to network mode in docker-comppose ([6dbd3c2e6db41779e6f23c18bc551d1b6ff2e6ff](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/6dbd3c2e6db41779e6f23c18bc551d1b6ff2e6ff))
-* Add more wait time before cli downloading ([0749fc6794a666ab277f8be8d68c7d29fbd593a5](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/0749fc6794a666ab277f8be8d68c7d29fbd593a5))
-* Avoid use bridge network mode forced in compose ([c4950cb877b6447d9dac77c13dabb570b1b4bd44](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/c4950cb877b6447d9dac77c13dabb570b1b4bd44))
-* Configure stash/unstash within stages ([ed8ef0e26ddf26fa0308251065ce140fc225deae](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/ed8ef0e26ddf26fa0308251065ce140fc225deae))
-* Remove unstash in promote build stage ([093a9298b9f00f34c9a04a6a7ff1b2d2809431dd](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/093a9298b9f00f34c9a04a6a7ff1b2d2809431dd))
-* Update CHANGELOG.md to v2.6.0 with Red Panda JPL ([e3e9e6ae06829011a9352903d5d8c417f1e95ab1](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/e3e9e6ae06829011a9352903d5d8c417f1e95ab1))
-* Update release number in sonar properties file ([7a9318d99fb03676d29695af24227d0c0ea29b88](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/7a9318d99fb03676d29695af24227d0c0ea29b88))
-
-### Docs
-
-* Update README.md ([f0ad43b1b8cfd681d688e1d135e924712b718867](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/f0ad43b1b8cfd681d688e1d135e924712b718867))
+* Add gitter badge to readme template ([82ecde0](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/82ecde0))
 
 ### Fix
 
-* Place submodule init in the right place for jplCheckoutSCM / jplStart ([06942e89b9bfae430c12f4c7ae64cf269a119c54](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/06942e89b9bfae430c12f4c7ae64cf269a119c54))
-
-### New
-
-* Add Gitter badge ([c9afed49d7faafa4a25b7e792f2f671710c5145d](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/c9afed49d7faafa4a25b7e792f2f671710c5145d))
-
-### Update
-
-* Add gitter badge to readme template ([82ecde0b0492606f03c1d15a6e943d3e63ae509b](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/82ecde0b0492606f03c1d15a6e943d3e63ae509b))
-
-
-
-<a name="2.5.0"></a>
-# 2.5.0 (2018-01-04)
-
+* Place submodule init in the right place for jplCheckoutSCM / jplStart ([06942e8](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/06942e8))
 
 ### Build
 
-* Fix docker-compose issue ([46d72693ebeef094020baa88dfa5c33b59700393](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/46d72693ebeef094020baa88dfa5c33b59700393))
-* Run test using docker compose, instead of standalone docker ([9eb20b96ebbc183ccf0cfbce40795fdb261a16a2](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/9eb20b96ebbc183ccf0cfbce40795fdb261a16a2))
-* Update CHANGELOG.md to v2.5.0 with Red Panda JPL ([bf44e9f486130d060544a7d639b0c9d2d6c7b112](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/bf44e9f486130d060544a7d639b0c9d2d6c7b112))
+* Update CHANGELOG.md to v2.6.0 with Red Panda JPL ([e3e9e6a](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/e3e9e6a))
+* Update release number in sonar properties file ([7a9318d](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/7a9318d))
+* Add brtidge to network mode in docker-comppose ([6dbd3c2](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/6dbd3c2))
+* Avoid use bridge network mode forced in compose ([c4950cb](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/c4950cb))
+* Add bridged network_model to compose ([df9af34](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/df9af34))
+* Add more wait time before cli downloading ([0749fc6](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/0749fc6))
+* Remove unstash in promote build stage ([093a929](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/093a929))
+* Configure stash/unstash within stages ([ed8ef0e](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/ed8ef0e))
 
 ### Docs
 
-* Update README.md ([051102a55cd1d40b14f5ce4c3b4dc1d735d9067c](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/051102a55cd1d40b14f5ce4c3b4dc1d735d9067c))
+* Update README.md ([f0ad43b](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/f0ad43b))
+
+## v2.5.0 (2018-01-04)
+
+### New
+
+* Add jplSignAPKTest (fixes #45) ([261ed4b](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/261ed4b))
+* Add jplPromoteCode test (fixes #46) ([18626fc](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/18626fc))
+
+### Update
+
+* Add 'bundle install' to IPA build ([acfd40b](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/acfd40b))
+* Convert recipients hash (hipchat, slack, email) to optional configurations ([497ec31](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/497ec31))
+* Add enabled flag to 'Integration Events' (fixes #60) ([1e19593](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/1e19593))
+* Add '--pull' option to docker build image in jplBuildAPK (fixes #43) ([16200c4](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/16200c4))
+* Review versionSuffix behaviour (fixes #18) ([98b5ed1](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/98b5ed1))
 
 ### Fix
 
-* Manage return value checking Gemfile in jplBuildIPA ([d403bd3b56b73c019c2d54dd423aa62cb9cc2fee](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/d403bd3b56b73c019c2d54dd423aa62cb9cc2fee))
-
-### New
-
-* Add jplPromoteCode test  ([18626fc4facf2bbac2b5031840b5759facde9d75](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/18626fc4facf2bbac2b5031840b5759facde9d75)), closes [#46](https://github.com/madoos/node-changelog-generator/issues/46)
-
-### Update
-
-* Add '--pull' option to docker build image in jplBuildAPK  ([16200c4a1758c5f025fc2563000a80fc50d1dd5f](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/16200c4a1758c5f025fc2563000a80fc50d1dd5f)), closes [#43](https://github.com/madoos/node-changelog-generator/issues/43)
-* Add 'bundle install' to IPA build ([acfd40b0d2df01bdbb5b80a1cf8deead5aec13cc](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/acfd40b0d2df01bdbb5b80a1cf8deead5aec13cc))
-* Add enabled flag to 'Integration Events'  ([1e19593adfc2a0daa0769d1385f8f9fd42cf0ede](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/1e19593adfc2a0daa0769d1385f8f9fd42cf0ede)), closes [#60](https://github.com/madoos/node-changelog-generator/issues/60)
-* Convert recipients hash (hipchat, slack, email) to optional configurations ([497ec310e677bd93df8c04a3589512fc87e774b5](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/497ec310e677bd93df8c04a3589512fc87e774b5))
-* Review versionSuffix behaviour  ([98b5ed17c4705225ba1e5212b8e75466a9334151](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/98b5ed17c4705225ba1e5212b8e75466a9334151)), closes [#18](https://github.com/madoos/node-changelog-generator/issues/18)
-
-
-
-<a name="2.4.0"></a>
-# 2.4.0 (2017-12-28)
-
+* Manage return value checking Gemfile in jplBuildIPA ([d403bd3](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/d403bd3))
 
 ### Build
 
-* Update CHANGELOG.md to v2.4.0 with Red Panda JPL ([2f43d1e452ca4514216516d8b6d900be5654e6da](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/2f43d1e452ca4514216516d8b6d900be5654e6da))
-
-### New
-
-* Set fastlane trigers asociated with fastlane/* branches on android/iOS buidls  ([e76d9ba343171601242f65cf8c7f5082a3a8c338](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/e76d9ba343171601242f65cf8c7f5082a3a8c338)), closes [#49](https://github.com/madoos/node-changelog-generator/issues/49) [#57](https://github.com/madoos/node-changelog-generator/issues/57) [#49](https://github.com/madoos/node-changelog-generator/issues/49)
-
-### Update
-
-* Add target platform to jpl-git-cache project folder ([42e0be5457bacd85a004ef40b770035e14b7e9bd](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/42e0be5457bacd85a004ef40b770035e14b7e9bd))
-
-
-
-<a name="2.3.5"></a>
-## 2.3.5 (2017-12-27)
-
-
-### Build
-
-* Update CHANGELOG.md to v2.3.5 with Red Panda JPL ([1efe0c6b22e023879caf9e348247ea5ddf2f3475](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/1efe0c6b22e023879caf9e348247ea5ddf2f3475))
-
-### Update
-
-* Do a second checkout try wiping directory if the first try fails ([138a5d412606a7f7350fcd27ae21ad5c71212270](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/138a5d412606a7f7350fcd27ae21ad5c71212270))
-
-
-
-<a name="2.3.4"></a>
-## 2.3.4 (2017-12-26)
-
-
-### Build
-
-* Update CHANGELOG.md to v2.3.4 with Red Panda JPL ([09df88bba14fa257d1109aa6e7af534d94b046ff](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/09df88bba14fa257d1109aa6e7af534d94b046ff))
+* Update CHANGELOG.md to v2.5.0 with Red Panda JPL ([bf44e9f](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/bf44e9f))
+* Fix docker-compose issue ([46d7269](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/46d7269))
+* Run test using docker compose, instead of standalone docker ([9eb20b9](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/9eb20b9))
 
 ### Docs
 
-* Update readme ([2cdc43bceeccb747d8b4324bbd6a8695d02290a6](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/2cdc43bceeccb747d8b4324bbd6a8695d02290a6))
+* Update README.md ([051102a](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/051102a))
+
+## v2.4.0 (2017-12-28)
 
 ### New
 
-* Add jpl git cache capability  ([d0df6bda28f5e0e0e9f5039e71a4655f358ab28a](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/d0df6bda28f5e0e0e9f5039e71a4655f358ab28a)), closes [#50](https://github.com/madoos/node-changelog-generator/issues/50) [#51](https://github.com/madoos/node-changelog-generator/issues/51)
+* Set fastlane trigers asociated with fastlane/* branches on android/iOS buidls (fixes #49) (#57) ([e76d9ba](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/e76d9ba))
+* Add iOS build capabilities (fixes #44) (#55) ([3dab390](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/3dab390))
 
 ### Update
 
-* Add config test to all jpl helpers ([78164fef5b310901c55095fea0d6c66e4dc9cc91](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/78164fef5b310901c55095fea0d6c66e4dc9cc91))
-* Refactor test ([bcb5dd6f88391a46bfb47df468887aa9317d9b73](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/bcb5dd6f88391a46bfb47df468887aa9317d9b73))
-
-
-
-<a name="2.3.3"></a>
-## 2.3.3 (2017-12-13)
-
+* Add target platform to jpl-git-cache project folder ([42e0be5](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/42e0be5))
 
 ### Build
 
-* Update CHANGELOG.md to v2.3.3 with Red Panda JPL ([87a84803c18535619e0434d9bfe1d3f0c7dcdeef](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/87a84803c18535619e0434d9bfe1d3f0c7dcdeef))
-* Use last stable jpl release ([d2ed8719ea5072bf98b53449d3ff3d62d8480282](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/d2ed8719ea5072bf98b53449d3ff3d62d8480282))
+* Update CHANGELOG.md to v2.4.0 with Red Panda JPL ([2f43d1e](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/2f43d1e))
 
-### New
+## v2.3.5 (2017-12-27)
 
-* Add jplDockerBuild helper, with tests ([eece8ccd6c305242b4026cd5efddd2a0579e65c5](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/eece8ccd6c305242b4026cd5efddd2a0579e65c5))
+### Update
 
-
-
-<a name="2.3.2"></a>
-## 2.3.2 (2017-12-12)
-
-
-### Build
-
-* Update CHANGELOG.md to v2.3.2 with Red Panda JPL ([8da776199c35c70a464f61d79830ebe6de0a0237](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/8da776199c35c70a464f61d79830ebe6de0a0237))
+* Do a second checkout try wiping directory if the first try fails ([138a5d4](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/138a5d4))
 
 ### Fix
 
-* Use the right jplCheckoutSCM helper within jplPromoteCode ([6b2af9a1f5d0b976bb1ccabecdb663816c4a904f](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/6b2af9a1f5d0b976bb1ccabecdb663816c4a904f))
-
-
-
-<a name="2.3.1"></a>
-## 2.3.1 (2017-12-12)
-
+* Change cache folder in jpl-git-cache (fixes #53) (#54) ([b6c8cb9](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/b6c8cb9))
 
 ### Build
 
-* Update CHANGELOG.md to v2.3.1 with Red Panda JPL ([8301d3283681f83c3b2e40826a4fcf0a634dd905](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/8301d3283681f83c3b2e40826a4fcf0a634dd905))
+* Update CHANGELOG.md to v2.3.5 with Red Panda JPL ([1efe0c6](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/1efe0c6))
+
+## v2.3.4 (2017-12-26)
+
+### New
+
+* Add jpl git cache capability (fixes #50) (#51) ([d0df6bd](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/d0df6bd))
+
+### Update
+
+* Add config test to all jpl helpers ([78164fe](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/78164fe))
+* Refactor test ([bcb5dd6](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/bcb5dd6))
+
+### Build
+
+* Update CHANGELOG.md to v2.3.4 with Red Panda JPL ([09df88b](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/09df88b))
+
+### Docs
+
+* Update readme ([2cdc43b](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/2cdc43b))
+
+## v2.3.3 (2017-12-13)
+
+### New
+
+* Add jplDockerBuild helper, with tests ([eece8cc](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/eece8cc))
+
+### Build
+
+* Update CHANGELOG.md to v2.3.3 with Red Panda JPL ([87a8480](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/87a8480))
+* Use last stable jpl release ([d2ed871](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/d2ed871))
+
+## v2.3.2 (2017-12-12)
 
 ### Fix
 
-* Use jpl-scripts istead ci-scripts library ([3bbb558ff39525afe995ca44c41709b360f22468](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/3bbb558ff39525afe995ca44c41709b360f22468))
-* Use master branch of jpl-scripts library ([59e5797e46149222771f9ea01d0bafdf5bda88d5](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/59e5797e46149222771f9ea01d0bafdf5bda88d5))
-
-
-
-<a name="2.3.0"></a>
-# 2.3.0 (2017-12-10)
-
+* Use the right jplCheckoutSCM helper within jplPromoteCode ([6b2af9a](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/6b2af9a))
 
 ### Build
 
-* Update CHANGELOG.md to v2.3.0 with Red Panda JPL ([0eeebcfccfe066a7e775dec35d97437cd85116cd](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/0eeebcfccfe066a7e775dec35d97437cd85116cd))
+* Update CHANGELOG.md to v2.3.2 with Red Panda JPL ([8da7761](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/8da7761))
+
+## v2.3.1 (2017-12-12)
+
+### Fix
+
+* Use master branch of jpl-scripts library ([59e5797](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/59e5797))
+* Use jpl-scripts istead ci-scripts library ([3bbb558](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/3bbb558))
+
+### Build
+
+* Update CHANGELOG.md to v2.3.1 with Red Panda JPL ([8301d32](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/8301d32))
+
+## v2.3.0 (2017-12-10)
 
 ### Update
 
-* Refactor for release v2.3.0  ([696c7970e48b9cd8bc7c4b0039afc220495c674a](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/696c7970e48b9cd8bc7c4b0039afc220495c674a))
-* Use latest docker image of redpandaci/jpl-android-base  ([64d37b399c973ed4cdce63c319291cdbcbb5faf1](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/64d37b399c973ed4cdce63c319291cdbcbb5faf1))
-* Use the right android docker image ([865a2b4cea30128e5b69cd7684ec8b5961d47424](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/865a2b4cea30128e5b69cd7684ec8b5961d47424))
-
-
-
-<a name="2.2.2"></a>
-## 2.2.2 (2017-12-04)
-
+* Use the right android docker image ([865a2b4](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/865a2b4))
+* Use latest docker image of redpandaci/jpl-android-base (#41) ([64d37b3](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/64d37b3))
+* Refactor for release v2.3.0 (#40) ([696c797](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/696c797))
 
 ### Build
 
-* Update CHANGELOG.md to v2.2.2 with Red Panda JPL ([428a5c54a6677da1c26c867d80a8d365f1114b45](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/428a5c54a6677da1c26c867d80a8d365f1114b45))
+* Update CHANGELOG.md to v2.3.0 with Red Panda JPL ([0eeebcf](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/0eeebcf))
+
+## v2.2.2 (2017-12-04)
 
 ### Update
 
-* Add old config to Docker android base ([e129898fa81b3335f639f155f6fafe322ab5a90b](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/e129898fa81b3335f639f155f6fafe322ab5a90b))
-* Change jplBuildAPK workflow ([e6c530b66ca024e40379079a221bfa498f095ef6](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/e6c530b66ca024e40379079a221bfa498f095ef6))
-
-
-
-<a name="2.2.1"></a>
-## 2.2.1 (2017-12-03)
-
+* Change jplBuildAPK workflow ([e6c530b](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/e6c530b))
+* Add old config to Docker android base ([e129898](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/e129898))
 
 ### Build
 
-* Remove Travis CI integration ([e87a789f950aa78c21f433b2a3911e1b2016786c](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/e87a789f950aa78c21f433b2a3911e1b2016786c))
-* Update CHANGELOG.md to v2.2.1 with Red Panda JPL ([388ddb7636ce05bb918bfe8d73e617b491a2e591](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/388ddb7636ce05bb918bfe8d73e617b491a2e591))
+* Update CHANGELOG.md to v2.2.2 with Red Panda JPL ([428a5c5](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/428a5c5))
+
+## v2.2.1 (2017-12-03)
+
+### Update
+
+* Don't use '?' folder in apk builds (#37) ([12ff8bd](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/12ff8bd))
+
+### Build
+
+* Update CHANGELOG.md to v2.2.1 with Red Panda JPL ([388ddb7](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/388ddb7))
+* Remove Travis CI integration ([e87a789](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/e87a789))
 
 ### Docs
 
-* Update README.md and helper docs ([336914ae190a3b88302e0cb336a51ef3626c9d28](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/336914ae190a3b88302e0cb336a51ef3626c9d28))
+* Update README.md and helper docs ([336914a](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/336914a))
 
-
-
-<a name="2.2.0"></a>
-# 2.2.0 (2017-12-03)
-
-
-### Build
-
-* Update CHANGELOG.md to v2.2.0 with Red Panda JPL ([efeee5d81f0ae07dbf77c9bd7c4463cc2dc0b6d0](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/efeee5d81f0ae07dbf77c9bd7c4463cc2dc0b6d0))
+## v2.2.0 (2017-12-03)
 
 ### New
 
-* Build APK with Jenkins Pipeline docker way  ([7f2d36d1ac5c665c799aef78339c360aff8896f5](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/7f2d36d1ac5c665c799aef78339c360aff8896f5)), closes [#5](https://github.com/madoos/node-changelog-generator/issues/5) [#36](https://github.com/madoos/node-changelog-generator/issues/36)
+* Build APK with Jenkins Pipeline docker way (fixes #5) (#36) ([7f2d36d](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/7f2d36d))
 
 ### Update
 
-* Align commit messages on git tasks ([8c77588c9849ee4c019022f03945c9752cd10881](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/8c77588c9849ee4c019022f03945c9752cd10881))
-* Avoid to do a pull in jplCheckoutSCM ([073540541071f326c4908f7b104c6bd1b0835817](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/073540541071f326c4908f7b104c6bd1b0835817))
-* Revert checkout behauviour ([401ba224db581b615f4f0b19f370bbb20484b3e4](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/401ba224db581b615f4f0b19f370bbb20484b3e4))
-
-
-
-<a name="2.1.1"></a>
-## 2.1.1 (2017-11-14)
-
+* Revert checkout behauviour ([401ba22](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/401ba22))
+* Avoid to do a pull in jplCheckoutSCM ([0735405](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/0735405))
+* Align commit messages on git tasks ([8c77588](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/8c77588))
 
 ### Build
 
-* Remove travis integration and related build status badge ([438eb9aa81c5259882e738b320257ebb00ee5533](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/438eb9aa81c5259882e738b320257ebb00ee5533))
-* Update CHANGELOG.md to v2.1.1 with Red Panda JPL ([8805a8e932d414b1efaceabae47046611efca23d](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/8805a8e932d414b1efaceabae47046611efca23d))
-* Update version number in Sonar properties file ([b36e0c4216c300ba8fdca63a87cee75a9a078df6](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/b36e0c4216c300ba8fdca63a87cee75a9a078df6))
+* Update CHANGELOG.md to v2.2.0 with Red Panda JPL ([efeee5d](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/efeee5d))
+
+## v2.1.1 (2017-11-14)
+
+### New
+
+* Add new cfg.releaseTagNumber key ([ed30682](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/ed30682))
+* Add new config.releaseTag key ([8d95a98](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/8d95a98))
+
+### Update
+
+* Change jplCloseRelease test adding cfg.releaseTag info ([b2f9de0](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/b2f9de0))
+* Remove deprecated info in jplSigning helper ([886a77f](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/886a77f))
+
+### Build
+
+* Update CHANGELOG.md to v2.1.1 with Red Panda JPL ([8805a8e](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/8805a8e))
+* Remove travis integration and related build status badge ([438eb9a](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/438eb9a))
+* Update version number in Sonar properties file ([b36e0c4](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/b36e0c4))
 
 ### Docs
 
-* Add pipeline documentation in vars/*.txt files ([aa3634beae90a34d4f4dc8e5b6e6e3e9a1d77f65](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/aa3634beae90a34d4f4dc8e5b6e6e3e9a1d77f65))
-* Fix doc typo in CONTRIBUTING.md ([67fde91fc53bf0a92baaa64d070ba6d8af34134b](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/67fde91fc53bf0a92baaa64d070ba6d8af34134b))
-* Update README.md ([cab61561451bb7ab1764f7f5fcfe8131f7249523](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/cab61561451bb7ab1764f7f5fcfe8131f7249523))
+* Update README.md ([cab6156](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/cab6156))
+* Fix doc typo in CONTRIBUTING.md ([67fde91](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/67fde91))
+* Add pipeline documentation in vars/*.txt files ([aa3634b](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/aa3634b))
 
-### New
-
-* Add new cfg.releaseTagNumber key ([ed30682ac4086e4ec79ade9f03f6ab85828262db](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/ed30682ac4086e4ec79ade9f03f6ab85828262db))
-* Add new config.releaseTag key ([8d95a98b29856a80d777638161799fbccff8893d](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/8d95a98b29856a80d777638161799fbccff8893d))
-
-### Update
-
-* Change jplCloseRelease test adding cfg.releaseTag info ([b2f9de060ff311f25908e00c0cafc257a3c6ff03](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/b2f9de060ff311f25908e00c0cafc257a3c6ff03))
-* Remove deprecated info in jplSigning helper ([886a77fc6c90bf79396bad808f610a9d93c7d240](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/886a77fc6c90bf79396bad808f610a9d93c7d240))
-
-
-
-<a name="2.1.0"></a>
-# 2.1.0 (2017-11-11)
-
+## v2.1.0 (2017-11-11)
 
 ### Breaking
 
-* Add dockerTag parameter to jplDockerPush ([478b694bf64a123fcb7a585210d72396f6bd5bf5](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/478b694bf64a123fcb7a585210d72396f6bd5bf5))
-
-### Build
-
-* Set firstTag for changelog build ([0b5d5c6bb6b4b6e463217bcfd386b915bdddc151](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/0b5d5c6bb6b4b6e463217bcfd386b915bdddc151))
-* Update CHANGELOG.md to v2.1.0 with Red Panda JPL ([bb62b872529114875809f5a80ebcd7681c3c168e](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/bb62b872529114875809f5a80ebcd7681c3c168e))
-
-### Docs
-
-* Improve documentation  ([55e80aefebec44046b1eace7b60bde7fd6ca4086](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/55e80aefebec44046b1eace7b60bde7fd6ca4086)), closes [#34](https://github.com/madoos/node-changelog-generator/issues/34)
-
-### Fix
-
-* Set the right URL pointing to commits in jplBuildChangelog ([d0fa68f65ea8de0bf69bba040bcf8f7bdacc6426](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/d0fa68f65ea8de0bf69bba040bcf8f7bdacc6426))
+* Add dockerTag parameter to jplDockerPush ([478b694](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/478b694))
 
 ### New
 
-* Add firstTag info to changelog build ([afa380b8c757d12e9e90c5a852618ed6644543b6](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/afa380b8c757d12e9e90c5a852618ed6644543b6))
+* Add firstTag info to changelog build ([afa380b](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/afa380b))
 
+### Fix
 
+* Set the right URL pointing to commits in jplBuildChangelog ([d0fa68f](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/d0fa68f))
 
-<a name="2.0.0"></a>
-# 2.0.0 (2017-11-05)
+### Build
 
+* Update CHANGELOG.md to v2.1.0 with Red Panda JPL ([bb62b87](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/bb62b87))
+* Set firstTag for changelog build ([0b5d5c6](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/0b5d5c6))
+
+### Docs
+
+* Improve documentation (fixes #34) ([55e80ae](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/55e80ae))
+
+## v2.0.0 (2017-11-05)
 
 ### Breaking
 
-* Refactor jplCheckoutSCM helper  ([cf62e8f9ad9315c248ad74e34dc2bf68bf744bb2](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/cf62e8f9ad9315c248ad74e34dc2bf68bf744bb2)), closes [#31](https://github.com/madoos/node-changelog-generator/issues/31)
-
-### Build
-
-* Set release number to v2.0.0 in sonar ([38eae2bb687058fac7feb1f7658443cb5764c0fc](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/38eae2bb687058fac7feb1f7658443cb5764c0fc))
-* Update CHANGELOG.md to v2.0.0 with Red Panda JPL ([445a34d73b8e6e6c72eb8f400ffd448aa1337434](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/445a34d73b8e6e6c72eb8f400ffd448aa1337434))
-* Update to new v2.0.0 jpl development pipeline workflow ([e22a803257022b89b6470294696611efb3d3ec62](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/e22a803257022b89b6470294696611efb3d3ec62))
-* Use develop jpl ([f8372212dcff5407747bbf672ce5c599bf1f4ba4](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/f8372212dcff5407747bbf672ce5c599bf1f4ba4))
-* Use jpl v1.4.2 ([d05f97251ae58502c8eea6f8647cccd53ef8078d](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/d05f97251ae58502c8eea6f8647cccd53ef8078d))
-
-### Docs
-
-* Update README.md and helpers documentation ([20863e9d275b92bd3ccf7d026de33882e4455f0c](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/20863e9d275b92bd3ccf7d026de33882e4455f0c))
+* Refactor jplCheckoutSCM helper (fixes #31) ([cf62e8f](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/cf62e8f))
 
 ### New
 
-* Add jplBuildChangelog  ([9d630502119cbad79147fdb10555198f1a67f50c](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/9d630502119cbad79147fdb10555198f1a67f50c))
-* Add jplStart helper with test  ([6791dc408030031f526a0d2964ec03d4aef628c9](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/6791dc408030031f526a0d2964ec03d4aef628c9))
+* Add jplBuildChangelog (refs #23) ([9d63050](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/9d63050))
+* Add jplStart helper with test (refs #31) ([6791dc4](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/6791dc4))
 
 ### Update
 
-* Adapt jplPromoteBuildTest  ([ed1a949a021675664d1e221deb9d614056116142](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/ed1a949a021675664d1e221deb9d614056116142))
-* Add CHANGELOG.md file in jplCloseRelease  ([145477117630e7326c0fb988775711d87e9c3b87](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/145477117630e7326c0fb988775711d87e9c3b87)), closes [#33](https://github.com/madoos/node-changelog-generator/issues/33)
-* Add promote build timeout  ([7aadd53fe62da33735d4ee5f20089d5c95066884](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/7aadd53fe62da33735d4ee5f20089d5c95066884)), closes [#22](https://github.com/madoos/node-changelog-generator/issues/22)
-* Execute jplStartTest  ([0b2a64c942f83e4bdbb6087875a1d19a3cf491ab](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/0b2a64c942f83e4bdbb6087875a1d19a3cf491ab))
-* Remove credential helper configuration in jplPromoteCode and jplCloseRelease helpers ([13cd3baa945031aa803715bfe14ef70eead1051a](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/13cd3baa945031aa803715bfe14ef70eead1051a))
+* Add promote build timeout (fixes #22) ([7aadd53](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/7aadd53))
+* Add CHANGELOG.md file in jplCloseRelease (fixes #33) ([1454771](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/1454771))
+* Adapt jplPromoteBuildTest (refs #31) ([ed1a949](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/ed1a949))
+* Execute jplStartTest (refs #23) ([0b2a64c](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/0b2a64c))
+* Remove credential helper configuration in jplPromoteCode and jplCloseRelease helpers ([13cd3ba](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/13cd3ba))
 
+### Build
 
+* Update CHANGELOG.md to v2.0.0 with Red Panda JPL ([445a34d](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/445a34d))
+* Update to new v2.0.0 jpl development pipeline workflow ([e22a803](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/e22a803))
+* Set release number to v2.0.0 in sonar ([38eae2b](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/38eae2b))
+* Use develop jpl ([f837221](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/f837221))
+* Use jpl v1.4.2 ([d05f972](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/d05f972))
 
-<a name="1.4.2"></a>
-## 1.4.2 (2017-11-01)
+### Docs
 
+* Update README.md and helpers documentation ([20863e9](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/20863e9))
+
+## v1.4.2 (2017-11-01)
 
 ### Breaking
 
-* Move from oracle to openjdk jdk, some changes in the build process ([2031184a88a2248027a605822cab85ec84cf4564](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/2031184a88a2248027a605822cab85ec84cf4564))
+* Move from oracle to openjdk jdk, some changes in the build process ([2031184](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/2031184))
+
+### New
+
+* Add test for jplCloseRelease helper ([d6569fe](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/d6569fe))
+* Add jplPromoteBuild test ([021d465](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/021d465))
+* Add jplDocker test ([174f4e5](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/174f4e5))
+* Add jplDocker helper ([b6d0627](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/b6d0627))
+* Add timeout docker container for tests ([c8113ae](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/c8113ae))
+
+### Update
+
+* Add branch config to jplPromoteCode (refs #23) ([bea390e](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/bea390e))
+* Change jplPromoteBuild name to jplPromoteBuildTest ([d871445](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/d871445))
+* Change jplCheckoutSCM test name to jplCheckoutSCMTest ([9323c3b](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/9323c3b))
+* Add branch config to jplCloseRelease (refs #23) ([6b2fc35](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/6b2fc35))
+* Add branch config to jplCloseRelease (refs #23) ([8ddbcd7](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/8ddbcd7))
+* Abort build with "ABORT" build result in jplSonarScanner if the quality gate fails ([36993a7](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/36993a7))
+* Tests refactoring ([7a3e6d3](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/7a3e6d3))
+* Rename helper jplDocker => jplDockerPush ([87898b6](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/87898b6))
+* Add stage to the jplCheckoutSCM test ([e16291d](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/e16291d))
+* Review jplCheckoutSCM test ([1a733d2](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/1a733d2))
+* Improve parameters in jplPromoteBuild ([2b1a293](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/2b1a293))
+* Use github repository in jplCheckoutSCM test ([f1166a1](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/f1166a1))
+* Remove all 'timestamp' and 'ansicolor' references ([4db6eb8](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/4db6eb8))
+
+### Fix
+
+* Change checkout branches order for the tests ([013f2e0](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/013f2e0))
+* Resolve bug with return value management in bin/test.sh ([518e1f5](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/518e1f5))
+* Change 'fake' branch creation for testing in bin/test.sh ([cfc5622](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/cfc5622))
+* Set git 'store' credential.helper option in jplPromoteCode helper ([9553498](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/9553498))
+* Set git 'store' credential.helper option in jplCloseRelease helper ([9d62ef7](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/9d62ef7))
+* Add git configuration within docker for testing ([7a018c0](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/7a018c0))
+* Resolve jplCloseReleaseTest issue with develop/master branches ([c938614](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/c938614))
+* Add branch config to jplPromoteCode (fixes #23) ([444949f](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/444949f))
+* Resolve Sonar bug with variable usage in jplDocker helper ([4683e4a](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/4683e4a))
+* Remove test stuff from bin/test.sh ([37690af](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/37690af))
+* Corrected jplDocker test ([951a554](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/951a554))
+* Clean ci-scripts stuff ([b49d230](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/b49d230))
+* Resolve Sonar bugs and codesmells ([256421f](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/256421f))
 
 ### Build
 
-* Add redpanda slack integration ([ddeea597de482c5b6f290ac1ed4ac686d9fd24f8](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/ddeea597de482c5b6f290ac1ed4ac686d9fd24f8))
-* Add timestamps and ansiColor to pipeline options ([74aadf15c5c3c52314630eb5a945567fb7fca99e](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/74aadf15c5c3c52314630eb5a945567fb7fca99e))
-* Archive test result logs as build artifacts ([1bc560d96b23c26f010f8fec98a726df0fe2374a](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/1bc560d96b23c26f010f8fec98a726df0fe2374a))
-* Change Jenkins badge ([933512cdc1e2fb51aa748cee844dbb0c6f21c041](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/933512cdc1e2fb51aa748cee844dbb0c6f21c041))
-* Enable SonarQube scan ([b98adec2e782fe2f4fc3be566cd30864a3dd2db0](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/b98adec2e782fe2f4fc3be566cd30864a3dd2db0))
-* Execute test run also with release branches ([975d7100797b6f3f516f1ab7968e87f481a14eed](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/975d7100797b6f3f516f1ab7968e87f481a14eed))
-* Fix badge of Jenkins build ([1c28137f2edb5410ad584fe549518471d6da3c9a](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/1c28137f2edb5410ad584fe549518471d6da3c9a))
-* Fix build badge ([d7b85bbfc059e99f3621da759e08e605f663bdb6](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/d7b85bbfc059e99f3621da759e08e605f663bdb6))
-* Prevent PR from test failures ([61086bdcf084094cd9e81e0cbb266f9a7309cb09](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/61086bdcf084094cd9e81e0cbb266f9a7309cb09))
-* Recover Quality Gate bugs ([e80f6fd2833451c6deaa392d245f23093993c32f](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/e80f6fd2833451c6deaa392d245f23093993c32f))
-* Refactor test ([bf8e35cf3a5b008855e837187cefed56ee294b18](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/bf8e35cf3a5b008855e837187cefed56ee294b18))
-* Remove test container after test process ([66d2e6c037dfddf4cd9395c3e1940abcf80039a4](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/66d2e6c037dfddf4cd9395c3e1940abcf80039a4))
-* Use develop library for test and build ([ccc217d12e1e692d0e8224aef2f594c6f473817c](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/ccc217d12e1e692d0e8224aef2f594c6f473817c))
+* Execute test run also with release branches ([975d710](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/975d710))
+* Refactor test ([bf8e35c](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/bf8e35c))
+* Prevent PR from test failures ([61086bd](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/61086bd))
+* Fix badge of Jenkins build ([1c28137](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/1c28137))
+* Fix build badge ([d7b85bb](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/d7b85bb))
+* Change Jenkins badge ([933512c](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/933512c))
+* Archive test result logs as build artifacts ([1bc560d](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/1bc560d))
+* Add redpanda slack integration ([ddeea59](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/ddeea59))
+* Recover Quality Gate bugs ([e80f6fd](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/e80f6fd))
+* Use develop library for test and build ([ccc217d](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/ccc217d))
+* Add timestamps and ansiColor to pipeline options ([74aadf1](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/74aadf1))
+* Enable SonarQube scan ([b98adec](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/b98adec))
+* Remove test container after test process ([66d2e6c](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/66d2e6c))
 
 ### Docs
 
-* Improve README.md adding testing instructions ([1bcef0dd1bee031a1a2a89dd2faa25aaed1b29da](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/1bcef0dd1bee031a1a2a89dd2faa25aaed1b29da))
-* Update main readme ([615d0424d271ddea44b7b99c53963e0a36c2c18b](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/615d0424d271ddea44b7b99c53963e0a36c2c18b))
-* Update main readme ([75997edf0105192fa41606bd72c77f48841c98a9](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/75997edf0105192fa41606bd72c77f48841c98a9))
-* Update README.md ([37832834a3da3deec01f74845f33ba03edb5d605](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/37832834a3da3deec01f74845f33ba03edb5d605))
+* Update main readme ([615d042](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/615d042))
+* Update main readme ([75997ed](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/75997ed))
+* Improve README.md adding testing instructions ([1bcef0d](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/1bcef0d))
+* Update README.md ([3783283](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/3783283))
 
-### Fix
-
-* Add branch config to jplPromoteCode  ([444949f55104e33c95053b2bb7f664e6e153c5be](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/444949f55104e33c95053b2bb7f664e6e153c5be)), closes [#23](https://github.com/madoos/node-changelog-generator/issues/23)
-* Add git configuration within docker for testing ([7a018c0e02a67ccfa843b4ab980f4a2fae545177](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/7a018c0e02a67ccfa843b4ab980f4a2fae545177))
-* Change 'fake' branch creation for testing in bin/test.sh ([cfc5622c2c04992b3974dec5ce165a0cabd44e72](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/cfc5622c2c04992b3974dec5ce165a0cabd44e72))
-* Change checkout branches order for the tests ([013f2e0aca4c4de1ce82e77cb32418dc29e6690b](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/013f2e0aca4c4de1ce82e77cb32418dc29e6690b))
-* Clean ci-scripts stuff ([b49d230d330de0cb8ecd82d247c1a62186ec4659](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/b49d230d330de0cb8ecd82d247c1a62186ec4659))
-* Corrected jplDocker test ([951a5545f704e9dc904c144fa0a29698c08ac551](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/951a5545f704e9dc904c144fa0a29698c08ac551))
-* Remove test stuff from bin/test.sh ([37690af9915cdefe7b233ca19cd4dc742bb78b7b](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/37690af9915cdefe7b233ca19cd4dc742bb78b7b))
-* Resolve bug with return value management in bin/test.sh ([518e1f5d1ed4ac660ab5ca1e5aa0c60c96f00602](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/518e1f5d1ed4ac660ab5ca1e5aa0c60c96f00602))
-* Resolve jplCloseReleaseTest issue with develop/master branches ([c9386141e3063ace9ce10206ee78de4d0a728617](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/c9386141e3063ace9ce10206ee78de4d0a728617))
-* Resolve Sonar bug with variable usage in jplDocker helper ([4683e4a561431bd18749b3d94faca92256ac3d36](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/4683e4a561431bd18749b3d94faca92256ac3d36))
-* Resolve Sonar bugs and codesmells ([256421f68bdd73e5823f7f7abae55e53e9094bf5](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/256421f68bdd73e5823f7f7abae55e53e9094bf5))
-* Set git 'store' credential.helper option in jplCloseRelease helper ([9d62ef7d86ec6a14e718b222ab0d2a2a042ba2d1](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/9d62ef7d86ec6a14e718b222ab0d2a2a042ba2d1))
-* Set git 'store' credential.helper option in jplPromoteCode helper ([9553498228ac1843fbe82c268e7be57d50d4d2e9](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/9553498228ac1843fbe82c268e7be57d50d4d2e9))
+## v1.4.1 (2017-09-21)
 
 ### New
 
-* Add jplDocker helper ([b6d0627804e9bf71b5e522172db51043e958d8a2](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/b6d0627804e9bf71b5e522172db51043e958d8a2))
-* Add jplDocker test ([174f4e56c23a3a922aee4ddb698f5b1940fec771](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/174f4e56c23a3a922aee4ddb698f5b1940fec771))
-* Add jplPromoteBuild test ([021d46580257dd71fa2a0d91a8947d66cca62155](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/021d46580257dd71fa2a0d91a8947d66cca62155))
-* Add test for jplCloseRelease helper ([d6569fe41f2783e766397b95424f345372ae2d94](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/d6569fe41f2783e766397b95424f345372ae2d94))
-* Add timeout docker container for tests ([c8113ae377740b99cb8116876d1071418afa91c3](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/c8113ae377740b99cb8116876d1071418afa91c3))
+* Include Jenkinsfile ([f00c380](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/f00c380))
 
 ### Update
 
-* Abort build with "ABORT" build result in jplSonarScanner if the quality gate fails ([36993a7cd8dc1a289ec05309d8b0645187651570](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/36993a7cd8dc1a289ec05309d8b0645187651570))
-* Add branch config to jplCloseRelease  ([6b2fc359442b31f2a16c5c2f033af0bec54ad26e](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/6b2fc359442b31f2a16c5c2f033af0bec54ad26e))
-* Add branch config to jplCloseRelease  ([8ddbcd725de4ae75c57aed172b7134a091c2a8af](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/8ddbcd725de4ae75c57aed172b7134a091c2a8af))
-* Add branch config to jplPromoteCode  ([bea390e1e63981f43dab380f3cdd5b49f67f7a1a](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/bea390e1e63981f43dab380f3cdd5b49f67f7a1a))
-* Add stage to the jplCheckoutSCM test ([e16291d4ee21b881677f09b8e59b7addb099e39f](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/e16291d4ee21b881677f09b8e59b7addb099e39f))
-* Change jplCheckoutSCM test name to jplCheckoutSCMTest ([9323c3b495fbd177a7a681b187bc798137d2a588](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/9323c3b495fbd177a7a681b187bc798137d2a588))
-* Change jplPromoteBuild name to jplPromoteBuildTest ([d87144549ca74190d16eed739489ccedc029f7ac](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/d87144549ca74190d16eed739489ccedc029f7ac))
-* Improve parameters in jplPromoteBuild ([2b1a2937a0809580be72cbc535841258d2d60201](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/2b1a2937a0809580be72cbc535841258d2d60201))
-* Remove all 'timestamp' and 'ansicolor' references ([4db6eb87b6ac7a654568ea8033ea3182154d99b8](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/4db6eb87b6ac7a654568ea8033ea3182154d99b8))
-* Rename helper jplDocker => jplDockerPush ([87898b69635ae4030268e492286a796b439831e4](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/87898b69635ae4030268e492286a796b439831e4))
-* Review jplCheckoutSCM test ([1a733d2b4e0f9d7de35c63c8f31b04cd88be8e32](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/1a733d2b4e0f9d7de35c63c8f31b04cd88be8e32))
-* Tests refactoring ([7a3e6d3c199db593a7a44eda3feff3b5093ea8bf](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/7a3e6d3c199db593a7a44eda3feff3b5093ea8bf))
-* Use github repository in jplCheckoutSCM test ([f1166a1700b5f50fcfe529494c232d46afce0fc5](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/f1166a1700b5f50fcfe529494c232d46afce0fc5))
+* Remove unnecesary projectName parameter in jplSigning ([078c52a](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/078c52a))
+* Use signApk.sh from ci-scripts repository ([348d56d](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/348d56d))
+* Exec android stuff on docker container for jplSigning ([bbe356f](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/bbe356f))
+* Align APK's after signing (fixes #15) ([0eacd71](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/0eacd71))
 
+### Fix
 
-
-<a name="1.4.1"></a>
-## 1.4.1 (2017-09-21)
-
+* Use the right signApk.sh parameter value ([c273458](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/c273458))
+* Some jplSigning typos ([0db7311](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/0db7311))
 
 ### Build
 
-* Fixes Jenkinsfile typo ([9d441d3ca5a77c44337bde3e0ba5f05c5620e519](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/9d441d3ca5a77c44337bde3e0ba5f05c5620e519))
+* Fixes Jenkinsfile typo ([9d441d3](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/9d441d3))
 
-### Fix
-
-* Some jplSigning typos ([0db7311e803638394ba9f3c4e32a1791f7dae0c6](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/0db7311e803638394ba9f3c4e32a1791f7dae0c6))
-* Use the right signApk.sh parameter value ([c27345831281834ee537226faf453aa156ae8cc0](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/c27345831281834ee537226faf453aa156ae8cc0))
+## v1.4.0 (2017-09-19)
 
 ### New
 
-* Include Jenkinsfile ([f00c380d99c0c04cd94b72c0b2320e11538faa6d](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/f00c380d99c0c04cd94b72c0b2320e11538faa6d))
+* Add first test using jenkins-dind ([1777435](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/1777435))
 
 ### Update
 
-* Align APK's after signing  ([0eacd71f134234c14678b9b10f0fb74bb2546506](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/0eacd71f134234c14678b9b10f0fb74bb2546506)), closes [#15](https://github.com/madoos/node-changelog-generator/issues/15)
-* Exec android stuff on docker container for jplSigning ([bbe356fd6096d5a8bd8221818f7598b4ccf9a3a3](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/bbe356fd6096d5a8bd8221818f7598b4ccf9a3a3))
-* Remove unnecesary projectName parameter in jplSigning ([078c52a70e22208b7136c7d30a03854667cdacb9](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/078c52a70e22208b7136c7d30a03854667cdacb9))
-* Use signApk.sh from ci-scripts repository ([348d56d130f3510524efe22e489577c45a7eb08c](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/348d56d130f3510524efe22e489577c45a7eb08c))
-
-
-
-<a name="1.4.0"></a>
-# 1.4.0 (2017-09-19)
-
+* Add docker function prefix cfg item ([fd87241](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/fd87241))
+* Delete generated changelog report file (Closes #11) ([28c642e](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/28c642e))
+* Delete generated changelog report file (Closes #7) ([10647fb](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/10647fb))
 
 ### Fix
 
-* Remove changelog report file after publish html ([1ea56918afda076b84ea6915c2a333d021c8d611](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/1ea56918afda076b84ea6915c2a333d021c8d611))
-* Stop container instead forcing the remove  ([0337f6095c392cb28c2c6407d55171e621615af7](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/0337f6095c392cb28c2c6407d55171e621615af7)), closes [#10](https://github.com/madoos/node-changelog-generator/issues/10)
-* Use correct fileOperations syntax ([185f6fef72b75016395113124a85ae13947f76a6](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/185f6fef72b75016395113124a85ae13947f76a6))
+* Remove changelog report file after publish html ([1ea5691](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/1ea5691))
+* Use correct fileOperations syntax ([185f6fe](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/185f6fe))
+* Stop container instead forcing the remove (Closes #10) ([0337f60](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/0337f60))
+
+## v1.3.0 (2017-09-15)
 
 ### New
 
-* Add first test using jenkins-dind ([17774351d45652b67ba64b3c2a864c2ab477d006](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/17774351d45652b67ba64b3c2a864c2ab477d006))
+* Attach changelog report to the build using Jenkins HTML Publish Plugin in checkout step ([68e3f6d](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/68e3f6d))
 
 ### Update
 
-* Add docker function prefix cfg item ([fd8724176bc2fe874d505a4b7dc360903e317f84](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/fd8724176bc2fe874d505a4b7dc360903e317f84))
-* Delete generated changelog report file  ([28c642e5f71f5b7213058394cec11b68ec75c5bf](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/28c642e5f71f5b7213058394cec11b68ec75c5bf)), closes [#11](https://github.com/madoos/node-changelog-generator/issues/11)
-* Delete generated changelog report file  ([10647fb722b9c318091cb002a06507ed393625cc](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/10647fb722b9c318091cb002a06507ed393625cc)), closes [#7](https://github.com/madoos/node-changelog-generator/issues/7)
-
-
-
-<a name="1.3.0"></a>
-# 1.3.0 (2017-09-15)
-
+* Change all repository dependencies to red-panda-ci ([472b000](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/472b000))
+* Alignd with latest commit validator container interface ([d25dd43](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/d25dd43))
+* Don't keep all changelog html reports ([3ae2af3](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/3ae2af3))
+* Set correct changelog generation condition ([5a1fdff](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/5a1fdff))
+* Use new 'FORMAT' parameter in changelog report, output as html ([09753cb](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/09753cb))
 
 ### Fix
 
-* Avoid use of merges in commit messages recovery of jplValidateCommitMessages ([6ab4d962ff9ac71fa0427d770f55013d825641c9](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/6ab4d962ff9ac71fa0427d770f55013d825641c9))
-* Brackets typo ([18e562ce02c4478b0b174b70b4e2c0ffad3feda8](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/18e562ce02c4478b0b174b70b4e2c0ffad3feda8))
-* Build the changelog report only once ([a54befecd3d72750de568d5ccc22634b82267335](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/a54befecd3d72750de568d5ccc22634b82267335))
-* isNull function groovy doesn't exist ([0da2f9f06c36a57281a23e0f221285e27d86a636](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/0da2f9f06c36a57281a23e0f221285e27d86a636))
-* Typo ([03bf598107409bbca434df4fd966ee720716d775](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/03bf598107409bbca434df4fd966ee720716d775))
+* Brackets typo ([18e562c](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/18e562c))
+* Build the changelog report only once ([a54befe](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/a54befe))
+
+## v1.2.0 (2017-09-13)
 
 ### New
 
-* Add changelog generator on repository checkout ([ded953919e9f811ae506e76903711b5e05179192](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/ded953919e9f811ae506e76903711b5e05179192))
-* Attach changelog report to the build using Jenkins HTML Publish Plugin in checkout step ([68e3f6db197d44b6652d1031e19d5924631c556c](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/68e3f6db197d44b6652d1031e19d5924631c556c))
-* jplValidateCommitMessages functionality ([2885a3d2c2b5fb65c35ba998c604e88664e87ce8](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/2885a3d2c2b5fb65c35ba998c604e88664e87ce8))
-* Run commit validator as a docker function ([c5e90f5fd6a37e726af2454eaec8bc722c35e9cd](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/c5e90f5fd6a37e726af2454eaec8bc722c35e9cd))
+* Add changelog generator on repository checkout ([ded9539](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/ded9539))
 
 ### Update
 
-* Alignd with latest commit validator container interface ([d25dd43ba833fae1502d24ac2f1da00b1ef90577](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/d25dd43ba833fae1502d24ac2f1da00b1ef90577))
-* Change all repository dependencies to red-panda-ci ([472b000ef81c9b17d527e645a1252d037d892b80](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/472b000ef81c9b17d527e645a1252d037d892b80))
-* Change jplValidateCommit function container usage ([9ec0c104742a53ac6f50004182bada7aec09c7e6](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/9ec0c104742a53ac6f50004182bada7aec09c7e6))
-* Convert commit delimiter to '\n' string ([417328846c290ecd8e6fec546f2785560b4f85b7](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/417328846c290ecd8e6fec546f2785560b4f85b7))
-* Don't break the build when the result of sonar is a warning ([5d4eb3e2a0ad63174833b59c5915bead3720fcd6](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/5d4eb3e2a0ad63174833b59c5915bead3720fcd6))
-* Don't keep all changelog html reports ([3ae2af3567c0e40dcc78f0594ebbe05351848743](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/3ae2af3567c0e40dcc78f0594ebbe05351848743))
-* Set correct changelog generation condition ([5a1fdff75d45fa1c3ddc02538a53e74d79222825](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/5a1fdff75d45fa1c3ddc02538a53e74d79222825))
-* Use new 'FORMAT' parameter in changelog report, output as html ([09753cbcbc06a18e584d77ae506cbe3498534399](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/09753cbcbc06a18e584d77ae506cbe3498534399))
+* Change jplValidateCommit function container usage ([9ec0c10](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/9ec0c10))
 
+### Fix
 
+* Avoid use of merges in commit messages recovery of jplValidateCommitMessages ([6ab4d96](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/6ab4d96))
 
-<a name="0.8.0"></a>
-# 0.8.0 (2017-06-25)
+## v1.1.0 (2017-09-12)
 
+### New
 
-### jplCloseRelease
+* Run commit validator as a docker function ([c5e90f5](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/c5e90f5))
+* jplValidateCommitMessages functionality ([2885a3d](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/2885a3d))
 
-* merge code from release to master and tag non-merge commit ([005a78e6639ccd791e0a0a96af3e4c95d4a6534f](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/005a78e6639ccd791e0a0a96af3e4c95d4a6534f))
+### Update
 
+* Don't break the build when the result of sonar is a warning ([5d4eb3e](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/5d4eb3e))
+* Convert commit delimiter to '
+' string ([4173288](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/4173288))
 
+### Fix
+
+* Typo ([03bf598](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/03bf598))
+* isNull function groovy doesn't exist ([0da2f9f](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/0da2f9f))
+
+## run-agents (2018-02-12)
+
+### Breaking
+
+* Add dockerTag parameter to jplDockerPush ([478b694](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/478b694))
+* Refactor jplCheckoutSCM helper (fixes #31) ([cf62e8f](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/cf62e8f))
+* Move from oracle to openjdk jdk, some changes in the build process ([2031184](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/2031184))
+
+### New
+
+* Agent attachment ([7d27a6f](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/7d27a6f))
+* Add sgent script ([3cfa6f4](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/3cfa6f4))
+* Add hotfix support, with tests (fixes #67) ([7ae15dc](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/7ae15dc))
+* Add Gitter badge ([c9afed4](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/c9afed4))
+* Add jplSignAPKTest (fixes #45) ([261ed4b](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/261ed4b))
+* Add jplPromoteCode test (fixes #46) ([18626fc](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/18626fc))
+* Set fastlane trigers asociated with fastlane/* branches on android/iOS buidls (fixes #49) (#57) ([e76d9ba](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/e76d9ba))
+* Add iOS build capabilities (fixes #44) (#55) ([3dab390](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/3dab390))
+* Add jpl git cache capability (fixes #50) (#51) ([d0df6bd](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/d0df6bd))
+* Add jplDockerBuild helper, with tests ([eece8cc](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/eece8cc))
+* Build APK with Jenkins Pipeline docker way (fixes #5) (#36) ([7f2d36d](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/7f2d36d))
+* Add new cfg.releaseTagNumber key ([ed30682](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/ed30682))
+* Add new config.releaseTag key ([8d95a98](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/8d95a98))
+* Add firstTag info to changelog build ([afa380b](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/afa380b))
+* Add jplBuildChangelog (refs #23) ([9d63050](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/9d63050))
+* Add jplStart helper with test (refs #31) ([6791dc4](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/6791dc4))
+* Add test for jplCloseRelease helper ([d6569fe](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/d6569fe))
+* Add jplPromoteBuild test ([021d465](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/021d465))
+* Add jplDocker test ([174f4e5](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/174f4e5))
+* Add jplDocker helper ([b6d0627](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/b6d0627))
+* Add timeout docker container for tests ([c8113ae](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/c8113ae))
+* Include Jenkinsfile ([f00c380](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/f00c380))
+* Add first test using jenkins-dind ([1777435](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/1777435))
+* Attach changelog report to the build using Jenkins HTML Publish Plugin in checkout step ([68e3f6d](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/68e3f6d))
+* Add changelog generator on repository checkout ([ded9539](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/ded9539))
+* Run commit validator as a docker function ([c5e90f5](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/c5e90f5))
+* jplValidateCommitMessages functionality ([2885a3d](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/2885a3d))
+
+### Update
+
+* Add URL to slack and hipchat notifications (fixes #68) ([dc1360f](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/dc1360f))
+* Remove versionSuffix behaviour (#69) ([1033205](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/1033205))
+* Add gitter badge to readme template ([82ecde0](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/82ecde0))
+* Add 'bundle install' to IPA build ([acfd40b](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/acfd40b))
+* Convert recipients hash (hipchat, slack, email) to optional configurations ([497ec31](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/497ec31))
+* Add enabled flag to 'Integration Events' (fixes #60) ([1e19593](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/1e19593))
+* Add '--pull' option to docker build image in jplBuildAPK (fixes #43) ([16200c4](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/16200c4))
+* Review versionSuffix behaviour (fixes #18) ([98b5ed1](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/98b5ed1))
+* Add target platform to jpl-git-cache project folder ([42e0be5](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/42e0be5))
+* Do a second checkout try wiping directory if the first try fails ([138a5d4](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/138a5d4))
+* Add config test to all jpl helpers ([78164fe](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/78164fe))
+* Refactor test ([bcb5dd6](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/bcb5dd6))
+* Use the right android docker image ([865a2b4](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/865a2b4))
+* Use latest docker image of redpandaci/jpl-android-base (#41) ([64d37b3](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/64d37b3))
+* Refactor for release v2.3.0 (#40) ([696c797](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/696c797))
+* Change jplBuildAPK workflow ([e6c530b](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/e6c530b))
+* Add old config to Docker android base ([e129898](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/e129898))
+* Don't use '?' folder in apk builds (#37) ([12ff8bd](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/12ff8bd))
+* Revert checkout behauviour ([401ba22](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/401ba22))
+* Avoid to do a pull in jplCheckoutSCM ([0735405](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/0735405))
+* Align commit messages on git tasks ([8c77588](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/8c77588))
+* Change jplCloseRelease test adding cfg.releaseTag info ([b2f9de0](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/b2f9de0))
+* Remove deprecated info in jplSigning helper ([886a77f](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/886a77f))
+* Add promote build timeout (fixes #22) ([7aadd53](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/7aadd53))
+* Add CHANGELOG.md file in jplCloseRelease (fixes #33) ([1454771](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/1454771))
+* Adapt jplPromoteBuildTest (refs #31) ([ed1a949](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/ed1a949))
+* Execute jplStartTest (refs #23) ([0b2a64c](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/0b2a64c))
+* Remove credential helper configuration in jplPromoteCode and jplCloseRelease helpers ([13cd3ba](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/13cd3ba))
+* Add branch config to jplPromoteCode (refs #23) ([bea390e](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/bea390e))
+* Change jplPromoteBuild name to jplPromoteBuildTest ([d871445](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/d871445))
+* Change jplCheckoutSCM test name to jplCheckoutSCMTest ([9323c3b](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/9323c3b))
+* Add branch config to jplCloseRelease (refs #23) ([6b2fc35](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/6b2fc35))
+* Add branch config to jplCloseRelease (refs #23) ([8ddbcd7](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/8ddbcd7))
+* Abort build with "ABORT" build result in jplSonarScanner if the quality gate fails ([36993a7](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/36993a7))
+* Tests refactoring ([7a3e6d3](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/7a3e6d3))
+* Rename helper jplDocker => jplDockerPush ([87898b6](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/87898b6))
+* Add stage to the jplCheckoutSCM test ([e16291d](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/e16291d))
+* Review jplCheckoutSCM test ([1a733d2](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/1a733d2))
+* Improve parameters in jplPromoteBuild ([2b1a293](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/2b1a293))
+* Use github repository in jplCheckoutSCM test ([f1166a1](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/f1166a1))
+* Remove all 'timestamp' and 'ansicolor' references ([4db6eb8](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/4db6eb8))
+* Remove unnecesary projectName parameter in jplSigning ([078c52a](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/078c52a))
+* Use signApk.sh from ci-scripts repository ([348d56d](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/348d56d))
+* Exec android stuff on docker container for jplSigning ([bbe356f](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/bbe356f))
+* Align APK's after signing (fixes #15) ([0eacd71](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/0eacd71))
+* Add docker function prefix cfg item ([fd87241](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/fd87241))
+* Delete generated changelog report file (Closes #11) ([28c642e](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/28c642e))
+* Delete generated changelog report file (Closes #7) ([10647fb](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/10647fb))
+* Change all repository dependencies to red-panda-ci ([472b000](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/472b000))
+* Alignd with latest commit validator container interface ([d25dd43](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/d25dd43))
+* Don't keep all changelog html reports ([3ae2af3](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/3ae2af3))
+* Set correct changelog generation condition ([5a1fdff](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/5a1fdff))
+* Use new 'FORMAT' parameter in changelog report, output as html ([09753cb](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/09753cb))
+* Change jplValidateCommit function container usage ([9ec0c10](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/9ec0c10))
+* Don't break the build when the result of sonar is a warning ([5d4eb3e](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/5d4eb3e))
+* Convert commit delimiter to '
+' string ([4173288](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/4173288))
+
+### Fix
+
+* Place submodule init in the right place for jplCheckoutSCM / jplStart ([06942e8](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/06942e8))
+* Manage return value checking Gemfile in jplBuildIPA ([d403bd3](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/d403bd3))
+* Change cache folder in jpl-git-cache (fixes #53) (#54) ([b6c8cb9](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/b6c8cb9))
+* Use the right jplCheckoutSCM helper within jplPromoteCode ([6b2af9a](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/6b2af9a))
+* Use master branch of jpl-scripts library ([59e5797](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/59e5797))
+* Use jpl-scripts istead ci-scripts library ([3bbb558](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/3bbb558))
+* Set the right URL pointing to commits in jplBuildChangelog ([d0fa68f](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/d0fa68f))
+* Change checkout branches order for the tests ([013f2e0](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/013f2e0))
+* Resolve bug with return value management in bin/test.sh ([518e1f5](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/518e1f5))
+* Change 'fake' branch creation for testing in bin/test.sh ([cfc5622](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/cfc5622))
+* Set git 'store' credential.helper option in jplPromoteCode helper ([9553498](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/9553498))
+* Set git 'store' credential.helper option in jplCloseRelease helper ([9d62ef7](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/9d62ef7))
+* Add git configuration within docker for testing ([7a018c0](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/7a018c0))
+* Resolve jplCloseReleaseTest issue with develop/master branches ([c938614](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/c938614))
+* Add branch config to jplPromoteCode (fixes #23) ([444949f](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/444949f))
+* Resolve Sonar bug with variable usage in jplDocker helper ([4683e4a](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/4683e4a))
+* Remove test stuff from bin/test.sh ([37690af](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/37690af))
+* Corrected jplDocker test ([951a554](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/951a554))
+* Clean ci-scripts stuff ([b49d230](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/b49d230))
+* Resolve Sonar bugs and codesmells ([256421f](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/256421f))
+* Use the right signApk.sh parameter value ([c273458](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/c273458))
+* Some jplSigning typos ([0db7311](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/0db7311))
+* Remove changelog report file after publish html ([1ea5691](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/1ea5691))
+* Use correct fileOperations syntax ([185f6fe](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/185f6fe))
+* Stop container instead forcing the remove (Closes #10) ([0337f60](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/0337f60))
+* Brackets typo ([18e562c](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/18e562c))
+* Build the changelog report only once ([a54befe](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/a54befe))
+* Avoid use of merges in commit messages recovery of jplValidateCommitMessages ([6ab4d96](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/6ab4d96))
+* Typo ([03bf598](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/03bf598))
+* isNull function groovy doesn't exist ([0da2f9f](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/0da2f9f))
+
+### Build
+
+* Update CHANGELOG.md to v2.6.1 with Red Panda JPL ([bdc27fe](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/bdc27fe))
+* Disable test on release ([f8b3e66](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/f8b3e66))
+* Don't break the build if there is not documentation update ([0c24f82](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/0c24f82))
+* Update close release tests ([694eb97](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/694eb97))
+* Fix Jenkinsfile typo ([1461fc9](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/1461fc9))
+* Update CHANGELOG.md to v2.6.0 with Red Panda JPL ([e3e9e6a](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/e3e9e6a))
+* Update release number in sonar properties file ([7a9318d](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/7a9318d))
+* Add brtidge to network mode in docker-comppose ([6dbd3c2](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/6dbd3c2))
+* Avoid use bridge network mode forced in compose ([c4950cb](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/c4950cb))
+* Add bridged network_model to compose ([df9af34](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/df9af34))
+* Add more wait time before cli downloading ([0749fc6](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/0749fc6))
+* Remove unstash in promote build stage ([093a929](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/093a929))
+* Configure stash/unstash within stages ([ed8ef0e](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/ed8ef0e))
+* Update CHANGELOG.md to v2.5.0 with Red Panda JPL ([bf44e9f](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/bf44e9f))
+* Fix docker-compose issue ([46d7269](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/46d7269))
+* Run test using docker compose, instead of standalone docker ([9eb20b9](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/9eb20b9))
+* Update CHANGELOG.md to v2.4.0 with Red Panda JPL ([2f43d1e](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/2f43d1e))
+* Update CHANGELOG.md to v2.3.5 with Red Panda JPL ([1efe0c6](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/1efe0c6))
+* Update CHANGELOG.md to v2.3.4 with Red Panda JPL ([09df88b](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/09df88b))
+* Update CHANGELOG.md to v2.3.3 with Red Panda JPL ([87a8480](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/87a8480))
+* Use last stable jpl release ([d2ed871](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/d2ed871))
+* Update CHANGELOG.md to v2.3.2 with Red Panda JPL ([8da7761](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/8da7761))
+* Update CHANGELOG.md to v2.3.1 with Red Panda JPL ([8301d32](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/8301d32))
+* Update CHANGELOG.md to v2.3.0 with Red Panda JPL ([0eeebcf](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/0eeebcf))
+* Update CHANGELOG.md to v2.2.2 with Red Panda JPL ([428a5c5](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/428a5c5))
+* Update CHANGELOG.md to v2.2.1 with Red Panda JPL ([388ddb7](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/388ddb7))
+* Remove Travis CI integration ([e87a789](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/e87a789))
+* Update CHANGELOG.md to v2.2.0 with Red Panda JPL ([efeee5d](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/efeee5d))
+* Update CHANGELOG.md to v2.1.1 with Red Panda JPL ([8805a8e](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/8805a8e))
+* Remove travis integration and related build status badge ([438eb9a](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/438eb9a))
+* Update version number in Sonar properties file ([b36e0c4](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/b36e0c4))
+* Update CHANGELOG.md to v2.1.0 with Red Panda JPL ([bb62b87](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/bb62b87))
+* Set firstTag for changelog build ([0b5d5c6](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/0b5d5c6))
+* Update CHANGELOG.md to v2.0.0 with Red Panda JPL ([445a34d](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/445a34d))
+* Update to new v2.0.0 jpl development pipeline workflow ([e22a803](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/e22a803))
+* Set release number to v2.0.0 in sonar ([38eae2b](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/38eae2b))
+* Use develop jpl ([f837221](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/f837221))
+* Use jpl v1.4.2 ([d05f972](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/d05f972))
+* Execute test run also with release branches ([975d710](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/975d710))
+* Refactor test ([bf8e35c](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/bf8e35c))
+* Prevent PR from test failures ([61086bd](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/61086bd))
+* Fix badge of Jenkins build ([1c28137](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/1c28137))
+* Fix build badge ([d7b85bb](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/d7b85bb))
+* Change Jenkins badge ([933512c](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/933512c))
+* Archive test result logs as build artifacts ([1bc560d](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/1bc560d))
+* Add redpanda slack integration ([ddeea59](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/ddeea59))
+* Recover Quality Gate bugs ([e80f6fd](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/e80f6fd))
+* Use develop library for test and build ([ccc217d](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/ccc217d))
+* Add timestamps and ansiColor to pipeline options ([74aadf1](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/74aadf1))
+* Enable SonarQube scan ([b98adec](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/b98adec))
+* Remove test container after test process ([66d2e6c](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/66d2e6c))
+* Fixes Jenkinsfile typo ([9d441d3](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/9d441d3))
+
+### Docs
+
+* Update README.md and Jenkins doc help files ([b7acb92](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/b7acb92))
+* Update README.md ([f0ad43b](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/f0ad43b))
+* Update README.md ([051102a](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/051102a))
+* Update readme ([2cdc43b](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/2cdc43b))
+* Update README.md and helper docs ([336914a](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/336914a))
+* Update README.md ([cab6156](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/cab6156))
+* Fix doc typo in CONTRIBUTING.md ([67fde91](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/67fde91))
+* Add pipeline documentation in vars/*.txt files ([aa3634b](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/aa3634b))
+* Improve documentation (fixes #34) ([55e80ae](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/55e80ae))
+* Update README.md and helpers documentation ([20863e9](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/20863e9))
+* Update main readme ([615d042](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/615d042))
+* Update main readme ([75997ed](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/75997ed))
+* Improve README.md adding testing instructions ([1bcef0d](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/1bcef0d))
+* Update README.md ([3783283](https://github.com/red-panda-ci/jenkins-pipeline-library/commit/3783283))
 
