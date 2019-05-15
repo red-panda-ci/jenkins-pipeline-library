@@ -41,7 +41,7 @@ pipeline {
             }
         }
         stage ('Release finish') {
-            agent { label 'docker' }
+            agent { label 'master' }
             when { expression { ( env.BRANCH_NAME.startsWith('release/v') || env.BRANCH_NAME.startsWith('hotfix/v')) && cfg.promoteBuild.enabled } }
             steps {
                 sh "make; git add README.md vars/*.txt; git commit -m 'Docs: Update README.md and Jenkins doc help files' || true"
