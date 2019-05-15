@@ -15,9 +15,15 @@ pipeline {
                 jplStart(cfg)
             }
         }
+        stage('Sonarqube Analysis') {
+            when { expression { (env.BRANCH_NAME == 'develop') || env.BRANCH_NAME.startsWith('PR-') } }
+            agent { label 'docker' }
+            steps {
+                jplSonarScanner(cfg)
+            }
+        }
         stage ('Test') {
             agent { label 'docker' }
-            when { expression { (env.BRANCH_NAME == 'develop') || env.BRANCH_NAME.startsWith('PR-') || env.BRANCH_NAME.startsWith('feature/') } }
             steps  {
                 // Temporary disabled on 2019-05-15
                 sh 'echo "Disable test: bin/test.sh"'
@@ -26,13 +32,6 @@ pipeline {
                 always {
                     archiveArtifacts artifacts: 'test/reports/*', fingerprint: true, allowEmptyArchive: true
                 }
-            }
-        }
-        stage('Sonarqube Analysis') {
-            when { expression { (env.BRANCH_NAME == 'develop') || env.BRANCH_NAME.startsWith('PR-') } }
-            agent { label 'docker' }
-            steps {
-                jplSonarScanner(cfg)
             }
         }
         stage ('Release confirm') {
