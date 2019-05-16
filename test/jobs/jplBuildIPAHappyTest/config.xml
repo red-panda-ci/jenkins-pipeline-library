@@ -27,7 +27,7 @@ cfg.repository.branch = &apos;jpl-test&apos;
 
 pipeline {
 
-    agent any
+    agent { label &apos;master&apos; }
 
     stages {
         stage (&apos;jplBuildIPA Happy Test - Initialize&apos;) {
