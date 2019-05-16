@@ -57,18 +57,6 @@
   * HashMap jira: JIRA configuration
         String jira.projectKey      JIRA project key                                (default: "")
         object jira.projectData     JIRA project data                               (default: "")
-
-  * Hashmap ie: Integration Events configuration
-        boolean enabled             Integration Events enabled status               (default: false)
-        String commitRawText        ie text as appears in commit message            (default: "" = no @ie command in the commit)
-        String commandName          Command to be executed                          (default: "")
-        Hashmap parameter           List of parameters and options                  (default: [:])
-                                    Every parameter element of the hash contains:
-                                    - String name: the string with the parameter
-                                    - Hashmap option: List of options for the parameter.
-                                    Every option of the hash contains:
-                                    - String name: Name of the option
-                                    - String status: "enabled" or "disabled", depending of the option status
   
   * Hashmap commitValidation: Commit message validation configuration on PR's, using project https://github.com/willsoto/validate-commit
         boolean enabled             Commit validation enabled status                (default: true)
@@ -158,13 +146,6 @@ def call (projectName = 'project', targetPlatform = 'any', jiraProjectKey = '', 
     cfg.jira = [:]
         cfg.jira.projectKey                         = jiraProjectKey
         cfg.jira.projectData                        = ''
-
-    //
-    cfg.ie = [:]
-        cfg.ie.enabled                              = false
-        cfg.ie.commitRawText                        = ""
-        cfg.ie.commandName                          = ""
-        cfg.ie.parameter                            = [:]
 
     //
     cfg.commitValidation                            = [:]
