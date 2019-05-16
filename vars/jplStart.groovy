@@ -19,7 +19,6 @@ jpl usage:
 
 * jplBuildChangeLog
 * jplCheckoutSCM
-* jplIE
 * jplValidateCommitMessages
 
 cfg usage:
@@ -37,9 +36,6 @@ def call(cfg) {
         script: "git describe --abbrev=0 --tags||echo ''",
         returnStdout: true
     ).trim()
-    if (cfg.ie.enabled) {
-        jplIE(cfg)
-    }
     if (cfg.commitValidation.enabled && cfg.BRANCH_NAME.startsWith('PR')) {
         jplValidateCommitMessages(cfg)
     }
