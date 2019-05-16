@@ -18,6 +18,7 @@
 cfg = jplConfig(&apos;jplGitCacheHappyTest&apos;, &apos;backend&apos;)
 cfg.repository.url = &apos;file:////tmp/jenkins-pipeline-library&apos;
 cfg.repository.branch = &apos;jpl-test&apos;
+cfg.gitCache.enabled = true
 def gitCacheProjectAbsolutePath
 
 pipeline {
