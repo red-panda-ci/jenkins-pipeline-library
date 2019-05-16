@@ -25,7 +25,7 @@ pipeline {
         stage ('Test') {
             agent { label 'docker' }
             steps  {
-                sh 'bin/test.sh"'
+                sh 'bin/test.sh'
             }
             post {
                 always {
