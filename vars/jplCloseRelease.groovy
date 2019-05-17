@@ -34,7 +34,7 @@ def call(cfg) {
     if (cfg.changelog.enabled) {
         sh "git tag ${tag} -m '${tagMessage} ${tag}' `git rev-list --no-merges -n 1 ${cfg.BRANCH_NAME}`"
         sh "mkdir -p ci-scripts/reports"
-        jplBuildChangelog(cfg, tag, 'md', 'ci-scripts/reports/CHANGELOG.md')
+        jplBuildChangelog(cfg, 'md', 'ci-scripts/reports/CHANGELOG.md')
         sh "tail -n +7 ci-scripts/reports/CHANGELOG.md > CHANGELOG.md"
         fileOperations([fileDeleteOperation(includes: 'ci-scripts/reports/CHANGELOG.md')])
         sh 'git tag ' + tag + ' -d; git add CHANGELOG.md; git commit -m "Build: Update CHANGELOG.md to ' + tag + ' with Red Panda JPL"'

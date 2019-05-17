@@ -79,7 +79,6 @@
         boolean enabled             Automatically build changelog file              (default: true)
                                     * Archive as artifact build on every commit
                                     * Build and commit on jplCloseRelease
-        String firstTag             First tag, branch or commit to be reviewed      (default: "")
 
   * Hashmap gitCache: Git cache configuration
         boolean enabled             Git cache status                                (default: true)
@@ -175,7 +174,6 @@ def call (projectName = 'project', targetPlatform = 'any', jiraProjectKey = '', 
     //
     cfg.changelog                                   = [:]
         cfg.changelog.enabled                       = true
-        cfg.changelog.firstTag                      = ""
 
     //
     cfg.gitCache                                    = [:]
