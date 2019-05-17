@@ -25,8 +25,7 @@ pipeline {
         stage ('Test') {
             agent { label 'docker' }
             steps  {
-                // Temporary disabled on 2019-05-15
-                sh 'echo "Disable test: bin/test.sh"'
+                sh 'bin/test.sh'
             }
             post {
                 always {
@@ -62,7 +61,6 @@ pipeline {
         ansiColor('xterm')
         buildDiscarder(logRotator(artifactNumToKeepStr: '20',artifactDaysToKeepStr: '30'))
         disableConcurrentBuilds()
-        skipDefaultCheckout()
         timeout(time: 1, unit: 'DAYS')
     }
 }
