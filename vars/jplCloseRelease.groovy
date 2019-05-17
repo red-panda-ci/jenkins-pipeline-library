@@ -33,11 +33,12 @@ def call(cfg) {
     // Build and commit changelog
     if (cfg.changelog.enabled) {
         sh "git tag ${tag} -m '${tagMessage} ${tag}' `git rev-list --no-merges -n 1 ${cfg.BRANCH_NAME}`"
-        sh "mkdir -p ci-scripts/reports"
-        jplBuildChangelog(cfg, 'md', 'ci-scripts/reports/CHANGELOG.md')
-        sh "tail -n +7 ci-scripts/reports/CHANGELOG.md > CHANGELOG.md"
-        fileOperations([fileDeleteOperation(includes: 'ci-scripts/reports/CHANGELOG.md')])
-        sh 'git tag ' + tag + ' -d; git add CHANGELOG.md; git commit -m "Build: Update CHANGELOG.md to ' + tag + ' with Red Panda JPL"'
+        jplBuildChangelog(cfg, 'md', 'CHANGELOG.md')
+        sh """
+        git tag ${tag} -d
+        git add CHANGELOG.md
+        git commit -m "Build: Update CHANGELOG.md to ${tag} with Red Panda JPL"
+        """
     }
 
     // Promote to master
@@ -45,7 +46,10 @@ def call(cfg) {
     // Promote to develop
     sh "ci-scripts/.jpl-scripts/bin/git-promote.sh -m 'Merge from ${cfg.BRANCH_NAME} with Red Panda JPL' ${cfg.BRANCH_NAME} develop"
     // Release TAG from last non-merge commit of the branch
-    sh "git tag ${tag} -m '${tagMessage} ${tag}' `git rev-list --no-merges -n 1 ${cfg.BRANCH_NAME}`; git push --tags"
+    sh """
+    git tag ${tag} -m "${tagMessage} ${tag}" `git rev-list --no-merges -n 1 ${cfg.BRANCH_NAME}`
+    git push --tags
+    """
     // Delete release branch from origin
     sh "git push origin :${cfg.BRANCH_NAME}"
     // Notify
