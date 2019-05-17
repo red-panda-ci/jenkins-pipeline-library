@@ -19,9 +19,9 @@ def call(cfg, String format = 'md', String filename = 'CHANGELOG.md') {
     jplConfig.checkInitializationStatus(cfg)
     // Build changelog report of the build
     if (format == "md") {
-        sh "kd kairops/git-changelog-generator . > ${filename}"
+        sh "kd git-changelog-generator . > ${filename}"
     }
     else {
-        sh "kd kairops/git-changelog-generator . | kd md2html - > ${filename}"
+        sh "kd git-changelog-generator . | kd md2html - > ${filename}"
     }
 }
