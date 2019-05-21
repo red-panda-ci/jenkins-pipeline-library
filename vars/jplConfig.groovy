@@ -29,6 +29,8 @@
   * String releaseTagNumber         Release tag for branches like "release/vX.Y.Z"  (default: related tag or "" on non-release branches)
                                     only the number part. Refers to "X.Y.Z" without the starting "v"
   * String androidPackages          SDK packages to install within docker image     (default: "build-tools-27.0.0,android-27")
+  * String makeReleaseCredentialsID ID of the credentials that makeRelease function (default: 'jpl-ssh-credentials')
+                                    will use. Should be SSH credentials
 
   * Hashmap repository: repository parametes. You can use it for non-multibranch repository
         String url                  URL                                             (default: '')
@@ -57,18 +59,6 @@
   * HashMap jira: JIRA configuration
         String jira.projectKey      JIRA project key                                (default: "")
         object jira.projectData     JIRA project data                               (default: "")
-
-  * Hashmap ie: Integration Events configuration
-        boolean enabled             Integration Events enabled status               (default: false)
-        String commitRawText        ie text as appears in commit message            (default: "" = no @ie command in the commit)
-        String commandName          Command to be executed                          (default: "")
-        Hashmap parameter           List of parameters and options                  (default: [:])
-                                    Every parameter element of the hash contains:
-                                    - String name: the string with the parameter
-                                    - Hashmap option: List of options for the parameter.
-                                    Every option of the hash contains:
-                                    - String name: Name of the option
-                                    - String status: "enabled" or "disabled", depending of the option status
   
   * Hashmap commitValidation: Commit message validation configuration on PR's, using project https://github.com/willsoto/validate-commit
         boolean enabled             Commit validation enabled status                (default: true)
@@ -79,7 +69,6 @@
         boolean enabled             Automatically build changelog file              (default: true)
                                     * Archive as artifact build on every commit
                                     * Build and commit on jplCloseRelease
-        String firstTag             First tag, branch or commit to be reviewed      (default: "")
 
   * Hashmap gitCache: Git cache configuration
         boolean enabled             Git cache status                                (default: true)
@@ -123,11 +112,12 @@ def call (projectName = 'project', targetPlatform = 'any', jiraProjectKey = '', 
     cfg.androidPackages                             = 'build-tools-27.0.0,android-27'
     cfg.releaseTag                                  = (cfg.BRANCH_NAME.startsWith('release/v') || cfg.BRANCH_NAME.startsWith('hotfix/v')) ? cfg.BRANCH_NAME.tokenize("/")[1] : ""
     cfg.releaseTagNumber                            = (cfg.BRANCH_NAME.startsWith('release/v') || cfg.BRANCH_NAME.startsWith('hotfix/v')) ? cfg.BRANCH_NAME.tokenize("/")[1].substring(1) : ""
+    cfg.makeReleaseCredentialsID                    = "jpl-ssh-credentials"
 
     //
     cfg.repository = [:]
-    cfg.repository.url = ''
-    cfg.repository.branch = ''
+        cfg.repository.url = ''
+        cfg.repository.branch = ''
 
     //
     cfg.applivery = [:]
@@ -160,13 +150,6 @@ def call (projectName = 'project', targetPlatform = 'any', jiraProjectKey = '', 
         cfg.jira.projectData                        = ''
 
     //
-    cfg.ie = [:]
-        cfg.ie.enabled                              = false
-        cfg.ie.commitRawText                        = ""
-        cfg.ie.commandName                          = ""
-        cfg.ie.parameter                            = [:]
-
-    //
     cfg.commitValidation                            = [:]
         cfg.commitValidation.enabled                = true
         cfg.commitValidation.preset                 = "eslint"
@@ -175,7 +158,6 @@ def call (projectName = 'project', targetPlatform = 'any', jiraProjectKey = '', 
     //
     cfg.changelog                                   = [:]
         cfg.changelog.enabled                       = true
-        cfg.changelog.firstTag                      = ""
 
     //
     cfg.gitCache                                    = [:]

@@ -5,7 +5,7 @@ cfg.promoteBuild.enabled = true
 
 pipeline {
 
-    agent any
+    agent { label "master" }
 
     stages {
         stage ("jplCloseRelease Test - Initialize") {

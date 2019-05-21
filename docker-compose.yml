@@ -1,4 +1,4 @@
-version: '3'
+version: '3.4'
 services:
   jenkins-dind:
     image: "redpandaci/jenkins-dind"
@@ -6,8 +6,19 @@ services:
       - "8080"
     volumes:
       - jpl-dind-cache:/var/lib/docker
+      - ./:/tmp/jpl-source
     privileged: true
-    network_mode: "bridge"
+  jenkins-agent1:
+    image: "jenkins/jnlp-slave"
+    entrypoint: ""
+    command: 'bash -c "tail -f /var/log/*.log"'
+    volumes:
+      - ./:/tmp/jpl-source
+  jenkins-agent2:
+    image: "jenkins/jnlp-slave"
+    entrypoint: ""
+    command: 'bash -c "tail -f /var/log/*.log"'
+    volumes:
+      - ./:/tmp/jpl-source
 volumes:
   jpl-dind-cache:
-    external: true

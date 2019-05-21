@@ -19,7 +19,6 @@ jpl usage:
 
 * jplBuildChangeLog
 * jplCheckoutSCM
-* jplIE
 * jplValidateCommitMessages
 
 cfg usage:
@@ -37,16 +36,13 @@ def call(cfg) {
         script: "git describe --abbrev=0 --tags||echo ''",
         returnStdout: true
     ).trim()
-    if (cfg.ie.enabled) {
-        jplIE(cfg)
-    }
     if (cfg.commitValidation.enabled && cfg.BRANCH_NAME.startsWith('PR')) {
         jplValidateCommitMessages(cfg)
     }
     // Build, archive and attach HTML changelog report to the build
     if (cfg.changelog.enabled) {
         sh "mkdir -p ci-scripts/reports"
-        jplBuildChangelog(cfg, 'HEAD', 'html', 'ci-scripts/reports/CHANGELOG.html')
+        jplBuildChangelog(cfg, 'html', 'ci-scripts/reports/CHANGELOG.html')
         archiveArtifacts artifacts: 'ci-scripts/reports/CHANGELOG.html', fingerprint: true, allowEmptyArchive: false
         // publish html
         // snippet generator doesn't include "target:"

@@ -21,7 +21,7 @@
 cfg = jplConfig(&apos;jplDockerPushTest&apos;, &apos;backend&apos;)
 
 stage (&apos;jplDockerPush Test&apos;) {
-  node {
+  node (&quot;master&quot;) {
     echo &apos;jplDockerPush Test&apos;
     sh &quot;printenv&quot;
     println cfg

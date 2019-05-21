@@ -10,27 +10,12 @@ Example: "fastlane test"
 cfg usage:
 
 * cfg.archivePattern
-* cfg.ie.*
 */
 def call(cfg, String command='') {
     jplConfig.checkInitializationStatus(cfg)
     // Build default
     if (command == '') {
-        if (cfg.ie.commandName == "fastlane") {
-            for (int i = 0; i < cfg.ie.parameter.size(); i++) {
-                parameter = cfg.ie.parameter[i]
-                command = "fastlane ${parameter.name}"
-                for (int j = 0; j < parameter.option.size(); j++) {
-                    option = parameter.option[j]
-                    command = "${command} ${option.name}:${option.status}"
-                }
-                echo "Execute @ie on lane '${parameter.name}' with command '${command}'"
-                this.buildIPA(cfg,command)
-            }
-        }
-        else {
-            this.buildIPA(cfg,"fastlane ${cfg.laneName}")
-        }
+        this.buildIPA(cfg,"fastlane ${cfg.laneName}")
     }
     else {
         this.buildIPA(cfg,command)

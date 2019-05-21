@@ -31,7 +31,7 @@ pipeline {
 
     stages {
         stage (&apos;jplPromoteBuild Test - Initialize&apos;) {
-            agent any
+            agent { label &apos;master&apos; }
             steps  {
                 echo &quot;jplPromoteBuild Test - Initialize&quot;
                 sh &quot;printenv&quot;
