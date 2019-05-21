@@ -29,6 +29,8 @@
   * String releaseTagNumber         Release tag for branches like "release/vX.Y.Z"  (default: related tag or "" on non-release branches)
                                     only the number part. Refers to "X.Y.Z" without the starting "v"
   * String androidPackages          SDK packages to install within docker image     (default: "build-tools-27.0.0,android-27")
+  * String makeReleaseCredentialsID ID of the credentials that makeRelease function (default: 'jpl-ssh-credentials')
+                                    will use. Should be SSH credentials
 
   * Hashmap repository: repository parametes. You can use it for non-multibranch repository
         String url                  URL                                             (default: '')
@@ -110,11 +112,12 @@ def call (projectName = 'project', targetPlatform = 'any', jiraProjectKey = '', 
     cfg.androidPackages                             = 'build-tools-27.0.0,android-27'
     cfg.releaseTag                                  = (cfg.BRANCH_NAME.startsWith('release/v') || cfg.BRANCH_NAME.startsWith('hotfix/v')) ? cfg.BRANCH_NAME.tokenize("/")[1] : ""
     cfg.releaseTagNumber                            = (cfg.BRANCH_NAME.startsWith('release/v') || cfg.BRANCH_NAME.startsWith('hotfix/v')) ? cfg.BRANCH_NAME.tokenize("/")[1].substring(1) : ""
+    cfg.makeReleaseCredentialsID                    = "jpl-ssh-credentials"
 
     //
     cfg.repository = [:]
-    cfg.repository.url = ''
-    cfg.repository.branch = ''
+        cfg.repository.url = ''
+        cfg.repository.branch = ''
 
     //
     cfg.applivery = [:]
