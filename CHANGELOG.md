@@ -1,3 +1,24 @@
+# Changelog
+
+## v3.0.1 (2019-05-22)
+
+### Update
+
+* Use LF instead CRLF in jplMakeRelease ([b390957](https://github.com:red-panda-ci/jenkins-pipeline-library/commit/b390957))
+
+### Fix
+
+* Fix: Fix two variable name usage in jplMakeRelease ([6f0fea7](https://github.com:red-panda-ci/jenkins-pipeline-library/commit/6f0fea7))
+
+### Build
+
+* Fix jpl library version usage ([e62c36d](https://github.com:red-panda-ci/jenkins-pipeline-library/commit/e62c36d))
+* Update to jpl v3.0.0 ([d4531af](https://github.com:red-panda-ci/jenkins-pipeline-library/commit/d4531af))
+
+## v3.0.0 (2019-05-21)
+
+### Breaking
+
 * Remove firstTag parameter in jplBuildChangelog ([16029cb](https://github.com:red-panda-ci/jenkins-pipeline-library/commit/16029cb))
 * Remove integration events from config ([aea0d02](https://github.com:red-panda-ci/jenkins-pipeline-library/commit/aea0d02))
 * Remove integration events feature ([130957e](https://github.com:red-panda-ci/jenkins-pipeline-library/commit/130957e))
@@ -22,6 +43,7 @@
 
 ### Build
 
+* Update CHANGELOG.md to v3.0.0 with Red Panda JPL ([46cc1c6](https://github.com:red-panda-ci/jenkins-pipeline-library/commit/46cc1c6))
 * Refactor Release Finish Pipeline stage ([421f601](https://github.com:red-panda-ci/jenkins-pipeline-library/commit/421f601))
 * Enable tests on agent node ([4d148f0](https://github.com:red-panda-ci/jenkins-pipeline-library/commit/4d148f0))
 
