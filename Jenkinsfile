@@ -1,6 +1,6 @@
 #!groovy
 
-@Library('github.com/red-panda-ci/jenkins-pipeline-library@v3.0.1') _
+@Library('github.com/red-panda-ci/jenkins-pipeline-library@v3.0.2') _
 
 // Initialize global config
 cfg = jplConfig('jpl','backend','', [email:'redpandaci+jpl@gmail.com'])
@@ -42,6 +42,15 @@ pipeline {
                 }
             }
         }
+        // -------------------- automatic release -------------------
+        stage ('Make release'){
+            agent { label 'master' }
+            when { branch 'release/new' }
+            steps {
+                publishDocumentation()
+                jplMakeRelease(cfg, true)
+            }
+        }
         stage ('Release confirm') {
             when { expression { env.BRANCH_NAME.startsWith('release/v') || env.BRANCH_NAME.startsWith('hotfix/v') } }
             steps {
@@ -54,15 +63,6 @@ pipeline {
             steps {
                 publishDocumentation()
                 jplCloseRelease(cfg)
-            }
-        }
-        // -------------------- automatic release -------------------
-        stage ('Make release'){
-            agent { label 'master' }
-            when { branch 'release/new' }
-            steps {
-                publishDocumentation()
-                jplMakeRelease(cfg, true)
             }
         }
     }
