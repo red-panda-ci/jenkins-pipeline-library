@@ -28,12 +28,12 @@ cfg usage:
 * cfg.notify
 * cfg.recipients
 */
-def call(cfg) {
+def call(cfg, boolean promoteBuild = false) {
     if (cfg.BRANCH_NAME == 'develop') {
         currentBuild.result = 'ABORTED'
         error ('jplMakeRelease: The repository cannot be on the "develop" branch')
     }
-    if (!cfg.promoteBuild.enabled) {
+    if (!promoteBuild) {
         currentBuild.result = 'ABORTED'
         error ('jplMakeRelease: The build cannot be promoted because the cfg.poromoteBuild.enabled flag is not disables')
     }
@@ -41,8 +41,6 @@ def call(cfg) {
     nextReleaseBranch="release/" + nextReleaseNumber
     echo "Building next release: ${nextReleaseNumber}"
     sshagent (credentials: [cfg.makeReleaseCredentialsID]) {
-        // Startup actions (remote connection to repository required)
-        sh "git checkout develop && git branch --set-upstream-to=origin/develop && git pull"
 
         // Release build (does not require remote connection)
         // It should be placed in a Docker Command https://github.com/kairops/docker-command-launcher in the future
@@ -61,14 +59,14 @@ def call(cfg) {
         git commit -m \"Docs: Generate ${nextReleaseNumber} changelog with JPL\"
         """
 
-        // Develop branch merge (does not require remote connection)
+        // Ensure "develop" branch is updated and merge the release branch to develop
+        // Then push to the repository the develop branch and the tag
+        //    (remote connection to repository required)
         sh """
         git checkout develop
-        git merge --no-ff ${nextReleaseBranch} -m 'Merge from release with JPL'
-        """
-
-        // Push develop branch and tags (remote connection to repository required)
-        sh """
+        git branch --set-upstream-to=origin/develop
+        git pull
+        git merge ${nextReleaseBranch} -m 'Merge from release with JPL'
         git push -u origin develop
         git push --tags
         """
