@@ -1,5 +1,20 @@
 # Changelog
 
+## v3.0.2 (2019-05-22)
+
+### Update
+
+* Refactor jplMakeRelease adding parameter to auto-promote ([9265d03](https://github.com:red-panda-ci/jenkins-pipeline-library/commit/9265d03))
+
+### Fix
+
+* Resolve problem with the first commit and the jplMakeRelease function ([e745587](https://github.com:red-panda-ci/jenkins-pipeline-library/commit/e745587))
+
+### Build
+
+* Update to jpl v3.0.1 release ([e14bbf1](https://github.com:red-panda-ci/jenkins-pipeline-library/commit/e14bbf1))
+* New function to publish the documentation ([4290999](https://github.com:red-panda-ci/jenkins-pipeline-library/commit/4290999))
+
 ## v3.0.1 (2019-05-22)
 
 ### Update
@@ -12,6 +27,7 @@
 
 ### Build
 
+* Update CHANGELOG.md to v3.0.1 with Red Panda JPL ([606c700](https://github.com:red-panda-ci/jenkins-pipeline-library/commit/606c700))
 * Fix jpl library version usage ([e62c36d](https://github.com:red-panda-ci/jenkins-pipeline-library/commit/e62c36d))
 * Update to jpl v3.0.0 ([d4531af](https://github.com:red-panda-ci/jenkins-pipeline-library/commit/d4531af))
 
