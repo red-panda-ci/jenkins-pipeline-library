@@ -1,6 +1,6 @@
 #!groovy
 
-@Library('github.com/red-panda-ci/jenkins-pipeline-library@v3.0.0') _
+@Library('github.com/red-panda-ci/jenkins-pipeline-library@v3.0.1') _
 
 // Initialize global config
 cfg = jplConfig('jpl','backend','', [email:'redpandaci+jpl@gmail.com'])
