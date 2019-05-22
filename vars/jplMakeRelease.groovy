@@ -29,11 +29,11 @@ cfg usage:
 * cfg.recipients
 */
 def call(cfg) {
-    if ($cfg.BRANCH_NAME == 'develop') {
+    if (cfg.BRANCH_NAME == 'develop') {
         currentBuild.result = 'ABORTED'
         error ('jplMakeRelease: The repository cannot be on the "develop" branch')
     }
-    if (!cfg.promotebuild.enabled) {
+    if (!cfg.promoteBuild.enabled) {
         currentBuild.result = 'ABORTED'
         error ('jplMakeRelease: The build cannot be promoted because the cfg.poromoteBuild.enabled flag is not disables')
     }
