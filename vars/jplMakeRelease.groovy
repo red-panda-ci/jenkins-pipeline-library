@@ -57,7 +57,8 @@ def call(cfg) {
         git commit -m \"Build: Update Auto Release Log adding ${nextReleaseNumber} info with JPL\"
         git tag -a ${nextReleaseNumber} -m \"Release ${nextReleaseNumber}\" `git rev-list --no-merges -n 1 ${nextReleaseBranch}`
         echo && kd git-changelog-generator . > CHANGELOG.md
-        git commit -m \"Docs: Generate ${nextReleaseNumber} changelog with JPL\" CHANGELOG.md
+        git add CHANGELOG.md
+        git commit -m \"Docs: Generate ${nextReleaseNumber} changelog with JPL\"
         """
 
         // Develop branch merge (does not require remote connection)
