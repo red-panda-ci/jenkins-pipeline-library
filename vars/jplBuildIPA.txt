@@ -10,5 +10,4 @@ Example: "fastlane test"
 cfg usage:
 
 * cfg.archivePattern
-* cfg.ie.*
 

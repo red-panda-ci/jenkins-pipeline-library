@@ -1,5 +1,20 @@
 # Changelog
 
+## v3.0.3 (2019-05-23)
+
+### Update
+
+* Empty workspace directory at the end of jplNextRelease ([453671e](https://github.com:red-panda-ci/jenkins-pipeline-library/commit/453671e))
+
+### Build
+
+* Update Auto Release Log adding v3.0.3 info with JPL ([1a558e6](https://github.com:red-panda-ci/jenkins-pipeline-library/commit/1a558e6))
+* Update to v3.0.2 jpl version ([fbe4065](https://github.com:red-panda-ci/jenkins-pipeline-library/commit/fbe4065))
+
+### Docs
+
+* Update README.md and Jenkins doc help files ([84b0551](https://github.com:red-panda-ci/jenkins-pipeline-library/commit/84b0551))
+
 ## v3.0.2 (2019-05-22)
 
 ### Update
@@ -12,6 +27,7 @@
 
 ### Build
 
+* Update CHANGELOG.md to v3.0.2 with Red Panda JPL ([40e0aa3](https://github.com:red-panda-ci/jenkins-pipeline-library/commit/40e0aa3))
 * Update to jpl v3.0.1 release ([e14bbf1](https://github.com:red-panda-ci/jenkins-pipeline-library/commit/e14bbf1))
 * New function to publish the documentation ([4290999](https://github.com:red-panda-ci/jenkins-pipeline-library/commit/4290999))
 
