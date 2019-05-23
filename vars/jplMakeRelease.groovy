@@ -59,15 +59,17 @@ def call(cfg, boolean promoteBuild = false) {
         git commit -m \"Docs: Generate ${nextReleaseNumber} changelog with JPL\"
         """
 
-        // Ensure "develop" branch is updated and merge the release branch to develop
-        // Then push to the repository the develop branch and the tag
+        // Ensure "develop" and "master" branch are updated and merge the release branch to develop and master
+        // Then push to the repository the develop and master branches; finally push the tag
         //    (remote connection to repository required)
         sh """
-        git checkout develop
-        git branch --set-upstream-to=origin/develop
-        git pull
-        git merge ${nextReleaseBranch} -m 'Merge from release with JPL'
-        git push -u origin develop
+        for branch in develop master; do
+            git checkout ${branch}
+            git branch --set-upstream-to=origin/${branch}
+            git pull
+            git merge ${nextReleaseBranch} -m 'Merge from release with JPL'
+            git push -u origin ${branch}
+        done
         git push --tags
         """
 
