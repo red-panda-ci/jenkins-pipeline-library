@@ -1,5 +1,19 @@
 # Changelog
 
+## v3.1.0 (2019-05-23)
+
+### Upgrade
+
+* Update master branch with auto-release ([0cd372e](https://github.com:red-panda-ci/jenkins-pipeline-library/commit/0cd372e))
+
+### Build
+
+* Update Auto Release Log adding v3.1.0 info with JPL ([1f906a6](https://github.com:red-panda-ci/jenkins-pipeline-library/commit/1f906a6))
+
+### Docs
+
+* Generate v3.0.3 changelog with JPL ([3461fe1](https://github.com:red-panda-ci/jenkins-pipeline-library/commit/3461fe1))
+
 ## v3.0.3 (2019-05-23)
 
 ### Update
