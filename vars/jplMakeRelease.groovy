@@ -70,5 +70,8 @@ def call(cfg, boolean promoteBuild = false) {
         git push -u origin develop
         git push --tags
         """
+
+        // Empty workspace directory for the next release
+        deleteDir()
     }
 }
