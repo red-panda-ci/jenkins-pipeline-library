@@ -157,26 +157,25 @@ Example: "./gradlew clean assembleDebug"
 cfg usage:
 
 * cfg.archivePattern
-* cfg.ie.*
 * cfg.flags.isAndroidImageBuilded
 
 ### jplBuildChangelog
 
   Build changelog file based on the commit messages
 
-  You can build the changelog between two commits, tags or branches if you use range format "v1.1.0...v1.0.0"
-  If you don fill the parameter then the "from HEAD to beginning" range is used
-
   Parameters:
 
   * cfg jplConfig class object
-  * String range Commit range: tags, commits or branches    (defaults to "HEAD")
   * String format Changelog format: "md" or "html"          (defaults to "md")
   * String filename Changelog file name                     (defaults to "CHANGELOG.md")
 
   cfg usage:
 
   * cfg.BRNACH_NAME
+
+  This function need the installation of "kd" script of docker-command-launcher
+  Review https://github.com/kairops/docker-command-launcher project
+
 
 ### jplBuild
 
@@ -211,7 +210,6 @@ Example: "fastlane test"
 cfg usage:
 
 * cfg.archivePattern
-* cfg.ie.*
 
 ### jplCheckoutSCM
 
@@ -279,6 +277,8 @@ cfg usage:
   * String releaseTagNumber         Release tag for branches like "release/vX.Y.Z"  (default: related tag or "" on non-release branches)
                                     only the number part. Refers to "X.Y.Z" without the starting "v"
   * String androidPackages          SDK packages to install within docker image     (default: "build-tools-27.0.0,android-27")
+  * String makeReleaseCredentialsID ID of the credentials that makeRelease function (default: 'jpl-ssh-credentials')
+                                    will use. Should be SSH credentials
 
   * Hashmap repository: repository parametes. You can use it for non-multibranch repository
         String url                  URL                                             (default: '')
@@ -307,18 +307,6 @@ cfg usage:
   * HashMap jira: JIRA configuration
         String jira.projectKey      JIRA project key                                (default: "")
         object jira.projectData     JIRA project data                               (default: "")
-
-  * Hashmap ie: Integration Events configuration
-        boolean enabled             Integration Events enabled status               (default: false)
-        String commitRawText        ie text as appears in commit message            (default: "" = no @ie command in the commit)
-        String commandName          Command to be executed                          (default: "")
-        Hashmap parameter           List of parameters and options                  (default: [:])
-                                    Every parameter element of the hash contains:
-                                    - String name: the string with the parameter
-                                    - Hashmap option: List of options for the parameter.
-                                    Every option of the hash contains:
-                                    - String name: Name of the option
-                                    - String status: "enabled" or "disabled", depending of the option status
   
   * Hashmap commitValidation: Commit message validation configuration on PR's, using project https://github.com/willsoto/validate-commit
         boolean enabled             Commit validation enabled status                (default: true)
@@ -329,7 +317,6 @@ cfg usage:
         boolean enabled             Automatically build changelog file              (default: true)
                                     * Archive as artifact build on every commit
                                     * Build and commit on jplCloseRelease
-        String firstTag             First tag, branch or commit to be reviewed      (default: "")
 
   * Hashmap gitCache: Git cache configuration
         boolean enabled             Git cache status                                (default: true)
@@ -373,49 +360,6 @@ cfg usage:
 
 * cfg.projectName
 
-### jplIE
-
-Integration Events (IE) management
-
-Parameters:
-
-* cfg jplConfig class object
-
-cfg usage:
-
-* cfg.BRANCH_NAME
-* cfg.ie.*
-
-Rules:
-
-- The cfg option "cfg.ie.enabled" should be 'true'
-- The Integration Event line should start with '@ie'
-- The event can have multiple parameters: "parameter1", "parameter2", etc.
-- Every parameter can have multiple options, starting with "+" or "-": "+option1 -option2"
-- If an option starts with "+" means the parameter "must have" the option
-- If an option starts with "-" means the option "should not be" in the parameter
-- You can't use an option after the command. It's mandatory to use a parameter
-
-* Example:
-
-    "@ie command parameter1 +option1 -option2 parameter2 +option1 +option2 -option3"
-
-Commands:
-
-- "fastlane": use multiple fastlane lanes, at least one. You can add multiple parameters in each
-
-* Examples:
-
-    "@ie fastlane develop"
-    "@ie fastlane develop quality"
-    "@ie fastlane develop -applivery +appetize quality +applivery -appetize"
-
-- "gradlew": use gradle wrapper tasks
-
-* Examples:
-
-    "@ie gradlew clean assembleDebug"
-
 ### jplJIRA
 
 JIRA management
@@ -427,6 +371,37 @@ Parameters:
 
 
 /*
+### jplMakeRelease
+
+
+Make new release automatically
+
+The function will:
+
+- Calculate the next release tag using "get-next-release-number" docker command https://github.com/kairops/dc-get-next-release-number
+- Build the changelog
+- Append a new line in "jpl-makeRelease.log" file with the release information (tag name and timestamp)
+- Publish the changes to the repository (`git push`) on the develop branch
+- Publish the release tag to the repository using Jenkins SSH credentials
+
+Abort the build if:
+
+- The repository is on the "develop" branch. Or...
+- The promoteBuild.enabled flag is not true
+
+You can use this function with a branch named "release/next", so it will do all the job for you when you do a push to the repository.
+
+Aditionally, the function will append a line to the "jpl-makeRelease.log" file with the release tag and the curremt timestam
+
+Parameters:
+* cfg jplConfig class object
+
+cfg usage:
+
+* cfg.makeReleaseCredentialsID
+* cfg.notify
+* cfg.recipients
+
 ### jplNotify
 
 Notify using multiple methods: hipchat, slack, email
@@ -565,7 +540,6 @@ jpl usage:
 
 * jplBuildChangeLog
 * jplCheckoutSCM
-* jplIE
 * jplValidateCommitMessages
 
 cfg usage:

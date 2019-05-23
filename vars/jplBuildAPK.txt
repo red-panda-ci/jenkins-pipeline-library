@@ -10,6 +10,5 @@ Example: "./gradlew clean assembleDebug"
 cfg usage:
 
 * cfg.archivePattern
-* cfg.ie.*
 * cfg.flags.isAndroidImageBuilded
 

@@ -1,17 +1,17 @@
 
   Build changelog file based on the commit messages
 
-  You can build the changelog between two commits, tags or branches if you use range format "v1.1.0...v1.0.0"
-  If you don fill the parameter then the "from HEAD to beginning" range is used
-
   Parameters:
 
   * cfg jplConfig class object
-  * String range Commit range: tags, commits or branches    (defaults to "HEAD")
   * String format Changelog format: "md" or "html"          (defaults to "md")
   * String filename Changelog file name                     (defaults to "CHANGELOG.md")
 
   cfg usage:
 
   * cfg.BRNACH_NAME
+
+  This function need the installation of "kd" script of docker-command-launcher
+  Review https://github.com/kairops/docker-command-launcher project
+
 

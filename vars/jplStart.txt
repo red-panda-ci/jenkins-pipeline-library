@@ -19,7 +19,6 @@ jpl usage:
 
 * jplBuildChangeLog
 * jplCheckoutSCM
-* jplIE
 * jplValidateCommitMessages
 
 cfg usage:
