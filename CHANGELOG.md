@@ -1,5 +1,49 @@
 # Changelog
 
+## v3.1.5 (2019-05-23)
+
+### Build
+
+* Update Auto Release Log adding v3.1.5 info with JPL ([746da41](https://github.com:red-panda-ci/jenkins-pipeline-library/commit/746da41))
+
+## v3.1.4 (2019-05-23)
+
+### Build
+
+* Update Auto Release Log adding v3.1.4 info with JPL ([a0be4ad](https://github.com:red-panda-ci/jenkins-pipeline-library/commit/a0be4ad))
+
+## v3.1.3 (2019-05-23)
+
+### Fix
+
+* Change shell variable reference ([90a89d5](https://github.com:red-panda-ci/jenkins-pipeline-library/commit/90a89d5))
+
+### Build
+
+* Update Auto Release Log adding v3.1.3 info with JPL ([8dc1d4b](https://github.com:red-panda-ci/jenkins-pipeline-library/commit/8dc1d4b))
+
+## v3.1.2 (2019-05-23)
+
+### Fix
+
+* Use the right variable format in jplMakeRelease ([9debccf](https://github.com:red-panda-ci/jenkins-pipeline-library/commit/9debccf))
+
+### Build
+
+* Update Auto Release Log adding v3.1.2 info with JPL ([570cce2](https://github.com:red-panda-ci/jenkins-pipeline-library/commit/570cce2))
+
+## v3.1.1 (2019-05-23)
+
+### Build
+
+* Update Auto Release Log adding v3.1.1 info with JPL ([4cdec1c](https://github.com:red-panda-ci/jenkins-pipeline-library/commit/4cdec1c))
+* Update to v3.1.0 jpl release ([f930b1e](https://github.com:red-panda-ci/jenkins-pipeline-library/commit/f930b1e))
+* Update sonar properties file with the release number ([85a0634](https://github.com:red-panda-ci/jenkins-pipeline-library/commit/85a0634))
+
+### Docs
+
+* Generate v3.1.0 changelog with JPL ([10859eb](https://github.com:red-panda-ci/jenkins-pipeline-library/commit/10859eb))
+
 ## v3.1.0 (2019-05-23)
 
 ### Upgrade
