@@ -1,6 +1,6 @@
 #!groovy
 
-@Library('github.com/red-panda-ci/jenkins-pipeline-library@v3.1.0') _
+@Library('github.com/red-panda-ci/jenkins-pipeline-library@v3.1.5') _
 
 // Initialize global config
 cfg = jplConfig('jpl','backend','', [email:'redpandaci+jpl@gmail.com'])
@@ -38,7 +38,7 @@ pipeline {
             }
             post {
                 always {
-                    archiveArtifacts artifacts: 'test/reports/*', fingerprint: true, allowEmptyArchive: true
+                    archiveArtifacts artifacts: 'test/reports/**/*.*', fingerprint: true, allowEmptyArchive: true
                 }
             }
         }
