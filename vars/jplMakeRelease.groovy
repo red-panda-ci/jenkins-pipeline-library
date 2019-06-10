@@ -64,11 +64,11 @@ def call(cfg, boolean promoteBuild = false) {
         //    (remote connection to repository required)
         sh """
         for branch in develop master; do
-            git checkout $branch
-            git branch --set-upstream-to=origin/$branch
+            git checkout \$branch
+            git branch --set-upstream-to=origin/\$branch
             git pull
             git merge ${nextReleaseBranch} -m 'Merge from release with JPL'
-            git push -u origin $branch
+            git push -u origin \$branch
         done
         git push --tags
         """
