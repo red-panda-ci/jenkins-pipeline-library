@@ -19,14 +19,14 @@ pipeline {
 
     stages {
         stage ('Initialize') {
-            agent { label 'master' }
+            agent { label 'docker' }
             steps  {
                 jplStart(cfg)
             }
         }
         stage('Sonarqube Analysis') {
             when { expression { (env.BRANCH_NAME == 'develop') || env.BRANCH_NAME.startsWith('PR-') } }
-            agent { label 'master' }
+            agent { label 'docker' }
             steps {
                 jplSonarScanner(cfg)
             }
@@ -42,27 +42,12 @@ pipeline {
                 }
             }
         }
-        // -------------------- automatic release -------------------
         stage ('Make release'){
-            agent { label 'master' }
+            agent { label 'docker' }
             when { branch 'release/new' }
             steps {
                 publishDocumentation()
                 jplMakeRelease(cfg, true)
-            }
-        }
-        stage ('Release confirm') {
-            when { expression { env.BRANCH_NAME.startsWith('release/v') || env.BRANCH_NAME.startsWith('hotfix/v') } }
-            steps {
-                jplPromoteBuild(cfg)
-            }
-        }
-        stage ('Release finish') {
-            agent { label 'master' }
-            when { expression { ( env.BRANCH_NAME.startsWith('release/v') || env.BRANCH_NAME.startsWith('hotfix/v')) && cfg.promoteBuild.enabled } }
-            steps {
-                publishDocumentation()
-                jplCloseRelease(cfg)
             }
         }
     }
@@ -78,6 +63,6 @@ pipeline {
         ansiColor('xterm')
         buildDiscarder(logRotator(artifactNumToKeepStr: '20',artifactDaysToKeepStr: '30'))
         disableConcurrentBuilds()
-        timeout(time: 1, unit: 'DAYS')
+        timeout(time: 30, unit: 'MINUTES')
     }
 }
