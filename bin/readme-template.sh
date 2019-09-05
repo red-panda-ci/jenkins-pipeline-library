@@ -12,9 +12,7 @@ done
 )"
 
 cat << EOF
-# Jenkins Pipeline Library
-
-[![Build Status](http://jenkins.redpandaci.com/buildStatus/icon?job=red-panda-ci/jenkins-pipeline-library/develop)](https://jenkins.redpandaci.com/job/red-panda-ci/job/jenkins-pipeline-library/job/develop/) [![Join the chat at https://gitter.im/red-panda-ci/jenkins-pipeline-library](https://badges.gitter.im/red-panda-ci/jenkins-pipeline-library.svg)](https://gitter.im/red-panda-ci/jenkins-pipeline-library?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Build Status](https://jenkins.teecke.com/buildStatus/icon?job=github-open-teecke%2Fjenkins-pipeline-library%2Fdevelop)](https://jenkins.teecke.com/job/github-open-teecke/job/jenkins-pipeline-library/job/develop/)
 
 ## Description
 
@@ -29,7 +27,7 @@ This helpers are designed to be used in "Multibranch Pipeline" Jenkins job type,
 
 Add this line at the top of your Jenkinsfile
 
-    @Library('github.com/red-panda-ci/jenkins-pipeline-library') _
+    @Library('github.com/teecke/jenkins-pipeline-library') _
 
 Then you can use the helpers in your script
 
@@ -42,7 +40,7 @@ TBD
 \`\`\`groovy
 #!groovy
 
-@Library('github.com/red-panda-ci/jenkins-pipeline-library') _
+@Library('github.com/teecke/jenkins-pipeline-library') _
 
 // Initialize cfg
 cfg = jplConfig('project-alias', 'android', 'JIRAPROJECTKEY', [hipchat:'The-Project,Jenkins QA', slack:'#the-project,#integrations', email:'the-project@example.com,dev-team@example.com,qa-team@example.com'])
@@ -119,7 +117,6 @@ pipeline {
         ansiColor('xterm')
         buildDiscarder(logRotator(artifactNumToKeepStr: '20',artifactDaysToKeepStr: '30'))
         disableConcurrentBuilds()
-        skipDefaultCheckout()
         timeout(time: 1, unit: 'DAYS')
     }
 }
@@ -136,29 +133,37 @@ You should consider the following configurations:
 ### Jenkins service
 
 * Install Java "jre" and "jdk"
+
 \`\`\`console
-$ apt-get install default-jre default-jdk
+$ sudo apt-get install default-jre default-jdk
+
 [...]
+
 \`\`\`
+
 * Configure "git" to be able to make push to the repositories.
   * Configure git credentials (username, password) <https://git-scm.com/docs/git-credential-store> for use with "https" remote repositories and set "store" as global config option, with global user name and global email
+
     \`\`\`console
     $ git config --global credential.helper store
-    $ git config --global user.name "Red Panda"
-    $ git config --global user.email "redpandaci@gmail.com"
+    $ git config --global user.name "User Name"
+    $ git config --global user.email "your@email.com"
     $ cat .gitconfig
     [user]
-        email = redpandaci@gmail.com
-        name = Red Panda
+        email = your@email.com
+        name = User Name
     [push]
         default = simple
     [credential]
         helper = store
     $ cat ~/.git-credentials
-    https://redpandaci%40gmail.com:fake-password@github.com
+    https://your%40email.com:fake-password@github.com
     \`\`\`
+
   * Configure ssh public key for use with "ssh" remote repositories.
+
   \`\`\`console
+
     $ ssh-keygen
     Generating public/private rsa key pair.
     Enter file in which to save the key (/var/lib/jenkins/.ssh/id_rsa): 
@@ -183,6 +188,7 @@ $ apt-get install default-jre default-jdk
     jenkins@server:~$ cat .ssh/id_rsa.pub
     ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC72EdmruDtEoqF3BK7JPjgVGMfL7hnPVymdUEt76gk1U/sSaYsijbqxyhSbdp/8W7l1dwGA1Vs7cAn15qVzbUoJzmmM1rm7wPOBU7oBH1//oopA5U1XauXRuKWFQ8LDbjdaHBriBP4IyIG9fS+afgRwDlwlxx2mKuWhuYlHbBAxGwwDpxtTnvJ9JAnWG5eJ+8cXJ2PaIBlhc8jkjWkvLOnAWx729LdFQqWrikY5YwtNKw0CnU5XGBP96GcyR+k7PPkdr8LcVCewE042n6pw43e3H4GRlWU2w/nj/JniF6Tyx76hxSX9UMFiCKVXqM8blftqn9H7WGStt0b1pPhwtGT server@jenkins
   \`\`\`
+
 * Install docker and enable Jenkins syste user to use the docker daemon.
 * Install this plugins:
   * AnsiColor
