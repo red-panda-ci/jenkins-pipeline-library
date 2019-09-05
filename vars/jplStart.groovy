@@ -31,7 +31,6 @@ def call(cfg) {
     if (cfg.flags.isJplStarted) {
         error ("ERROR: jplStart already executed")
     }
-    jplCheckoutSCM(cfg)
     cfg.lastTag = sh (
         script: "git describe --abbrev=0 --tags||echo ''",
         returnStdout: true
