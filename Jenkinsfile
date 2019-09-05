@@ -28,7 +28,8 @@ pipeline {
             when { expression { (env.BRANCH_NAME == 'develop') || env.BRANCH_NAME.startsWith('PR-') } }
             agent { label 'docker' }
             steps {
-                jplSonarScanner(cfg)
+                echo "TBD"
+                //jplSonarScanner(cfg)
             }
         }
         stage ('Test') {
