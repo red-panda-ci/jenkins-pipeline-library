@@ -21,7 +21,7 @@ function runTest () {
     fi
     if [[ "$uniqueTestName" != "" ]] && [[ "$uniqueTestName" != "$testName" ]]
     then
-        echo -e "\t\t(Mock)"
+        echo -e "\t\t(Force pass with assert=true)"
         return 0
     fi
     docker exec ${id} bash -c "java -Xmx512m -jar jenkins-cli.jar -s http://localhost:8080 build ${testName} --username redpanda --password redpanda -s"
