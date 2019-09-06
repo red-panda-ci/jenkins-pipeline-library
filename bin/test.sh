@@ -63,9 +63,12 @@ id=$(docker-compose ps -q jenkins-dind)
 returnValue=$((returnValue + $?))
 echo "# Started platform with id ${id} and port $(docker-compose port jenkins-dind 8080)"
 
-echo "# Docker command installation"
+echo "# Kairops Docker Command Launcher install"
 docker-compose exec -T jenkins-dind wget https://raw.githubusercontent.com/kairops/docker-command-launcher/master/kd.sh -O /usr/sbin/kd -q
 docker-compose exec -T jenkins-dind chmod +x /usr/sbin/kd
+
+echo "# Teecke Devcontrol install"
+docker-compose exec -u root -T jenkins-dind bash -c "curl https://raw.githubusercontent.com/teecke/devcontrol/master/install.sh | bash"
 
 echo "# Copy jenkins configuration and prepare code for testing"
 docker-compose exec -T jenkins-dind rsync -a /tmp/jpl-source/test/jobs/ /root/.jenkins/jobs/
