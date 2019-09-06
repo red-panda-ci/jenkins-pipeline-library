@@ -37,23 +37,25 @@ def call(cfg) {
 
 def checkoutCode(cfg) {
     // Never use 'skipDefaultCheckout' in the pipeline
-    if (cfg.repository.url == '') {
-        if (!fileExists(".git/config")) {
-            checkout scm
-        }
-        if (!cfg.BRANCH_NAME.startsWith('PR-')) {
-            sh "git checkout ${cfg.BRANCH_NAME}; git pull"
-        }
-    }
-    else {
-        if (cfg.repository.branch == '') {
-            git url: cfg.repository.url
+    sshagent (credentials: [cfg.makeReleaseCredentialsID]) {
+        if (cfg.repository.url == '') {
+            if (!fileExists(".git/config")) {
+                checkout scm
+            }
+            if (!cfg.BRANCH_NAME.startsWith('PR-')) {
+                sh "git checkout ${cfg.BRANCH_NAME}; git pull"
+            }
         }
         else {
-            git branch: cfg.repository.branch, url: cfg.repository.url
-            sh "git branch --set-upstream-to=origin/${cfg.repository.branch} ${cfg.repository.branch}"
+            if (cfg.repository.branch == '') {
+                git url: cfg.repository.url
+            }
+            else {
+                git branch: cfg.repository.branch, url: cfg.repository.url
+                sh "git branch --set-upstream-to=origin/${cfg.repository.branch} ${cfg.repository.branch}"
+            }
         }
+        sh "grep '\\+refs/heads/\\*:refs/remotes/origin/\\*' .git/config -q || git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/*"
+        sh "git fetch -p; git submodule update --init"
     }
-    sh "grep '\\+refs/heads/\\*:refs/remotes/origin/\\*' .git/config -q || git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/*"
-    sh "git fetch -p; git submodule update --init"
 }
