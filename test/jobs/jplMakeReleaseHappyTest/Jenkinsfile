@@ -1,0 +1,37 @@
+#!groovy
+env.BRANCH_NAME = "release/v9.9.9"
+cfg = jplConfig("jplMakeReleaseHappyTest", "groovy")
+cfg.promoteBuild.enabled = true
+
+pipeline {
+
+    agent { label "master" }
+
+    stages {
+        stage ("jplMakeRelease Test - Initialize") {
+            steps  {
+                echo "jplMakeRelease Test - Initialize"
+                sh "printenv"
+                println cfg
+                jplStart(cfg)
+            }
+        }
+        stage ("jplMakeRelease Test - Prepare test") {
+            steps {
+                echo "jplMakeRelease Test - Prepare test"
+                sh "git merge origin/master; git push"
+                deleteDir()
+            }
+        }
+        stage ("jplMakeRelease Test - Make Release") {
+            steps {
+                echo "jplMakeRelease Test - Making release: ${cfg.releaseTag}, short one ${cfg.releaseTagNumber}"
+                jplMakeRelease(cfg, true)
+            }
+        }
+    }
+
+    options {
+        timestamps()
+    }
+}
