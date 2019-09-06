@@ -36,8 +36,11 @@ def call(cfg) {
 }
 
 def checkoutCode(cfg) {
+    // Never use 'skipDefaultCheckout' in the pipeline
     if (cfg.repository.url == '') {
-        checkout scm
+        if (!fileExists(".git/config")) {
+            checkout scm
+        }
         if (!cfg.BRANCH_NAME.startsWith('PR-')) {
             sh "git checkout ${cfg.BRANCH_NAME}; git pull"
         }

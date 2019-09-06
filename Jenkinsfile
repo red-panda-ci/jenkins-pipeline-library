@@ -1,6 +1,6 @@
 #!groovy
 
-@Library('github.com/red-panda-ci/jenkins-pipeline-library@v3.1.6') _
+@Library('github.com/teecke/jenkins-pipeline-library@v3.1.6') _
 
 // Initialize global config
 cfg = jplConfig('jpl','backend','', [email:'redpandaci+jpl@gmail.com'])
@@ -28,7 +28,7 @@ pipeline {
             when { expression { (env.BRANCH_NAME == 'develop') || env.BRANCH_NAME.startsWith('PR-') } }
             agent { label 'docker' }
             steps {
-                echo "TBD"
+                echo "Temporary disabled"
                 //jplSonarScanner(cfg)
             }
         }
