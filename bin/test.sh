@@ -84,7 +84,8 @@ then
 fi
 runWithinDocker "cd /tmp/jenkins-pipeline-library && git rev-parse --verify develop || git checkout -b develop"
 runWithinDocker "cd /tmp/jenkins-pipeline-library && git rev-parse --verify master || git checkout -b master"
-runWithinDocker "cd /tmp/jenkins-pipeline-library && git checkout -b 'release/v9.9.9' && git checkout -b 'hotfix/v9.9.9-hotfix-1' && git checkout -b 'release/new' && git checkout -b 'jpl-test-promoted' && git checkout -b 'jpl-test' && git checkout `git rev-parse HEAD` > /dev/null 2>&1"
+runWithinDocker "cd /tmp/jenkins-pipeline-library && git branch -D release/new || true"
+runWithinDocker "cd /tmp/jenkins-pipeline-library && git checkout -b 'release/v9.9.9' && git checkout -b 'hotfix/v9.9.9-hotfix-1' && git checkout -b 'jpl-test-promoted' && git checkout -b 'jpl-test' && git checkout -b 'release/new' && git checkout `git rev-parse HEAD` > /dev/null 2>&1"
 
 echo "# Waiting for jenkins service to be initialized"
 runWithinDocker "sleep 10 && curl --max-time 50 --retry 10 --retry-delay 5 --retry-max-time 32 http://localhost:8080 -s > /dev/null; sleep 10"
@@ -114,9 +115,9 @@ then
     runTest "jplPromoteBuildTest" 4
     [ "$1" != "local" ] && runTest "jplBuildAPKTest"
     runTest "jplBuildIPAHappyTest"
+    runTest "jplMakeReleaseHappyTest"
     runTest "jplCloseReleaseTest"
     runTest "jplCloseHotfixHappyTest"
-    runTest "jplMakeReleaseHappyTest"
 fi
 
 # Remove compose

@@ -25,6 +25,7 @@ pipeline {
         }
         stage ("jplMakeRelease Test - Make Release") {
             steps {
+                jplCheckoutSCM(cfg)
                 echo "jplMakeRelease Test - Making release: ${cfg.releaseTag}, short one ${cfg.releaseTagNumber}"
                 jplMakeRelease(cfg, true)
             }
