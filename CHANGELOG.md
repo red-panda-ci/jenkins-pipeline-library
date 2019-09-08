@@ -1,5 +1,30 @@
 # Changelog
 
+## v3.3.0 (2019-09-08)
+
+### New
+
+* Add jplMakeRelease happy test ([a9d6c0b](https://github.com/teecke/jenkins-pipeline-library/commit/a9d6c0b))
+
+### Upgrade
+
+* Use jpl-ssh-credentials for the repository checkout ([7cef8a2](https://github.com/teecke/jenkins-pipeline-library/commit/7cef8a2))
+
+### Update
+
+* Review make release happy test ([ac1724a](https://github.com/teecke/jenkins-pipeline-library/commit/ac1724a))
+
+### Build
+
+* Update Auto Release Log adding v3.3.0 info with JPL ([1c36d1f](https://github.com/teecke/jenkins-pipeline-library/commit/1c36d1f))
+* Fix library reference typo ([d010003](https://github.com/teecke/jenkins-pipeline-library/commit/d010003))
+* Use develop branch for the library ([e2b73b5](https://github.com/teecke/jenkins-pipeline-library/commit/e2b73b5))
+* Use teecke jpl v3.2.0 ([ec81c09](https://github.com/teecke/jenkins-pipeline-library/commit/ec81c09))
+
+### Docs
+
+* Generate v3.2.0 changelog with JPL ([5428b95](https://github.com/teecke/jenkins-pipeline-library/commit/5428b95))
+
 ## v3.2.0 (2019-09-06)
 
 ### New
