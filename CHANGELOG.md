@@ -1,5 +1,16 @@
 # Changelog
 
+## v3.3.1 (2019-09-08)
+
+### Build
+
+* Update Auto Release Log adding v3.3.1 info with JPL ([c1edc12](https://github.com/teecke/jenkins-pipeline-library/commit/c1edc12))
+* Update to jpl v3.3.0 ([c8b2da4](https://github.com/teecke/jenkins-pipeline-library/commit/c8b2da4))
+
+### Docs
+
+* Generate v3.3.0 changelog with JPL ([d7b5c81](https://github.com/teecke/jenkins-pipeline-library/commit/d7b5c81))
+
 ## v3.3.0 (2019-09-08)
 
 ### New
