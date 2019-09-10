@@ -1,13 +1,15 @@
 version: '3.4'
 services:
   jenkins-dind:
-    image: "redpandaci/jenkins-dind"
+    image: "teecke/jenkins-dind"
     ports: 
       - "8080"
     volumes:
+      - jpl-jenkins-dind-home:/var/jenkins_home
       - jpl-dind-cache:/var/lib/docker
       - ./:/tmp/jpl-source
     privileged: true
+    entrypoint: "/tmp/jpl-source/test/bin/test-entrypoint.sh"
   jenkins-agent1:
     image: "jenkins/jnlp-slave"
     entrypoint: ""
@@ -22,3 +24,4 @@ services:
       - ./:/tmp/jpl-source
 volumes:
   jpl-dind-cache:
+  jpl-jenkins-dind-home:
