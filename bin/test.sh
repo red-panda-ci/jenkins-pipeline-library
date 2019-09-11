@@ -29,7 +29,7 @@ function runTest () {
     then
         returnValue=$((returnValue + 1))
     fi
-    docker cp ${id}:/root/.jenkins/jobs/${testName}/builds/1/log test/reports/${testName}.log
+    docker cp ${id}:/var/jenkins_home/.jenkins/jobs/${testName}/builds/1/log test/reports/${testName}.log
     returnValue=$((returnValue + $?))
 }
 
@@ -70,12 +70,10 @@ docker-compose exec -T jenkins-dind chmod +x /usr/sbin/kd
 echo "# Teecke Devcontrol install"
 docker-compose exec -u root -T jenkins-dind bash -c "curl https://raw.githubusercontent.com/teecke/devcontrol/master/install.sh | bash"
 
-echo "# Copy jenkins configuration and prepare code for testing"
-docker-compose exec -T jenkins-dind rsync -a /tmp/jpl-source/test/jobs/ /root/.jenkins/jobs/
-docker-compose exec -T jenkins-dind cp /tmp/jpl-source/test/config/org.jenkinsci.plugins.workflow.libs.GlobalLibraries.xml /root/.jenkins
-docker-compose exec -T jenkins-dind cp -R /tmp/jpl-source/ /tmp/jenkins-pipeline-library/
-docker-compose exec -T jenkins-agent1 cp -R /tmp/jpl-source/ /tmp/jenkins-pipeline-library/
-docker-compose exec -T jenkins-agent2 cp -R /tmp/jpl-source/ /tmp/jenkins-pipeline-library/
+echo "# Prepare code for testing"
+docker-compose exec -u jenkins -T jenkins-dind cp -Rp /opt/jpl-source/ /tmp/jenkins-pipeline-library/
+docker-compose exec -u jenkins -T jenkins-agent1 cp -Rp /opt/jpl-source/ /tmp/jenkins-pipeline-library/
+docker-compose exec -u jenkins -T jenkins-agent2 cp -Rp /opt/jpl-source/ /tmp/jenkins-pipeline-library/
 runWithinDocker "rm -f /tmp/jenkins-pipeline-library/.git/hooks/* && git config --global push.default simple && git config --global user.email 'redpandaci@gmail.com' && git config --global user.name 'Red Panda CI'"
 if [[ "$1" == "local" ]] && [[ "$(git status --porcelain)" != "" ]]
 then
@@ -96,7 +94,7 @@ runWithinDocker "wget http://localhost:8080/jnlpJars/jenkins-cli.jar -q > /dev/n
 echo "# Prepare agents"
 for agent in agent1 agent2
 do
-    secret=$(docker-compose exec -T jenkins-dind /tmp/jpl-source/bin/prepare_agent.sh ${agent})
+    secret=$(docker-compose exec -T jenkins-dind /opt/jpl-source/bin/prepare_agent.sh ${agent})
     docker-compose exec -d -T jenkins-${agent} jenkins-slave -url http://jenkins-dind:8080 ${secret} ${agent}
 done
 

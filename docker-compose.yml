@@ -7,21 +7,21 @@ services:
     volumes:
       - jpl-jenkins-dind-home:/var/jenkins_home
       - jpl-dind-cache:/var/lib/docker
-      - ./:/tmp/jpl-source
+      - ./:/opt/jpl-source
     privileged: true
-    entrypoint: "/tmp/jpl-source/test/bin/test-entrypoint.sh"
+    entrypoint: "/opt/jpl-source/test/bin/test-entrypoint.sh"
   jenkins-agent1:
     image: "jenkins/jnlp-slave"
     entrypoint: ""
     command: 'bash -c "tail -f /var/log/*.log"'
     volumes:
-      - ./:/tmp/jpl-source
+      - ./:/opt/jpl-source
   jenkins-agent2:
     image: "jenkins/jnlp-slave"
     entrypoint: ""
     command: 'bash -c "tail -f /var/log/*.log"'
     volumes:
-      - ./:/tmp/jpl-source
+      - ./:/opt/jpl-source
 volumes:
   jpl-dind-cache:
   jpl-jenkins-dind-home:
