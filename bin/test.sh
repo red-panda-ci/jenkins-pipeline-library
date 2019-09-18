@@ -29,7 +29,7 @@ function runTest () {
     then
         returnValue=$((returnValue + 1))
     fi
-    docker cp ${id}:/var/jenkins_home/.jenkins/jobs/${testName}/builds/1/log test/reports/${testName}.log
+    docker cp ${id}:/var/jenkins_home/jobs/${testName}/builds/1/log test/reports/${testName}.log
     returnValue=$((returnValue + $?))
 }
 
@@ -65,9 +65,9 @@ echo "# Started platform with id ${id} and port $(docker-compose port jenkins-di
 
 echo "# Prepare code for testing"
 sleep 10
-docker-compose exec -u jenkins -T jenkins-dind cp -Rpv /opt/jpl-source/ /tmp/jenkins-pipeline-library/
-docker-compose exec -u jenkins -T jenkins-agent1 cp -Rpv /opt/jpl-source/ /tmp/jenkins-pipeline-library/
-docker-compose exec -u jenkins -T jenkins-agent2 cp -Rpv /opt/jpl-source/ /tmp/jenkins-pipeline-library/
+docker-compose exec -u jenkins -T jenkins-dind cp -Rp /opt/jpl-source/ /tmp/jenkins-pipeline-library/
+docker-compose exec -u jenkins -T jenkins-agent1 cp -Rp /opt/jpl-source/ /tmp/jenkins-pipeline-library/
+docker-compose exec -u jenkins -T jenkins-agent2 cp -Rp /opt/jpl-source/ /tmp/jenkins-pipeline-library/
 runWithinDocker "rm -f /tmp/jenkins-pipeline-library/.git/hooks/* && git config --global push.default simple && git config --global user.email 'redpandaci@gmail.com' && git config --global user.name 'Red Panda CI'"
 if [[ "$1" == "local" ]] && [[ "$(git status --porcelain)" != "" ]]
 then
@@ -83,11 +83,11 @@ echo "# Waiting for jenkins service to be initialized"
 runWithinDocker "sleep 10 && curl --max-time 50 --retry 10 --retry-delay 5 --retry-max-time 32 http://localhost:8080 -s > /dev/null; sleep 10"
 
 echo "# Prepare agents"
-# for agent in agent1 agent2
-# do
-#     secret=$(docker-compose exec -T jenkins-dind /opt/jpl-source/bin/prepare_agent.sh ${agent})
-#     docker-compose exec -d -T jenkins-${agent} jenkins-slave -url http://jenkins-dind:8080 ${secret} ${agent}
-# done
+for agent in agent1 agent2
+do
+    secret=$(docker-compose exec -T jenkins-dind /opt/jpl-source/bin/prepare_agent.sh ${agent})
+    docker-compose exec -d -T jenkins-${agent} jenkins-slave -url http://jenkins-dind:8080 ${secret} ${agent}
+done
 
 echo "# Reload Jenkins configuration"
 runWithinDocker "ssh -o StrictHostKeyChecking=no -p 2222 localhost reload-configuration"
