@@ -29,7 +29,7 @@ pipeline {
 
         stage ('jplBuildAPK Test - Sign') {
             steps  {
-                jplSigning(cfg, "file:////tmp/jenkins-pipeline-library", "test/jobs/jplBuildAPKTest/sign", "app/build/outputs/apk/prod/release/app-prod-release-unsigned.apk")
+                jplSigning(cfg, "file:////tmp/jenkins-pipeline-library", "test/jenkins-dind/config/jobs/jplBuildAPKTest/sign", "app/build/outputs/apk/prod/release/app-prod-release-unsigned.apk")
                 archiveArtifacts artifacts: "app/build/outputs/apk/prod/release/app-prod-release-signed-aligned.apk", fingerprint: true, allowEmptyArchive: false
             }
         }
