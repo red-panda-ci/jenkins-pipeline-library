@@ -1,5 +1,50 @@
 # Changelog
 
+## v3.4.0 (2019-09-18)
+
+### New
+
+* Add custom Dockerfile for test ([95d988e](https://github.com/teecke/jenkins-pipeline-library/commit/95d988e))
+* Add SSHD configuration for test env ([2286d41](https://github.com/teecke/jenkins-pipeline-library/commit/2286d41))
+* Add Jenkins plugin install for test ([1fc8fea](https://github.com/teecke/jenkins-pipeline-library/commit/1fc8fea))
+
+### Upgrade
+
+* Recover test in master ([52bc532](https://github.com/teecke/jenkins-pipeline-library/commit/52bc532))
+
+### Update
+
+* Use random port for jenkins-dind service instead 8080 ([60af245](https://github.com/teecke/jenkins-pipeline-library/commit/60af245))
+* Fix build apk path ([a287570](https://github.com/teecke/jenkins-pipeline-library/commit/a287570))
+* Add jq command to jenkins-dind service ([bf31b5b](https://github.com/teecke/jenkins-pipeline-library/commit/bf31b5b))
+* Set the right test path for Jenkinsfile in jplBuildApkHappyTest ([6ca00c6](https://github.com/teecke/jenkins-pipeline-library/commit/6ca00c6))
+* Build jenkins-dind container on every test run ([4c1526a](https://github.com/teecke/jenkins-pipeline-library/commit/4c1526a))
+* Set the right test path for Jenkinsfile ([863b771](https://github.com/teecke/jenkins-pipeline-library/commit/863b771))
+* Enable agent port in jenkins-dind config ([99f2368](https://github.com/teecke/jenkins-pipeline-library/commit/99f2368))
+* Change execution order in jenkins-dind dockerfile ([9975e87](https://github.com/teecke/jenkins-pipeline-library/commit/9975e87))
+* Add openjdk8 to jenkins-dind image ([e659fe9](https://github.com/teecke/jenkins-pipeline-library/commit/e659fe9))
+* Use jenkins user in test script ([995bc5c](https://github.com/teecke/jenkins-pipeline-library/commit/995bc5c))
+* Disable incoming agents ([bcf0f46](https://github.com/teecke/jenkins-pipeline-library/commit/bcf0f46))
+* Add rsync to jenkins-dind image ([1e873b0](https://github.com/teecke/jenkins-pipeline-library/commit/1e873b0))
+* Add tool installation to jenkins-dind service dockerfile ([6c5b916](https://github.com/teecke/jenkins-pipeline-library/commit/6c5b916))
+* Allow slave connections on port 5000 ([bcfd44c](https://github.com/teecke/jenkins-pipeline-library/commit/bcfd44c))
+* Use teecke/jenkins-dind for the docker-compose test environment ([24eb89b](https://github.com/teecke/jenkins-pipeline-library/commit/24eb89b))
+* Remove old android build dockerfile ([20f8efb](https://github.com/teecke/jenkins-pipeline-library/commit/20f8efb))
+
+### Fix
+
+* Use the right jenkins home path for test ([4a87229](https://github.com/teecke/jenkins-pipeline-library/commit/4a87229))
+
+### Build
+
+* Update Auto Release Log adding v3.4.0 info with JPL ([6710a9c](https://github.com/teecke/jenkins-pipeline-library/commit/6710a9c))
+* Use jpl v3.3.1 ([460e6e6](https://github.com/teecke/jenkins-pipeline-library/commit/460e6e6))
+
+### Docs
+
+* Update jenkins-dind project references ([1605874](https://github.com/teecke/jenkins-pipeline-library/commit/1605874))
+* Generate v3.3.1 changelog with JPL ([b164166](https://github.com/teecke/jenkins-pipeline-library/commit/b164166))
+
 ## v3.3.1 (2019-09-08)
 
 ### Build
