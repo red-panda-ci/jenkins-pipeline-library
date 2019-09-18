@@ -36,7 +36,7 @@
       <submoduleCfg class="list"/>
       <extensions/>
     </scm>
-    <scriptPath>test/jobs/jplCloseHotfixHappyTest/Jenkinsfile</scriptPath>
+    <scriptPath>test/jenkins-dind/config/jobs/jplCloseHotfixHappyTest/Jenkinsfile</scriptPath>
     <lightweight>true</lightweight>
   </definition>
   <triggers/>

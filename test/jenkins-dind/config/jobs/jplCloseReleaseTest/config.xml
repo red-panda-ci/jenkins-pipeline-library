@@ -36,7 +36,7 @@
       <submoduleCfg class="list"/>
       <extensions/>
     </scm>
-    <scriptPath>test/jobs/jplCloseReleaseTest/Jenkinsfile</scriptPath>
+    <scriptPath>test/jenkins-dind/config/jobs/jplCloseReleaseTest/Jenkinsfile</scriptPath>
     <lightweight>true</lightweight>
   </definition>
   <triggers/>

@@ -36,7 +36,7 @@
       <submoduleCfg class="list"/>
       <extensions/>
     </scm>
-    <scriptPath>test/jobs/jplMakeReleaseHappyTest/Jenkinsfile</scriptPath>
+    <scriptPath>test/jenkins-dind/config/jobs/jplMakeReleaseHappyTest/Jenkinsfile</scriptPath>
     <lightweight>true</lightweight>
   </definition>
   <triggers/>
