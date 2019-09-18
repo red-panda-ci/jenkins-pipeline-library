@@ -4,7 +4,7 @@ services:
     build:
       context: test/jenkins-dind
     ports: 
-      - 8080:8080
+      - "8080"
     volumes:
       - jpl-dind-cache:/var/lib/docker
       - ./:/opt/jpl-source
