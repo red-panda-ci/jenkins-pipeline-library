@@ -57,6 +57,7 @@ fi
 
 # Main
 echo "# Start jenkins as a docker-compose daemon"
+docker-compose build --pull --no-cache
 docker-compose up -d --force-recreate
 returnValue=$((returnValue + $?))
 id=$(docker-compose ps -q jenkins-dind)
