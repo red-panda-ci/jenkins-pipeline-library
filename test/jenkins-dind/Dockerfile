@@ -1,5 +1,5 @@
 FROM teecke/jenkins-dind
-RUN apk add --no-cache rsync openjdk8
+RUN apk add --no-cache rsync openjdk8 jq
 USER jenkins
 COPY --chown=jenkins:jenkins config /var/jenkins_home/
 RUN install-plugins.sh < /var/jenkins_home/plugins.txt
