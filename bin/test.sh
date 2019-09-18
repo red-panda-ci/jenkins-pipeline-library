@@ -6,7 +6,7 @@
 # Functions
 function runWithinDocker () {
     command=$1
-    docker-compose exec -T jenkins-dind bash -c "${command}"
+    docker-compose exec -u jenkins -T jenkins-dind bash -c "${command}"
     returnValue=$((returnValue + $?))
 }
 
@@ -86,7 +86,7 @@ echo "# Prepare agents"
 for agent in agent1 agent2
 do
     secret=$(docker-compose exec -T jenkins-dind /opt/jpl-source/bin/prepare_agent.sh ${agent})
-    docker-compose exec -d -T jenkins-${agent} jenkins-slave -url http://jenkins-dind:8080 ${secret} ${agent}
+    docker-compose exec -u jenkins -d -T jenkins-${agent} jenkins-slave -url http://jenkins-dind:8080 ${secret} ${agent}
 done
 
 echo "# Reload Jenkins configuration"
