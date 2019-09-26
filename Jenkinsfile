@@ -1,9 +1,9 @@
 #!groovy
 
-@Library('github.com/teecke/jenkins-pipeline-library@v3.3.1') _
+@Library('github.com/teecke/jenkins-pipeline-library@v3.4.0') _
 
 // Initialize global config
-cfg = jplConfig('jpl','backend','', [email:'pedroamador.rodriguez+teecke@gmail.com'])
+cfg = jplConfig('jpl', 'groovy', '', [email:'pedroamador.rodriguez+teecke@gmail.com'])
 
 def publishDocumentation() {
     sh """
