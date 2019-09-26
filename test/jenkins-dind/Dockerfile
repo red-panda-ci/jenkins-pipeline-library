@@ -1,4 +1,4 @@
-FROM teecke/jenkins-dind
+FROM teecke/jenkins-dind:2.190.1
 RUN apk add --no-cache rsync openjdk8 jq
 USER jenkins
 COPY --chown=jenkins:jenkins config /var/jenkins_home/
