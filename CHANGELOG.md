@@ -1,5 +1,17 @@
 # Changelog
 
+## v3.4.1 (2019-09-27)
+
+### Build
+
+* Update Auto Release Log adding v3.4.1 info with JPL ([8c195a7](https://github.com/teecke/jenkins-pipeline-library/commit/8c195a7))
+* Use jenkins-dind v2.9.1 for tests ([b1b9328](https://github.com/teecke/jenkins-pipeline-library/commit/b1b9328))
+* Use teecke jpl v3.4.0 ([46ad58e](https://github.com/teecke/jenkins-pipeline-library/commit/46ad58e))
+
+### Docs
+
+* Generate v3.4.0 changelog with JPL ([396665a](https://github.com/teecke/jenkins-pipeline-library/commit/396665a))
+
 ## v3.4.0 (2019-09-18)
 
 ### New
