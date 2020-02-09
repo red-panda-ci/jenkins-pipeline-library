@@ -34,17 +34,17 @@ Makes sure `docker` is installed.
 
 If running on macOS, install [Docker for Mac](https://docs.docker.com/docker-for-mac/).
 
-Now pull `redpandaci/jenkins-dind` docker image
+Now pull `teecke/jenkins-dind` docker image
 
 ```sh
-docker pull redpandaci/jenkins-dind
+docker pull teecke/jenkins-dind
 ```
 
 ### 2. Run the tests
 
-All tests scripts and jobs are located in the `test` folder, and are executed with "bin/test.sh" script within `redpandaci/jenkins-dind` docker container
+All tests scripts and jobs are located in the `test` folder, and are executed with "bin/test.sh" script within `teecke/jenkins-dind` docker container
 
-You can run all tests in your workstations as if they run in Jenkins. These tests are executed in `redpandaci/jenkins-dind` docker image <https://hub.docker.com/r/redpandaci/jenkins-dind/> and uses a docker container with a time box run of 300 seconds. After the tests, or reaching the timeout, the container will be destroyed
+You can run all tests in your workstations as if they run in Jenkins. These tests are executed in `teecke/jenkins-dind` docker image <https://hub.docker.com/r/teecke/jenkins-dind/> and uses a docker container with a time box run of 300 seconds. After the tests, or reaching the timeout, the container will be destroyed
 
 ```console
 $ bin/test.sh
@@ -72,7 +72,7 @@ Completed jplPromoteBuild #1 : ABORTED
 be376b46f66fc44cb4ee7ad6fb64e6cd5a94fdd8e3e79d89fcb61a4415580c53
 ```
 
-You can use "local test" options for the test cript. In this case, the container open "8080" port to jenkins-dind with "redpanda/redpanda" credentials, so you can open the Jenkins in a web browser in <http://localhost:8080>
+You can use "local test" options for the test cript. In this case, the container open "8080" port to jenkins-dind without credentials, so you can open the Jenkins in a web browser in <http://localhost:8080>
 
 After the test, the container will not be destroyed, so you must destroy it by yourself with "docker rm -f CONTAINER_ID"
 
@@ -107,7 +107,7 @@ $ echo $?
 0
 $ docker ps -a
 CONTAINER ID        IMAGE                     COMMAND                  CREATED             STATUS              PORTS                            NAMES
-525dc9e86eb6        redpandaci/jenkins-dind   "timeout 0 /usr/bi..."   2 minutes ago       Up About a minute   22/tcp, 0.0.0.0:8080->8080/tcp   stupefied_keller
+525dc9e86eb6        teecke/jenkins-dind   "timeout 0 /usr/bi..."   2 minutes ago       Up About a minute   22/tcp, 0.0.0.0:8080->8080/tcp   stupefied_keller
 $ docker kill stupefied_keller 
 stupefied_keller
 $ docker ps -a

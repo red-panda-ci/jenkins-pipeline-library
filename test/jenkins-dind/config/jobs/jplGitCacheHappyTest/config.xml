@@ -49,7 +49,6 @@ pipeline {
     options {
         timestamps()
         ansiColor(&apos;xterm&apos;)
-        skipDefaultCheckout()
     }
 }</script>
     <sandbox>true</sandbox>
