@@ -3,6 +3,8 @@ services:
   jenkins-dind:
     build:
       context: test/jenkins-dind
+      args:
+        TAG: $TAG
     ports: 
       - "8080"
     volumes:

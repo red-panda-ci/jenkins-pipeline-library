@@ -28,6 +28,7 @@ pipeline {
 
     stages {
         stage (&apos;jplCheckoutSCM Test&apos;) {
+            agent { label &apos;agent&apos; }
             steps  {
                 echo &quot;jplCheckoutSCM Test&quot;;
                 sh &quot;printenv&quot;
