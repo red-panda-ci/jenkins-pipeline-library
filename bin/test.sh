@@ -2,11 +2,14 @@
 
 # Use "bin/test.sh local test [testname]" to run only one specific test
 # Example: "bin/test.sh local test jplStartTest"
+# Use prefix "TAG=<tag>" to run an especific jenkins-dind image tag
+# Example: "TAG=beta bin/test.sh"
 
 # Functions
 function runWithinDocker () {
-    command=$1
-    docker-compose exec -u jenkins -T jenkins-dind bash -c "${command}"
+    service=$1
+    command=$2
+    docker-compose exec -u jenkins -T $service bash -c "${command}"
     returnValue=$((returnValue + $?))
 }
 
@@ -57,7 +60,16 @@ fi
 
 # Main
 echo "# Start jenkins as a docker-compose daemon"
-docker-compose build --pull --no-cache
+if [ "$TAG" == "" ]; then
+    TAG="latest"
+fi
+if [[ "$1" == "local" ]]; then
+    BUILDOPTIONS=""
+
+else
+    BUILDOPTIONS="--pull --no-cache"
+fi
+TAG=$TAG docker-compose build $BUILDOPTIONS
 docker-compose up -d --force-recreate
 returnValue=$((returnValue + $?))
 id=$(docker-compose ps -q jenkins-dind)
@@ -66,22 +78,24 @@ echo "# Started platform with id ${id} and port $(docker-compose port jenkins-di
 
 echo "# Prepare code for testing"
 sleep 10
-docker-compose exec -u jenkins -T jenkins-dind cp -Rp /opt/jpl-source/ /tmp/jenkins-pipeline-library/
-docker-compose exec -u jenkins -T jenkins-agent1 cp -Rp /opt/jpl-source/ /tmp/jenkins-pipeline-library/
-docker-compose exec -u jenkins -T jenkins-agent2 cp -Rp /opt/jpl-source/ /tmp/jenkins-pipeline-library/
-runWithinDocker "rm -f /tmp/jenkins-pipeline-library/.git/hooks/* && git config --global push.default simple && git config --global user.email 'redpandaci@gmail.com' && git config --global user.name 'Red Panda CI'"
-if [[ "$1" == "local" ]] && [[ "$(git status --porcelain)" != "" ]]
-then
-    echo "# Local test requested: Commit local jpl changes"
-    runWithinDocker "cd /tmp/jenkins-pipeline-library && git add -A && git commit -m 'test within docker'"
-fi
-runWithinDocker "cd /tmp/jenkins-pipeline-library && git rev-parse --verify develop || git checkout -b develop"
-runWithinDocker "cd /tmp/jenkins-pipeline-library && git rev-parse --verify master || git checkout -b master"
-runWithinDocker "cd /tmp/jenkins-pipeline-library && git branch -D release/new || true"
-runWithinDocker "cd /tmp/jenkins-pipeline-library && git checkout -b 'release/v9.9.9' && git checkout -b 'hotfix/v9.9.9-hotfix-1' && git checkout -b 'jpl-test-promoted' && git checkout -b 'jpl-test' && git checkout -b 'release/new' && git checkout `git rev-parse HEAD` > /dev/null 2>&1"
+for item in jenkins-dind jenkins-agent1 jenkins-agent2; do
+    docker-compose exec -u jenkins -T ${item} cp -Rp /opt/jpl-source/ /tmp/jenkins-pipeline-library/
+    #docker-compose exec -u jenkins -T jenkins-agent1 cp -Rp /opt/jpl-source/ /tmp/jenkins-pipeline-library/
+    #docker-compose exec -u jenkins -T jenkins-agent2 cp -Rp /opt/jpl-source/ /tmp/jenkins-pipeline-library/
+    runWithinDocker ${item} "rm -f /tmp/jenkins-pipeline-library/.git/hooks/* && git config --global push.default simple && git config --global user.email 'redpandaci@gmail.com' && git config --global user.name 'Red Panda CI'"
+    if [[ "$1" == "local" ]] && [[ "$(git status --porcelain)" != "" ]]
+    then
+        echo "# Local test requested: Commit local jpl changes in ${item}"
+        runWithinDocker ${item} "cd /tmp/jenkins-pipeline-library && git add -A && git commit -m 'test within docker'"
+    fi
+    runWithinDocker ${item} "cd /tmp/jenkins-pipeline-library && git rev-parse --verify develop || git checkout -b develop"
+    runWithinDocker ${item} "cd /tmp/jenkins-pipeline-library && git rev-parse --verify master || git checkout -b master"
+    runWithinDocker ${item} "cd /tmp/jenkins-pipeline-library && git branch -D release/new || true"
+    runWithinDocker ${item} "cd /tmp/jenkins-pipeline-library && git checkout -b 'release/v9.9.9' && git checkout -b 'hotfix/v9.9.9-hotfix-1' && git checkout -b 'jpl-test-promoted' && git checkout -b 'jpl-test' && git checkout -b 'release/new' && git checkout `git rev-parse HEAD` > /dev/null 2>&1"
+done
 
 echo "# Waiting for jenkins service to be initialized"
-runWithinDocker "sleep 10 && curl --max-time 50 --retry 10 --retry-delay 5 --retry-max-time 32 http://localhost:8080 -s > /dev/null; sleep 10"
+runWithinDocker jenkins-dind "sleep 10 && curl --max-time 50 --retry 10 --retry-delay 5 --retry-max-time 32 http://localhost:8080 -s > /dev/null; sleep 10"
 
 echo "# Prepare agents"
 for agent in agent1 agent2
@@ -91,7 +105,7 @@ do
 done
 
 echo "# Reload Jenkins configuration"
-runWithinDocker "ssh -o StrictHostKeyChecking=no -p 2222 localhost reload-configuration"
+runWithinDocker jenkins-dind "ssh -o StrictHostKeyChecking=no -p 2222 localhost reload-configuration"
 
 # Run tests
 if [[ ${doTests} == "true" ]]

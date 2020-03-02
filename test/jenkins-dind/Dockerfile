@@ -1,4 +1,5 @@
-FROM teecke/jenkins-dind:2.190.1
+ARG TAG=2.204.3
+FROM teecke/jenkins-dind:${TAG}
 RUN apk add --no-cache rsync openjdk8 jq
 USER jenkins
 COPY --chown=jenkins:jenkins config /var/jenkins_home/
